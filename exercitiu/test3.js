@@ -1,3 +1,6 @@
 const seeMe = () => {
-    console.log('see me');
+    console.log('I see you too');
+}
+const empty = () => {
+    console.log('empty');
 }
