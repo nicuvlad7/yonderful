@@ -1,3 +1,3 @@
-const seeMe = () => {
-    console.log('see me');
+const funcDennis = () => {
+    console.log("dennis");
 }
