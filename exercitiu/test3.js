@@ -1,3 +1,7 @@
 const seeMe = () => {
-    console.log('see me');
+    console.log('yes. i see u :)');
+}
+
+const newFunct = () => {
+    const a = 10
 }
