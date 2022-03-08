@@ -1,3 +1,3 @@
 const mada = ()=> {
-    console.log('hey');
+    console.log('madalina');
 }
