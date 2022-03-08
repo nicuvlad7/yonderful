@@ -1,7 +1,7 @@
 const seeMe = () => {
-    console.log('see me? im andrei');
+    console.log('see me??');
 }
 
 const seeYou = () => {
-    console.log('im here');
+    console.log('see you');
 }
