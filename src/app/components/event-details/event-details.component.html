@@ -1,13 +1,24 @@
 <div *ngIf="event">
-    <div>
-        Name: {{event.name | uppercase}}
-        <input id="name" [(ngModel)]="event.name">
-    </div>
-    <div>
-        Description: {{event.description}}
-    </div>
-    <div>
-        Category: {{event.category}}
-    </div>
+    <mat-card class="event-card">
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                Name: {{event.name | uppercase}}
+                <input id="name" [(ngModel)]="event.name">
+            </div>
+            <div>
+                Description: {{event.description}}
+            </div>
+            <div>
+                Category: {{event.category}}
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+    </mat-card>
+      
 </div>
 

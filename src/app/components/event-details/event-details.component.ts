@@ -10,13 +10,13 @@ import { EventDetail } from 'src/app/models/event-details';
 export class EventDetailsComponent implements OnInit {
   @Input() event?: EventDetail;
 
-  eventDetail: EventDetail = {
-    id: 1,
-    name: 'Hike on Vladeasa',
-    description: 'Hiking day with the colleagues on Vladeasa',
-    category: 'Outdoor',
-    startDate: '13/03/2022'  
-  };
+  // eventDetail: EventDetail = {
+  //   id: 1,
+  //   name: 'Hike on Vladeasa',
+  //   description: 'Hiking day with the colleagues on Vladeasa',
+  //   category: 'Outdoor',
+  //   startDate: '13/03/2022'  
+  // };
 
   constructor() { }
 
