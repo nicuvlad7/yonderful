@@ -1,17 +1,18 @@
-<mat-card class="category-card">
-    <mat-card-header>
-      <mat-card-title-group>
-        <div class="icon">
-          <div mat-card-avatar class="card-header-image icon-child"></div>
-          <mat-card-title class="icon-child">{{categoryCard.title}}</mat-card-title>
-        </div>
-       
-        <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
-      </mat-card-title-group>
-      
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> 
-  </mat-card>
+<div class="card" style="margin: auto;">
+  <div class="container">
+    <div style="display: flex; align-items: center;">
+      <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="header-image">
+      <h2 style="margin-left:5px;">{{categoryCard.title}}</h2>
+    </div>
+    
+    <div style="display: flex">
+      <button class="test" style="margin-right: 3px">
+        Delete
+      </button>
+      <button class="test">
+        Edit
+      </button>
+    </div>
+  </div>
+  <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Avatar" style="width: 100%;">
+</div>

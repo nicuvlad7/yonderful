@@ -11,7 +11,7 @@ import { EndpointsService } from 'src/app/services/endpoints.service';
 export class CategoryCardComponent implements OnInit {
 
   categoryCard: CategoryCard = {
-    title : 'test',
+    title : 'Walk in the park',
   }
 
   constructor(private endpointsService: EndpointsService) { }
@@ -21,5 +21,5 @@ export class CategoryCardComponent implements OnInit {
       this.categoryCard=result;
     })
   }
-  
+
 }

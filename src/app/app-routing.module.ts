@@ -4,7 +4,8 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 
 
 const routes: Routes = [
- {path: 'admin/category/${title}',component: CategoryCardComponent}
+ { path : 'admin/category/${title}',component: CategoryCardComponent},
+ { path : 'admin/category/new', component: CategoryCardComponent}
 ];
 
 @NgModule({
