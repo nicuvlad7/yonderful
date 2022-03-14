@@ -64,6 +64,8 @@ namespace api.Controllers
             return removedUser ? Ok() : BadRequest();
         }
 
+
+        //partially implemented
         [HttpPut]
         public async Task<IActionResult> PutUser(User user)
         {
