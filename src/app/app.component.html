@@ -303,6 +303,7 @@
 </style>
 
 <!-- Toolbar -->
+<!--
 <div class="toolbar" role="banner">
   <img
     width="40"
@@ -330,7 +331,6 @@
 
 <div class="content" role="main">
 
-  <!-- Highlight Card -->
   <div class="card highlight-card card-small">
 
     <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
@@ -352,7 +352,79 @@
       <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
     </svg>
   </div>
+-->
+
+
+<mat-toolbar color="primary">
+
+  <button mat-icon-button class="example-icon" mat-button (click)="drawer.toggle()">
+    <mat-icon color="accent">menu</mat-icon>
+  </button>
+  
+  <span style="color:#ff4081">Yonderful Time</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon color="accent">notifications</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon color="accent">exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #drawer class="example-sidenav" mode="side">
+
+    <mat-list>
+      <mat-list-item>
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">home</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">calendar_today</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">list_alt</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">home</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item>
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">history</mat-icon>
+        </button>
+      </mat-list-item>
+
+    </mat-list>
+
+    <mat-list >
+
+      <mat-list-item style="align-self: flex-end;">
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">person_outline</mat-icon>
+        </button>
+      </mat-list-item>
+
+      <mat-list-item style="display:flex;align-items:flex-end;">
+        <button mat-icon-button class="example-icon">
+          <mat-icon color="accent">info</mat-icon>
+        </button>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+
 
 <router-outlet></router-outlet>
-
-<div>Footer of the app</div>

@@ -9,6 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class AppComponent {
   title = 'Workshop Angular';
   description = 'Angular Introduction';
+  showFiller = true;
 
   constructor() {
   }
@@ -16,4 +17,8 @@ export class AppComponent {
   ngOnInit() {
   }
 
+}
+
+export class HideMenuIcon {
+  showFiller = false;
 }
