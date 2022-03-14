@@ -1,3 +1,4 @@
+using api.Models;
 using Microsoft.EntityFrameworkCore;
 using YonderfulApi.Models;
 
@@ -10,5 +11,6 @@ namespace YonderfulApi.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -1,3 +1,5 @@
+using api.Mappings;
+using api.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YonderfulApi.Mappings;
@@ -10,12 +12,14 @@ namespace YonderfulApi.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
 
         public static IServiceCollection AddMappingServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddAutoMapper(typeof(EmployeeMappings));
+            services.AddAutoMapper(typeof(UserMappings));
             return services;
         }
     }
