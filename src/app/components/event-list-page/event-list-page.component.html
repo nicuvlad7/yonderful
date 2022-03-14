@@ -1,8 +1,0 @@
-<h1>Display a list of event:</h1>
-<div *ngFor="let eventDetail of eventList">
-  <app-event-details
-    [ngClass]="{selected: eventDetail === selectedEvent}" 
-    [event]="eventDetail" 
-    (click)="onEventClick(eventDetail)"> 
-  </app-event-details>
-</div>
