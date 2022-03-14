@@ -1,0 +1,56 @@
+.register-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.register-card-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.register-card-header {
+    display: flex;
+    justify-content: center;
+}
+
+.register-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.register-card-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.register-form {
+    width: 100%;
+    padding: 5%;
+}
+
+.register-form-item {
+    width: 100%;
+    margin-left: 5%;
+}
+
+.register-item-icon {
+    margin-bottom: 2.5%;
+}
+
+
+a {
+    margin-top: 1%;
+    color: #1DA1F2;
+    text-decoration: none;
+}
+
+.register-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 5% 5% 0;
+}

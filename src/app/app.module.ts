@@ -9,20 +9,32 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterCardComponent } from './components/register-card/register-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { ButtonComponent } from './components/button/button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventDetailsComponent,
     LoginCardComponent,
-    EventListPageComponent
+    EventListPageComponent,
+    RegisterCardComponent,
+    ButtonComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
