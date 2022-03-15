@@ -38,7 +38,7 @@ namespace api.Service
         return employeeList;
     }
 
-    public async Task<User> PostUser(string email, string name, Role role, ulong? phoneNo)
+    public async Task<User> PostUser(string email, string name, Role role, string phoneNo = null)
     {
       
         if (await UserExists(email)) return null;
@@ -56,7 +56,7 @@ namespace api.Service
         return newUser;
     }
 
-        public async Task<User> PutUser(int id, string email, string name, Role role, ulong? phoneNo)
+        public async Task<User> PutUser(int id, string email, string name, Role role, string phoneNo = null)
     {
         var existingUser = await _context.Users.FindAsync(id);
         if (existingUser == null) return null;

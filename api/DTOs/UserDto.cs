@@ -15,6 +15,8 @@ namespace api.DTOs
         public string Name { get; set; }
         [Required]
         public Role Role { get; set; }
-        public ulong? PhoneNo { get; set; }
+
+        [StringLength(10)]
+        public string PhoneNo { get; set; }
     }
 }

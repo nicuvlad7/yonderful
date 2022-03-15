@@ -14,6 +14,8 @@ namespace api.Models
         public string Email { get; set; }
         public string Name { get; set; }
         public Role Role { get; set; }
-        public ulong? PhoneNo { get; set; }
+
+        [StringLength(10)]
+        public string PhoneNo { get; set; }
     }
 }
