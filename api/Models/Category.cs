@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.IO; 
+using System.Drawing;
 
 namespace YonderfulApi.Models
 {
@@ -8,8 +8,8 @@ namespace YonderfulApi.Models
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
-        public MemoryStream Icon { get; set; }
-        public MemoryStream DefaultBackground { get; set; }
+        public Image Icon { get; set; }
+        public Image DefaultBackground { get; set; }
 
     }
 }

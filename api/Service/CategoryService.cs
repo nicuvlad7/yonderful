@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YonderfulApi.Models;
-using System.IO; 
+using System.Drawing;
 using YonderfulApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +23,7 @@ namespace YonderfulApi.Service
             return categoryList;
         }
         
-        async Task<Category> PostCategory(string title, MemoryStream icon, MemoryStream defaultBackground) {
+        public async Task<Category> PostCategory(string title, Image icon, Image defaultBackground) {
             if (await CategoryExists(title, icon, defaultBackground)) return null;
 
             var newCategory = new Category 
@@ -38,14 +38,9 @@ namespace YonderfulApi.Service
             return newCategory;
         }
 
-        private async Task<bool> CategoryExists(string title, MemoryStream icon, MemoryStream defaultBackground)
+        private async Task<bool> CategoryExists(string title, Image icon, Image defaultBackground)
         {
             return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.Icon.Equals(icon) && cat.DefaultBackground.Equals(defaultBackground));
         }
-
-    Task<Category> ICategoryService.PostCategory(string title, MemoryStream icon, MemoryStream defaultBackground)
-    {
-      throw new System.NotImplementedException();
-    }
   }
 }
