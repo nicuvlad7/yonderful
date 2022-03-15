@@ -8,8 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class RegisterCardComponent implements OnInit {
   registerNameControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]+')]);
-  // TODO: custom email pattern
-  registerEmailControl = new FormControl('', [Validators.required, Validators.email]);
+  registerEmailControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com')]);
   registerPasswordControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
   username: string = '';
