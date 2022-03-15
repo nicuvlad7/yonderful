@@ -11,5 +11,6 @@ namespace YonderfulApi.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
     }
 }

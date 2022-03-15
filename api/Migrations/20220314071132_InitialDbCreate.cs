@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YonderfulApi.Migrations
 {
@@ -6,6 +7,7 @@ namespace YonderfulApi.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+        
             migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new

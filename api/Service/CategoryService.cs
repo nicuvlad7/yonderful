@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YonderfulApi.Models;
-using System.Drawing;
 using YonderfulApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +12,8 @@ namespace YonderfulApi.Service
         public CategoryService(DataContext context) {
             _context = context;
         }
-        public async Task<Category> GetCategory(int categoryId) {
+
+    public async Task<Category> GetCategory(int categoryId) {
             var category = await _context.Categories.FindAsync(categoryId);
             return category;
         }
@@ -23,14 +23,15 @@ namespace YonderfulApi.Service
             return categoryList;
         }
         
-        public async Task<Category> PostCategory(string title, Image icon, Image defaultBackground) {
-            if (await CategoryExists(title, icon, defaultBackground)) return null;
+        public async Task<Category> PostCategory(string title, int iconId, int defaultBackgroundId) 
+        {
+            if (await CategoryExists(title, iconId, defaultBackgroundId)) return null;
 
             var newCategory = new Category 
             {
                 Title = title,
-                Icon = icon,
-                DefaultBackground = defaultBackground
+                IconId = iconId,
+                DefaultBackgroundId = defaultBackgroundId
             };
 
             _context.Categories.Add(newCategory);
@@ -38,9 +39,19 @@ namespace YonderfulApi.Service
             return newCategory;
         }
 
-        private async Task<bool> CategoryExists(string title, Image icon, Image defaultBackground)
+        public async Task<bool> DeleteCategory(int categoryId)
         {
-            return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.Icon.Equals(icon) && cat.DefaultBackground.Equals(defaultBackground));
+            var category = await _context.Categories.FindAsync(categoryId);
+            if(category == null) {
+                return false;
+            }
+            _context.Categories.Remove(category);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        private async Task<bool> CategoryExists(string title, int iconId, int defaultBackgroundId)
+        {
+            return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.IconId == iconId && cat.DefaultBackgroundId == defaultBackgroundId);
         }
   }
 }

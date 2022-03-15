@@ -8,8 +8,8 @@ namespace YonderfulApi.Models
         [Key]
         public int Id { get; set; }
         public string Title { get; set; }
-        public Image Icon { get; set; }
-        public Image DefaultBackground { get; set; }
+        public int IconId { get; set; }
+        public int DefaultBackgroundId { get; set; }
 
     }
 }

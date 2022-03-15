@@ -10,7 +10,8 @@ namespace YonderfulApi.Mappings
         public CategoryMappings()
         {
             // source -> target
-            CreateMap<Category, CategoryDto>();   
+            CreateMap<Category, CategoryDto>().ForMember(dest => dest.Icon, src => src.MapFrom(src => src.IconId))
+                .ForMember(dest => dest.DefaultBackground, src => src.MapFrom(src => src.DefaultBackgroundId));   
         }
     }
 }
