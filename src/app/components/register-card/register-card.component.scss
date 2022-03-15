@@ -10,11 +10,13 @@
     display: flex;
     flex-direction: column;
     width: 500px;
+    border-left-color: #E92B8E;
 }
 
 .register-card-header {
     display: flex;
     justify-content: center;
+    color: #E92B8E;
 }
 
 .register-card-content {
@@ -41,6 +43,7 @@
 
 .register-item-icon {
     margin-bottom: 2.5%;
+    color: #00589D;
 }
 
 a {

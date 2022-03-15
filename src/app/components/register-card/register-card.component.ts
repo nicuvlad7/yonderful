@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-card',
@@ -7,36 +7,41 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./register-card.component.scss']
 })
 export class RegisterCardComponent implements OnInit {
-  registerNameControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]+')]);
-  registerEmailControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com')]);
-  registerPasswordControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  registerNameControl!: FormControl;
+  registerEmailControl!: FormControl;
+  registerPasswordControl!: FormControl;
 
-  username: string = '';
-  email: string = '';
-  password: string = '';
+
+  isInputValid: boolean = false;
 
   constructor() { 
     
   }
 
-
   ngOnInit(): void {
-    this.registerNameControl.valueChanges.subscribe(value => {
-      this.username = value;
-      
-    })
-
-    this.registerEmailControl.valueChanges.subscribe(value => {
-      this.email = value;
-    })
-
-    this.registerPasswordControl.valueChanges.subscribe(value => {
-      this.password = value;
-    })
+    this.initFormControls();
   }
 
-  isRegisterFormComplete(): boolean {
-    return (this.registerNameControl.value === '' || this.registerEmailControl.value === '' || this.registerPasswordControl.value === '') ? false : true;
+  initFormControls(): void {
+    this.registerNameControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]+')]);
+    this.registerEmailControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com')]);
+    this.registerPasswordControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  }
+
+  isRegisterFormCompleted(): boolean {
+    return !(this.registerNameControl.value === '' || this.registerEmailControl.value === '' || this.registerPasswordControl.value === '')
+  }
+
+  isRegisterFormValid(): boolean {
+    return this.registerNameControl.valid && this.registerEmailControl.valid && this.registerPasswordControl.valid;
+  }
+
+  isRegisterFormDone(): boolean {
+    return this.isRegisterFormCompleted() && this.isRegisterFormValid();
+  }
+
+  onClick(): void {
+    console.log("Hello");
   }
 
 }

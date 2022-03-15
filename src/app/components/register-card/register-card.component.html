@@ -3,7 +3,7 @@
   <mat-card class="register-card-container">
 
         <mat-card-header class="register-card-header">
-            <mat-card-title class="register-card-title"> Yonderful Time </mat-card-title>
+            <mat-card-title class="register-card-title"> Yonderful Time</mat-card-title>
         </mat-card-header>
 
         <mat-card-content class="register-card-content">
@@ -63,7 +63,7 @@
               </form>
         </mat-card-content>
 
-        <app-button class="register-button" buttonText="Register" [isDisabled]="!isRegisterFormComplete()"></app-button>
+        <app-button class="register-button" buttonText="Register" [enabled]="isRegisterFormDone()" (click)="onClick()"></app-button>
   </mat-card>
 
   <a href="/login">Already have an account?</a>

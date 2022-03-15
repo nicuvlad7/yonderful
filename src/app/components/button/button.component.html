@@ -1,7 +1,7 @@
-<div *ngIf="isDisabled">
-    <button mat-raised-button disabled> {{ buttonText }}</button>
+<div *ngIf="enabled">
+    <button mat-raised-button> {{ buttonText }}</button>
 </div>
 
-<div *ngIf="!isDisabled">
-    <button mat-raised-button color="primary"> {{ buttonText }}</button>
+<div *ngIf="!enabled">
+    <button mat-raised-button disabled> {{ buttonText }}</button>
 </div>
