@@ -15,6 +15,11 @@
                   <mat-form-field class="register-form-item" appearance="fill">
                     <mat-label>Name</mat-label>
                     <input matInput type="text" placeholder="Name" [formControl]="registerNameControl">
+                    
+                    <mat-error *ngIf="registerNameControl.hasError('required')">
+                      Name is <strong>required</strong>
+                    </mat-error>
+
                   </mat-form-field>
                 </div>
                 
@@ -23,7 +28,17 @@
 
                   <mat-form-field class="register-form-item" appearance="fill">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" placeholder="firstname.lastname@tss-yonder.com" [formControl]="registerEmailControl">
+                    <input matInput type="email" placeholder="Email" [formControl]="registerEmailControl">
+                    
+                    <mat-error *ngIf="registerEmailControl.hasError('pattern') && !registerEmailControl.hasError('required')">
+                      Please provide your <strong>firstname.lastname@tss-yonder.com</strong> mail account
+                    </mat-error>
+
+                    <mat-error *ngIf="registerEmailControl.hasError('required')">
+                      Email is <strong>required</strong>
+                    </mat-error>
+
+                    <mat-hint>Register with your @tss-yonder.com mail account</mat-hint>
                   </mat-form-field>
                 </div>
 
@@ -32,7 +47,16 @@
 
                   <mat-form-field class="register-form-item" appearance="fill">
                     <mat-label>Password</mat-label>
-                    <input matInput type="text" placeholder="Password" [formControl]="registerPasswordControl">
+                    <input matInput type="password" placeholder="Password" [formControl]="registerPasswordControl">
+                    
+                    <mat-error *ngIf="registerPasswordControl.hasError('minlength') && !registerPasswordControl.hasError('required')">
+                      Password should be <strong>at least</strong> 6 characters long.
+                    </mat-error>
+
+                    <mat-error *ngIf="registerPasswordControl.hasError('required')">
+                      Password is <strong>required</strong>
+                    </mat-error>
+                    
                   </mat-form-field>
                 </div>
 
