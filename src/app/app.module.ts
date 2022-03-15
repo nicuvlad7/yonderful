@@ -9,13 +9,15 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventDetailsComponent,
     LoginCardComponent,
-    EventListPageComponent
+    EventListPageComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
