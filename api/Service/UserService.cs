@@ -56,26 +56,21 @@ namespace api.Service
         return newUser;
     }
 
-    public async Task<User> PutUser(int id, string email, string name, Role role, ulong? phoneNo)
+        public async Task<User> PutUser(int id, string email, string name, Role role, ulong? phoneNo)
     {
-        var user = await _context.Users.FindAsync(id);
-        if (user == null) return null;
+        var existingUser = await _context.Users.FindAsync(id);
+        if (existingUser == null) return null;
 
-        user = new User
-        {
-            Id = user.Id,
-            Email = email,
-            Name = name,
-            Role=role,
-            PhoneNo=phoneNo
-        };
+        existingUser.Email=email;
+        existingUser.Name=name;
+        existingUser.Role=role;
+        existingUser.PhoneNo=phoneNo;
 
-        _context.Users.Update(user);
+        _context.Users.Update(existingUser);
         await _context.SaveChangesAsync();
-        return user;
+        return existingUser;
 
     }
-
     
     private async Task<bool> UserExists(string email)
     {
