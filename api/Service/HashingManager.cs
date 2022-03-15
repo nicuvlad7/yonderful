@@ -9,7 +9,9 @@ namespace api.Service
 {
 
     /// <usage>
-    ///
+    /// var hashing = new HashingManager();
+    /// var hash = hashing.HashToString("test");
+    /// var isValid = hashing.Verify("test", hash);
     /// </usage>
     /// <summary>
     /// Provides methods Hashing and Verification of clear texts
