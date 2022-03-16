@@ -18,40 +18,54 @@ namespace YonderfulApi.Service
             return category;
         }
 
-       public async Task<IList<Category>> GetCategoryList() {
-            var categoryList = await _context.Categories.ToListAsync();
-            return categoryList;
-        }
-        
-        public async Task<Category> PostCategory(string title, int iconId, int defaultBackgroundId) 
+    public async Task<IList<Category>> GetCategoryList() {
+        var categoryList = await _context.Categories.ToListAsync();
+        return categoryList;
+    }
+    
+    public async Task<Category> PostCategory(string title, int iconId, int defaultBackgroundId) 
+    {
+        if (await CategoryExists(title, iconId, defaultBackgroundId)) return null;
+
+        var newCategory = new Category 
         {
-            if (await CategoryExists(title, iconId, defaultBackgroundId)) return null;
+            Title = title,
+            IconId = iconId,
+            DefaultBackgroundId = defaultBackgroundId
+        };
 
-            var newCategory = new Category 
-            {
-                Title = title,
-                IconId = iconId,
-                DefaultBackgroundId = defaultBackgroundId
-            };
+        _context.Categories.Add(newCategory);
+        await _context.SaveChangesAsync();
+        return newCategory;
+    }
 
-            _context.Categories.Add(newCategory);
-            await _context.SaveChangesAsync();
-            return newCategory;
+    public async Task<bool> DeleteCategory(int categoryId)
+    {
+        var category = await _context.Categories.FindAsync(categoryId);
+        if(category == null) {
+            return false;
         }
+        _context.Categories.Remove(category);
+        return await _context.SaveChangesAsync() > 0;
+    }
 
-        public async Task<bool> DeleteCategory(int categoryId)
-        {
-            var category = await _context.Categories.FindAsync(categoryId);
-            if(category == null) {
-                return false;
-            }
-            _context.Categories.Remove(category);
-            return await _context.SaveChangesAsync() > 0;
+    public async Task<Category> PutCategory(int categoryId, string title, int iconId, int defaultBackgroundId)
+    {
+      var category = await _context.Categories.FindAsync(categoryId);
+        if(category == null) {
+            return null;
         }
+        category.Title = title;
+        category.IconId = iconId;
+        category.DefaultBackgroundId = defaultBackgroundId;
 
-        private async Task<bool> CategoryExists(string title, int iconId, int defaultBackgroundId)
-        {
-            return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.IconId == iconId && cat.DefaultBackgroundId == defaultBackgroundId);
-        }
+        _context.Categories.Update(category);
+        await _context.SaveChangesAsync();
+        return category;
+    }
+    private async Task<bool> CategoryExists(string title, int iconId, int defaultBackgroundId)
+    {
+        return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.IconId == iconId && cat.DefaultBackgroundId == defaultBackgroundId);
+    }
   }
 }

@@ -10,6 +10,8 @@ namespace YonderfulApi.Service
         Task<Category> GetCategory(int categoryId);
         Task<Category> PostCategory(string title, int iconId, int defaultBackgroundId);
 
+        Task<Category> PutCategory(int categoryId, string title, int iconId, int defaultBackgroundId);
+
         Task<bool> DeleteCategory(int categoryId);
     }
 }

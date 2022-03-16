@@ -24,7 +24,6 @@ namespace YonderfulApi.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet("{categoryId}")]
         public async Task<IActionResult> GetCategory(int categoryId)
         {
@@ -32,7 +31,8 @@ namespace YonderfulApi.Controllers
             if(category == null) {
                 return NotFound();
             }
-            return Ok(_mapper.Map<CategoryDto>(category));
+            var categoryDto = transformCategoryDtoForOutput(_mapper.Map<CategoryDto>(category));
+            return Ok(categoryDto);
         }
         
         [HttpGet]
@@ -42,14 +42,15 @@ namespace YonderfulApi.Controllers
             if(categoryList == null) {
                 return NotFound();
             }
-            return Ok(_mapper.Map<IList<CategoryDto>>(categoryList));
+            var categoryDtoList = _mapper.Map<IList<CategoryDto>>(categoryList);
+            return Ok(transformCategoryDtoListForOutput(categoryDtoList));
         }
 
         [HttpPost]
         public async Task<IActionResult> PostCategory(CategoryDto category) 
         {   
-            var iconId = await createPictureFromFileString(category.Icon);
-            var defaultBackgroundId = await createPictureFromFileString(category.DefaultBackground);
+            var iconId = createPictureFromFileString(category.Icon);
+            var defaultBackgroundId = createPictureFromFileString(category.DefaultBackground);
             var newCategory = await _categoryService.PostCategory(category.Title, iconId, defaultBackgroundId);
             if(newCategory == null) {
                 return BadRequest();
@@ -63,16 +64,49 @@ namespace YonderfulApi.Controllers
             return removedCategory ? Ok() : BadRequest();
         }
 
-        private async Task<int> createPictureFromFileString(string fileString) {
+        [HttpPut]
+        public async Task<ActionResult> PutCategory(int categoryId, CategoryDto updatedCategory) {
+            var iconId = createPictureFromFileString(updatedCategory.Icon);
+            var defaultBackgroundId = createPictureFromFileString(updatedCategory.DefaultBackground);
+            var newCategory = await _categoryService.PutCategory(categoryId, updatedCategory.Title, iconId, defaultBackgroundId);
+            if(newCategory == null) {
+                return BadRequest();
+            }
+            return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
+        }
+
+        private int createPictureFromFileString(string fileString) {
             string fileName = fileString.Split('/')[^1];
             string fileType = fileString.Split('.')[^1];
             byte[] content = System.IO.File.ReadAllBytes(fileString);
+            
+            var newPicture = _pictureService.GetPictureByNameFormatContent(fileName, fileType, content);
 
-            var newPicture = await _pictureService.PostPicture(fileName, fileType, content);
             if(newPicture == null) {
-                return _pictureService.GetPictureByNameAndFormat(fileName, fileType).Id;
+                return _pictureService.PostPicture(fileName, fileType, content).Id;
             }
             return newPicture.Id;
+        }
+
+        private async Task<String> getPictureContent(string pictureIdStr) {
+            var iconPicture = await _pictureService.GetPicture(Int32.Parse(pictureIdStr));
+            return System.Text.Encoding.Default.GetString(iconPicture.Content);
+        }
+
+        private async Task<CategoryDto> transformCategoryDtoForOutput(CategoryDto categoryDto) {
+            if(categoryDto != null) {
+                categoryDto.Icon = await getPictureContent(categoryDto.Icon);
+                categoryDto.DefaultBackground = await getPictureContent(categoryDto.DefaultBackground);
+            }
+            return categoryDto;
+        }
+
+        private async Task<LinkedList<CategoryDto>> transformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
+            LinkedList<CategoryDto> outputCategoryList = new LinkedList<CategoryDto>();
+            foreach(CategoryDto categoryDto in categoryList) {
+                outputCategoryList.AddLast(await transformCategoryDtoForOutput(categoryDto));
+            }
+            return outputCategoryList;
         }
     }
 }
