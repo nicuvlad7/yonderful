@@ -1,0 +1,18 @@
+<input
+  type="file"
+  class="file-input"
+  (change)="onFileSelected($event)"
+  #fileUpload
+/>
+<div class="file-upload ">
+  <button
+    mat-mini-fab
+    color="primary"
+    class="upload-btn"
+    style="margin-right: 10px"
+    (click)="fileUpload.click()"
+    [ngClass]="{disabled:editEnabled === true}"
+  >
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>

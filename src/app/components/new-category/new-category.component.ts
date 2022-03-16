@@ -3,12 +3,12 @@ import { CategoryCard } from 'src/app/models/category-card';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 
 @Component({
-  selector: 'app-category-card',
-  templateUrl: './category-card.component.html',
-  styleUrls: ['./category-card.component.scss'],
+  selector: 'app-new-category',
+  templateUrl: './new-category.component.html',
+  styleUrls: ['./new-category.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CategoryCardComponent implements OnInit {
+export class NewCategoryComponent implements OnInit {
   categoryCard: CategoryCard = {
     title: 'Placeholder.',
     backgroundImg: new File(['a'], 'mock', { type: 'zip' }),
@@ -18,26 +18,11 @@ export class CategoryCardComponent implements OnInit {
   backgroundImg: any;
   iconImg: any;
   title: string = '';
-  editMode: boolean = false;
-  canMakeChanges: boolean = false;
+  editMode: Boolean = false;
 
   constructor(private endpointsService: EndpointsService) {}
 
   ngOnInit(): void {
-    this.endpointsService.getCategory('placeholder').subscribe((result) => {
-      this.categoryCard.title = result.title;
-      this.categoryCard.icon = result.icon;
-      this.categoryCard.backgroundImg = result.backgroundImg;
-    });
-
-    if (
-      this.endpointsService.getEventsHavingCategory(this.categoryCard.title)
-    ) {
-      this.canMakeChanges = false;
-    }
-    else{
-      this.canMakeChanges = true;
-    }
   }
 
   onChangeIcon(eventData: { file: File }): void {
@@ -68,10 +53,9 @@ export class CategoryCardComponent implements OnInit {
       console.log(result);
     });
   }
-  test() {
-    console.log(this.categoryCard.title);
+
+  onClickSave() {
+    this.onSubmitForm();
   }
-  onEditClick() {
-    this.editMode = true;
-  }
+
 }

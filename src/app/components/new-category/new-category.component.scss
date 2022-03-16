@@ -1,0 +1,64 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    max-height: 900px;
+    max-width: 450px;
+  }
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .button-cat {
+    border-radius: 15px;
+    border: none;
+    color: white;
+    background-color: palevioletred;
+    height: 50px;
+    width: 50px;
+    margin: 6px;
+  }
+  
+  .cat-Action {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .segment {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .file-input {
+    display: none;
+  }
+  .centered-segment {
+    width: 50%;
+    display: flex;
+  }
+  .icon {
+    height: 50px;
+    width: 50px;
+  }
+  .bgImg {
+    height: 200px;
+    width: 200px;
+  }
+  .img {
+    background-size: cover;
+  }
+  
+  .editEnabled {
+    border-radius: 15px;
+    border: none;
+    color: white;
+    background-color: blue;
+    height: 50px;
+    width: 50px;
+    margin: 6px;
+  }
