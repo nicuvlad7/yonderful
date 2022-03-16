@@ -23,22 +23,26 @@ namespace YonderfulApi.Service
             return user;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return user;
+        }
+
         public async Task<IList<User>> GetUserList()
         {
             var userList = await _context.Users.ToListAsync();
             return userList;
         }
 
-        public async Task<User> PostUser(string firstName, string lastName, string email, string password)
+        public async Task<User> PostUser(User user)
         {
-            if (await UserExists(email)) return null;
-
             var newUser = new User
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Password = hashing.HashToString(password),
-                Email = email
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = hashing.HashToString(user.Password),
+                Email = user.Email
             };
 
             _context.Users.Add(newUser);

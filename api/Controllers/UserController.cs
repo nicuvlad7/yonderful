@@ -4,6 +4,7 @@ using AutoMapper;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
+using YonderfulApi.Models;
 using YonderfulApi.Service;
 
 namespace YonderfulApi.Controllers
@@ -21,10 +22,21 @@ namespace YonderfulApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("Id/{userId}")]
         public async Task<IActionResult> GetUserById(int userId)
         {
             var user = await _userService.GetUserById(userId);
+            if (user == null)
+            {
+                return NotFound("No user with given id!");
+            }
+            return Ok(_mapper.Map<UserDto>(user));
+        }
+
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            var user = await _userService.GetUserByEmail(email);
             if (user == null)
             {
                 return NotFound("No user with given id!");
@@ -46,12 +58,19 @@ namespace YonderfulApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser(UserDto user)
         {
-            var newUser = await _userService.PostUser(user.FirstName, user.LastName, user.Email, user.Password);
-            if (newUser == null)
+            if (await _userService.GetUserByEmail(user.Email) == null)
             {
-                return BadRequest("User with given email already exists!");
+                var newUser = new User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Password = user.Password,
+                    Email = user.Email
+                };
+                var postUser = await _userService.PostUser(newUser);
+                return Ok("Your account was successfully created.");
             }
-            return Ok("Your account was successfully created.");
+            return BadRequest("User with given email already exists!");
         }
 
         [HttpDelete]

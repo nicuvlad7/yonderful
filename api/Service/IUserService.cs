@@ -8,7 +8,8 @@ namespace YonderfulApi.Service
     {
         Task<IList<User>> GetUserList();
         Task<User> GetUserById(int userId);
-        Task<User> PostUser(string firstName, string lastName, string email, string password);
+        Task<User> GetUserByEmail(string email);
+        Task<User> PostUser(User user);
         Task<bool> DeleteUser(int id);
     }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using api.Models;
 
 namespace YonderfulApi.Models
 {
@@ -8,11 +9,7 @@ namespace YonderfulApi.Models
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        /// role == 0 - user
-        /// role == 1 - admin
-        /// by default 0
-        public int Role { get; set; } = 0;
+        public Role UserRole { get; set; } = Role.User;
         public string Email { get; set; }
         public string Password { get; set; }
     }
