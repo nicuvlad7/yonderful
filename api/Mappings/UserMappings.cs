@@ -15,6 +15,8 @@ namespace api.Mappings
             // source -> target
             CreateMap<User, UserDto>();
 
+            CreateMap<UserDto, User>();
+
         }
         
     }

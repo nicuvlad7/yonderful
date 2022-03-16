@@ -49,7 +49,7 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser(UserDto user)
         {
-            var newUser = await _userService.PostUser(user.Email, user.Name, user.Role, user.PhoneNo);
+            var newUser = await _userService.PostUser(_mapper.Map<User>(user));
             if (newUser == null)
             {
                 return BadRequest();
@@ -65,16 +65,16 @@ namespace api.Controllers
         }
 
 
-        //partially implemented
+
         [HttpPut]
         public async Task<IActionResult> PutUser(User user)
         {
-            var newUser = await _userService.PutUser(user.Id, user.Email, user.Name, user.Role, user.PhoneNo);
+            var newUser = await _userService.PutUser(user);
             if (newUser == null)
             {
                 return BadRequest();
             }
-            return Created(nameof(GetUser), _mapper.Map<User>(newUser));
+            return Created(nameof(GetUser), newUser);
         }
 
 

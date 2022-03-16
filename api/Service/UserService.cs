@@ -38,17 +38,17 @@ namespace api.Service
         return employeeList;
     }
 
-    public async Task<User> PostUser(string email, string name, Role role, string phoneNo = null)
+    public async Task<User> PostUser(User user)
     {
-      
-        if (await UserExists(email)) return null;
+        if (await UserExists(user.Email)) return null;
 
         var newUser = new User
         {
-            Email = email,
-            Name = name,
-            Role=role,
-            PhoneNo=phoneNo
+            Email = user.Email,
+            Name = user.Name,
+            Role=user.Role,
+            Position=user.Position,
+            PhoneNo=user.PhoneNo
         };
 
         _context.Users.Add(newUser);
@@ -56,21 +56,24 @@ namespace api.Service
         return newUser;
     }
 
-        public async Task<User> PutUser(int id, string email, string name, Role role, string phoneNo = null)
+
+    public async Task<User> PutUser(User user)
     {
-        var existingUser = await _context.Users.FindAsync(id);
+        var existingUser = await _context.Users.FindAsync(user.Id);
         if (existingUser == null) return null;
 
-        existingUser.Email=email;
-        existingUser.Name=name;
-        existingUser.Role=role;
-        existingUser.PhoneNo=phoneNo;
+        existingUser.Email=user.Email;
+        existingUser.Name=user.Name;
+        existingUser.Role=user.Role;
+        existingUser.Position=user.Position;
+        existingUser.PhoneNo=user.PhoneNo;
 
         _context.Users.Update(existingUser);
         await _context.SaveChangesAsync();
         return existingUser;
 
     }
+
     
     private async Task<bool> UserExists(string email)
     {

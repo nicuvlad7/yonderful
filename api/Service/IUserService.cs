@@ -10,8 +10,8 @@ namespace api.Service
     {
         Task<IList<User>> GetUserList();
         Task<User> GetUser(int employeeId);
-        Task<User> PostUser(string email, string name, Role role, string phoneNo);
-        Task<User> PutUser(int id, string email, string name, Role role, string phoneNo);
+        Task<User> PostUser(User user);
+        Task<User> PutUser(User user);
         Task<bool> DeleteUser(int id);
     }
 }
