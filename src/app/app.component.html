@@ -1,9 +1,11 @@
-<ng-container *ngIf="isMenuVisible">
+<ng-container *ngIf="isMenuVisible; else elseBlock">
   <app-sidenav>
     <router-outlet></router-outlet>
   </app-sidenav>
 </ng-container>
-
+<ng-template #elseBlock>
+  <router-outlet></router-outlet>
+</ng-template>
 
 
 

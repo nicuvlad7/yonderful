@@ -1,13 +1,18 @@
+@use "../../themes/colors.scss";
+
 .toolbar{
-    background-color:#00589D;
+    background-color:colors.$yonder-blue;
     width:auto;
     height: 38pt;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .icon-style{
-    color:#E92B8E;
+    color:colors.$yonder-pink;
 }
 
-.example-spacer {
-    flex: 1 1 auto;
+.toolbar-text{
+    color:colors.$yonder-pink;
 }

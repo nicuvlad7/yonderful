@@ -7,8 +7,8 @@
                     <mat-icon class="icon-style">menu</mat-icon>
                 </button>
 
-                <ng-container *ngIf="User==eRole.User">
-                    <ng-container  *ngFor="let item of primaryIconsUser">
+                <ng-container *ngIf="userRole==roleType.User">
+                    <ng-container  *ngFor="let item of primaryMenuItemsUser">
                         <div class="icon-description">
                             <button mat-icon-button>
                                 <mat-icon class="icon-style">{{item.name}}</mat-icon>
@@ -17,8 +17,8 @@
                         </div>
                     </ng-container>
                 </ng-container>
-                <ng-container *ngIf="User==eRole.Admin">
-                    <ng-container  *ngFor="let item of primaryIconsAdmin">
+                <ng-container *ngIf="userRole==roleType.Admin">
+                    <ng-container  *ngFor="let item of primaryMenuItemsAdmin">
                         <div class="icon-description">
                             <button mat-icon-button>
                                 <mat-icon class="icon-style">{{item.name}}</mat-icon>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="secondary-menu-items">
-                <ng-container *ngFor="let item of secondaryIcons">
+                <ng-container *ngFor="let item of secondaryMenuItems">
                     <div class="icon-description">
                         <button mat-icon-button>
                             <mat-icon class="icon-style">{{item.name}}</mat-icon>

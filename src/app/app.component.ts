@@ -10,22 +10,14 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Workshop Angular';
   description = 'Angular Introduction';
-  showFiller = true;
   isMenuVisible = true;
-  href='';
 
   constructor(private router : Router) {
   }
   
   ngOnInit() {
-    this.href = this.router.url;
-    console.log(this.href);
-    /*TO DO
-    research how does this.router.url looks like*/
-    /*if(this.href=='/register'){
-      this.isMenuVisible = false;
-    }
-    else if(this.href=='/login'){
+    /*Waiting for login functionality to be implemented*/ 
+    /*if(clientLoggedIn()){
       this.isMenuVisible = false;
     }
     else{

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Icon } from 'src/app/models/icon';
+import { MenuItem } from 'src/app/models/MenuItem';
 
 enum Role{
   User=0,
@@ -14,12 +14,12 @@ enum Role{
 
 export class SidenavComponent implements OnInit {
 
-  @Input() isDescription = false;
+  isDescription = false;
   
-  eRole=Role;
-  User=Role.Admin;
+  roleType=Role;
+  userRole=Role.Admin;
 
-  primaryIconsUser: Icon[] = [
+  primaryMenuItemsUser: MenuItem[] = [
     {title:"Dashboard", name:"home" },
     {title:"All Events", name:"calendar_today" },
     {title:"Joined Events", name:"list_alt" },
@@ -27,12 +27,12 @@ export class SidenavComponent implements OnInit {
     {title:"My history", name:"history" }
   ]
 
-  secondaryIcons: Icon[] = [
+  secondaryMenuItems: MenuItem[] = [
     {title:"My Profile", name:"person_outline" },
     {title:"Info", name:"info" },
   ]
 
-  primaryIconsAdmin: Icon[] = [
+  primaryMenuItemsAdmin: MenuItem[] = [
     {title:"Dashboard", name:"home" },
     {title:"Categories", name:"widgets" }
   ]
@@ -42,12 +42,7 @@ export class SidenavComponent implements OnInit {
   }
 
   changePerspective(): void{
-    if(this.User==Role.Admin){
-      this.User=Role.User;
-    }
-    else{
-      this.User=Role.Admin;
-    }
+    this.userRole = this.userRole === Role.Admin ? Role.User : Role.Admin;
   }
 
   constructor() { }
