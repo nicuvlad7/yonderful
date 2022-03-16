@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegisterService } from 'src/app/services/register-service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register-card',
@@ -11,10 +14,13 @@ export class RegisterCardComponent implements OnInit {
   registerEmailControl!: FormControl;
   registerPasswordControl!: FormControl;
 
-
   isInputValid: boolean = false;
+  registrationStatus: boolean = false;
+  registrationMessage: string = '';
 
-  constructor() { 
+  responseUserObject?: User;
+
+  constructor(private registerService: RegisterService, private snackBar: MatSnackBar) { 
     
   }
 
@@ -41,7 +47,24 @@ export class RegisterCardComponent implements OnInit {
   }
 
   onClick(): void {
-    console.log("Hello");
-  }
+    const user: User = {name: this.registerNameControl.value, email: this.registerEmailControl.value, password: this.registerPasswordControl.value};
 
+    // this.registerService.register(user).subscribe(
+    //   (data: User) => {
+    //   this.responseUserObject = {...data};
+    //   this.snackBar.open(`User ${this.responseUserObject.name} has been registered`);
+    // }
+      
+    // );
+
+    this.registerService.register(user).subscribe({
+      next: (data: User) => {
+        this.responseUserObject = {...data};
+        this.snackBar.open(`User ${this.responseUserObject.name} has been registered.`);
+      },
+      error: (error: Error) => {
+        this.snackBar.open(error.message);
+      }
+    })
+  }
 }
