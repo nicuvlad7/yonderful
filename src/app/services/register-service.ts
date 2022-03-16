@@ -15,7 +15,7 @@ export class RegisterService {
   }
 
   register(user: User): Observable<User>{
-    return this.httpClient.post<User>(environment.mockUrl + "users", user, {
+    return this.httpClient.post<User>(environment.apiUrl + "users", user, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

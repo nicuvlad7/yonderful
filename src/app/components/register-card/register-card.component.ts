@@ -49,14 +49,6 @@ export class RegisterCardComponent implements OnInit {
   onClick(): void {
     const user: User = {name: this.registerNameControl.value, email: this.registerEmailControl.value, password: this.registerPasswordControl.value};
 
-    // this.registerService.register(user).subscribe(
-    //   (data: User) => {
-    //   this.responseUserObject = {...data};
-    //   this.snackBar.open(`User ${this.responseUserObject.name} has been registered`);
-    // }
-      
-    // );
-
     this.registerService.register(user).subscribe({
       next: (data: User) => {
         this.responseUserObject = {...data};

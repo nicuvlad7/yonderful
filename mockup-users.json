@@ -1,14 +1,28 @@
 {
   "users": [
-  {
+    {
+      "id": 1,
       "name": "name",
       "email": "email",
       "password": "passwd"
-  },
-  {
+    },
+    {
+      "2": 2,
       "name": "name1",
       "email": "email1",
       "password": "passwd2"
-  }
-]
+    },
+    {
+      "name": "asd",
+      "email": "asd.asd@tss-yonder.com",
+      "password": "adasdasd",
+      "id": 2
+    },
+    {
+      "name": "asdas",
+      "email": "andrei.buiciuc@tss-yonder.com",
+      "password": "asdafgdf",
+      "id": 3
+    }
+  ]
 }
