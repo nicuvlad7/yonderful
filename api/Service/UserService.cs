@@ -29,15 +29,14 @@ namespace YonderfulApi.Service
             return userList;
         }
 
-        public async Task<User> PostUser(string firstName, string lastName, string username, string email, string password)
+        public async Task<User> PostUser(string firstName, string lastName, string email, string password)
         {
-            if (await UserExists(username, email)) return null;
+            if (await UserExists(email)) return null;
 
             var newUser = new User
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Username = username,
                 Password = hashing.HashToString(password),
                 Email = email
             };
@@ -56,10 +55,9 @@ namespace YonderfulApi.Service
             return await _context.SaveChangesAsync() > 0;
         }
 
-        private async Task<bool> UserExists(string username, string email)
+        private async Task<bool> UserExists(string email)
         {
-            return await _context.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower() ||
-                                                        u.Email.ToLower() == email.ToLower());
+            return await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
     }
 }

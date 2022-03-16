@@ -46,10 +46,10 @@ namespace YonderfulApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostUser(UserDto user)
         {
-            var newUser = await _userService.PostUser(user.FirstName, user.LastName, user.Username, user.Email, user.Password);
+            var newUser = await _userService.PostUser(user.FirstName, user.LastName, user.Email, user.Password);
             if (newUser == null)
             {
-                return BadRequest("User with given email or username already exists!");
+                return BadRequest("User with given email already exists!");
             }
             return Ok("Your account was successfully created.");
         }
