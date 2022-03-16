@@ -63,7 +63,7 @@
               </form>
         </mat-card-content>
 
-        <app-button class="register-button" buttonText="Register" [enabled]="isRegisterFormDone()" (click)="onClick()"></app-button>
+        <app-button class="register-button" buttonText="Register" [disabled]="!isRegisterFormDone()" (click)="onClick()"></app-button>
   </mat-card>
 
   <a href="/login">Already have an account?</a>
