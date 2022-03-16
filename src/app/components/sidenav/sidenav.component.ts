@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
-
-enum Role{
-  User=0,
-  Admin=1
-}
+import { Role } from 'src/app/models/constants'
 
 @Component({
   selector: 'app-sidenav',
