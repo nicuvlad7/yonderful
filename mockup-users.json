@@ -23,6 +23,12 @@
       "email": "andrei.buiciuc@tss-yonder.com",
       "password": "asdafgdf",
       "id": 3
+    },
+    {
+      "name": "test",
+      "email": "asd.asd@tss-yonder.com",
+      "password": "password",
+      "id": 4
     }
   ]
 }
