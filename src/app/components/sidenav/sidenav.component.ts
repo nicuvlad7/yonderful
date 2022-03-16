@@ -10,7 +10,7 @@ import { Role } from 'src/app/models/constants'
 
 export class SidenavComponent implements OnInit {
 
-  isDescription = false;
+  menuLabelsVisible = false;
   
   roleType=Role;
   userRole=Role.Admin;
@@ -34,7 +34,7 @@ export class SidenavComponent implements OnInit {
   ]
 
   toggleSidebar(): void {
-    this.isDescription = !this.isDescription;
+    this.menuLabelsVisible = !this.menuLabelsVisible;
   }
 
   changePerspective(): void{
