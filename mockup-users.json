@@ -13,22 +13,16 @@
       "password": "passwd2"
     },
     {
-      "name": "asd",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "adasdasd",
+      "name": "test",
+      "email": "test.test@tss-yonder.com",
+      "password": "testpasswd",
       "id": 2
     },
     {
-      "name": "asdas",
-      "email": "andrei.buiciuc@tss-yonder.com",
-      "password": "asdafgdf",
+      "name": "testtest",
+      "email": "test.test@tss-yonder.com",
+      "password": "aaaaaa",
       "id": 3
-    },
-    {
-      "name": "test",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "password",
-      "id": 4
     }
   ]
 }

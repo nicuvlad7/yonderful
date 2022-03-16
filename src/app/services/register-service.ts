@@ -25,15 +25,7 @@ export class RegisterService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
-    var errorMessage: string;
-    if (error.status === 0) {
-      // Client or network error;
-      errorMessage = error.message;
-    }
-    else {
-      // Backend unsuccessful response;
-      errorMessage = error.status + ': server error occured';
-    }
+    var errorMessage: string = `Error status ${error.status}: ${error.message}`;
 
     return throwError(() => new Error(errorMessage)); 
   }
