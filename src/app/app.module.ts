@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
@@ -17,6 +18,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { RegisterCardComponent } from './components/register-card/register-card.component';
+import { MaterialModules } from './modules/material.module';
 
 
 @NgModule({
@@ -25,21 +28,23 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     EventDetailsComponent,
     LoginCardComponent,
     EventListPageComponent,
+    RegisterCardComponent,
     SidenavComponent,
     ToolbarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
-    MatListModule
-
+    MatListModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MaterialModules
   ],
   providers: [],
   bootstrap: [AppComponent]
