@@ -10,6 +10,7 @@ namespace YonderfulApi.Mappings
         {
             // source -> target
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }
