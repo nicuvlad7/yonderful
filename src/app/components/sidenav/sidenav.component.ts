@@ -40,17 +40,17 @@ export class SidenavComponent implements OnInit {
   }
 
   changePerspective(): void{
-    this.yesNoDialog().subscribe(result => {
+    this.openChangeRoleDialog().subscribe(result => {
       if(result)
         this.userRole = this.userRole === Role.Admin ? Role.User : Role.Admin;
     })
     
   }
 
-  constructor(private openChangeRoleDialog: DialogService) { }
+  constructor(private dialogService: DialogService) { }
 
-  yesNoDialog():Observable<boolean>{
-    return this.openChangeRoleDialog.confirmDialog({
+  openChangeRoleDialog():Observable<boolean>{
+    return this.dialogService.confirmDialog({
       title: 'Confirm Action',
       message: 'Are u sure?',
       confirmText: 'Yes',
