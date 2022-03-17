@@ -9,20 +9,24 @@ import { EventDetailsComponent } from './components/event-details/event-details.
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventDetailsComponent,
     LoginCardComponent,
-    EventListPageComponent
+    EventListPageComponent,
+    CategoriesTableComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
