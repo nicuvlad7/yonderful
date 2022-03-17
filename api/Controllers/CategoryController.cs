@@ -14,13 +14,11 @@ namespace YonderfulApi.Controllers
     public class CategoryController : ControllerBase 
     {
         private readonly ICategoryService _categoryService;
-        private readonly IPictureService _pictureService;
         private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryService categoryService, IPictureService pictureService, IMapper mapper)
+        public CategoryController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
-            _pictureService = pictureService;
             _mapper = mapper;
         }
 

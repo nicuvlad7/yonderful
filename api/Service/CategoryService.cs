@@ -18,9 +18,9 @@ namespace YonderfulApi.Service
         }
 
     public async Task<Category> GetCategory(int categoryId) {
-            var category = await _context.Categories.FindAsync(categoryId);
-            return category;
-        }
+        var category = await _context.Categories.FindAsync(categoryId);
+        return category;
+    }
 
     public async Task<IList<Category>> GetCategoryList() {
         var categoryList = await _context.Categories.ToListAsync();
@@ -71,10 +71,10 @@ namespace YonderfulApi.Service
         return categoryDto;
     }
 
-    public async Task<LinkedList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
-        LinkedList<CategoryDto> outputCategoryList = new LinkedList<CategoryDto>();
+    public async Task<IList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
+        IList<CategoryDto> outputCategoryList = new List<CategoryDto>();
         foreach(CategoryDto categoryDto in categoryList) {
-            outputCategoryList.AddLast(await TransformCategoryDtoForOutput(categoryDto));
+            outputCategoryList.Add(await TransformCategoryDtoForOutput(categoryDto));
         }
         return outputCategoryList;
     }
