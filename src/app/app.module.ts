@@ -18,9 +18,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { MaterialModules } from './modules/material.module';
-
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { MaterialModules } from './modules/material.module';
     EventListPageComponent,
     RegisterCardComponent,
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
