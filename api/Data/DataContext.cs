@@ -8,7 +8,8 @@ namespace YonderfulApi.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
