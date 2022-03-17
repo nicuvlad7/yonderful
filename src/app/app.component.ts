@@ -8,8 +8,6 @@ import { NavigationStart, Navigation , Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'Workshop Angular';
-  description = 'Angular Introduction';
   isMenuVisible = true;
   currentRoute: string;
 
