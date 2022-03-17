@@ -23,16 +23,9 @@ namespace YonderfulApi.Service
         return categoryList;
     }
     
-    public async Task<Category> PostCategory(string title, int iconId, int defaultBackgroundId) 
+    public async Task<Category> PostCategory(Category newCategory) 
     {
-        if (await CategoryExists(title, iconId, defaultBackgroundId)) return null;
-
-        var newCategory = new Category 
-        {
-            Title = title,
-            IconId = iconId,
-            DefaultBackgroundId = defaultBackgroundId
-        };
+        if (await CategoryExists(newCategory)) return null;
 
         _context.Categories.Add(newCategory);
         await _context.SaveChangesAsync();
@@ -49,23 +42,21 @@ namespace YonderfulApi.Service
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<Category> PutCategory(int categoryId, string title, int iconId, int defaultBackgroundId)
+    public async Task<Category> PutCategory(int categoryId, Category categoryToPut)
     {
       var category = await _context.Categories.FindAsync(categoryId);
         if(category == null) {
             return null;
         }
-        category.Title = title;
-        category.IconId = iconId;
-        category.DefaultBackgroundId = defaultBackgroundId;
+        category = categoryToPut;
 
         _context.Categories.Update(category);
         await _context.SaveChangesAsync();
         return category;
     }
-    private async Task<bool> CategoryExists(string title, int iconId, int defaultBackgroundId)
+    private async Task<bool> CategoryExists(Category category)
     {
-        return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == title.ToLower() && cat.IconId == iconId && cat.DefaultBackgroundId == defaultBackgroundId);
+        return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == category.Title.ToLower());
     }
   }
 }
