@@ -1,11 +1,5 @@
 @use "../../../themes/colors.scss";
 
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .confirm-button{
     background-color:colors.$yonder-blue;
     color:white;
