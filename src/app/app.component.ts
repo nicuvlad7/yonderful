@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Navigation , Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +11,19 @@ export class AppComponent {
   title = 'Workshop Angular';
   description = 'Angular Introduction';
   isMenuVisible = true;
+  currentRoute: string;
 
   constructor(private router : Router) {
+    this.currentRoute='';
+    this.router.events.subscribe(
+      event =>{
+        this.currentRoute = location.pathname;
+        this.isMenuVisible = !(this.currentRoute === "/login" || this.currentRoute === '/register');
+      }
+    );
   }
-  
+
   ngOnInit() {
-    /*Waiting for login functionality to be implemented*/ 
-    /*if(clientLoggedIn()){
-      this.isMenuVisible = false;
-    }
-    else{
-      this.isMenuVisible = true;
-    }*/
   }
 
 }
