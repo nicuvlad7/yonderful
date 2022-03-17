@@ -47,10 +47,10 @@ export class SidenavComponent implements OnInit {
     
   }
 
-  constructor(private dialogService: DialogService) { }
+  constructor(private openChangeRoleDialog: DialogService) { }
 
   yesNoDialog():Observable<boolean>{
-    return this.dialogService.confirmDialog({
+    return this.openChangeRoleDialog.confirmDialog({
       title: 'Confirm Action',
       message: 'Are u sure?',
       confirmText: 'Yes',
