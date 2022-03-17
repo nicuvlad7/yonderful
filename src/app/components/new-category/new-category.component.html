@@ -1,18 +1,19 @@
 <div class="card" style="margin: auto">
+  <div class="wrapper">
     <div class="cat-Action">
-      <button
-        class="button-cat"
-        (click)="onClickSave()"
-      >
-        Save.
-      </button>
+      <button class="button-cat" (click)="onSubmitForm()"><mat-icon>save</mat-icon></button>
     </div>
   
     <div class="segment">
       <div class="centered-segment">
         <mat-form-field appearance="fill">
           <mat-label> Title. </mat-label>
-          <input matInput [(ngModel)]="title" [(ngModel)]="categoryCard.title" readonly=""/>
+          <input
+            matInput
+            [(ngModel)]="title"
+            [(ngModel)]="categoryCard.title"
+            required
+          />
         </mat-form-field>
       </div>
     </div>
@@ -21,9 +22,8 @@
       <div class="centered-segment">
         <app-upload-file
           (onUpload)="onChangeBackground($event)"
-          [editEnabled]="editMode"
         ></app-upload-file>
-        <div>Background image.</div>
+        <div style="font-size: large;">Background image.</div>
       </div>
     </div>
   
@@ -31,26 +31,26 @@
       <img
         [src]="
           backgroundImg ||
-          'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
+          '/assets/chooseImage.png'
         "
-        class="bgImg test2"
+        class="bgImg centered-segment"
       />
     </div>
   
     <div class="segment">
       <div class="centered-segment">
         <app-upload-file (onUpload)="onChangeIcon($event)"></app-upload-file>
-        <div>Category icon.</div>
+        <div style="font-size: large;">Category icon.</div>
       </div>
     </div>
     <div class="segment">
       <img
         [src]="
           iconImg ||
-          'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
+          '/assets/chooseImage.png'
         "
-        class="icon test2"
+        class="icon centered-segment"
       />
     </div>
   </div>
-  
+</div>

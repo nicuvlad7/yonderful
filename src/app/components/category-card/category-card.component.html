@@ -3,18 +3,29 @@
     <button
       class="button-cat"
       (click)="onEditClick()"
-      [ngClass]="{ editEnabled: editMode === true }"
+      *ngIf="editMode === false"
     >
-      Edit
+      <mat-icon>edit</mat-icon>
     </button>
-    <button class="button-cat" [ngClass]="{ editEnabled: editMode === true }">
-      Delete
+    <button
+      class="button-cat"
+      (click)="onDelete()"
+      *ngIf="editMode === false"
+      [disabled]="canMakeChanges ? null : true"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button class="button-cat" *ngIf="editMode === true" (click)="onSubmitForm()">
+      <mat-icon>save</mat-icon>
+    </button>
+    <button class="button-cat" *ngIf="editMode === true" (click)="onDiscard()">
+      <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <div class="segment">
     <div class="centered-segment">
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="width: 100%">
         <mat-label> Title. </mat-label>
         <input
           matInput
@@ -31,6 +42,7 @@
       <app-upload-file
         (onUpload)="onChangeBackground($event)"
         [editEnabled]="editMode"
+        [hidden]="editMode ? null : true"
       ></app-upload-file>
       <div style="font-size: large">Background image.</div>
     </div>
@@ -38,28 +50,26 @@
 
   <div class="segment">
     <img
-      [src]="
-        backgroundImg ||
-        'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
-      "
+      [src]="backgroundImg || '/assets/chooseImage.png'"
       class="bgImg centered-segment"
     />
   </div>
 
   <div class="segment">
     <div class="centered-segment">
-      <app-upload-file (onUpload)="onChangeIcon($event)" [editEnabled]="editMode"></app-upload-file>
+      <app-upload-file
+        (onUpload)="onChangeIcon($event)"
+        [editEnabled]="editMode"
+        [hidden]="editMode ? null : true"
+      ></app-upload-file>
       <div style="font-size: large">Category icon.</div>
     </div>
   </div>
-  <div class="segment" style="margin-bottom: 15px;">
+  <div class="segment" style="margin-bottom: 15px">
     <img
-      [src]="
-        iconImg ||
-        'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
-      "
+      [src]="iconImg || '/assets/chooseImage.png'"
       class="icon centered-segment"
     />
   </div>
-  <div style="height: 20px;"></div>
+  <div style="height: 20px"></div>
 </div>

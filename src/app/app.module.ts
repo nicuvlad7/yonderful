@@ -11,13 +11,14 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { MatIconModule } from '@angular/material/icon';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoryCardComponent,
     UploadFileComponent,
-    NewCategoryComponent
+    NewCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +28,10 @@ import { NewCategoryComponent } from './components/new-category/new-category.com
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

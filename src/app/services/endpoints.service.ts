@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, of, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { CategoryCard } from '../models/category-card';
+import { CategoryCard } from '../models/category';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +16,20 @@ export class EndpointsService {
     );
   }
 
-  newCategory(category: FormData): Observable<CategoryCard> {
+  newCategory(category: CategoryCard): Observable<CategoryCard> {
     return this.http.post<CategoryCard>(
+      environment.apiUrl + '/mails/category/new',
+      category
+    );
+  }
+
+  updateCategory(category: CategoryCard): Observable<CategoryCard> {
+    return this.http.put<CategoryCard>(
       environment.apiUrl + '/category',
       category
     );
   }
+
   getEventsHavingCategory(categoryTitle: string): Observable<boolean> {
     return this.http.post<boolean>(
       environment.apiUrl + '/events',
@@ -31,4 +39,6 @@ export class EndpointsService {
   deleteCategory(title: string): Observable<boolean> {
     return this.http.delete<boolean>(environment.apiUrl + '/category/' + title);
   }
+
+ 
 }

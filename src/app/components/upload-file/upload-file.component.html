@@ -3,13 +3,11 @@
   class="file-input"
   (change)="onFileSelected($event)"
   #fileUpload
+  accept="image"
 />
 <div class="file-upload ">
   <button
-    mat-mini-fab
-    color="primary"
-    class="upload-btn"
-    style="margin-right: 10px"
+    class="button-2"
     (click)="fileUpload.click()"
     [ngClass]="{disabled:editEnabled === true}"
   >

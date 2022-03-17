@@ -1,7 +1,7 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  height: 80%;
+  height: 90%;
   width: 60%;
   margin: auto;
 }
@@ -35,7 +35,7 @@
 .segment {
   display: flex;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-top: 10px;
 }
 .file-input {
   display: none;
@@ -43,14 +43,21 @@
 .centered-segment {
   width: 50%;
   display: flex;
+  align-items: center;
+}
+.centered-segment-btn {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  height:62px;
 }
 .icon {
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 .bgImg {
-  height: 35%;
-  width: 35%;
+  height: 25%;
+  width: 25%;
 }
 .img {
   background-size: cover;
@@ -66,3 +73,7 @@
   margin: 6px;
 }
 
+.button-cat:active {
+  transform: scale(0.9);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
