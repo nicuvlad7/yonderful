@@ -5,14 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
-
 import { MaterialModules } from './modules/material.module';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +20,13 @@ import { MaterialModules } from './modules/material.module';
     EventDetailsComponent,
     LoginCardComponent,
     EventListPageComponent,
-    RegisterCardComponent
+    RegisterCardComponent,
+    SidenavComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

@@ -1,0 +1,18 @@
+@use "../../themes/colors.scss";
+
+.toolbar{
+    background-color:colors.$yonder-blue;
+    width:auto;
+    height: 38pt;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon-style{
+    color:colors.$yonder-pink;
+}
+
+.toolbar-text{
+    color:colors.$yonder-pink;
+}
