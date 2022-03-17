@@ -56,7 +56,7 @@ export class HttpService {
   }
 
   private getRequestUrl(endpoint: string): string {
-    return environment.apiUrl + endpoint;
+    return environment.mockUrl + endpoint;
   }
 
   handleHttpErrorResponse(error: HttpErrorResponse): Observable<any> {
