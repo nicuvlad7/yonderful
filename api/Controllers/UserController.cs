@@ -59,12 +59,7 @@ namespace YonderfulApi.Controllers
         {
             if (await _userService.GetUserByEmail(user.Email) == null)
             {
-                var newUser = new User
-                {
-                    Name = user.Name,
-                    Password = user.Password,
-                    Email = user.Email
-                };
+                var newUser = _mapper.Map<UserDto, User>(user);
                 var postUser = await _userService.PostUser(newUser);
                 return Ok("Your account was successfully created.");
             }
