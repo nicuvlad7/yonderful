@@ -8,33 +8,55 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class HttpService {
+  headers!: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
 
   }
   
-  makeUserHttpRequest(requestName: string, requestBody?: any, ...pathParameters: string[]): Observable<any> {
-    const requestUrl: string = this.buildUrlPath(...pathParameters);
+  getAll<T>(endpoint: string): Observable<T[]> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint);
 
-    const headers = new HttpHeaders( {
-      'Content-Type': 'applicaton/json'
-    })
-
-    switch (requestName) {
-      case 'post': return this.userPostRequest(requestUrl, requestBody, headers);
-      default:  return throwError( () => new Error('Invalid Http Request.'));
-    }
-
+    return this.httpClient.get<T[]>(requestUrl, { headers: this.headers });
   }
 
-  private userPostRequest(requestUrl: string, requestBody?: any, headers?: any): Observable<any> {
-    return this.httpClient.post<User>(requestUrl, requestBody, headers);
+  getById<T>(id: number, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint) + '/' + id;
+
+    return this.httpClient.get<T>(requestUrl, { headers: this.headers });
   }
 
-  private buildUrlPath(...pathParameters: string[]): string {
-    const path: string = pathParameters.reduce((previous, current) => { return previous + '/' + current });
-    
-    return environment.apiUrl + path;
+  post<T>(input: any, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint);
+
+    return this.httpClient.post<T>(requestUrl, input, { headers: this.headers });
+  }
+
+  update<T>(input: any, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint);
+
+    return this.httpClient.put<T>(requestUrl, input, { headers: this.headers });
+  }
+
+  delete<T>(id: number, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint) + '/' + id;
+
+    return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
+  }
+
+  private setRequestHeaders(): void {
+    // TODO: set authorization token
+    this.headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+  }
+
+  private getRequestUrl(endpoint: string): string {
+    return environment.apiUrl + endpoint;
   }
 
   handleHttpErrorResponse(error: HttpErrorResponse): Observable<any> {
