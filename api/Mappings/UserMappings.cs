@@ -4,12 +4,12 @@ using YonderfulApi.Models;
 
 namespace YonderfulApi.Mappings
 {
-    public class EmployeeMappings : Profile
+    public class UserMappings : Profile
     {
-        public EmployeeMappings()
+        public UserMappings()
         {
             // source -> target
-            CreateMap<Employee, EmployeeDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }
