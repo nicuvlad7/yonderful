@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { Role } from 'src/app/models/constants'
+import { DialogService } from 'src/app/services/dialog.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidenav',
@@ -38,10 +40,23 @@ export class SidenavComponent implements OnInit {
   }
 
   changePerspective(): void{
-    this.userRole = this.userRole === Role.Admin ? Role.User : Role.Admin;
+    this.yesNoDialog().subscribe(result => {
+      if(result)
+        this.userRole = this.userRole === Role.Admin ? Role.User : Role.Admin;
+    })
+    
   }
 
-  constructor() { }
+  constructor(private dialogService: DialogService) { }
+
+  yesNoDialog():Observable<boolean>{
+    return this.dialogService.confirmDialog({
+      title: 'Confirm Action',
+      message: 'Are u sure?',
+      confirmText: 'Yes',
+      cancelText: 'No'
+    })
+  }
 
   ngOnInit(): void {
   }

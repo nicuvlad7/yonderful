@@ -14,8 +14,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     LoginCardComponent,
     EventListPageComponent,
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
