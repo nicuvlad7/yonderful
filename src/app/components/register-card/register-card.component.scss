@@ -1,59 +1,78 @@
-.register-card-wrapper {
+@import '../../variables.scss';
+
+@mixin flex-container($flex-direction-value, $justify-content-value: center) {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: $flex-direction-value;
+    justify-content: $justify-content-value;
+}
+
+.register-card-wrapper {
+    @include flex-container(column);
     align-items: center;
     height: 100%;
 }
 
 .register-card-container {
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column);
     width: 500px;
-    border-left-color: #E92B8E;
+    padding: 50px;
 }
 
 .register-card-header {
-    display: flex;
-    justify-content: center;
-    color: #E92B8E;
+    @include flex-container(row);
+    color: $yonder-pink;
+    margin-bottom: 50px;
 }
 
 .register-card-content {
-    display: flex;
-    justify-content: center;
+    @include flex-container(column);
 }
 
 .register-card-item {
-    display: flex;
+    @include flex-container(row, none);
     align-items: center;
-    position: relative;
-    margin-bottom: 2%;
+    margin-bottom: 10px;
 }
 
 .register-form {
     width: 100%;
-    padding: 5%;
 }
 
 .register-form-item {
     width: 100%;
-    margin-left: 5%;
+    margin-left: 20px;
+}
+
+.register-form-item:hover {
+    border-bottom-color: $yonder-pink;
 }
 
 .register-item-icon {
-    margin-bottom: 2.5%;
-    color: #00589D;
+    margin-bottom: 17px;
+    color: $yonder-blue;
 }
 
 a {
-    margin-top: 1%;
-    color: #1DA1F2;
+    margin-top: 10px;
+    color: $link-clear-blue;
     text-decoration: none;
 }
 
+a:hover {
+    color: $yonder-blue;
+}
+
+.button-wrapper {
+    @include flex-container(row, flex-end);
+}
+
 .register-button {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 5% 5% 0;
+    background-color: $yonder-blue;
+    color: $button-label-white;
+    width: 25%;
+}
+
+.register-button:enabled:hover {
+    background-color: $yonder-pink;
+    transition: background-color 500ms linear;
 }
