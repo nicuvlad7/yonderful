@@ -12,12 +12,9 @@ namespace api.Mappings
     {
         public UserMappings()
         {
-            // source -> target
             CreateMap<User, UserDto>();
 
             CreateMap<UserDto, User>();
-
         }
-        
     }
 }
