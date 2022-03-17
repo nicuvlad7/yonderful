@@ -1,32 +1,26 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+
 import { User } from '../models/user';
 import { catchError } from 'rxjs/operators';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
 
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpService: HttpService) { 
 
   }
 
   register(user: User): Observable<User>{
-    return this.httpClient.post<User>(environment.apiUrl + "users", user, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(
-      catchError(this.handleError)
-    )
+    // In the case you need a more complex path, provide it following the template:
+    // x/y/z will be sent in the method as separate arguments as ('x', 'y', 'z')
+    // 
+    return this.httpService.makeUserHttpRequest('post', user, 'users').pipe(
+      catchError(this.httpService.handleHttpErrorResponse)
+    );
   }
 
-  private handleError(error: HttpErrorResponse): Observable<any> {
-    var errorMessage: string = `Error status ${error.status}: ${error.message}`;
-
-    return throwError(() => new Error(errorMessage)); 
-  }
 }
