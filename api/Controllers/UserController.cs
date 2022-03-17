@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
 using YonderfulApi.Models;
@@ -9,7 +8,7 @@ using YonderfulApi.Service;
 
 namespace YonderfulApi.Controllers
 {
-    [Route("api/[controller]")]
+  [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -62,8 +61,7 @@ namespace YonderfulApi.Controllers
             {
                 var newUser = new User
                 {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
+                    Name = user.Name,
                     Password = user.Password,
                     Email = user.Email
                 };

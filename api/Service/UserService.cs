@@ -39,8 +39,7 @@ namespace YonderfulApi.Service
         {
             var newUser = new User
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Name = user.Name,
                 Password = hashing.HashToString(user.Password),
                 Email = user.Email
             };

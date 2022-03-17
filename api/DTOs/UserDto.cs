@@ -5,9 +5,7 @@ namespace YonderfulApi.DTOs
     public class UserDto
     {
         [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        public string Name { get; set; }
         [Required]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@tss-yonder.com", ErrorMessage = "E-mail is not valid")]
