@@ -31,7 +31,7 @@ namespace YonderfulApi.Controllers
             if(category == null) {
                 return NotFound();
             }
-            var categoryDto = TransformCategoryDtoForOutput(_mapper.Map<CategoryDto>(category));
+            var categoryDto = _categoryService.TransformCategoryDtoForOutput(_mapper.Map<CategoryDto>(category));
             return Ok(categoryDto);
         }
         
@@ -43,13 +43,13 @@ namespace YonderfulApi.Controllers
                 return NotFound();
             }
             var categoryDtoList = _mapper.Map<IList<CategoryDto>>(categoryList);
-            return Ok(TransformCategoryDtoListForOutput(categoryDtoList));
+            return Ok(_categoryService.TransformCategoryDtoListForOutput(categoryDtoList));
         }
 
         [HttpPost]
         public async Task<IActionResult> PostCategory(CategoryDto category) 
         {   
-            Category newCategory = CreateCategory(category);
+            Category newCategory = _categoryService.CreateCategory(category);
             
             var createdCategory = await _categoryService.PostCategory(newCategory);
             if(createdCategory == null) {
@@ -66,7 +66,7 @@ namespace YonderfulApi.Controllers
 
         [HttpPut]
         public async Task<ActionResult> PutCategory(int categoryId, CategoryDto updatedCategory) {
-            Category categoryToPut = CreateCategory(updatedCategory);
+            Category categoryToPut = _categoryService.CreateCategory(updatedCategory);
 
             var newCategory = await _categoryService.PutCategory(categoryId, categoryToPut);
             if(newCategory == null) {
@@ -75,48 +75,6 @@ namespace YonderfulApi.Controllers
             return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
         }
 
-        private int CreatePictureFromFileString(string fileString) {
-            var newPicture = new Picture 
-            {
-                Name = fileString.Split('/')[^1],
-                FileType = fileString.Split('.')[^1],
-                Content = System.IO.File.ReadAllBytes(fileString)
-            };
-            var existingPicture = _pictureService.GetPictureByNameFormatContent(newPicture);
-            if(existingPicture == null) {
-                return _pictureService.PostPicture(newPicture).Id;
-            }
-            return existingPicture.Id;
-        }
-
-        private async Task<String> GetPictureContent(string pictureIdStr) {
-            var iconPicture = await _pictureService.GetPicture(Int32.Parse(pictureIdStr));
-            return System.Text.Encoding.Default.GetString(iconPicture.Content);
-        }
-
-        private async Task<CategoryDto> TransformCategoryDtoForOutput(CategoryDto categoryDto) {
-            if(categoryDto != null) {
-                categoryDto.Icon = await GetPictureContent(categoryDto.Icon);
-                categoryDto.DefaultBackground = await GetPictureContent(categoryDto.DefaultBackground);
-            }
-            return categoryDto;
-        }
-
-        private async Task<LinkedList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
-            LinkedList<CategoryDto> outputCategoryList = new LinkedList<CategoryDto>();
-            foreach(CategoryDto categoryDto in categoryList) {
-                outputCategoryList.AddLast(await TransformCategoryDtoForOutput(categoryDto));
-            }
-            return outputCategoryList;
-        }
-
-        private Category CreateCategory(CategoryDto categoryDto) {
-            Category newCategory = new Category {
-                Title = categoryDto.Title,
-                IconId =  CreatePictureFromFileString(categoryDto.Icon),
-                DefaultBackgroundId = CreatePictureFromFileString(categoryDto.DefaultBackground)
-            };
-            return newCategory;
-        }
+        
     }
 }

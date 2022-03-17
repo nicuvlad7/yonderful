@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using YonderfulApi.DTOs;
 using YonderfulApi.Models;
 
 namespace YonderfulApi.Service
@@ -13,5 +14,11 @@ namespace YonderfulApi.Service
         Task<Category> PutCategory(int categoryId, Category categoryToPut);
 
         Task<bool> DeleteCategory(int categoryId);
+
+        Task<CategoryDto> TransformCategoryDtoForOutput(CategoryDto categoryDto);
+
+        Task<LinkedList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList);
+
+        Category CreateCategory(CategoryDto categoryDto);
     }
 }

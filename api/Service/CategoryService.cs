@@ -3,14 +3,18 @@ using System.Threading.Tasks;
 using YonderfulApi.Models;
 using YonderfulApi.Data;
 using Microsoft.EntityFrameworkCore;
+using YonderfulApi.DTOs;
+using Microsoft.AspNetCore.Components;
 
 namespace YonderfulApi.Service
 {
     public class CategoryService : ICategoryService
     {
         private readonly DataContext _context;
-        public CategoryService(DataContext context) {
+        private readonly IPictureService _pictureService;
+        public CategoryService(DataContext context, IPictureService pictureService) {
             _context = context;
+            _pictureService = pictureService;
         }
 
     public async Task<Category> GetCategory(int categoryId) {
@@ -57,6 +61,31 @@ namespace YonderfulApi.Service
     private async Task<bool> CategoryExists(Category category)
     {
         return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == category.Title.ToLower());
+    }
+
+    public async Task<CategoryDto> TransformCategoryDtoForOutput(CategoryDto categoryDto) {
+        if(categoryDto != null) {
+            categoryDto.Icon = await _pictureService.GetPictureContent(categoryDto.Icon);
+            categoryDto.DefaultBackground = await _pictureService.GetPictureContent(categoryDto.DefaultBackground);
+        }
+        return categoryDto;
+    }
+
+    public async Task<LinkedList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
+        LinkedList<CategoryDto> outputCategoryList = new LinkedList<CategoryDto>();
+        foreach(CategoryDto categoryDto in categoryList) {
+            outputCategoryList.AddLast(await TransformCategoryDtoForOutput(categoryDto));
+        }
+        return outputCategoryList;
+    }
+
+    public Category CreateCategory(CategoryDto categoryDto) {
+        Category newCategory = new Category {
+            Title = categoryDto.Title,
+            IconId = _pictureService.CreatePictureFromFileString(categoryDto.Icon),
+            DefaultBackgroundId = _pictureService.CreatePictureFromFileString(categoryDto.DefaultBackground)
+        };
+        return newCategory;
     }
   }
 }

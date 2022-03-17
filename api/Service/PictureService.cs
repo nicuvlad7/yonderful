@@ -4,6 +4,7 @@ using YonderfulApi.Models;
 using System.Drawing;
 using YonderfulApi.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace YonderfulApi.Service 
 {
@@ -51,5 +52,26 @@ namespace YonderfulApi.Service
             _context.Pictures.Remove(picture);
             return await _context.SaveChangesAsync() > 0;
     }
+
+    public int CreatePictureFromFileString(string fileString) {
+        var newPicture = new Picture 
+        {
+            Name = fileString.Split('/')[^1],
+            FileType = fileString.Split('.')[^1],
+            Content = System.IO.File.ReadAllBytes(fileString)
+        };
+        var existingPicture = GetPictureByNameFormatContent(newPicture);
+        if(existingPicture == null) {
+            return PostPicture(newPicture).Id;
+        }
+        return existingPicture.Id;
+    }
+
+    public async Task<string> GetPictureContent(string pictureIdStr) {
+        var iconPicture = await GetPicture(Int32.Parse(pictureIdStr));
+        return System.Text.Encoding.Default.GetString(iconPicture.Content);
+    }
+
+
   }
 }

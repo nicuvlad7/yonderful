@@ -10,9 +10,9 @@ namespace YonderfulApi.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IPictureService, PictureService>();
-            
+            services.AddScoped<ICategoryService, CategoryService>();
+
             return services;
         }
 
