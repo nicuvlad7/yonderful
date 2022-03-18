@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class HttpService {
   headers!: HttpHeaders;
 
-  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient) {
 
   }
   
