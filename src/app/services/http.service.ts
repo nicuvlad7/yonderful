@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class HttpService {
   headers!: HttpHeaders;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
 
   }
   
@@ -60,7 +61,8 @@ export class HttpService {
   }
 
   handleHttpErrorResponse(error: HttpErrorResponse): Observable<any> {
-    var errorMessage: string = `Error status ${error.status}: ${error.message}`;
+    var errorMessage: string = `Error status ${error.status}: ${error.error}`;
+    // this.snackBar.open(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
 

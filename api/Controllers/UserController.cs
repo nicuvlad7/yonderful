@@ -70,7 +70,7 @@ namespace YonderfulApi.Controllers
                 var postUser = await _userService.PostUser(newUser);
                 return Ok(postUser);
             }
-            return BadRequest();
+            return BadRequest("Email already in use.");
         }
 
         [HttpDelete]
