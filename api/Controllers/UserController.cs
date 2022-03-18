@@ -58,9 +58,10 @@ namespace YonderfulApi.Controllers
         }
 
         [HttpPost]
-        [Produces(typeof(UserDto))]
+        // [Produces(typeof(UserDto))]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> PostUser(UserDto user)
         {
             if (await _userService.GetUserByEmail(user.Email) == null)
@@ -69,7 +70,7 @@ namespace YonderfulApi.Controllers
                 var postUser = await _userService.PostUser(newUser);
                 return Ok(postUser);
             }
-            return BadRequest("User cannot be registered.");
+            return BadRequest();
         }
 
         [HttpDelete]

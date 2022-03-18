@@ -60,7 +60,7 @@ export class RegisterCardComponent implements OnInit {
         this.snackBar.open(`User ${this.responseUserObject.name} has been registered.`);
       },
       error: (error: Error) => {
-        this.snackBar.open(error.message, "Close");
+        this.snackBar.open("Email already in use.");
       }
     })
   }
