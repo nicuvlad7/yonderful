@@ -29,7 +29,7 @@ export class RegisterCardComponent implements OnInit {
   initFormControls(): void {
     this.registerForm = new FormGroup({
       registerNameControl: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]+')]),
-      registerEmailControl: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com')]),
+      registerEmailControl: new FormControl('', [Validators.required, Validators.pattern('[a-z]+\\.[a-z]+@tss-yonder\\.com')]),
       registerPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
 
