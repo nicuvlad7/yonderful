@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YonderfulApi.Migrations
 {
-    public partial class CategoryAndPictures : Migration
+    public partial class UserDetails : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,6 +36,24 @@ namespace YonderfulApi.Migrations
                 {
                     table.PrimaryKey("PK_Pictures", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    UserRole = table.Column<int>(type: "INTEGER", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
+                    Position = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNo = table.Column<string>(type: "TEXT", maxLength: 10, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -45,6 +63,9 @@ namespace YonderfulApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Pictures");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

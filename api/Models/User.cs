@@ -14,8 +14,8 @@ namespace api.Models
     public Role UserRole { get; set; } = Role.User;
     public string Email { get; set; }
     public string Password { get; set; }
-    public string Position { get; set; }
+    public string Position { get; set; } = "Employee";
     [StringLength(10)]
-    public string PhoneNo { get; set; }
+    public string PhoneNo { get; set; } = "";
   }
 }

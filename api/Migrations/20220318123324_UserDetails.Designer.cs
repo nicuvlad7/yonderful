@@ -9,8 +9,8 @@ using YonderfulApi.Data;
 namespace YonderfulApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220314230336_UserCreate")]
-    partial class UserCreate
+    [Migration("20220318123324_UserDetails")]
+    partial class UserDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,21 +18,44 @@ namespace YonderfulApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("YonderfulApi.Models.Employee", b =>
+            modelBuilder.Entity("YonderfulApi.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("DefaultBackgroundId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("LastName")
+                    b.Property<int>("IconId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("YonderfulApi.Models.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("api.Models.User", b =>
@@ -47,10 +70,17 @@ namespace YonderfulApi.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<ulong?>("PhoneNo")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("Role")
+                    b.Property<string>("PhoneNo")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserRole")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

@@ -72,7 +72,7 @@ namespace api.Service
       existingUser.Name = user.Name;
       existingUser.UserRole = user.UserRole;
       existingUser.Position = user.Position;
-      existingUser.Password = user.Password;
+      existingUser.Password = hashing.HashToString(user.Password);
       existingUser.PhoneNo = user.PhoneNo;
 
       _context.Users.Update(existingUser);
