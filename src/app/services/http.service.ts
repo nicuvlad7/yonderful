@@ -14,11 +14,11 @@ export class HttpService {
 
   }
   
-  getAll<T>(endpoint: string): Observable<T[]> {
+  getAll<T>(endpoint: string): Observable<T> {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint);
 
-    return this.httpClient.get<T[]>(requestUrl, { headers: this.headers });
+    return this.httpClient.get<T>(requestUrl, { headers: this.headers });
   }
 
   getById<T>(id: number, endpoint: string): Observable<T> {
@@ -28,18 +28,18 @@ export class HttpService {
     return this.httpClient.get<T>(requestUrl, { headers: this.headers });
   }
 
-  post<T>(input: any, endpoint: string): Observable<T> {
+  post<T>(requestBody: any, endpoint: string): Observable<T> {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint);
 
-    return this.httpClient.post<T>(requestUrl, input, { headers: this.headers});
+    return this.httpClient.post<T>(requestUrl, requestBody, { headers: this.headers});
   }
 
-  update<T>(input: any, endpoint: string): Observable<T> {
+  update<T>(requestBody: any, endpoint: string): Observable<T> {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint);
 
-    return this.httpClient.put<T>(requestUrl, input, { headers: this.headers });
+    return this.httpClient.put<T>(requestUrl, requestBody, { headers: this.headers });
   }
 
   delete<T>(id: number, endpoint: string): Observable<T> {
@@ -62,7 +62,6 @@ export class HttpService {
 
   handleHttpErrorResponse(error: HttpErrorResponse): Observable<any> {
     var errorMessage: string = `Error status ${error.status}: ${error.error}`;
-    // this.snackBar.open(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
 

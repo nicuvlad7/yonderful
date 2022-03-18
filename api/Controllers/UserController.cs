@@ -58,7 +58,6 @@ namespace YonderfulApi.Controllers
         }
 
         [HttpPost]
-        // [Produces(typeof(UserDto))]
         [Produces("application/json")]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -70,7 +69,7 @@ namespace YonderfulApi.Controllers
                 var postUser = await _userService.PostUser(newUser);
                 return Ok(postUser);
             }
-            return BadRequest("Email already in use.");
+            return Conflict("User with given email already exists.");
         }
 
         [HttpDelete]
