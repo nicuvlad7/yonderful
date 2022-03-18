@@ -31,7 +31,7 @@ export class HttpService {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint);
 
-    return this.httpClient.post<T>(requestUrl, input, { headers: this.headers });
+    return this.httpClient.post<T>(requestUrl, input, { headers: this.headers});
   }
 
   update<T>(input: any, endpoint: string): Observable<T> {
@@ -51,7 +51,8 @@ export class HttpService {
   private setRequestHeaders(): void {
     // TODO: set authorization token
     this.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json');
+      .set('content-type', 'application/json')
+      .set("Access-Control-Allow-Origin", "*");
   }
 
   private getRequestUrl(endpoint: string): string {

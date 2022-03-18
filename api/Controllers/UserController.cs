@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Cors;
@@ -56,15 +58,18 @@ namespace YonderfulApi.Controllers
         }
 
         [HttpPost]
+        [Produces(typeof(UserDto))]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> PostUser(UserDto user)
         {
             if (await _userService.GetUserByEmail(user.Email) == null)
             {
                 var newUser = _mapper.Map<UserDto, User>(user);
                 var postUser = await _userService.PostUser(newUser);
-                return Ok("Your account was successfully created.");
+                return Ok(postUser);
             }
-            return BadRequest("User with given email already exists!");
+            return BadRequest("User cannot be registered.");
         }
 
         [HttpDelete]
