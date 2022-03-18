@@ -49,8 +49,8 @@ export class RegisterCardComponent implements OnInit {
 
   onRegisterUser(): void {
     const user: User = {
-      name: this.registerForm.get('registerNameControl')!.value.split(' ')[0], 
-      email: this.registerForm.get('registerEmailControl')!.value, 
+      name: this.registerForm.get('registerNameControl')!.value.replace(/\s+/g, ' ').trim(), 
+      email: this.registerForm.get('registerEmailControl')!.value.trim(), 
       password: this.registerForm.get('registerPasswordControl')!.value
     };
 
