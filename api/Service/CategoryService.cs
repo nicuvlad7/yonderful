@@ -79,11 +79,11 @@ namespace YonderfulApi.Service
         return outputCategoryList;
     }
 
-    public Category CreateCategory(CategoryDto categoryDto) {
+    public async Task<Category> CreateCategory(CategoryDto categoryDto) {
         Category newCategory = new Category {
             Title = categoryDto.Title,
-            IconId = _pictureService.CreatePictureFromFileString(categoryDto.Icon),
-            DefaultBackgroundId = _pictureService.CreatePictureFromFileString(categoryDto.DefaultBackground)
+            IconId = await _pictureService.CreatePictureFromFileString(categoryDto.Icon),
+            DefaultBackgroundId = await _pictureService.CreatePictureFromFileString(categoryDto.DefaultBackground)
         };
         return newCategory;
     }
