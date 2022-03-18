@@ -18,10 +18,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { MaterialModules } from './modules/material.module';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
-
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
     RegisterCardComponent,
     SidenavComponent,
     ToolbarComponent,
-    CategoriesTableComponent
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

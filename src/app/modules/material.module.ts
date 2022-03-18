@@ -6,9 +6,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgModule } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 const importModules = [
     MatCardModule,
@@ -18,8 +16,7 @@ const importModules = [
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatTableModule,
-    MatSortModule,
+    MatDialogModule
 ];
 
 @NgModule({
