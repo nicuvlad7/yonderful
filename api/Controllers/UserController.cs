@@ -23,13 +23,24 @@ namespace api.Controllers
       _mapper = mapper;
     }
 
-    [HttpGet("{userId}")]
-    public async Task<IActionResult> GetUser(int userId)
+    [HttpGet("Id/{userId}")]
+    public async Task<IActionResult> GetUserById(int userId)
     {
-      var user = await _userService.GetUser(userId);
+      var user = await _userService.GetUserById(userId);
       if (user == null)
       {
-        return NotFound();
+        return NotFound("No user with given id!");
+      }
+      return Ok(_mapper.Map<UserDto>(user));
+    }
+
+    [HttpGet("email/{email}")]
+    public async Task<IActionResult> GetUserByEmail(string email)
+    {
+      var user = await _userService.GetUserByEmail(email);
+      if (user == null)
+      {
+        return NotFound("No user with given id!");
       }
       return Ok(_mapper.Map<UserDto>(user));
     }
@@ -48,19 +59,20 @@ namespace api.Controllers
     [HttpPost]
     public async Task<IActionResult> PostUser(UserDto user)
     {
-      var newUser = await _userService.PostUser(_mapper.Map<User>(user));
-      if (newUser == null)
+      if (await _userService.GetUserByEmail(user.Email) == null)
       {
-        return BadRequest();
+        var newUser = _mapper.Map<UserDto, User>(user);
+        var postUser = await _userService.PostUser(newUser);
+        return Ok("Your account was successfully created.");
       }
-      return Created(nameof(GetUser), _mapper.Map<UserDto>(newUser));
+      return BadRequest("User with given email already exists!");
     }
 
     [HttpDelete]
     public async Task<IActionResult> DeleteUser(int userId)
     {
       var removedUser = await _userService.DeleteUser(userId);
-      return removedUser ? Ok() : BadRequest();
+      return removedUser ? Ok("User deleted succesfully!") : BadRequest("User with given id does not exist!");
     }
 
     [HttpPut]
@@ -71,7 +83,7 @@ namespace api.Controllers
       {
         return BadRequest();
       }
-      return Created(nameof(GetUser), newUser);
+      return Created(nameof(GetUserById), newUser);
     }
   }
 }
