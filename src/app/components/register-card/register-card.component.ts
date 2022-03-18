@@ -28,8 +28,8 @@ export class RegisterCardComponent implements OnInit {
 
   initFormControls(): void {
     this.registerForm = new FormGroup({
-      registerNameControl: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]+')]),
-      registerEmailControl: new FormControl('', [Validators.required, Validators.pattern('[a-z]+\\.[a-z]+@tss-yonder\\.com')]),
+      registerNameControl: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*')]),
+      registerEmailControl: new FormControl('', [Validators.required, Validators.pattern('^[a-z]+\\.[a-z]+@tss-yonder\\.com')]),
       registerPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
 
@@ -49,7 +49,7 @@ export class RegisterCardComponent implements OnInit {
 
   onRegisterUser(): void {
     const user: User = {
-      name: this.registerForm.get('registerNameControl')!.value, 
+      name: this.registerForm.get('registerNameControl')!.value.split(' ')[0], 
       email: this.registerForm.get('registerEmailControl')!.value, 
       password: this.registerForm.get('registerPasswordControl')!.value
     };
