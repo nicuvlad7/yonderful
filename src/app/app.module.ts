@@ -20,6 +20,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { MaterialModules } from './modules/material.module';
+import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MaterialModules } from './modules/material.module';
     EventListPageComponent,
     RegisterCardComponent,
     SidenavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    CategoriesTableComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { MaterialModules } from './modules/material.module';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModules
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

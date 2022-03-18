@@ -33,6 +33,7 @@ namespace YonderfulApi.Controllers
             return Ok(categoryDto);
         }
         
+        
         [HttpGet]
         public async Task<IActionResult> GetCategoryList() 
         {

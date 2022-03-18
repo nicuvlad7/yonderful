@@ -9,7 +9,8 @@ import { RegisterCardComponent } from './components/register-card/register-card.
 const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
   { path: 'events-list', component: EventListPageComponent}, 
-  { path: 'register', component: RegisterCardComponent}
+  { path: 'register', component: RegisterCardComponent},
+  { path: 'administrate-categories', component: CategoriesTableComponent}
 ];
 
 @NgModule({
