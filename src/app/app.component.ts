@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,21 @@ import { Component, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'Workshop Angular';
-  description = 'Angular Introduction';
+  isMenuVisible = true;
+  currentRoute: string;
 
-  constructor() {
+  constructor(private router : Router) {
+    this.currentRoute='';
+    this.router.events.subscribe(
+      event =>{
+        this.currentRoute = location.pathname;
+        this.isMenuVisible = !(this.currentRoute === "/login" || this.currentRoute === '/register');
+      }
+    );
   }
-  
+
   ngOnInit() {
   }
 
 }
+

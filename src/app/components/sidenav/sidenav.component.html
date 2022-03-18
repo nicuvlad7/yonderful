@@ -1,0 +1,55 @@
+<mat-sidenav-container class="sidenav-container" autosize>
+    <mat-sidenav [class.item-description]="menuLabelsVisible" class="sidenav" mode="side" opened>
+
+        <div class="sidenav-content" >
+            <div class="primary-menu-items">
+                <button mat-icon-button (click)="toggleSidebar()">
+                    <mat-icon class="icon-style">menu</mat-icon>
+                </button>
+
+                <ng-container *ngIf="userRole==roleType.User">
+                    <ng-container  *ngFor="let item of primaryMenuItemsUser">
+                        <div class="icon-description">
+                            <button mat-icon-button>
+                                <mat-icon class="icon-style">{{item.name}}</mat-icon>
+                            </button>
+                            <span class="title">{{item.title}}</span>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="userRole==roleType.Admin">
+                    <ng-container  *ngFor="let item of primaryMenuItemsAdmin">
+                        <div class="icon-description">
+                            <button mat-icon-button>
+                                <mat-icon class="icon-style">{{item.name}}</mat-icon>
+                            </button>
+                            <span class="title">{{item.title}}</span>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <!--admin <-> normal user-->
+                <button mat-icon-button (click)="changePerspective()">
+                    <mat-icon class="icon-style">refresh</mat-icon>
+                </button>
+            </div>
+
+            <div class="secondary-menu-items">
+                <ng-container *ngFor="let item of secondaryMenuItems">
+                    <div class="icon-description">
+                        <button mat-icon-button>
+                            <mat-icon class="icon-style">{{item.name}}</mat-icon>
+                        </button>
+                        <span class="title">{{item.title}}</span>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <app-toolbar></app-toolbar>
+        <ng-component></ng-component>
+    </mat-sidenav-content>
+</mat-sidenav-container>
