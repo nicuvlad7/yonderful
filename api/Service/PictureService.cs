@@ -62,8 +62,9 @@ namespace YonderfulApi.Service
         };
         var existingPictureId = await GetPictureId(newPicture);
         if(existingPictureId == 0) {
-        return PostPicture(newPicture).Id;
-        }
+        var auxPicture = await PostPicture(newPicture);
+        return auxPicture.Id;
+      }
         return existingPictureId;
     }
 
