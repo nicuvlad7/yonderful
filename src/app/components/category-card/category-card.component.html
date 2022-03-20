@@ -1,75 +1,90 @@
 <div class="card" style="margin: auto">
-  <div class="cat-Action">
-    <button
-      class="button-cat"
-      (click)="onEditClick()"
-      *ngIf="editMode === false"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button
-      class="button-cat"
-      (click)="onDelete()"
-      *ngIf="editMode === false"
-      [disabled]="canMakeChanges ? null : true"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button class="button-cat" *ngIf="editMode === true" (click)="onSubmitForm()">
-      <mat-icon>save</mat-icon>
-    </button>
-    <button class="button-cat" *ngIf="editMode === true" (click)="onDiscard()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
+  <form [formGroup]="categoryForm">
+    <div class="loading-indicator" *ngIf="loading === true">
+      <mat-progress-spinner
+        mode="indeterminate"
+        color="accent"
+      ></mat-progress-spinner>
+    </div>
+    <div class="cat-Action">
+      <button
+        class="buttonCat"
+        (click)="onEditClick()"
+        *ngIf="editMode === false"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        (click)="onDelete()"
+        *ngIf="editMode === false"
+        [ngClass]="{
+          disabledButton: canMakeChanges === false,
+          buttonCat: canMakeChanges === true
+        }"
+        [disabled]="canMakeChanges ? false : true"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        class="buttonCat"
+        *ngIf="editMode === true"
+        (click)="onSubmitForm()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button class="buttonCat" *ngIf="editMode === true" (click)="onDiscard()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
-  <div class="segment">
-    <div class="centered-segment">
-      <mat-form-field appearance="fill" style="width: 100%">
+    <div class="segment flex-center">
+      <mat-form-field appearance="fill" style="width: 50%">
         <mat-label> Title. </mat-label>
         <input
           matInput
-          [(ngModel)]="title"
-          [(ngModel)]="categoryCard.title"
-          [readonly]="canMakeChanges ? null : true"
+          [readonly]="canMakeChanges && editMode ? null : true"
+          required
+          formControlName="titleControl"
+          placeholder="Choose category name."
         />
+        <mat-error>Title length is incorrect.</mat-error>
       </mat-form-field>
     </div>
-  </div>
 
-  <div class="segment">
-    <div class="centered-segment">
-      <app-upload-file
-        (onUpload)="onChangeBackground($event)"
-        [editEnabled]="editMode"
-        [hidden]="editMode ? null : true"
-      ></app-upload-file>
-      <div style="font-size: large">Background image.</div>
+    <div class="segment flex-center">
+      <div class="centered-segment flex-center">
+        <app-upload-file
+          [form]="categoryForm"
+          [hidden]="editMode ? null : true"
+          controlName="backgroundControl"
+        ></app-upload-file>
+        <div style="font-size: large">Background image.</div>
+      </div>
     </div>
-  </div>
 
-  <div class="segment">
-    <img
-      [src]="backgroundImg || '/assets/chooseImage.png'"
-      class="bgImg centered-segment"
-    />
-  </div>
-
-  <div class="segment">
-    <div class="centered-segment">
-      <app-upload-file
-        (onUpload)="onChangeIcon($event)"
-        [editEnabled]="editMode"
-        [hidden]="editMode ? null : true"
-      ></app-upload-file>
-      <div style="font-size: large">Category icon.</div>
+    <div class="background-segment flex-center">
+      <img
+        [src]="categoryCard.backgroundImg || '/assets/chooseImage.png'"
+        class="bgImg"
+      />
     </div>
-  </div>
-  <div class="segment" style="margin-bottom: 15px">
-    <img
-      [src]="iconImg || '/assets/chooseImage.png'"
-      class="icon centered-segment"
-    />
-  </div>
-  <div style="height: 20px"></div>
+
+    <div class="segment flex-center">
+      <div class="centered-segment flex-center">
+        <app-upload-file
+          [form]="categoryForm"
+          [hidden]="editMode ? null : true"
+          controlName="iconControl"
+        ></app-upload-file>
+        <div style="font-size: large">Category icon.</div>
+      </div>
+    </div>
+    <div class="icon-segment flex-center" style="margin-bottom: 15px">
+      <img
+        [src]="categoryCard.icon || '/assets/chooseImage.png'"
+        class="icon"
+      />
+    </div>
+    <div style="height: 20px"></div>
+  </form>
 </div>

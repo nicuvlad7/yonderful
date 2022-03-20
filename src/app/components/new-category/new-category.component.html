@@ -1,56 +1,64 @@
 <div class="card" style="margin: auto">
-  <div class="wrapper">
+  <form [formGroup]="categoryForm">
+    <div class="loading-indicator" *ngIf = "loading === true">
+      <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+    </div>
     <div class="cat-Action">
-      <button class="button-cat" (click)="onSubmitForm()"><mat-icon>save</mat-icon></button>
+      <button class="buttonCat" (click)="onSubmitForm()"  ><mat-icon>save</mat-icon></button>
     </div>
   
-    <div class="segment">
-      <div class="centered-segment">
-        <mat-form-field appearance="fill">
+    <div class="segment flex-center">
+        <mat-form-field appearance="fill" style="width: 50%;">
           <mat-label> Title. </mat-label>
           <input
             matInput
-            [(ngModel)]="title"
-            [(ngModel)]="categoryCard.title"
+            formControlName="titleControl"
             required
+            placeholder="Choose category name."
           />
+          <mat-error>Title length is incorrect.</mat-error>
         </mat-form-field>
-      </div>
     </div>
   
-    <div class="segment">
-      <div class="centered-segment">
+    <div class="segment flex-center">
+      <div class="centered-segment flex-center">
         <app-upload-file
-          (onUpload)="onChangeBackground($event)"
+        (click)="disableBgError()"
+        [form]="categoryForm"
+        controlName="backgroundControl"
         ></app-upload-file>
-        <div style="font-size: large;">Background image.</div>
+        <div style="font-size: large;" >Background image.</div>
+        <mat-error style="margin-left: 5px" *ngIf="categoryForm.get('backgroundControl')!.hasError('required') && displayBgError">Choose an image.</mat-error>
       </div>
     </div>
-  
-    <div class="segment">
+
+    <div class="background-segment flex-center">
       <img
         [src]="
-          backgroundImg ||
+          categoryCard.backgroundImg ||
           '/assets/chooseImage.png'
         "
-        class="bgImg centered-segment"
+        class="bgImg"
       />
     </div>
   
-    <div class="segment">
-      <div class="centered-segment">
-        <app-upload-file (onUpload)="onChangeIcon($event)"></app-upload-file>
+    <div class="segment flex-center">
+      <div class="centered-segment flex-center">
+        <app-upload-file [form]="categoryForm"
+        (click)="disableIconError()"
+        controlName="iconControl"></app-upload-file>
         <div style="font-size: large;">Category icon.</div>
+        <mat-error style="margin-left: 5px" *ngIf="categoryForm.get('iconControl')!.hasError('required') && displayIconError">Choose an image.</mat-error>
       </div>
     </div>
-    <div class="segment">
+    <div class="icon-segment flex-center">
       <img
         [src]="
-          iconImg ||
+        categoryCard.icon ||
           '/assets/chooseImage.png'
         "
-        class="icon centered-segment"
+        class="icon"
       />
     </div>
-  </div>
+  </form>
 </div>

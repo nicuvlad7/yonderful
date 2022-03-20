@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-upload-file',
@@ -8,18 +9,20 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 })
 export class UploadFileComponent implements OnInit {
 
-  @Output() onUpload = new EventEmitter<{ file: File }>();
   @Input() editEnabled:Boolean=false;
+  @Input() form!: FormGroup;
+  @Input() controlName!:string;
+  
+  constructor() { }
 
-  constructor() {}
-
-  onFileSelected(event: any):void {  
-    if(event.target.files && event.target.files[0]){
-      const file = event.target.files[0];
-      this.onUpload.emit({ file: file });
-    }
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {}
+  onFileSelected(event: any) {  
+     
+    if(event.target.files && event.target.files[0]){
+      this.form.patchValue({[this.controlName] : event.target.files[0]});
+    } 
+  }
 }
 

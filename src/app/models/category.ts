@@ -1,6 +1,6 @@
 
 export interface CategoryCard {
     title: string,
-    icon: File,
-    backgroundImg: File
+    icon: string,
+    backgroundImg: string
 }

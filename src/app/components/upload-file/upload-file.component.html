@@ -1,16 +1,18 @@
-<input
-  type="file"
-  class="file-input"
-  (change)="onFileSelected($event)"
-  #fileUpload
-  accept="image"
-/>
-<div class="file-upload ">
-  <button
-    class="button-2"
-    (click)="fileUpload.click()"
-    [ngClass]="{disabled:editEnabled === true}"
-  >
-    <mat-icon>attach_file</mat-icon>
-  </button>
+<div class="form-input">
+  <input
+    type="file"
+    class="file-input"
+    (change)="onFileSelected($event)"
+    #fileUpload
+    accept="image/*"
+  />
+  <div class="file-upload">
+    <button
+      class="button-2"
+      (click)="fileUpload.click()"
+      [ngClass]="{ disabled: editEnabled === true }"
+    >
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
 </div>

@@ -11,7 +11,10 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { MatIconModule } from '@angular/material/icon';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

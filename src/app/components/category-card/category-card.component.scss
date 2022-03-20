@@ -1,17 +1,21 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  height: 90%;
+  height: 95%;
   width: 60%;
   margin: auto;
 }
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-.mat-form-field{
-  width: 1000%;
+.mat-form-field {
+  width: 100%;
 }
-.button-cat {
+.buttonCat {
   border-radius: 15px;
   border: none;
   color: white;
@@ -20,7 +24,15 @@
   width: 50px;
   margin: 6px;
 }
-
+.disabledButton {
+  border-radius: 15px;
+  border: none;
+  color: white;
+  background-color: gray;
+  height: 50px;
+  width: 50px;
+  margin: 6px;
+}
 .cat-Action {
   display: flex;
   justify-content: flex-end;
@@ -33,47 +45,80 @@
 }
 
 .segment {
-  display: flex;
-  justify-content: center;
   margin-top: 10px;
+}
+
+.background-segment {
+  height: 25%;
+}
+.icon-segment {
+  height: 10%;
+}
+.icon {
+  min-height: 75px;
+  min-width: 75px;
+  height: 100%;
+  width: 10%;
 }
 .file-input {
   display: none;
 }
 .centered-segment {
-  width: 50%;
-  display: flex;
   align-items: center;
-}
-.centered-segment-btn {
+  justify-content: flex-start;
   width: 50%;
-  display: flex;
-  align-items: center;
-  height:62px;
+  height: 62px;
 }
-.icon {
-  height: 75px;
-  width: 75px;
-}
+
 .bgImg {
-  height: 25%;
+  min-height: 150px;
+  min-width: 150px;
+  height: 100%;
   width: 25%;
 }
+
 .img {
   background-size: cover;
 }
 
-.editEnabled {
-  border-radius: 15px;
-  border: none;
-  color: white;
-  background-color: blue;
-  height: 50px;
-  width: 50px;
-  margin: 6px;
-}
-
-.button-cat:active {
+.buttonCat:active {
   transform: scale(0.9);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+.mat-spinner {
+  float: inline-start;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-indicator {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading-indicator:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
 }
