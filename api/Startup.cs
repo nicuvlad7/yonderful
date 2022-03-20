@@ -28,7 +28,7 @@ namespace YonderfulApi
             services.AddMappingServices(Configuration);
 
             services.AddApplicationServices(Configuration);
-            
+           
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -52,10 +52,13 @@ namespace YonderfulApi
 
             app.UseAuthorization();
 
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
