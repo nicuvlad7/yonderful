@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Models;
+using YonderfulApi.Models;
 
-namespace api.Service
+namespace YonderfulApi.Service
 {
   public interface IUserService
   {

@@ -2,19 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.DTOs;
-using api.Models;
+using YonderfulApi.DTOs;
+using YonderfulApi.Models;
 using AutoMapper;
 
-namespace api.Mappings
+namespace YonderfulApi.Mappings
 {
-    public class UserMappings: Profile
+  public class UserMappings : Profile
+  {
+    public UserMappings()
     {
-        public UserMappings()
-        {
-            CreateMap<User, UserDto>();
-
-            CreateMap<UserDto, User>();
-        }
+      CreateMap<User, UserDto>();
+      CreateMap<UserUpdateDto, User>();
+      CreateMap<User, UserUpdateDto>();
+      CreateMap<UserDetailsDto, User>();
+      CreateMap<User, UserDetailsDto>();
+      CreateMap<UserDto, User>();
     }
+  }
 }

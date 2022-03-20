@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Models;
+using YonderfulApi.Models;
 using Microsoft.EntityFrameworkCore;
 using YonderfulApi.Data;
 
-namespace api.Service
+namespace YonderfulApi.Service
 {
   public class UserService : IUserService
   {
@@ -37,16 +37,12 @@ namespace api.Service
 
     public async Task<User> PostUser(User user)
     {
-      var newUser = new User
-      {
-        Name = user.Name,
-        Password = hashing.HashToString(user.Password),
-        Email = user.Email
-      };
+      if (await UserExists(user.Email)) return null;
 
-      _context.Users.Add(newUser);
+      user.Password = hashing.HashToString(user.Password);
+      _context.Users.Add(user);
       await _context.SaveChangesAsync();
-      return newUser;
+      return user;
     }
 
     public async Task<bool> DeleteUser(int id)
@@ -68,9 +64,7 @@ namespace api.Service
       var existingUser = await _context.Users.FindAsync(user.Id);
       if (existingUser == null) return null;
 
-      existingUser.Email = user.Email;
       existingUser.Name = user.Name;
-      existingUser.UserRole = user.UserRole;
       existingUser.Position = user.Position;
       existingUser.Password = hashing.HashToString(user.Password);
       existingUser.PhoneNo = user.PhoneNo;

@@ -9,8 +9,8 @@ using YonderfulApi.Data;
 namespace YonderfulApi.Migrations
 {
   [DbContext(typeof(DataContext))]
-  [Migration("20220318123324_UserDetails")]
-  partial class UserDetails
+  [Migration("20220320171914_UpdateExisting")]
+  partial class UpdateExisting
   {
     protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
@@ -58,7 +58,7 @@ namespace YonderfulApi.Migrations
             b.ToTable("Pictures");
           });
 
-      modelBuilder.Entity("api.Models.User", b =>
+      modelBuilder.Entity("YonderfulApi.Models.User", b =>
           {
             b.Property<int>("Id")
                       .ValueGeneratedOnAdd()
