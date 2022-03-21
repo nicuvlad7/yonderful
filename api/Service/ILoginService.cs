@@ -9,5 +9,7 @@ namespace api.Service
          Task<User> Login(UserLoginDto userLogin);
 
          Task<User> VerifyUserCredentials(UserLoginDto userLogin);
+
+         string GenerateJwt(User user, string issuer, string key);
     }
 }
