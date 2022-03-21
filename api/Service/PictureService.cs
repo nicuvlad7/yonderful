@@ -58,7 +58,7 @@ namespace YonderfulApi.Service
         {
             Name = fileString.Split('/')[^1],
             FileType = fileString.Split('.')[^1],
-            Content = System.IO.File.ReadAllBytes(fileString)
+            Content = Convert.ToBase64String(System.IO.File.ReadAllBytes(fileString))
         };
         var existingPictureId = await GetPictureId(newPicture);
         if(existingPictureId == 0) {
@@ -70,7 +70,7 @@ namespace YonderfulApi.Service
 
     public async Task<string> GetPictureContent(string pictureIdStr) {
         var iconPicture = await GetPicture(Int32.Parse(pictureIdStr));
-        return System.Text.Encoding.Default.GetString(iconPicture.Content);
+        return iconPicture.Content;
     }
   }
 }

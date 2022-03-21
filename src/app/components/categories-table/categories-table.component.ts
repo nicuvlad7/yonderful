@@ -12,16 +12,16 @@ export class CategoriesTableComponent implements OnInit {
 
   dataSource: Category[] = [];
   categoriesToShowArray: CategoryToShow[] = [];
-  displayedColumns = ["Icon", "Title"];
+  displayedColumns = ["Icon", "Title", "Actions"];
   valoare: Number = 0;
   constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
-    // this.endpointsService.getCategories().subscribe(categories => {
-    //   this.dataSource = categories.result;
-    //   this.createCategoriesToShow();
-    // });
+    this.endpointsService.getCategories().subscribe(categories => {
+      this.dataSource = categories.result;
+      this.createCategoriesToShow();
+    });
     
     
   }
