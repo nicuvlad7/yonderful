@@ -14,7 +14,7 @@ import { NewCategoryComponent } from './components/new-category/new-category.com
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MaterialModules } from './modules/material.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
