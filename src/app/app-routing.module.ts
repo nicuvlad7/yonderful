@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
   { path: 'events-list', component: EventListPageComponent}, 
   { path: 'register', component: RegisterCardComponent},
-  { path: 'administrate-categories', component: CategoriesTableComponent}
+  { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
