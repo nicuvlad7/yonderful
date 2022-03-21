@@ -40,6 +40,7 @@ namespace api.Service
     {
       var securityKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(key));
       var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+      
       var claims = new[] {
         new Claim(JwtRegisteredClaimNames.Sub, user.Name),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
