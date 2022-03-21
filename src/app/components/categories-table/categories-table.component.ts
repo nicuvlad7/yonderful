@@ -18,10 +18,10 @@ export class CategoriesTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.endpointsService.getCategories().subscribe(categories => {
-      this.dataSource = categories.result;
-      this.createCategoriesToShow();
-    });
+    // this.endpointsService.getCategories().subscribe(categories => {
+    //   this.dataSource = categories.result;
+    //   this.createCategoriesToShow();
+    // });
     
     
   }

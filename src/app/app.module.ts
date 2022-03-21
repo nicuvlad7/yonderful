@@ -32,7 +32,8 @@ import { CategoriesTableComponent } from './components/categories-table/categori
     RegisterCardComponent,
     SidenavComponent,
     ToolbarComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    CategoriesTableComponent
   ],
   imports: [
     BrowserModule,
