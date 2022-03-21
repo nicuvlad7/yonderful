@@ -1,3 +1,5 @@
+using api.Mappings;
+using api.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YonderfulApi.Mappings;
@@ -11,8 +13,8 @@ namespace YonderfulApi.Extensions
         {
             services.AddScoped<IPictureService, PictureService>();
             services.AddScoped<ICategoryService, CategoryService>();
-
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILoginService, LoginService>();
             return services;
         }
 
@@ -20,6 +22,7 @@ namespace YonderfulApi.Extensions
         {
             services.AddAutoMapper(typeof(CategoryMappings));
             services.AddAutoMapper(typeof(UserMappings));
+            services.AddAutoMapper(typeof(UserLoginMappings));
             return services;
         }
     }
