@@ -48,7 +48,7 @@ namespace YonderfulApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCategory(CategoryDto category) 
         {   
-            Category newCategory = _categoryService.CreateCategory(category);
+            Category newCategory = await _categoryService.CreateCategory(category);
             
             var createdCategory = await _categoryService.PostCategory(newCategory);
             if(createdCategory == null) {
@@ -65,7 +65,7 @@ namespace YonderfulApi.Controllers
 
         [HttpPut]
         public async Task<ActionResult> PutCategory(int categoryId, CategoryDto updatedCategory) {
-            Category categoryToPut = _categoryService.CreateCategory(updatedCategory);
+            Category categoryToPut = await _categoryService.CreateCategory(updatedCategory);
 
             var newCategory = await _categoryService.PutCategory(categoryId, categoryToPut);
             if(newCategory == null) {

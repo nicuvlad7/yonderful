@@ -10,12 +10,12 @@ namespace YonderfulApi.Service
         Task<IList<Picture>> GetPictureList();
         Task<Picture> GetPicture(int pictureId);
 
-        Task<Picture> GetPictureByNameFormatContent(Picture picture);
+        Task<int> GetPictureId(Picture picture);
         Task<Picture> PostPicture(Picture newPicture);
 
         Task<bool> DeletePicture(int pictureId);
 
-        int CreatePictureFromFileString(string fileString);
+        Task<int> CreatePictureFromFileString(string fileString);
 
         Task<string> GetPictureContent(string pictureIdStr);
     }
