@@ -52,7 +52,7 @@ namespace api.Service
         issuer: issuer,
         audience: issuer,
         claims: claims,
-        expires: DateTime.Now.AddHours(1),
+        expires: DateTime.Now.AddHours(72),
         signingCredentials: credentials
       );
 
