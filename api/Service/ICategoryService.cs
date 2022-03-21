@@ -19,6 +19,6 @@ namespace YonderfulApi.Service
 
         Task<IList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList);
 
-        Category CreateCategory(CategoryDto categoryDto);
+        Task<Category> CreateCategory(CategoryDto categoryDto);
     }
 }

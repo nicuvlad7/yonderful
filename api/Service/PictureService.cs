@@ -26,15 +26,15 @@ namespace YonderfulApi.Service
         return pictureList;
     }
 
-    public async Task<Picture> GetPictureByNameFormatContent(Picture picture)
+    public async Task<int> GetPictureId(Picture picture)
     {
       var pictureList = await GetPictureList();
       foreach(Picture pictureInList in pictureList) {
-        if(picture.Name.ToLower() == pictureInList.Name.ToLower() && picture.FileType.ToLower() == pictureInList.FileType.ToLower() && picture.Content.Equals(pictureInList.Content)) {
-          return pictureInList;
+        if(picture.Content.CompareTo(pictureInList.Content) == 0) {
+          return pictureInList.Id;
         }
       }
-      return null;
+      return 0;
     }
     public async Task<Picture> PostPicture(Picture newPicture)
     {
@@ -53,25 +53,22 @@ namespace YonderfulApi.Service
             return await _context.SaveChangesAsync() > 0;
     }
 
-    public int CreatePictureFromFileString(string fileString) {
+    public async Task<int> CreatePictureByContent(string pictureContent) {
         var newPicture = new Picture 
         {
-            Name = fileString.Split('/')[^1],
-            FileType = fileString.Split('.')[^1],
-            Content = System.IO.File.ReadAllBytes(fileString)
+            Content = pictureContent
         };
-        var existingPicture = GetPictureByNameFormatContent(newPicture);
-        if(existingPicture == null) {
-            return PostPicture(newPicture).Id;
+        var existingPictureId = await GetPictureId(newPicture);
+        if(existingPictureId == 0) {
+          var auxPicture = await PostPicture(newPicture);
+          return auxPicture.Id;
         }
-        return existingPicture.Id;
+        return existingPictureId;
     }
 
     public async Task<string> GetPictureContent(string pictureIdStr) {
         var iconPicture = await GetPicture(Int32.Parse(pictureIdStr));
-        return System.Text.Encoding.Default.GetString(iconPicture.Content);
+        return iconPicture.Content;
     }
-
-
   }
 }
