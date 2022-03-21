@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Category } from '../models/category';
+import { ICategory } from '../models/category';
 import { catchError } from 'rxjs/operators';
 import { HttpService } from './http.service';
 
@@ -11,27 +11,27 @@ import { HttpService } from './http.service';
 export class CategoryService {
   constructor(private httpService: HttpService) {}
 
-  newCategory(category: Category): Observable<Category> {
+  addNewCategory(category: ICategory): Observable<ICategory> {
     return this.httpService
-      .post<Category>(category, 'Category')
+      .post<ICategory>(category, 'Category')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
   
-  deleteCategory(id: number): Observable<Category> {
+  deleteCategory(id: number): Observable<ICategory> {
     return this.httpService
-      .delete<Category>(id, 'Category')
+      .delete<ICategory>(id, 'Category')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
-  getCategory(id: number): Observable<Category> {
+  getCategory(id: number): Observable<ICategory> {
     return this.httpService
-      .getById<Category>(id, 'Category')
+      .getById<ICategory>(id, 'Category')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
-  updateCategory(category: Category): Observable<Category> {
+  updateCategory(category: ICategory): Observable<ICategory> {
     return this.httpService
-      .update<Category>(category, 'Category')
+      .update<ICategory>(category, 'Category')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 }

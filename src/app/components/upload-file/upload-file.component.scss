@@ -1,14 +1,4 @@
-.button-2 {
-    border-radius: 15px;
-    border: none;
-    color: white;
-    background-color: palevioletred;
-    height: 50px;
-    width: 50px;
-    margin: 6px;
-  }
-  .button-2:active {
-    transform: scale(0.9);
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  }
+@import "src/app/styles/_category";
+@include category;
+
   

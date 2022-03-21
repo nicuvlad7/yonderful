@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Category } from 'src/app/models/category';
+import { ICategory } from 'src/app/models/category';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-category-card',
   templateUrl: './category-card.component.html',
-  styleUrls: ['./category-card.component.scss'],
+  styleUrls: ['./category-card.component.scss',],
   encapsulation: ViewEncapsulation.None,
 })
 export class CategoryCardComponent implements OnInit {
@@ -26,18 +26,19 @@ export class CategoryCardComponent implements OnInit {
     });
   }
 
-  categoryCard: Category = {
+  categoryCard: ICategory = {
     title: 'Type category name here',
     backgroundImg: '',
     icon: '',
   };
 
-  revertCard: Category = {
+  revertCard: ICategory = {
     title: 'Type category name here',
     backgroundImg: '',
     icon: '',
   };
 
+  displayTitleError: boolean = false;
   loading: boolean = false;
   editMode: boolean = false;
   canMakeChanges: boolean = false;
@@ -53,9 +54,9 @@ export class CategoryCardComponent implements OnInit {
     this.initFormControls();
     let urlID: number = 0;
     this.route.params.subscribe((params) => {
-      urlID = + params['id'];
+      urlID = parseInt(params['id']);
     });
-    this.loading = true;
+    // this.loading = true;
     this.categoryService.getCategory(urlID).subscribe(
       (result) => {
         this.loading = false;
@@ -76,18 +77,11 @@ export class CategoryCardComponent implements OnInit {
       }
     );
 
-    // if (             this functionality will be implemented once we get the events service
-    //   this.eventsService.getEventsHavingCategory(this.categoryCard.title)
-    // ) {
-    //   this.canMakeChanges = true;
-    // } else {
-    //   this.canMakeChanges = true;
-    // }
-
     this.categoryForm.get('iconControl')?.valueChanges.subscribe((val) => {
       this.onChangeIcon(val);
     });
     this.categoryForm.get('titleControl')?.valueChanges.subscribe((val) => {
+      this.displayTitleError = false;
       this.categoryCard.title = val;
     });
     this.categoryForm
@@ -121,11 +115,10 @@ export class CategoryCardComponent implements OnInit {
   onDiscard() {
     //implement confirmation dialog with the component that andy will make
     this.editMode = false;
+    this.categoryForm.reset();
     this.categoryCard.title = this.revertCard.title;
-    this.categoryForm.patchValue({ titleControl: this.revertCard.title });
     this.categoryCard.backgroundImg = this.revertCard.backgroundImg;
     this.categoryCard.icon = this.revertCard.icon;
-
   }
   onDelete() {
     //implement confirmation dialog with the component that andy will make
@@ -152,27 +145,25 @@ export class CategoryCardComponent implements OnInit {
     }
   }
   onSubmitForm() {
-    if (this.categoryForm.valid) {
-      this.loading = true;
-      this.categoryService.updateCategory(this.categoryCard).subscribe(
-        (result) => {
-          this.loading = false;
-          this._snackBar.open('Category was updated.', '', {
-            duration: 3000,
-          });
-        },
-        (error) => {
-          this.loading = false;
-          this._snackBar.open(
-            `Error status ${error.status}: ${error.message}`,
-            '',
-            {
-              duration: 5000,
-            }
-          );
-        }
-      );
-    }
+    this.loading = true;
+    this.categoryService.updateCategory(this.categoryCard).subscribe(
+      (result) => {
+        this.loading = false;
+        this._snackBar.open('Category was updated.', '', {
+          duration: 3000,
+        });
+      },
+      (error) => {
+        this.loading = false;
+        this._snackBar.open(
+          `Error status ${error.status}: ${error.message}`,
+          '',
+          {
+            duration: 5000,
+          }
+        );
+      }
+    );
   }
   onEditClick() {
     this.editMode = true;

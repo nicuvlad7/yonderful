@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Category } from 'src/app/models/category';
+import { ICategory } from 'src/app/models/category';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -11,10 +11,11 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./new-category.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
+
 export class NewCategoryComponent implements OnInit {
   categoryForm!: FormGroup;
 
-  categoryCard: Category = {
+  categoryCard: ICategory = {
     title: 'Placeholder.',
     backgroundImg: '',
     icon: '',
@@ -87,7 +88,7 @@ export class NewCategoryComponent implements OnInit {
     if (this.categoryForm.valid) {
       this.loading = true;
       
-      this.categoryService.newCategory(this.categoryCard).subscribe(
+      this.categoryService.addNewCategory(this.categoryCard).subscribe(
         (result) => {
           this.loading = false;
           this._snackBar.open('Category was added.', '', {

@@ -24,7 +24,7 @@ import { MaterialModules } from './modules/material.module';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModules,
-    MatProgressSpinnerModule
+
   ],
   providers: [],
   bootstrap: [AppComponent],
