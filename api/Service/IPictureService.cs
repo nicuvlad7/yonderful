@@ -15,7 +15,7 @@ namespace YonderfulApi.Service
 
         Task<bool> DeletePicture(int pictureId);
 
-        Task<int> CreatePictureFromFileString(string fileString);
+        Task<int> CreatePictureByContent(string pictureContent);
 
         Task<string> GetPictureContent(string pictureIdStr);
     }
