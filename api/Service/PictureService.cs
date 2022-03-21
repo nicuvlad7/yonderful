@@ -30,7 +30,7 @@ namespace YonderfulApi.Service
     {
       var pictureList = await GetPictureList();
       foreach(Picture pictureInList in pictureList) {
-        if(picture.Name.ToLower() == pictureInList.Name.ToLower()) {
+        if(picture.Content.CompareTo(pictureInList.Content) == 0) {
           return pictureInList.Id;
         }
       }
@@ -53,12 +53,10 @@ namespace YonderfulApi.Service
             return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<int> CreatePictureFromFileString(string fileString) {
+    public async Task<int> CreatePictureByContent(string pictureContent) {
         var newPicture = new Picture 
         {
-            Name = fileString.Split('/')[^1],
-            FileType = fileString.Split('.')[^1],
-            Content = Convert.ToBase64String(System.IO.File.ReadAllBytes(fileString))
+            Content = pictureContent
         };
         var existingPictureId = await GetPictureId(newPicture);
         if(existingPictureId == 0) {

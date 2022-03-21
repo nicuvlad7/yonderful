@@ -63,18 +63,18 @@ namespace YonderfulApi.Service
         return await _context.Categories.AnyAsync(cat => cat.Title.ToLower() == category.Title.ToLower());
     }
 
-    public async Task<CategoryDto> TransformCategoryDtoForOutput(CategoryDto categoryDto) {
-        if(categoryDto != null) {
-            categoryDto.Icon = await _pictureService.GetPictureContent(categoryDto.Icon);
-            categoryDto.DefaultBackground = await _pictureService.GetPictureContent(categoryDto.DefaultBackground);
+    public async Task<CategoryOutputDto> TransformCategoryDtoForOutput(CategoryOutputDto categoryOutputDto) {
+        if(categoryOutputDto != null) {
+            categoryOutputDto.Icon = await _pictureService.GetPictureContent(categoryOutputDto.Icon);
+            categoryOutputDto.DefaultBackground = await _pictureService.GetPictureContent(categoryOutputDto.DefaultBackground);
         }
-        return categoryDto;
+        return categoryOutputDto;
     }
 
-    public async Task<IList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
-        IList<CategoryDto> outputCategoryList = new List<CategoryDto>();
-        foreach(CategoryDto categoryDto in categoryList) {
-            outputCategoryList.Add(await TransformCategoryDtoForOutput(categoryDto));
+    public async Task<IList<CategoryOutputDto>> TransformCategoryDtoListForOutput(IList<CategoryOutputDto> categoryList) {
+        IList<CategoryOutputDto> outputCategoryList = new List<CategoryOutputDto>();
+        foreach(CategoryOutputDto categoryOutputDto in categoryList) {
+            outputCategoryList.Add(await TransformCategoryDtoForOutput(categoryOutputDto));
         }
         return outputCategoryList;
     }
@@ -82,8 +82,8 @@ namespace YonderfulApi.Service
     public async Task<Category> CreateCategory(CategoryDto categoryDto) {
         Category newCategory = new Category {
             Title = categoryDto.Title,
-            IconId = await _pictureService.CreatePictureFromFileString(categoryDto.Icon),
-            DefaultBackgroundId = await _pictureService.CreatePictureFromFileString(categoryDto.DefaultBackground)
+            IconId = await _pictureService.CreatePictureByContent(categoryDto.Icon),
+            DefaultBackgroundId = await _pictureService.CreatePictureByContent(categoryDto.DefaultBackground)
         };
         return newCategory;
     }

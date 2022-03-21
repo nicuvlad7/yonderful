@@ -29,7 +29,7 @@ namespace YonderfulApi.Controllers
             if(category == null) {
                 return NotFound();
             }
-            var categoryDto = _categoryService.TransformCategoryDtoForOutput(_mapper.Map<CategoryDto>(category));
+            var categoryDto = _categoryService.TransformCategoryDtoForOutput(_mapper.Map<CategoryOutputDto>(category));
             return Ok(categoryDto);
         }
         
@@ -40,7 +40,7 @@ namespace YonderfulApi.Controllers
             if(categoryList == null) {
                 return NotFound();
             }
-            var categoryDtoList = _mapper.Map<IList<CategoryDto>>(categoryList);
+            var categoryDtoList = _mapper.Map<IList<CategoryOutputDto>>(categoryList);
             return Ok(_categoryService.TransformCategoryDtoListForOutput(categoryDtoList));
         }
 
@@ -53,7 +53,7 @@ namespace YonderfulApi.Controllers
             if(createdCategory == null) {
                 return BadRequest();
             }
-            return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(createdCategory));
+            return Created(nameof(GetCategory), _mapper.Map<CategoryOutputDto>(createdCategory));
         }
 
         [HttpDelete]
@@ -70,7 +70,7 @@ namespace YonderfulApi.Controllers
             if(newCategory == null) {
                 return BadRequest();
             }
-            return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
+            return Created(nameof(GetCategory), _mapper.Map<CategoryOutputDto>(newCategory));
         }
 
         
