@@ -4,7 +4,8 @@ namespace YonderfulApi.DTOs
 {
     public class CategoryDto
     {
-    
+        [Required]
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

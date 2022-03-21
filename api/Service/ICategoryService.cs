@@ -15,9 +15,9 @@ namespace YonderfulApi.Service
 
         Task<bool> DeleteCategory(int categoryId);
 
-        Task<CategoryOutputDto> TransformCategoryDtoForOutput(CategoryOutputDto categoryDto);
+        Task<CategoryDto> TransformCategoryDtoForOutput(CategoryDto categoryDto);
 
-        Task<IList<CategoryOutputDto>> TransformCategoryDtoListForOutput(IList<CategoryOutputDto> categoryList);
+        Task<IList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList);
 
         Task<Category> CreateCategory(CategoryDto categoryDto);
     }

@@ -11,10 +11,7 @@ namespace YonderfulApi.Mappings
         {
             // source -> target
             CreateMap<Category, CategoryDto>().ForMember(dest => dest.Icon, src => src.MapFrom(src => src.IconId))
-                .ForMember(dest => dest.DefaultBackground, src => src.MapFrom(src => src.DefaultBackgroundId));
-            CreateMap<Category, CategoryOutputDto>().ForMember(dest => dest.Icon, src => src.MapFrom(src => src.IconId))
-                .ForMember(dest => dest.DefaultBackground, src => src.MapFrom(src => src.DefaultBackgroundId));
-               
+                .ForMember(dest => dest.DefaultBackground, src => src.MapFrom(src => src.DefaultBackgroundId)); 
         }
     }
 }
