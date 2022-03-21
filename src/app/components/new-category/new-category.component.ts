@@ -2,7 +2,6 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ICategory } from 'src/app/models/category';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
@@ -11,9 +10,15 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./new-category.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-
 export class NewCategoryComponent implements OnInit {
-  categoryForm!: FormGroup;
+  categoryForm: FormGroup = new FormGroup({
+    titleControl: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
+    ]),
+    iconControl: new FormControl('', [Validators.required]),
+    backgroundControl: new FormControl('', [Validators.required]),
+  });
 
   categoryCard: ICategory = {
     title: 'Placeholder.',
@@ -21,73 +26,27 @@ export class NewCategoryComponent implements OnInit {
     icon: '',
   };
 
-
   loading: boolean = false;
   displayIconError: boolean = false;
   displayBgError: boolean = false;
 
   constructor(
     private categoryService: CategoryService,
-    private _snackBar: MatSnackBar,
-    private domSanitizer: DomSanitizer
+    private _snackBar: MatSnackBar
   ) {}
 
-  initFormControls(): void {
-    this.categoryForm = new FormGroup({
-      titleControl: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
-      ]),
-      iconControl: new FormControl('', [Validators.required]),
-      backgroundControl: new FormControl('', [Validators.required]),
-    });
-  }
-
-  onChangeIcon(file: File) {
-    let reader = new FileReader();
-    reader.readAsDataURL(this.categoryForm.get('iconControl')!.value);
-    reader.onload = (e) => {
-      this.categoryCard.icon = this.domSanitizer.bypassSecurityTrustUrl(
-        reader.result as string
-      ) as string;
-    };
-  }
-
-  onChangeBackground(file: File) {
-    let reader = new FileReader();
-    reader.readAsDataURL(this.categoryForm.get('backgroundControl')!.value);
-    reader.onload = (e) => {
-      this.categoryCard.backgroundImg =
-        this.domSanitizer.bypassSecurityTrustUrl(
-          reader.result as string
-        ) as string;
-    };
-  }
   disableIconError() {
     this.displayIconError = false;
   }
   disableBgError() {
     this.displayBgError = false;
   }
-  ngOnInit(): void {
-    this.initFormControls();
-    this.categoryForm.get('iconControl')?.valueChanges.subscribe((val) => {
-      this.onChangeIcon(val);
-    });
-    this.categoryForm.get('titleControl')?.valueChanges.subscribe((val) => {
-      this.categoryCard.title = val;
-    });
-    this.categoryForm
-      .get('backgroundControl')
-      ?.valueChanges.subscribe((val) => {
-        this.onChangeBackground(val);
-      });
-  }
+  ngOnInit(): void {}
 
   onSubmitForm() {
     if (this.categoryForm.valid) {
       this.loading = true;
-      
+      this.categoryCard = this.categoryForm.value;
       this.categoryService.addNewCategory(this.categoryCard).subscribe(
         (result) => {
           this.loading = false;

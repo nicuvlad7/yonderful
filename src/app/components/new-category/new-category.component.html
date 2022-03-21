@@ -28,6 +28,7 @@
         <app-upload-file
           (click)="disableBgError()"
           [form]="categoryForm"
+          runMode="base64"
           controlName="backgroundControl"
         ></app-upload-file>
         <div>Background image.</div>
@@ -43,7 +44,7 @@
 
     <div class="background-segment flex-center">
       <img
-        [src]="categoryCard.backgroundImg || '/assets/chooseImage.png'"
+        [src]="categoryForm.get('backgroundControl')!.value || '/assets/chooseImage.png'"
         class="bg-img"
       />
     </div>
@@ -53,6 +54,7 @@
         <app-upload-file
           [form]="categoryForm"
           (click)="disableIconError()"
+          runMode="base64"
           controlName="iconControl"
         ></app-upload-file>
         <div>Category icon.</div>
@@ -67,7 +69,7 @@
     </div>
     <div class="icon-segment flex-center">
       <img
-        [src]="categoryCard.icon || '/assets/chooseImage.png'"
+        [src]="categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'"
         class="icon"
       />
     </div>

@@ -1,28 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
   styleUrls: ['./upload-file.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class UploadFileComponent implements OnInit {
-
-  @Input() editEnabled:Boolean=false;
   @Input() form!: FormGroup;
-  @Input() controlName!:string;
-  
-  constructor() { }
+  @Input() controlName!: string;
+  @Input() runMode?: string;
 
-  ngOnInit(): void {
-  }
+  constructor() {}
 
-  onFileSelected(event: any) {  
-     
-    if(event.target.files && event.target.files[0]){
-      this.form.patchValue({[this.controlName] : event.target.files[0]});
-    } 
+  ngOnInit(): void {}
+
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      if (this.runMode === undefined) {
+        this.form.patchValue({ [this.controlName]: event.target.files[0] });
+      } 
+      
+      if(this.runMode === 'base64'){
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (e) => {
+          this.form.patchValue({ [this.controlName]: reader.result})
+        };
+      }
+    }
   }
 }
-
