@@ -20,18 +20,13 @@ export class NewCategoryComponent implements OnInit {
     icon: '',
   };
 
-  revertCard: Category = {
-    title: 'Placeholder.',
-    backgroundImg: '',
-    icon: '',
-  };
 
   loading: boolean = false;
   displayIconError: boolean = false;
-  displayBgError:boolean = false;
+  displayBgError: boolean = false;
 
   constructor(
-    private categoryService:CategoryService,
+    private categoryService: CategoryService,
     private _snackBar: MatSnackBar,
     private domSanitizer: DomSanitizer
   ) {}
@@ -67,10 +62,10 @@ export class NewCategoryComponent implements OnInit {
         ) as string;
     };
   }
-  disableIconError(){
-    this.displayIconError = false
+  disableIconError() {
+    this.displayIconError = false;
   }
-  disableBgError(){
+  disableBgError() {
     this.displayBgError = false;
   }
   ngOnInit(): void {
@@ -91,6 +86,7 @@ export class NewCategoryComponent implements OnInit {
   onSubmitForm() {
     if (this.categoryForm.valid) {
       this.loading = true;
+      
       this.categoryService.newCategory(this.categoryCard).subscribe(
         (result) => {
           this.loading = false;
@@ -110,10 +106,10 @@ export class NewCategoryComponent implements OnInit {
         }
       );
     } else {
-      if(this.categoryForm.controls['iconControl'].invalid){
+      if (this.categoryForm.controls['iconControl'].invalid) {
         this.displayIconError = true;
       }
-      if(this.categoryForm.controls['backgroundControl'].invalid){
+      if (this.categoryForm.controls['backgroundControl'].invalid) {
         this.displayBgError = true;
       }
     }

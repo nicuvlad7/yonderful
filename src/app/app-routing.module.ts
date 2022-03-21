@@ -10,8 +10,9 @@ const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
   { path: 'events-list', component: EventListPageComponent}, 
   { path: 'register', component: RegisterCardComponent},
-  { path : 'category/${id}',component: CategoryCardComponent},
- { path : 'category/new', component: NewCategoryComponent},
+  { path : 'category/new', component: NewCategoryComponent},
+  { path : 'category/:id',component: CategoryCardComponent},
+
 ];
 
 @NgModule({

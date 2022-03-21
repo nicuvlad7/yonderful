@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CategoryService } from 'src/app/services/category.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category-card',
@@ -44,16 +45,36 @@ export class CategoryCardComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private _snackBar: MatSnackBar,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.initFormControls();
-
-    this.categoryService.getCategory(1).subscribe((result) => {
-      this.categoryCard = result;
-      this.revertCard = result;
+    let urlID: number = 0;
+    this.route.params.subscribe((params) => {
+      urlID = + params['id'];
     });
+    this.loading = true;
+    this.categoryService.getCategory(urlID).subscribe(
+      (result) => {
+        this.loading = false;
+        this.categoryCard = result;
+        this.revertCard = result;
+      },
+      (error) => {
+        {
+          this.loading = false;
+          this._snackBar.open(
+            `Error status ${error.status}: ${error.message}`,
+            '',
+            {
+              duration: 5000,
+            }
+          );
+        }
+      }
+    );
 
     // if (             this functionality will be implemented once we get the events service
     //   this.eventsService.getEventsHavingCategory(this.categoryCard.title)
@@ -98,17 +119,19 @@ export class CategoryCardComponent implements OnInit {
   }
 
   onDiscard() {
+    //implement confirmation dialog with the component that andy will make
     this.editMode = false;
     this.categoryCard.title = this.revertCard.title;
     this.categoryForm.patchValue({ titleControl: this.revertCard.title });
     this.categoryCard.backgroundImg = this.revertCard.backgroundImg;
     this.categoryCard.icon = this.revertCard.icon;
-    //implement confirmation dialog with the component that andy will make
+
   }
   onDelete() {
+    //implement confirmation dialog with the component that andy will make
     if (this.canMakeChanges) {
       this.loading = true;
-      this.categoryService.deleteCategory(1).subscribe(
+      this.categoryService.deleteCategory(this.categoryCard.id!).subscribe(
         (result) => {
           this.loading = false;
           this._snackBar.open('Category was deleted.', '', {
