@@ -33,6 +33,6 @@ export class EndpointsService {
   }
   
   deleteCategory(categoryId: number): Observable<unknown> {
-    return this.http.delete(environment.apiUrl + "Category" + "?categoryId=" + categoryId.toString());
+    return this.http.delete(environment.apiUrl + "Category", { params: { categoryId: categoryId.toString() } });
   }
 }

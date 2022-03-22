@@ -1,5 +1,5 @@
-<ng-container *ngIf="categoriesToShowArray.length; else noDataBlock" >
-  <table mat-table [dataSource]="categoriesToShowArray" class="mat-elevation-z8">
+<ng-container *ngIf="displayedCategories.length; else noDataBlock" >
+  <table mat-table [dataSource]="displayedCategories" class="mat-elevation-z8">
     
     <ng-container matColumnDef="Icon">
       <th mat-header-cell *matHeaderCellDef> Icon </th>
