@@ -11,11 +11,11 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
@@ -26,12 +26,12 @@ import { MaterialModules } from './modules/material.module';
   declarations: [
     AppComponent,
     EventDetailsComponent,
-    LoginCardComponent,
     EventListPageComponent,
-    RegisterCardComponent,
     SidenavComponent,
     ToolbarComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    RegisterCardComponent,
+    LoginCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +45,9 @@ import { MaterialModules } from './modules/material.module';
     MatListModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModules
+    MaterialModules,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

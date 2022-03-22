@@ -5,24 +5,21 @@ import { Router } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   isMenuVisible = true;
   currentRoute: string;
 
-  constructor(private router : Router) {
-    this.currentRoute='';
-    this.router.events.subscribe(
-      event =>{
-        this.currentRoute = location.pathname;
-        this.isMenuVisible = !(this.currentRoute === "/login" || this.currentRoute === '/register');
-      }
-    );
+  constructor(private router: Router) {
+    this.currentRoute = '';
+    this.router.events.subscribe((event) => {
+      this.currentRoute = location.pathname;
+      this.isMenuVisible = !(
+        this.currentRoute === '/login' || this.currentRoute === '/register'
+      );
+    });
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
