@@ -1,0 +1,84 @@
+<div class="event-form-wrapper">
+
+    <mat-card class="event-form-container">
+        <mat-card-header class="event-form-header">
+            <mat-card-title class="event-form-title"> {{ pageTitle }} </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content clas="event-form-content">
+
+            <form class="event-form" [formGroup]="eventForm">
+                
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container">
+                        <h4>Title</h4>
+
+                        <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-label>Title</mat-label>
+                            <input matInput type="text" placeholder="Title" formControlName="eventTitle">
+                            <mat-hint>Title</mat-hint>
+                            <mat-error *ngIf="eventForm.get('eventTitle')?.hasError('required')">
+                                Event title is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container" formGroupName="startEvent">
+                        <h4>Start Date</h4>
+                        <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-label>MM-DD-YYYY</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="startDate">
+                            <mat-hint>Date</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="eventForm.get('startEvent')?.get('startDate')?.hasError('required')">
+                                Start date for event is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>    
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container" formGroupName="endEvent">
+                        <h4>End Date</h4>
+                        <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-label>MM-DD-YYYY</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="endDate">
+                            <mat-hint>Date</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="eventForm.get('endEvent')?.get('endDate')?.hasError('required')">
+                                End date for event is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>    
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container">
+                        <h4>Minimum number of participants</h4>
+
+                        <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-label>ex: 23</mat-label>
+                            <input matInput type="number" formControlName="minimumParticipants">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="event-form-item-container">
+                        <h4>Maximum number of participants</h4>
+
+                        <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-label>ex: 23</mat-label>
+                            <input matInput type="number" formControlName="maximumParticipants">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

@@ -21,6 +21,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { MaterialModules } from './modules/material.module';
+import { CreateEditEventPageComponent } from './components/create-edit-event-page/create-edit-event-page.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MaterialModules } from './modules/material.module';
     RegisterCardComponent,
     SidenavComponent,
     ToolbarComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    CreateEditEventPageComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { MaterialModules } from './modules/material.module';
     HttpClientModule,
     MaterialModules
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
