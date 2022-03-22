@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Category, CategoryToShow } from 'src/app/models/category';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
+import { Observable } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog.service';
 
 
 @Component({
@@ -15,9 +18,9 @@ export class CategoriesTableComponent implements OnInit {
   categoriesToShowArray: CategoryToShow[] = [];
   displayedColumns = ["Icon", "Title", "Actions"];
   valoare: Number = 0;
-  constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer) {
+  constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer, private dialogService: DialogService) {
   }
-
+  
   ngOnInit(): void {
     this.endpointsService.getCategories().subscribe(categories => {
       this.dataSource = categories.result;
@@ -40,8 +43,19 @@ export class CategoriesTableComponent implements OnInit {
   }
 
   deleteCategory(categoryId: number): void {
-    var elemId = categoryId;
-    this.endpointsService.deleteCategory(categoryId).subscribe(result => {console.log(result)});
+    this.openChangeRoleDialog().subscribe(result => {
+      if (result)
+        this.endpointsService.deleteCategory(categoryId).subscribe(() => { this.categoriesToShowArray = this.categoriesToShowArray.filter((category: CategoryToShow) => category.id != categoryId) });
+    })
+  }
+
+  openChangeRoleDialog(): Observable<boolean>{
+    return this.dialogService.confirmDialog({
+      title: 'Delete Category',
+      message: 'Are you sure you want to delete this category?',
+      confirmText: 'Yes',
+      cancelText: 'No'
+    })
   }
  }
 
