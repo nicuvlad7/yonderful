@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using YonderfulApi.Data;
 using YonderfulApi.Models;
+using YonderfulApi.Service;
 
 namespace api.Service
 {
@@ -29,7 +30,7 @@ namespace api.Service
 
     public async Task<User> VerifyUserCredentials(UserLoginDto userLogin)
     {
-      var user = await _dataContext.Users.FirstOrDefaultAsync(user => user.Email == userLogin.Email );
+      var user = await _dataContext.Users.FirstOrDefaultAsync(user => user.Email == userLogin.Email);
 
       if (user == null || !_hashingManager.Verify(userLogin.Password, user.Password)) return null;
 
@@ -40,7 +41,7 @@ namespace api.Service
     {
       var securityKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(key));
       var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-      
+
       var claims = new[] {
         new Claim(JwtRegisteredClaimNames.Sub, user.Name),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
