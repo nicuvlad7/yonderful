@@ -11,11 +11,6 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
@@ -45,15 +40,9 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
+    MaterialModules,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModules,
-
   ],
   providers: [],
   bootstrap: [AppComponent],
