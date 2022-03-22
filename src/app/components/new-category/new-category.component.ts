@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ICategory } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
@@ -15,9 +20,16 @@ export class NewCategoryComponent implements OnInit {
     titleControl: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
+      Validators.maxLength(24),
     ]),
-    iconControl: new FormControl('', [Validators.required]),
-    backgroundControl: new FormControl('', [Validators.required]),
+    iconControl: new FormControl('', [
+      Validators.required,
+      this.validateExtension,
+    ]),
+    backgroundControl: new FormControl('', [
+      Validators.required,
+      this.validateExtension,
+    ]),
   });
 
   categoryCard: ICategory = {
@@ -27,59 +39,65 @@ export class NewCategoryComponent implements OnInit {
   };
 
   loading: boolean = false;
-  displayIconError: boolean = false;
-  displayBgError: boolean = false;
+  
 
   constructor(
     private categoryService: CategoryService,
     private _snackBar: MatSnackBar
   ) {}
 
-  disableIconError() {
-    this.displayIconError = false;
+ 
+  ngOnInit(): void {
+    this.categoryForm.get('iconControl')?.valueChanges.subscribe((val) => {
+      this.categoryForm.controls['iconControl'].markAsTouched();
+    });
+    this.categoryForm
+      .get('backgroundControl')
+      ?.valueChanges.subscribe((val) => {
+        this.categoryForm.controls['backgroundControl'].markAsTouched();
+      });
   }
-  disableBgError() {
-    this.displayBgError = false;
+
+  validateExtension(control: AbstractControl): { [key: string]: any } | null {
+    let extn = control.value as string;
+    if (extn.substring(5, 10) != 'image') {
+      return { wrongFileFormat: { value: control.value } };
+    } else {
+      return null;
+    }
   }
-  ngOnInit(): void {}
 
   onSubmit() {
-    if (this.categoryForm.valid) {
-      this.loading = true;
-
-      this.categoryCard.title = this.categoryForm.get('titleControl')!
-        .value as string;
-      this.categoryCard.icon = this.categoryForm.get('iconControl')!
-        .value as string;
-      this.categoryCard.backgroundImg = this.categoryForm.get(
-        'backgroundControl'
-      )!.value as string;
-
-      this.categoryService.addNewCategory(this.categoryCard).subscribe(
-        (result) => {
-          this.loading = false;
-          this._snackBar.open('Category was added.', '', {
-            duration: 3000,
-          });
-        },
-        (error) => {
-          this.loading = false;
-          this._snackBar.open(
-            `Error status ${error.status}: ${error.message}`,
-            '',
-            {
-              duration: 5000,
-            }
-          );
-        }
-      );
-    } else {
-      if (this.categoryForm.controls['iconControl'].invalid) {
-        this.displayIconError = true;
-      }
-      if (this.categoryForm.controls['backgroundControl'].invalid) {
-        this.displayBgError = true;
-      }
+    if (!this.categoryForm.valid) {
+      return;
     }
+    this.loading = true;
+
+    this.categoryCard.title = this.categoryForm.get('titleControl')!
+      .value as string;
+    this.categoryCard.icon = this.categoryForm.get('iconControl')!
+      .value as string;
+    this.categoryCard.backgroundImg = this.categoryForm.get(
+      'backgroundControl'
+    )!.value as string;
+
+    this.categoryService.addNewCategory(this.categoryCard).subscribe(
+      (result) => {
+        this.loading = false;
+        this._snackBar.open('Category was added.', '', {
+          duration: 3000,
+        });
+      },
+      (error) => {
+        this.loading = false;
+        this._snackBar.open(
+          `Error status ${error.status}: ${error.message}`,
+          '',
+          {
+            duration: 5000,
+          }
+        );
+      }
+    );
   }
 }

@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -30,6 +25,7 @@ export class UploadFileComponent implements OnInit {
       if (this.runMode === 'base64') {
         let reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
+
         reader.onload = (e) => {
           this.form.patchValue({ [this.controlName]: reader.result });
         };

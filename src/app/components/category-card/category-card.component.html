@@ -49,7 +49,21 @@
             categoryForm.get('titleControl')!.hasError('required') &&
             categoryForm.touched
           "
-          >Title length is incorrect.</mat-error
+          >Title is required.</mat-error
+        >
+        <mat-error
+          *ngIf="
+            categoryForm.get('titleControl')!.hasError('maxlength') &&
+            categoryForm.touched
+          "
+          >Title cannot be longer than 24 characters.</mat-error
+        >
+        <mat-error
+          *ngIf="
+            categoryForm.get('titleControl')!.hasError('pattern') &&
+            categoryForm.touched
+          "
+          >Title can only contain letters.</mat-error
         >
       </mat-form-field>
     </div>
@@ -63,13 +77,19 @@
           runMode="base64"
         ></app-upload-file>
         <div>Background image.</div>
+        <mat-error
+          *ngIf="
+            categoryForm.get('backgroundControl')!.hasError('wrongFileFormat') && this.categoryForm.controls['backgroundControl'].touched
+          "
+          >Choose a valid image format.</mat-error
+        >
       </div>
     </div>
 
     <div class="background-segment flex-center">
       <img
-        [src]="
-          categoryForm.get('backgroundControl')!.value ||
+        [src]="categoryForm.get('backgroundControl')!.valid ?
+          categoryForm.get('backgroundControl')!.value :
           '/assets/chooseImage.png'
         "
         class="bg-img"
@@ -85,12 +105,20 @@
           runMode="base64"
         ></app-upload-file>
         <div>Category icon.</div>
+        <mat-error
+          *ngIf="
+            categoryForm.get('iconControl')!.hasError('wrongFileFormat') && this.categoryForm.controls['iconControl'].touched
+          "
+          >Choose a valid image format.</mat-error
+        >
       </div>
     </div>
     <div class="icon-segment flex-center">
-      <img
+       <img
         [src]="
-          categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'
+          categoryForm.get('iconControl')!.valid ?
+          categoryForm.get('iconControl')!.value :
+          '/assets/chooseImage.png'
         "
         class="icon"
       />
