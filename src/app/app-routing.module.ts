@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterCardComponent},
   { path : 'category/new', component: NewCategoryComponent},
   { path : 'category/:id',component: CategoryCardComponent},
-
+  { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({
