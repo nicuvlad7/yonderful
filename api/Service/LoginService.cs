@@ -45,7 +45,7 @@ namespace api.Service
       var claims = new[] {
         new Claim(JwtRegisteredClaimNames.Sub, user.Name),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        new Claim("UserRole", ((int)user.Role).ToString()),
+        new Claim("UserRole", ((int)user.UserRole).ToString()),
         new Claim("UserID", user.Id.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
       };
