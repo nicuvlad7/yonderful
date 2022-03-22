@@ -10,7 +10,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 @Component({
   selector: 'app-category-card',
   templateUrl: './category-card.component.html',
-  styleUrls: ['./category-card.component.scss'],
+  styleUrls: ['../../styles/category.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class CategoryCardComponent implements OnInit {
@@ -42,6 +42,10 @@ export class CategoryCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //to-do:
+    //on page init we should look for events that belong in the current category
+    //we are in, and if there are , dont let it be delete-able nor changes to its title
+
     let urlID: number = 0;
     this.route.params.subscribe((params) => {
       urlID = parseInt(params['id']);
@@ -102,31 +106,28 @@ export class CategoryCardComponent implements OnInit {
   onDelete() {
     if (this.canMakeChanges) {
       this.openDeleteDialog().subscribe((result) => {
-        if (result){
-             this.loading = true;
-             this.categoryService
-               .deleteCategory(this.categoryCard.id!)
-               .subscribe(
-                 (result) => {
-                   this.loading = false;
-                   this._snackBar.open('Category was deleted.', '', {
-                     duration: 3000,
-                   });
-                 },
-                 (error) => {
-                   this.loading = false;
-                   this._snackBar.open(
-                     `Error status ${error.status}: ${error.message}`,
-                     '',
-                     {
-                       duration: 5000,
-                     }
-                   );
-                 }
-               );
+        if (result) {
+          this.loading = true;
+          this.categoryService.deleteCategory(this.categoryCard.id!).subscribe(
+            (result) => {
+              this.loading = false;
+              this._snackBar.open('Category was deleted.', '', {
+                duration: 3000,
+              });
+            },
+            (error) => {
+              this.loading = false;
+              this._snackBar.open(
+                `Error status ${error.status}: ${error.message}`,
+                '',
+                {
+                  duration: 5000,
+                }
+              );
+            }
+          );
         }
       });
-     
     }
   }
   onSubmit() {

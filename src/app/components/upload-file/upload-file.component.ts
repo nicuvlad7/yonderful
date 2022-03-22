@@ -1,9 +1,7 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnInit,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -11,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
-  styleUrls: ['./upload-file.component.scss'],
+  styleUrls: ['../../styles/category.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class UploadFileComponent implements OnInit {
@@ -27,13 +25,13 @@ export class UploadFileComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       if (this.runMode === undefined) {
         this.form.patchValue({ [this.controlName]: event.target.files[0] });
-      } 
-      
-      if(this.runMode === 'base64'){
+      }
+
+      if (this.runMode === 'base64') {
         let reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = (e) => {
-          this.form.patchValue({ [this.controlName]: reader.result})
+          this.form.patchValue({ [this.controlName]: reader.result });
         };
       }
     }
