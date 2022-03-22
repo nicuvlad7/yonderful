@@ -3,6 +3,7 @@ import { Category, CategoryToShow } from 'src/app/models/category';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-categories-table',
   templateUrl: './categories-table.component.html',
@@ -29,12 +30,18 @@ export class CategoriesTableComponent implements OnInit {
   createCategoriesToShow(): void {
     for (const category of this.dataSource) {
       let newCategory: CategoryToShow = {
+        id: category.id,
         title: category.title,
-        icon: this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + category.icon),
-        defaultBackground: this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + category.defaultBackground),
+        icon: this.sanitizer.bypassSecurityTrustResourceUrl(category.icon),
+        defaultBackground: this.sanitizer.bypassSecurityTrustResourceUrl(category.defaultBackground),
       }
       this.categoriesToShowArray.push(newCategory);
     }
   }
-}
+
+  deleteCategory(categoryId: number): void {
+    var elemId = categoryId;
+    this.endpointsService.deleteCategory(categoryId).subscribe(result => {console.log(result)});
+  }
+ }
 

@@ -30,5 +30,9 @@ export class EndpointsService {
 
   getCategories(): Observable<CategoriesResponse> {
     return this.http.get<CategoriesResponse>(environment.apiUrl + "Category") 
-   }
+  }
+  
+  deleteCategory(categoryId: number): Observable<unknown> {
+    return this.http.delete(environment.apiUrl + "Category" + "?categoryId=" + categoryId.toString());
+  }
 }
