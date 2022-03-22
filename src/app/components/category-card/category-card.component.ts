@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-category-card',
   templateUrl: './category-card.component.html',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CategoryCardComponent implements OnInit {
   categoryForm: FormGroup = new FormGroup({
-    titleControl: new FormControl('', [
+    titleControl: new FormControl('Placeholder', [
       Validators.required,
       Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
     ]),
@@ -47,7 +48,12 @@ export class CategoryCardComponent implements OnInit {
     this.categoryService.getCategory(urlID).subscribe(
       (result) => {
         this.loading = false;
-        this.categoryCard = result;
+        
+        this.categoryCard.id = result.id;
+        this.categoryCard.title = result.title;
+        this.categoryCard.icon = result.icon;
+        this.categoryCard.backgroundImg = result.backgroundImg;
+
         this.categoryForm.patchValue({
           ['titleControl']: result.title,
           ['backgroundControl']: result.backgroundImg,
@@ -100,10 +106,13 @@ export class CategoryCardComponent implements OnInit {
       );
     }
   }
-  onSubmitForm() {
+  onSubmit() {
     if(this.categoryForm.valid){
       this.loading = true;
-      this.categoryCard=this.categoryForm.value;
+
+      this.categoryCard.title=this.categoryForm.get('titleControl')!.value as string;
+      this.categoryCard.icon=this.categoryForm.get('iconControl')!.value as string;
+      this.categoryCard.backgroundImg=this.categoryForm.get('backgroundControl')!.value as string;
      
       this.categoryService.updateCategory(this.categoryCard).subscribe(
         (result) => {

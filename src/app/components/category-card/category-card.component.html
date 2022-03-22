@@ -5,38 +5,38 @@
       color="accent"
     ></mat-progress-spinner>
   </div>
-  <div class="action-container">
-    <button
-      class="button-category"
-      (click)="onEditClick()"
-      *ngIf="editMode === false"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button
-      (click)="onDelete()"
-      *ngIf="editMode === false"
-      class="button-category"
-      [disabled]="canMakeChanges ? false : true"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button
-      class="button-category"
-      *ngIf="editMode === true"
-      (click)="onSubmitForm()"
-    >
-      <mat-icon>save</mat-icon>
-    </button>
-    <button
-      class="button-category"
-      *ngIf="editMode === true"
-      (click)="onDiscard()"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-  <form [formGroup]="categoryForm">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="action-container">
+      <button
+        class="button-category"
+        (click)="onEditClick()"
+        *ngIf="editMode === false"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        (click)="onDelete()"
+        *ngIf="editMode === false"
+        class="button-category"
+        [disabled]="canMakeChanges ? false : true"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        class="button-category"
+        *ngIf="editMode === true"
+        type="submit"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        class="button-category"
+        *ngIf="editMode === true"
+        (click)="onDiscard()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
     <div class="segment flex-center">
       <mat-form-field appearance="fill">
         <mat-label> Title. </mat-label>
@@ -51,7 +51,7 @@
             categoryForm.get('titleControl')!.hasError('required') &&
             categoryForm.touched
           "
-        ></mat-error>
+        >Title length is incorrect.</mat-error>
       </mat-form-field>
     </div>
 

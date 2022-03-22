@@ -5,12 +5,13 @@
       color="accent"
     ></mat-progress-spinner>
   </div>
-  <div class="action-container">
-    <button class="button-category" (click)="onSubmitForm()">
-      <mat-icon>save</mat-icon>
-    </button>
-  </div>
-  <form [formGroup]="categoryForm">
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="action-container">
+      <button class="button-category" type="submit">
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
     <div class="segment flex-center">
       <mat-form-field appearance="fill">
         <mat-label> Title. </mat-label>
@@ -19,7 +20,13 @@
           formControlName="titleControl"
           placeholder="Choose category name."
         />
-        <mat-error>Title length is incorrect.</mat-error>
+        <mat-error
+          *ngIf="
+            categoryForm.get('titleControl')!.hasError('required') &&
+            categoryForm.touched
+          "
+          >Title length is incorrect.</mat-error
+        >
       </mat-form-field>
     </div>
 
@@ -44,7 +51,10 @@
 
     <div class="background-segment flex-center">
       <img
-        [src]="categoryForm.get('backgroundControl')!.value || '/assets/chooseImage.png'"
+        [src]="
+          categoryForm.get('backgroundControl')!.value ||
+          '/assets/chooseImage.png'
+        "
         class="bg-img"
       />
     </div>
@@ -69,7 +79,9 @@
     </div>
     <div class="icon-segment flex-center">
       <img
-        [src]="categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'"
+        [src]="
+          categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'
+        "
         class="icon"
       />
     </div>
