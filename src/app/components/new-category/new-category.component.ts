@@ -46,10 +46,14 @@ export class NewCategoryComponent implements OnInit {
   onSubmit() {
     if (this.categoryForm.valid) {
       this.loading = true;
-      
-      this.categoryCard.title=this.categoryForm.get('titleControl')!.value as string;
-      this.categoryCard.icon=this.categoryForm.get('iconControl')!.value as string;
-      this.categoryCard.backgroundImg=this.categoryForm.get('backgroundControl')!.value as string;
+
+      this.categoryCard.title = this.categoryForm.get('titleControl')!
+        .value as string;
+      this.categoryCard.icon = this.categoryForm.get('iconControl')!
+        .value as string;
+      this.categoryCard.backgroundImg = this.categoryForm.get(
+        'backgroundControl'
+      )!.value as string;
 
       this.categoryService.addNewCategory(this.categoryCard).subscribe(
         (result) => {

@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="loading-indicator" *ngIf="loading === true">
+  <div class="loading-indicator" *ngIf="loading">
     <mat-progress-spinner
       mode="indeterminate"
       color="accent"
@@ -10,29 +10,28 @@
       <button
         class="button-category"
         (click)="onEditClick()"
-        *ngIf="editMode === false"
+        *ngIf="!editMode"
+        type="button"
       >
         <mat-icon>edit</mat-icon>
       </button>
       <button
         (click)="onDelete()"
-        *ngIf="editMode === false"
+        *ngIf="!editMode"
         class="button-category"
-        [disabled]="canMakeChanges ? false : true"
+        [disabled]="canMakeChanges"
+        type="button"
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button
-        class="button-category"
-        *ngIf="editMode === true"
-        type="submit"
-      >
+      <button class="button-category" *ngIf="editMode" type="submit">
         <mat-icon>save</mat-icon>
       </button>
       <button
         class="button-category"
-        *ngIf="editMode === true"
+        *ngIf="editMode"
         (click)="onDiscard()"
+        type="button"
       >
         <mat-icon>close</mat-icon>
       </button>
@@ -44,14 +43,14 @@
           matInput
           [readonly]="canMakeChanges && editMode ? null : true"
           formControlName="titleControl"
-          placeholder="Choose category name."
         />
         <mat-error
           *ngIf="
             categoryForm.get('titleControl')!.hasError('required') &&
             categoryForm.touched
           "
-        >Title length is incorrect.</mat-error>
+          >Title length is incorrect.</mat-error
+        >
       </mat-form-field>
     </div>
 
@@ -59,7 +58,7 @@
       <div class="centered-segment flex-center">
         <app-upload-file
           [form]="categoryForm"
-          [hidden]="editMode ? false : true"
+          [hidden]="!editMode"
           controlName="backgroundControl"
           runMode="base64"
         ></app-upload-file>
@@ -69,7 +68,10 @@
 
     <div class="background-segment flex-center">
       <img
-        [src]="categoryForm.get('backgroundControl')!.value || '/assets/chooseImage.png'"
+        [src]="
+          categoryForm.get('backgroundControl')!.value ||
+          '/assets/chooseImage.png'
+        "
         class="bg-img"
       />
     </div>
@@ -78,7 +80,7 @@
       <div class="centered-segment flex-center">
         <app-upload-file
           [form]="categoryForm"
-          [hidden]="editMode ? false : true"
+          [hidden]="!editMode"
           controlName="iconControl"
           runMode="base64"
         ></app-upload-file>
@@ -87,7 +89,9 @@
     </div>
     <div class="icon-segment flex-center">
       <img
-        [src]="categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'"
+        [src]="
+          categoryForm.get('iconControl')!.value || '/assets/chooseImage.png'
+        "
         class="icon"
       />
     </div>
