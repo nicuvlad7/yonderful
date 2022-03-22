@@ -15,7 +15,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 export class CategoriesTableComponent implements OnInit {
 
   dataSource: Category[] = [];
-  categoriesToShowArray: CategoryToShow[] = [];
+  displayedCategories: CategoryToShow[] = [];
   displayedColumns = ["Icon", "Title", "Actions"];
   valoare: Number = 0;
   constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer, private dialogService: DialogService) {
@@ -38,14 +38,18 @@ export class CategoriesTableComponent implements OnInit {
         icon: this.sanitizer.bypassSecurityTrustResourceUrl(category.icon),
         defaultBackground: this.sanitizer.bypassSecurityTrustResourceUrl(category.defaultBackground),
       }
-      this.categoriesToShowArray.push(newCategory);
+      this.displayedCategories.push(newCategory);
     }
   }
 
   deleteCategory(categoryId: number): void {
     this.openChangeRoleDialog().subscribe(result => {
       if (result)
-        this.endpointsService.deleteCategory(categoryId).subscribe(() => { this.categoriesToShowArray = this.categoriesToShowArray.filter((category: CategoryToShow) => category.id != categoryId) });
+        this.endpointsService.deleteCategory(categoryId)
+          .subscribe(() => {
+            this.displayedCategories = this.displayedCategories
+              .filter((category: CategoryToShow) => category.id != categoryId)
+          });
     })
   }
 
