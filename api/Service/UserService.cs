@@ -66,7 +66,6 @@ namespace YonderfulApi.Service
 
       existingUser.Name = user.Name;
       existingUser.Position = user.Position;
-      existingUser.Password = hashing.HashToString(user.Password);
       existingUser.PhoneNo = user.PhoneNo;
 
       _context.Users.Update(existingUser);
