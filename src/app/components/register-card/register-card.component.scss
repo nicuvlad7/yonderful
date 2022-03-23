@@ -1,10 +1,5 @@
 @import '../../variables.scss';
-
-@mixin flex-container($flex-direction-value, $justify-content-value: center) {
-    display: flex;
-    flex-direction: $flex-direction-value;
-    justify-content: $justify-content-value;
-}
+@import '../../mixins.scss';
 
 .register-card-wrapper {
     @include flex-container(column);
@@ -68,7 +63,7 @@ a:hover {
 
 .register-button {
     background-color: $yonder-blue;
-    color: $button-label-white;
+    color: $yonder-white;
     width: 25%;
 }
 

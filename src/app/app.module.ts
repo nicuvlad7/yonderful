@@ -16,11 +16,12 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { MaterialModules } from './modules/material.module';
+import { CreateEditEventPageComponent } from './components/create-edit-event-page/create-edit-event-page.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
     SidenavComponent,
     ToolbarComponent,
     ConfirmComponent,
+    CreateEditEventPageComponent,
     CategoriesTableComponent,
     CategoryCardComponent,
     NewCategoryComponent,
@@ -48,7 +50,7 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
     MaterialModules
     
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [MatDatepickerModule],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
