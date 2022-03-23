@@ -24,9 +24,9 @@ export class CreateEditEventPageComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: ChipTag[] = [{ tagName: 'Activity' }];
 
-  autocancelChecked!: boolean;
+  autocancelChecked: boolean = true;
   autojoinChecked!: boolean;
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class CreateEditEventPageComponent implements OnInit {
       minimumParticipants: new FormControl(''),
       maximumParticipants: new FormControl(''),
       category: new FormControl('', [Validators.required]),
-      autocancel: new FormControl(false),
+      autocancel: new FormControl(),
       autojoin: new FormControl(false),
       joinEvent: new FormGroup({
         joinDeadlineDate: new FormControl('', [Validators.required]),
