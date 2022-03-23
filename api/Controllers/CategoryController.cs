@@ -72,7 +72,5 @@ namespace YonderfulApi.Controllers
             }
             return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
         }
-
-        
     }
 }
