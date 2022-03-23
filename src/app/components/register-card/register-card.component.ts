@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegisterService } from 'src/app/services/register-service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-register-card',
@@ -69,7 +70,8 @@ export class RegisterCardComponent implements OnInit {
       next: (data: User) => {
         this.responseUserObject = { ...data };
         this.snackBar.open(
-          `User ${this.responseUserObject.name} has been registered.`
+          `User ${this.responseUserObject.name} has been registered.`,
+          'Close'
         );
         this.router.navigate(['/login']);
       },

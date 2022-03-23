@@ -12,4 +12,4 @@ namespace api.Service
 
          string GenerateJwt(User user, string issuer, string key);
     }
-}
+}           

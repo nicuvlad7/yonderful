@@ -1,0 +1,7 @@
+{
+    "categories": [
+      { "icon": "TestIcon01", "title": "Outdoor" },
+      { "icon": "TestIcon02", "title": "Indoor" },
+      { "icon": "TestIcon03", "title": "Hiking" }
+    ]
+  }

@@ -62,12 +62,7 @@ export class LoginCardComponent implements OnInit {
     this.loginService.login(user).subscribe({
       next: (data: loginUser) => {
         this.responseUserObject = { ...data };
-        this.snackBar.open(
-          `User ${this.responseUserObject.email} has been logged in.`,
-          ''
-        );
-        // this.router.navigate(['/events-list']);
-        // this.snackBar.dismiss;
+        this.router.navigate(['/events-list']);
       },
       error: (error: Error) => {
         this.snackBar.open(error.message, 'Close');

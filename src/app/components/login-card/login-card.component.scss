@@ -68,11 +68,11 @@ a:hover {
 
 .login-button {
     background-color: $yonder-blue;
-    color: $button-label-white;
+    color: white;
     width: 25%;
 }
 
 .login-button:enabled:hover {
     background-color: $yonder-pink;
-    transition: background-color 500ms linear;
+    transition: background-color 100ms linear;
 }

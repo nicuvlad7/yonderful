@@ -52,10 +52,11 @@ namespace YonderfulApi.Service
         if(category == null) {
             return null;
         }
-        category = categoryToPut;
+        category.Title = categoryToPut.Title;
+        category.IconId = categoryToPut.IconId;
+        category.DefaultBackgroundId = categoryToPut.DefaultBackgroundId;
 
-        _context.Categories.Update(category);
-        await _context.SaveChangesAsync();
+      await _context.SaveChangesAsync();
         return category;
     }
     private async Task<bool> CategoryExists(Category category)
