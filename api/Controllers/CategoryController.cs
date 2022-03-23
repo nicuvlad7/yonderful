@@ -33,7 +33,6 @@ namespace YonderfulApi.Controllers
             return Ok(categoryDto);
         }
         
-        
         [HttpGet]
         public async Task<IActionResult> GetCategoryList() 
         {
@@ -73,7 +72,5 @@ namespace YonderfulApi.Controllers
             }
             return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
         }
-
-        
     }
 }
