@@ -17,3 +17,9 @@ export interface CategoryToShow {
 export interface CategoriesResponse {
     result: Category[];
 }
+export interface ICategory {
+    id?:number,
+    title: string,
+    icon: string,
+    backgroundImg: string
+}
