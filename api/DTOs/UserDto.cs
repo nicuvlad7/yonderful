@@ -49,9 +49,6 @@ namespace YonderfulApi.DTOs
     [Required]
     public string Name { get; set; }
     [Required]
-    [StringLength(255, ErrorMessage = "Password must be between 6 and 255 characters!", MinimumLength = 5)]
-    public string Password { get; set; }
-    [Required]
     public string Position { get; set; }
     [StringLength(10)]
     public string PhoneNo { get; set; }
