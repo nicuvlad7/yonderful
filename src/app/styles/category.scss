@@ -124,3 +124,15 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.flex-row {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}

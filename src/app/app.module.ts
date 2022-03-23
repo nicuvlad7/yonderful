@@ -20,6 +20,7 @@ import { CategoriesTableComponent } from './components/categories-table/categori
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import { EventPageComponent } from './components/event-page/event-page.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
     CategoryCardComponent,
     NewCategoryComponent,
     UploadFileComponent,
+    EventPageComponent,
   ],
   imports: [
     BrowserModule,

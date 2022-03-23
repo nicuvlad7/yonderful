@@ -1,0 +1,20 @@
+export interface Event {
+    id: number,
+    categoryId: number,
+    hostId: number,
+    title: string,
+    startingDate: Date,
+    endingDate: Date,
+    minimumParticipants: number,
+    maximumParticipants: number,
+    autoCancel: boolean,
+    autoJoin: boolean,
+    joinDeadline: Date,
+    fee: number,
+    description: string,
+    eventLocationId: number,
+    contactEmail: string,
+    contactPhone: string,
+    tags: string,
+    backgroundId: number
+}
