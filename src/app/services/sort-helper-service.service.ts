@@ -4,7 +4,7 @@ import { Sort } from '../models/sort';
 @Injectable({
   providedIn: 'root'
 })
-export class SortHelperServiceService {
+export class SortHelperService {
 
   constructor() { }
 
