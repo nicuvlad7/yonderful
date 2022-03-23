@@ -5,7 +5,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-categories-table',
