@@ -8,6 +8,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ICategory } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-category',
@@ -34,19 +35,18 @@ export class NewCategoryComponent implements OnInit {
 
   categoryCard: ICategory = {
     title: 'Placeholder.',
-    backgroundImg: '',
+    defaultBackground: '',
     icon: '',
   };
 
   loading: boolean = false;
-  
 
   constructor(
     private categoryService: CategoryService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
- 
   ngOnInit(): void {
     this.categoryForm.get('iconControl')?.valueChanges.subscribe((val) => {
       this.categoryForm.controls['iconControl'].markAsTouched();
@@ -77,16 +77,17 @@ export class NewCategoryComponent implements OnInit {
       .value as string;
     this.categoryCard.icon = this.categoryForm.get('iconControl')!
       .value as string;
-    this.categoryCard.backgroundImg = this.categoryForm.get(
+    this.categoryCard.defaultBackground = this.categoryForm.get(
       'backgroundControl'
     )!.value as string;
-
+    console.log(this.categoryCard);
     this.categoryService.addNewCategory(this.categoryCard).subscribe(
       (result) => {
         this.loading = false;
         this._snackBar.open('Category was added.', '', {
-          duration: 3000,
+          duration: 1500,
         });
+        this.router.navigate(['/'])
       },
       (error) => {
         this.loading = false;

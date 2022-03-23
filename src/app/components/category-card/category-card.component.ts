@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-card',
@@ -27,29 +28,29 @@ export class CategoryCardComponent implements OnInit {
     ]),
     iconControl: new FormControl('', [
       Validators.required,
-      this.validateExtension,
+       this.validateExtension,
     ]),
     backgroundControl: new FormControl('', [
       Validators.required,
-      this.validateExtension,
+       this.validateExtension,
     ]),
   });
 
   categoryCard: ICategory = {
     title: '',
-    backgroundImg: '',
+    defaultBackground: '',
     icon: '',
   };
-
   loading: boolean = false;
   editMode: boolean = false;
-  canMakeChanges: boolean = false;
+  canMakeChanges: boolean = true;
 
   constructor(
     private categoryService: CategoryService,
     private _snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) {}
 
   validateExtension(control: AbstractControl): { [key: string]: any } | null {
@@ -78,18 +79,18 @@ export class CategoryCardComponent implements OnInit {
     });
     this.loading = true;
     this.categoryService.getCategory(urlID).subscribe(
-      (result) => {
+      (result: ICategory) => {
         this.loading = false;
-
-        this.categoryCard.id = result.id;
-        this.categoryCard.title = result.title;
-        this.categoryCard.icon = result.icon;
-        this.categoryCard.backgroundImg = result.backgroundImg;
+        this.categoryCard.id = result['result'].id;
+        this.categoryCard.title = result['result'].title;
+        this.categoryCard.icon = result['result'].icon;
+        this.categoryCard.defaultBackground =
+          result['result'].defaultBackground;
 
         this.categoryForm.patchValue({
-          ['titleControl']: result.title,
-          ['backgroundControl']: result.backgroundImg,
-          ['iconControl']: result.icon,
+          ['titleControl']: result['result'].title,
+          ['backgroundControl']: result['result'].defaultBackground,
+          ['iconControl']: result['result'].icon,
         });
       },
       (error) => {
@@ -131,7 +132,7 @@ export class CategoryCardComponent implements OnInit {
       this.editMode = false;
       this.categoryForm.reset({
         titleControl: this.categoryCard.title,
-        backgroundControl: this.categoryCard.backgroundImg,
+        backgroundControl: this.categoryCard.defaultBackground,
         iconControl: this.categoryCard.icon,
       });
       this.categoryForm.controls['iconControl'].markAsUntouched();
@@ -151,6 +152,7 @@ export class CategoryCardComponent implements OnInit {
             this._snackBar.open('Category was deleted.', '', {
               duration: 3000,
             });
+            this.router.navigate(['/']);
           },
           (error) => {
             this.loading = false;
@@ -176,7 +178,7 @@ export class CategoryCardComponent implements OnInit {
       .value as string;
     this.categoryCard.icon = this.categoryForm.get('iconControl')!
       .value as string;
-    this.categoryCard.backgroundImg = this.categoryForm.get(
+    this.categoryCard.defaultBackground = this.categoryForm.get(
       'backgroundControl'
     )!.value as string;
 
@@ -186,6 +188,7 @@ export class CategoryCardComponent implements OnInit {
         this._snackBar.open('Category was updated.', '', {
           duration: 3000,
         });
+        this.router.navigate(['/']);
       },
       (error) => {
         this.loading = false;

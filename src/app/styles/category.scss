@@ -11,10 +11,7 @@
   width: 60%;
   margin: auto;
 }
-.mat-error {
-  margin-left: 5px;
-  font:small;
-}
+
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
@@ -65,13 +62,18 @@
   display: none;
 }
 .centered-segment {
+  flex: wrap;
   align-items: center;
   justify-content: flex-start;
+  flex-direction: row;
   width: 50%;
   height: 62px;
-  font-size: large;
+  font-size: 18px;
 }
-
+.mat-error {
+  margin-left: 5px;
+  font-size: 12px;
+}
 .bg-img {
   min-height: 150px;
   min-width: 150px;

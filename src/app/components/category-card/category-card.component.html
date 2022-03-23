@@ -19,7 +19,7 @@
         (click)="onDelete()"
         *ngIf="!editMode"
         class="button-category"
-        [disabled]="canMakeChanges"
+        [disabled]="!canMakeChanges"
         type="button"
       >
         <mat-icon>delete</mat-icon>
