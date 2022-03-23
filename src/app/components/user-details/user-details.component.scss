@@ -1,0 +1,52 @@
+@import '../../variables.scss';
+
+
+.mat-icon {
+    font-size: 50px;
+}
+.mat-card-actions{
+    align-self: flex-end;
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+.mat-divider{
+    margin-bottom: 30px;
+}
+
+.about-view{
+    p{
+        text-align:left;
+    }
+    span{
+        float:right;
+    }
+}
+.red{
+    color:red;
+}
+.mat-flat-button{
+    background-color:$yonder-blue;
+}
+
+.user-detials-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 80%;
+}
+
+.user-card {
+    min-width: 500px;
+    min-height: auto;
+    padding: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

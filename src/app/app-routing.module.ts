@@ -5,6 +5,7 @@ import { EventListPageComponent } from './components/event-list-page/event-list-
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterCardComponent},
   { path : 'category/new', component: NewCategoryComponent},
   { path : 'category/:id',component: CategoryCardComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full'}
+  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: 'user-details', component: UserDetailsComponent}
 ];
 
 @NgModule({
