@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInput, MatChipInputEvent } from '@angular/material/chips';
+import { ChipTag } from 'src/app/models/chip-tag';
 
 @Component({
   selector: 'app-create-edit-event-page',
@@ -10,8 +13,19 @@ export class CreateEditEventPageComponent implements OnInit {
   @Input() editMode: boolean = false;
   pageTitle: string = (this.editMode) ? 'Edit event' : 'Create event';
 
-  eventForm!: FormGroup
+  eventGeneralForm!: FormGroup;
+  eventLocationForm!: FormGroup;
+  eventOthersForm!: FormGroup;
 
+  // TODO: fetch categories from backend
+  categoryList: string[] = [ '', 'Option1', 'Option2', 'Option3' ];
+  selectedCategory: string = '';
+
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  tags: ChipTag[] = [{ tagName: 'Activity' }];
+
+  autocancelChecked!: boolean;
+  autojoinChecked!: boolean;
 
   constructor() { }
 
@@ -20,8 +34,8 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   initEventFormControls(): void {
-    this.eventForm = new FormGroup({
-      eventTitle: new FormControl('', [Validators.required]),
+    this.eventGeneralForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
       startEvent: new FormGroup({
         startDate: new FormControl('', [Validators.required]),
         startTime: new FormControl('', [Validators.required])
@@ -30,29 +44,50 @@ export class CreateEditEventPageComponent implements OnInit {
         endDate: new FormControl('', [Validators.required]),
         endTime: new FormControl('', [Validators.required])
       }),
-      mininumParticipants: new FormControl(),
-      maximumParticipants: new FormControl(),
+      minimumParticipants: new FormControl(''),
+      maximumParticipants: new FormControl(''),
       category: new FormControl('', [Validators.required]),
       autocancel: new FormControl(false),
       autojoin: new FormControl(false),
       joinEvent: new FormGroup({
-        joinDeadline: new FormControl('', [Validators.required]),
+        joinDeadlineDate: new FormControl('', [Validators.required]),
         joinDeadlineTime: new FormControl('', [Validators.required]),
-        eventFee: new FormControl(0, [Validators.required])
       }),
-      description: new FormControl('', [Validators.required]),
-      location: new FormGroup({
-        streetAddress: new FormControl('', [Validators.required]),
-        otherInfo: new FormControl('', [Validators.required]),
-        city: new FormControl('', [Validators.required]),
-        state: new FormControl('', [Validators.required])
-      }),
-      contact: new FormGroup({
-        email: new FormControl('', [Validators.required]),
-        mobile: new FormControl('', [Validators.required])
-      }),
-      tags: new FormControl('')
+      eventFee: new FormControl(0),
+      description: new FormControl('', [Validators.required])
+    });
+
+    this.eventLocationForm = new FormGroup({
+      location: new FormControl('', [Validators.required]),
+      locationDetails: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      state: new FormControl('', [Validators.required])
+    });
+
+    this.eventOthersForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      mobileNumber: new FormControl('', [Validators.required]),
+      tags: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required])
     })
   }
 
+  addTag(event: MatChipInputEvent): void {
+    const newTagName = (event.value || '').trim();
+
+    if (newTagName) {
+      this.tags.push({tagName: newTagName});
+    }
+
+    event.chipInput!.clear();
+
+  }
+
+  removeTag(tag: ChipTag): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
 }

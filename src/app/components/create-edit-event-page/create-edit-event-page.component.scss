@@ -6,6 +6,12 @@
     justify-content: $justify-content-value;
 }
 
+h1 {
+    padding-left: 100px;
+    color: $yonder-blue;
+    font-weight: 500;
+}
+
 .event-form-wrapper {
     @include flex-container(column);
     padding: 40px;
@@ -13,11 +19,12 @@
 
 .event-form-container {
     @include flex-container(column);
+    padding: 25px 100px 25px 100px;
 }
 
 .event-form-header {
     @include flex-container(row, center);
-    color: $yonder-pink;
+    color: $yonder-blue;
     margin-bottom: 50px;
 }
 
@@ -29,13 +36,51 @@
 }
 
 .event-form-item-container {
-    @include flex-container(column, flex-start);
-    width: 30%;
-    margin-right: 40px;
+    @include flex-container(column, space-between);
+    width: 33%;
+    margin-right: 80px;
+}
+
+.title-container {
+    width: 25%;
+}
+
+.time-picker {
+    @include flex-container(column, space-between);
+    width: auto;
 }
 
 h4 {
     margin-left: 5px;
     color: $yonder-blue;
     font-weight: 500;
+}
+
+.event-form-container .mat-expansion-panel-header-description {
+    @include flex-container(row, space-between);
+    align-items: center;
+}
+
+.description-container {
+    width: 100%;
+}
+
+mat-icon, mat-datepicker-toggle {
+    color: $yonder-pink;
+}
+
+mat-icon:hover {
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: $yonder-white;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 15px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 25px;
 }
