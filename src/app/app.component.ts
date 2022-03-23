@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { loginUser } from './models/loginUser';
+import { AuthenticationService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +12,27 @@ import { Router } from '@angular/router';
 export class AppComponent {
   isMenuVisible = true;
   currentRoute: string;
+  currentUser: loginUser;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
     this.currentRoute = '';
+    this.authenticationService.currentUser.subscribe(
+      (x) => (this.currentUser = x)
+    );
     this.router.events.subscribe((event) => {
       this.currentRoute = location.pathname;
       this.isMenuVisible = !(
         this.currentRoute === '/login' || this.currentRoute === '/register'
       );
     });
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
   ngOnInit() {}

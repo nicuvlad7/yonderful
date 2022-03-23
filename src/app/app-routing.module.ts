@@ -3,14 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
-import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
-  { path: 'events-list', component: EventListPageComponent, canActivate: [AuthGuard]}, 
+  { path: 'events-list', component: EventListPageComponent}, 
   { path: 'register', component: RegisterCardComponent},
-
-  { path: '**', redirectTo: 'events-list' }
+  { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({

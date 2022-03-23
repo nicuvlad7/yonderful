@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
@@ -19,7 +20,8 @@ export class LoginCardComponent implements OnInit {
 
   constructor(
     private loginService: AuthenticationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -61,8 +63,11 @@ export class LoginCardComponent implements OnInit {
       next: (data: loginUser) => {
         this.responseUserObject = { ...data };
         this.snackBar.open(
-          `User ${this.responseUserObject.email} has been logged in.`
+          `User ${this.responseUserObject.email} has been logged in.`,
+          ''
         );
+        // this.router.navigate(['/events-list']);
+        // this.snackBar.dismiss;
       },
       error: (error: Error) => {
         this.snackBar.open(error.message, 'Close');

@@ -73,17 +73,17 @@ namespace YonderfulApi.Service
 
     public async Task<IList<CategoryDto>> TransformCategoryDtoListForOutput(IList<CategoryDto> categoryList) {
         IList<CategoryDto> outputCategoryList = new List<CategoryDto>();
-        foreach(CategoryDto categoryDto in categoryList) {
-            outputCategoryList.Add(await TransformCategoryDtoForOutput(categoryDto));
+        foreach(CategoryDto categoryOutputDto in categoryList) {
+            outputCategoryList.Add(await TransformCategoryDtoForOutput(categoryOutputDto));
         }
         return outputCategoryList;
     }
 
-    public Category CreateCategory(CategoryDto categoryDto) {
+    public async Task<Category> CreateCategory(CategoryDto categoryDto) {
         Category newCategory = new Category {
             Title = categoryDto.Title,
-            IconId = _pictureService.CreatePictureFromFileString(categoryDto.Icon),
-            DefaultBackgroundId = _pictureService.CreatePictureFromFileString(categoryDto.DefaultBackground)
+            IconId = await _pictureService.CreatePictureByContent(categoryDto.Icon),
+            DefaultBackgroundId = await _pictureService.CreatePictureByContent(categoryDto.DefaultBackground)
         };
         return newCategory;
     }

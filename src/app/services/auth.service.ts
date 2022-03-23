@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
 import { loginUser } from '../models/loginUser';
 
@@ -24,16 +23,16 @@ export class AuthenticationService {
   }
 
   login(user: loginUser): Observable<loginUser> {
-    return this.http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, { user })
-      .pipe(
-        map((user) => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
+    return this.http.post<loginUser>(`${environment.apiUrl}Login`, user).pipe(
+      map((user) => {
+        // user.token= token;
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        console.log("Login succesful");
+        return user;
+      })
+    );
   }
 
   logout() {

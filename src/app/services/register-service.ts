@@ -15,10 +15,7 @@ export class RegisterService {
   }
 
   register(user: User): Observable<User>{
-    // In the case you need a more complex path, provide it following the template:
-    // x/y/z will be sent in the method as separate arguments as ('x', 'y', 'z')
-    // 
-    return this.httpService.makeUserHttpRequest('post', user, 'User').pipe(
+    return this.httpService.post<User>(user, 'User').pipe(
       catchError(this.httpService.handleHttpErrorResponse)
     );
   }

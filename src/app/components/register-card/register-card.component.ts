@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegisterService } from 'src/app/services/register-service';
 import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-card',
@@ -20,7 +21,8 @@ export class RegisterCardComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,7 @@ export class RegisterCardComponent implements OnInit {
         this.snackBar.open(
           `User ${this.responseUserObject.name} has been registered.`
         );
+        this.router.navigate(['/login']);
       },
       error: (error: Error) => {
         this.snackBar.open(error.message, 'Close');
