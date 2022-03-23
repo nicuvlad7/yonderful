@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'administrate-categories', component: CategoriesTableComponent},
   { path: 'register', component: RegisterCardComponent},
   { path: 'create-edit-event', component: CreateEditEventPageComponent },
+  { path: 'create-edit-event/:id', component: CreateEditEventPageComponent },
   { path : 'category/new', component: NewCategoryComponent},
   { path : 'category/:id',component: CategoryCardComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full'}

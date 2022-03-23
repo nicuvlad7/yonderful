@@ -2,51 +2,24 @@
   "User": [
     {
       "id": 1,
-      "name": "name",
-      "email": "email",
-      "password": "passwd"
+      "name": "John",
+      "email": "john.test@tss-yonder.com",
+      "password": "passwd1",
+      "phoneNo": "07001"
     },
     {
       "id": 2,
-      "name": "name1",
-      "email": "email1",
-      "password": "passwd2"
+      "name": "Paul",
+      "email": "paul.test@tss-yonder.com",
+      "password": "passwd2",
+      "phoneNo": "07002"
     },
     {
-      "name": "asd",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "asdasd",
-      "id": 3
-    },
-    {
-      "name": "asd",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "asdasasd",
-      "id": 4
-    },
-    {
-      "name": "nou",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "adsasd",
-      "id": 5
-    },
-    {
-      "name": "ASD",
-      "email": "asd.asd@tss-yonder.com",
-      "password": "dasdsad",
-      "id": 6
-    },
-    {
-      "name": "another",
-      "email": "ads.asd@tss-yonder.com",
-      "password": "adasdas",
-      "id": 7
-    },
-    {
-      "name": "another",
-      "email": "ads.asd@tss-yonder.com",
-      "password": "adasdas",
-      "id": 8
+      "id": 3,
+      "name": "Marry",
+      "email": "marry.test@tss-yonder.com",
+      "password": "passwd3",
+      "phoneNo": "07003"
     }
   ]
 }

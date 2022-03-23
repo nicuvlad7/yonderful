@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInput, MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { ChipTag } from 'src/app/models/chip-tag';
+import { ActivatedRoute } from '@angular/router';
+import { CategoriesResponse } from 'src/app/models/category';
+import { EditEventService } from 'src/app/services/edit-event.service';
 
 @Component({
   selector: 'app-create-edit-event-page',
@@ -10,15 +13,14 @@ import { ChipTag } from 'src/app/models/chip-tag';
   styleUrls: ['./create-edit-event-page.component.scss']
 })
 export class CreateEditEventPageComponent implements OnInit {
-  @Input() editMode: boolean = false;
+  editMode: boolean = false;
   pageTitle: string = (this.editMode) ? 'Edit event' : 'Create event';
 
   eventGeneralForm!: FormGroup;
   eventLocationForm!: FormGroup;
   eventOthersForm!: FormGroup;
 
-  // TODO: fetch categories from backend
-  categoryList: string[] = [ '', 'Option1', 'Option2', 'Option3' ];
+  categoryList: CategoriesResponse = {result: []};
   selectedCategory: string = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -26,11 +28,26 @@ export class CreateEditEventPageComponent implements OnInit {
 
   autocancelChecked: boolean = true;
   autojoinChecked!: boolean;
-  
-  constructor() { }
+
+  constructor(private route: ActivatedRoute, private editEventService: EditEventService) { }
 
   ngOnInit(): void {
-    this.initEventFormControls();
+    this.fetchCategoryList();
+
+    this.route.queryParams.subscribe(params => {
+      if (params && params['id']) {
+        this.editMode = true;
+      }
+      else {
+        this.initEventFormControls();
+      }
+    })
+  }
+
+  fetchCategoryList(): void {
+    this.editEventService.fetchAllCategories().subscribe(categories => {
+      this.categoryList.result = categories.result;
+    })
   }
 
   initEventFormControls(): void {
@@ -76,7 +93,7 @@ export class CreateEditEventPageComponent implements OnInit {
     const newTagName = (event.value || '').trim();
 
     if (newTagName) {
-      this.tags.push({tagName: newTagName});
+      this.tags.push({ tagName: newTagName });
     }
 
     event.chipInput!.clear();

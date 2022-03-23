@@ -37,9 +37,9 @@
                         <div class="event-form-item-container">
                             <label>Start Date</label>
                             <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="pickerStartDate" placeholder="MM-DD-YYYY" formControlName="startDate">
-                                <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
-                                <mat-datepicker #pickerStartDate></mat-datepicker>
+                                <input matInput [matDatepicker]="startDatePicker" placeholder="MM-DD-YYYY" formControlName="startDate">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker></mat-datepicker>
                                 <mat-error 
                                     *ngIf="eventGeneralForm.get('startEvent')?.get('startDate')?.hasError('required')">
                                     Start date for event is <strong>required</strong>
@@ -69,9 +69,12 @@
                             <label>End Date</label>
                             
                             <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="pickerEndDate" placeholder="MM-DD-YYYY" formControlName="endDate">
-                                <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
-                                <mat-datepicker #pickerEndDate></mat-datepicker>
+                                <input matInput [matDatepicker]="endDatePicker" 
+                                        [min]="eventGeneralForm.get('startEvent')?.get('startDate')?.value"
+                                        placeholder="MM-DD-YYYY" 
+                                        formControlName="endDate">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
                                 <mat-error 
                                     *ngIf="eventGeneralForm.get('endEvent')?.get('endDate')?.hasError('required')">
                                     End date for event is <strong>required</strong>
@@ -130,8 +133,8 @@
                             <mat-form-field class="event-form-item" appearance="fill">
                                 <mat-label>Category</mat-label>
                                 <mat-select name="category" formControlName="category">
-                                    <mat-option *ngFor="let category of categoryList" [value]="category">
-                                        {{ category }}
+                                    <mat-option *ngFor="let category of categoryList.result" [value]="category">
+                                        {{ category.title }}
                                     </mat-option>
                                 </mat-select>
                                 <mat-error 
@@ -192,8 +195,7 @@
                             <label>Description</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-label>Type here...</mat-label>
-                                <input matInput type="text" placeholder="Title" formControlName="description">
+                                <input matInput type="text" placeholder="Type here..." formControlName="description">
                                 <mat-error *ngIf="eventGeneralForm.get('description')?.hasError('required')">
                                     Description is <strong>required</strong>
                                 </mat-error>
@@ -333,9 +335,13 @@
                     </div>
                 </div>
 
-                <div class="event-form-item-wrapper">
+                <!-- <div class="event-form-item-wrapper">
                     <label>Display image</label>
-                </div>
+
+                    <div class="event-form-item-container">
+                        <app-upload-file [form]="eventOthersForm" controlName="image"></app-upload-file>
+                    </div>
+                </div> -->
 
             </form>
         </mat-expansion-panel>
