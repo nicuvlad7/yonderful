@@ -11,7 +11,7 @@
         (click)="onEditClick()"
         *ngIf="!editMode"
         type="button"
-        class="material-icon-category"
+        class="icon-button"
         mat-icon-button
       >
         <mat-icon>edit</mat-icon>
@@ -20,7 +20,7 @@
         (click)="onDelete()"
         *ngIf="!editMode"
         mat-icon-button
-        class="material-icon-category"
+        class="icon-button"
         [disabled]="!canMakeChanges"
         type="button"
       >
@@ -29,14 +29,14 @@
       <button
         mat-icon-button
         *ngIf="editMode"
-        class="material-icon-category"
+        class="icon-button"
         type="submit"
       >
         <mat-icon>save</mat-icon>
       </button>
       <button
         mat-icon-button
-        class="material-icon-category"
+        class="icon-button"
         *ngIf="editMode"
         (click)="onDiscard()"
         type="button"
