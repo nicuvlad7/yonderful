@@ -16,10 +16,10 @@ export class CategoryService {
       .post<ICategory>(category, 'Category')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
-  
+
   deleteCategory(id: number): Observable<ICategory> {
     return this.httpService
-      .delete<ICategory>(id, 'Category')
+      .delete<ICategory>(id, `Category?categoryId=`)
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
@@ -31,7 +31,7 @@ export class CategoryService {
 
   updateCategory(category: ICategory): Observable<ICategory> {
     return this.httpService
-      .update<ICategory>(category, 'Category')
+      .update<ICategory>(category, `Category?categoryId=${category.id}`)
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 }

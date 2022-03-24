@@ -8,7 +8,7 @@
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div class="action-container">
       <button
-        class="button-category"
+        class="button"
         (click)="onEditClick()"
         *ngIf="!editMode"
         type="button"
@@ -18,17 +18,17 @@
       <button
         (click)="onDelete()"
         *ngIf="!editMode"
-        class="button-category"
-        [disabled]="canMakeChanges"
+        class="button"
+        [disabled]="!canMakeChanges"
         type="button"
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button class="button-category" *ngIf="editMode" type="submit">
+      <button class="button" *ngIf="editMode" type="submit">
         <mat-icon>save</mat-icon>
       </button>
       <button
-        class="button-category"
+        class="button"
         *ngIf="editMode"
         (click)="onDiscard()"
         type="button"
