@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
+using YonderfulApi.Models;
 using YonderfulApi.Service;
 
 namespace api.Controllers
@@ -50,6 +51,22 @@ namespace api.Controllers
                 return BadRequest();
             }
             return Ok(_mapper.Map<EventDto>(createdEvent));
+        }
+
+        [HttpDelete("{eventId}")]
+        public async Task<IActionResult> DeleteEvent(int eventId){
+            var deletedEvent = await _eventService.DeleteEvent(eventId);
+            return deletedEvent ? Ok() : BadRequest();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> PutElement(EventDto newEventDto){
+            var newEvent = await _eventService.CreateEvent(newEventDto);
+            var putEvent = await _eventService.PutEvent(newEvent);
+            if(putEvent == null){
+                return BadRequest();
+            }
+            return Ok(putEvent);
         }
     }
 }

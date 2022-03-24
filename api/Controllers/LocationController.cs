@@ -27,5 +27,12 @@ namespace YonderfulApi.Controllers
             return Ok(_mapper.Map<IList<LocationDto>>(myLocationList));
         }
 
+        [HttpDelete("{locationId}")]
+        public async Task<IActionResult> DeleteLocation(int locationId)
+        {
+            var deletedLocation = await _locationService.DeleteLocation(locationId);
+            return deletedLocation ? Ok() : BadRequest();
+        }
+
     }
 }

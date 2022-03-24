@@ -10,7 +10,7 @@ namespace YonderfulApi.Service
         Task<IList<Event>> GetEventList();
         Task<Event> GetEvent(int id);
         Task<Event> PostEvent(Event newEvent);
-        Task<Event> PutEvent(int eventID, Event eventToPut);
+        Task<Event> PutEvent(Event eventToPut);
         Task<bool> DeleteEvent(int eventID);
         Task<EventDto> TransformEventDtoForOutput(EventDto eventDto);
         Task<IList<EventDto>> TransformEventDtoListForOutput(IList<EventDto> eventDtoList);

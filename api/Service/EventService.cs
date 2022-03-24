@@ -25,6 +25,7 @@ namespace YonderfulApi.Service
     public async Task<Event> CreateEvent(EventDto eventDto)
     {
         Event newEvent = new Event{
+            Id = eventDto.Id,
             CategoryId = eventDto.CategoryId,
             HostId = eventDto.HostId,
             Title = eventDto.Title,
@@ -40,7 +41,7 @@ namespace YonderfulApi.Service
             EventLocation = _mapper.Map<Location>(eventDto.EventLocation),
             ContactEmail = eventDto.ContactEmail,
             ContactPhone = eventDto.ContactPhone,
-            Tags = string.Join(" ", eventDto.Tags),
+            Tags = eventDto.Tags,
             BackgroundId = await _pictureService.CreatePictureByContent(eventDto.BackgroundImage)
         };
         return newEvent;
@@ -70,20 +71,35 @@ namespace YonderfulApi.Service
 
     public async Task<Event> PostEvent(Event newEvent)
     {
-        if (await EventExists(newEvent)) return null;
-
+        newEvent.EventLocation = await _locationService.PostLocation(newEvent.EventLocation);
         _context.Events.Add(newEvent);
         await _context.SaveChangesAsync();
         return newEvent;
     }
 
-    public async Task<Event> PutEvent(int eventID, Event eventToPut)
+    public async Task<Event> PutEvent(Event eventToPut)
     {
-        var myEvent = await _context.Events.FindAsync(eventID);
+        var myEvent = await _context.Events.FindAsync(eventToPut.Id);
         if(myEvent == null) {
             return null;
         }
-        myEvent = eventToPut;
+        myEvent.CategoryId = eventToPut.CategoryId;
+        myEvent.HostId = eventToPut.HostId;
+        myEvent.Title = eventToPut.Title;
+        myEvent.StartingDate = eventToPut.StartingDate;
+        myEvent.EndingDate = eventToPut.EndingDate;
+        myEvent.MinimumParticipants = eventToPut.MinimumParticipants;
+        myEvent.MaximumParticipants = eventToPut.MaximumParticipants;
+        myEvent.AutoCancel = eventToPut.AutoCancel;
+        myEvent.AutoJoin = eventToPut.AutoJoin;
+        myEvent.JoinDeadline = eventToPut.JoinDeadline;
+        myEvent.Fee = eventToPut.Fee;
+        myEvent.Description = eventToPut.Description;
+        myEvent.EventLocation = await _locationService.PostLocation(eventToPut.EventLocation);   
+        myEvent.ContactEmail = eventToPut.ContactEmail;
+        myEvent.ContactPhone = eventToPut.ContactPhone;
+        myEvent.Tags = eventToPut.Tags;
+        myEvent.BackgroundId = eventToPut.BackgroundId;
 
         _context.Events.Update(myEvent);
         await _context.SaveChangesAsync();
@@ -105,11 +121,6 @@ namespace YonderfulApi.Service
             outputList.Add(await TransformEventDtoForOutput(eventDto));
         }
         return outputList;
-    }
-
-    private async Task<bool> EventExists(Event myEvent)
-    {
-        return await _context.Events.AnyAsync(existingEvent => existingEvent.Id == myEvent.Id);
     }
   }
 }

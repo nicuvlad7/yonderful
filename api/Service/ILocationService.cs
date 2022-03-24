@@ -9,7 +9,7 @@ namespace YonderfulApi.Service
         Task<Location> GetLocation(int locationId);
         Task<IList<Location>> GetLocationList();
         Task<Location> PostLocation(Location newLocation);
-        Task<Location> PutLocation(int locationID, Location locationToPut);
+        Task<Location> PutLocation(Location locationToPut);
         Task<bool> DeleteLocation(int locationId);
     }
 }

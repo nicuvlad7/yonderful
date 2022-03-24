@@ -38,28 +38,38 @@ namespace YonderfulApi.Service
 
     public async Task<Location> PostLocation(Location newLocation)
     {
-      if (await LocationExists(newLocation)) return null;
+      var existingLocation = await LocationExists(newLocation);
+      if (existingLocation != null) return existingLocation;
 
       _context.Location.Add(newLocation);
       await _context.SaveChangesAsync();
       return newLocation;
     }
 
-    public async Task<Location> PutLocation(int locationID, Location locationToPut)
+    public async Task<Location> PutLocation(Location locationToPut)
     {
-        var location = await _context.Location.FindAsync(locationID);
+        var location = await _context.Location.FindAsync(locationToPut.Id);
         if(location == null) {
             return null;
         }
-        location = locationToPut;
+        location.Street = locationToPut.Street;
+        location.Address = locationToPut.Address;
+        location.City = locationToPut.City;
+        location.Province = locationToPut.Province;
 
         _context.Location.Update(location);
         await _context.SaveChangesAsync();
         return location;
     }
 
-    private async Task<bool> LocationExists(Location newLocation){
-      return await _context.Location.AnyAsync(location => location.Id == newLocation.Id);
+    private async Task<Location> LocationExists(Location newLocation){
+      var locations = await _context.Location.ToListAsync();
+      foreach(Location loc in locations){
+        if(loc.Street == newLocation.Street && loc.Address == newLocation.Address &&
+        loc.City == newLocation.City && loc.Province == newLocation.Province)
+          return loc;
+      }
+      return null;
     }
 
   }
