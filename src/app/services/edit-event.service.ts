@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoriesResponse } from '../models/category';
+import { CategoriesResponse, Category } from '../models/category';
 import { UserDetails } from '../models/user';
 import { HttpService } from './http.service';
 import { UserEvent } from '../models/event';
@@ -16,6 +16,11 @@ export class EditEventService {
   fetchAllCategories(): Observable<CategoriesResponse> {
     // TODO: change with real api endpoint
     return this.httpService.getAll<CategoriesResponse>('categories');
+  }
+
+  fetchCategoryById(categoryId: number): Observable<Category> {
+    // TODO change with real api endpoint
+    return this.httpService.getById<Category>(categoryId, 'categories');
   }
 
   fetchCurrentUserDetails(currentUserId: number): Observable<UserDetails> {

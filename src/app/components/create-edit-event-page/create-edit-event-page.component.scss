@@ -12,7 +12,7 @@
 }
 
 .event-form-header {
-    @include flex-container(row, center);
+    @include flex-container(row);
     color: $yonder-blue;
     margin-bottom: 50px;
 }
@@ -50,6 +50,22 @@
 
 .upload-button {
     @include flex-container(row, flex-start);
+}
+
+.button-wrapper {
+    @include flex-container(row, center);
+    width: auto;
+}
+
+.event-button {
+    background-color: $yonder-blue;
+    color: $yonder-white;
+    width: 33%;
+}
+
+.event-button:enabled:hover {
+    background-color: $yonder-pink;
+    transition: background-color 500ms linear;
 }
 
 mat-icon, mat-datepicker-toggle {

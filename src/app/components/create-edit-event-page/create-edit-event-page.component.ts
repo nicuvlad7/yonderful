@@ -17,6 +17,7 @@ import { UserEvent } from 'src/app/models/event';
 export class CreateEditEventPageComponent implements OnInit {
   editMode: boolean = false;
   pageTitle: string = '';
+  label: string = '';
   
   // TODO: get current user id from local storage after login
   currentUserId: number = 1;
@@ -47,15 +48,29 @@ export class CreateEditEventPageComponent implements OnInit {
         // Edit mode
         this.editMode = true;
         this.pageTitle = "Edit event";
+        this.label = "Edit"
         this.fetchCurrentEvent();
       }
       else {
         // Create mode
         this.pageTitle = "Create event";
+        this.label = "Create"
         this.fetchCurrentUserDetails();
       }
     });
 
+  }
+
+  isEventFromCompleted(): boolean {
+    return this.eventGeneralForm.touched && this.eventLocationForm.touched && this.eventOthersForm.touched;
+  }
+
+  isEventFormValid(): boolean {
+    return this.eventGeneralForm.valid && this.eventLocationForm.valid && this.eventOthersForm.valid;
+  }
+
+  isEventFormDone(): boolean {
+    return this.isEventFromCompleted() && this.isEventFormValid();
   }
 
   fetchCategoryList(): void {
@@ -82,33 +97,40 @@ export class CreateEditEventPageComponent implements OnInit {
       this.eventGeneralForm.get('title')?.setValue(this.currentEvent.title);
       
       // TODO: get date from date string
-      let startDate = '03-05-2022';
+      let startDate = '03/05/2022';
+      let startDateObj = new Date(startDate);
       let startTime = '12:00';
-      this.eventGeneralForm.get('startEvent')?.get('startDate')?.setValue(startDate);
+      this.eventGeneralForm.get('startEvent')?.get('startDate')?.setValue(startDateObj);
       this.eventGeneralForm.get('startEvent')?.get('startTime')?.setValue(startTime);
 
       // TODO: get date from date string
       let endDate = '03/06/2022';
+      let endDateObj = new Date(endDate);
       let endTime = '14:00';
-      this.eventGeneralForm.get('endEvent')?.get('endDate')?.setValue(endDate);
+      this.eventGeneralForm.get('endEvent')?.get('endDate')?.setValue(endDateObj);
       this.eventGeneralForm.get('endEvent')?.get('endTime')?.setValue(endTime);
 
       this.eventGeneralForm.get('minimumParticipants')?.setValue(this.currentEvent.minimumParticipants);
       this.eventGeneralForm.get('maximumParticipants')?.setValue(this.currentEvent.maximumParticipants);
+      
+      this.editEventService.fetchCategoryById(this.currentEvent.categoryId).subscribe(category => {
+        this.eventGeneralForm.get('category')?.setValue(category);
+      })
 
       this.eventGeneralForm.get('autocancel')?.setValue(this.currentEvent.autocancel);
       this.eventGeneralForm.get('autojoin')?.setValue(this.currentEvent.autojoin);
 
       // TODO: get date from date string
       let joinDeadlineDate = '03/02/2022';
+      let joinDeadlineDateObj = new Date(joinDeadlineDate);
       let joinDeadlineTime = '12:00';
-      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.setValue(joinDeadlineDate);
+      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.setValue(joinDeadlineDateObj);
       this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.setValue(joinDeadlineTime);
 
       this.eventGeneralForm.get('eventFee')?.setValue(this.currentEvent.fee);
       this.eventGeneralForm.get('description')?.setValue(this.currentEvent.description);
       
-      
+
       // Populate the Location form
       this.eventLocationForm.get('location')?.setValue(this.currentEvent.eventLocation.location);
       this.eventLocationForm.get('locationDetails')?.setValue(this.currentEvent.eventLocation.locationDetails);
@@ -125,7 +147,7 @@ export class CreateEditEventPageComponent implements OnInit {
           this.tags.push( {tagName: tag });
         }
       }
-
+     
     })
   }
 
@@ -185,5 +207,10 @@ export class CreateEditEventPageComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+  onEventAction(): void {
+    console.log('Hei');
+    console.log(this.eventOthersForm.get('image')?.value);
   }
 }

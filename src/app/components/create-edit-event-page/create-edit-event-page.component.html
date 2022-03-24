@@ -37,7 +37,7 @@
                         <div class="event-form-item-container">
                             <label>Start Date</label>
                             <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="startDatePicker" placeholder="MM-DD-YYYY" formControlName="startDate">
+                                <input matInput [matDatepicker]="startDatePicker" placeholder="MM/DD/YYYY" formControlName="startDate">
                                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #startDatePicker></mat-datepicker>
                                 <mat-error 
@@ -71,7 +71,7 @@
                             <mat-form-field class="event-form-item" appearance="fill">
                                 <input matInput [matDatepicker]="endDatePicker" 
                                         [min]="eventGeneralForm.get('startEvent')?.get('startDate')?.value"
-                                        placeholder="MM-DD-YYYY" 
+                                        placeholder="MM/DD/YYYY" 
                                         formControlName="endDate">
                                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #endDatePicker></mat-datepicker>
@@ -151,7 +151,7 @@
                         <div class="event-form-item-container">
                             <label>Join Deadline</label>
                             <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM-DD-YYYY" formControlName="joinDeadlineDate">
+                                <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM/DD/YYYY" formControlName="joinDeadlineDate">
                                 <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #deadlineDatePicker></mat-datepicker>
                                 <mat-error
@@ -319,7 +319,7 @@
 
                 <div class="event-form-item-wrapper">
 
-                    <div class="event-form-item-container">
+                    <div class="event-form-item-container full-width-container">
                         <label>Tags</label>
                         <mat-form-field class="event-form-item" appearance="fill">
                             <mat-chip-list #chipList>
@@ -339,13 +339,24 @@
                     </div>
                 </div>
 
-                <app-upload-file [form]="eventOthersForm" controlName="image" formControlName="image" runMode="base64"
-                    class="upload-button">
-                </app-upload-file>
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container">
+                        <label>Upload image</label>
+                        <app-upload-file [form]="eventOthersForm" controlName="image" runMode="base64"
+                            class="upload-button">
+                        </app-upload-file>
+                    </div>
+                </div>
             </form>
 
         </mat-expansion-panel>
     </mat-accordion>
 
-    <button mat-button color="primary">Primary</button>
+    <div class="button-wrapper">
+        <button mat-raised-button color="primary" 
+                class="event-button"
+                [disabled]="isEventFormDone()"
+                (click)="onEventAction()"
+                > {{ label }}</button>
+    </div>
 </div>
