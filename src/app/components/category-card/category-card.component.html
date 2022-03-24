@@ -8,27 +8,35 @@
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div class="action-container">
       <button
-        class="button"
         (click)="onEditClick()"
         *ngIf="!editMode"
         type="button"
+        class="material-icon-category"
+        mat-icon-button
       >
         <mat-icon>edit</mat-icon>
       </button>
       <button
         (click)="onDelete()"
         *ngIf="!editMode"
-        class="button"
+        mat-icon-button
+        class="material-icon-category"
         [disabled]="!canMakeChanges"
         type="button"
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button class="button" *ngIf="editMode" type="submit">
+      <button
+        mat-icon-button
+        *ngIf="editMode"
+        class="material-icon-category"
+        type="submit"
+      >
         <mat-icon>save</mat-icon>
       </button>
       <button
-        class="button"
+        mat-icon-button
+        class="material-icon-category"
         *ngIf="editMode"
         (click)="onDiscard()"
         type="button"
@@ -79,7 +87,10 @@
         <div>Background image.</div>
         <mat-error
           *ngIf="
-            categoryForm.get('backgroundControl')!.hasError('wrongFileFormat') && this.categoryForm.controls['backgroundControl'].touched
+            categoryForm
+              .get('backgroundControl')!
+              .hasError('wrongFileFormat') &&
+            this.categoryForm.controls['backgroundControl'].touched
           "
           >Choose a valid image format.</mat-error
         >
@@ -88,9 +99,10 @@
 
     <div class="background-segment flex-center">
       <img
-        [src]="categoryForm.get('backgroundControl')!.valid ?
-          categoryForm.get('backgroundControl')!.value :
-          '/assets/chooseImage.png'
+        [src]="
+          categoryForm.get('backgroundControl')!.valid
+            ? categoryForm.get('backgroundControl')!.value
+            : '/assets/chooseImage.png'
         "
         class="bg-img"
       />
@@ -107,18 +119,19 @@
         <div>Category icon.</div>
         <mat-error
           *ngIf="
-            categoryForm.get('iconControl')!.hasError('wrongFileFormat') && this.categoryForm.controls['iconControl'].touched
+            categoryForm.get('iconControl')!.hasError('wrongFileFormat') &&
+            this.categoryForm.controls['iconControl'].touched
           "
           >Choose a valid image format.</mat-error
         >
       </div>
     </div>
     <div class="icon-segment flex-center">
-       <img
+      <img
         [src]="
-          categoryForm.get('iconControl')!.valid ?
-          categoryForm.get('iconControl')!.value :
-          '/assets/chooseImage.png'
+          categoryForm.get('iconControl')!.valid
+            ? categoryForm.get('iconControl')!.value
+            : '/assets/chooseImage.png'
         "
         class="icon"
       />

@@ -18,18 +18,8 @@
 .mat-form-field {
   width: 50%;
 }
-.button {
-  border-radius: 15px;
-  border: none;
-  color: white;
-  background-color: variables.$yonder-pink;
-  height: 50px;
-  width: 50px; //1
-  margin: 6px;
-}
-
-.disabled-button {
-  background-color: gray;
+.material-icon-category {
+  color: variables.$yonder-pink;
 }
 .action-container {
   display: flex;
