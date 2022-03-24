@@ -32,7 +32,7 @@ namespace YonderfulApi.Service
             EndingDate = eventDto.EndingDate,
             MinimumParticipants = eventDto.MinimumParticipants,
             MaximumParticipants = eventDto.MaximumParticipants,
-            Autocancel = eventDto.Autocancel,
+            AutoCancel = eventDto.AutoCancel,
             AutoJoin = eventDto.AutoJoin,
             JoinDeadline = eventDto.JoinDeadline,
             Fee = eventDto.Fee,
@@ -74,8 +74,7 @@ namespace YonderfulApi.Service
 
         _context.Events.Add(newEvent);
         await _context.SaveChangesAsync();
-        var postedEvent = await _context.Events.FindAsync(newEvent.Id);
-        return postedEvent;
+        return newEvent;
     }
 
     public async Task<Event> PutEvent(int eventID, Event eventToPut)

@@ -15,18 +15,6 @@ namespace YonderfulApi.Service
         _context = context;
     }
 
-    private async Task<Location> GetLocation(Location location){
-      var locationList = await GetLocationList();
-      foreach(Location loc in locationList){
-        if(location.Street.ToLower() == loc.Street.ToLower() && location.Address.ToLower() == loc.Address.ToLower()){
-          if(location.City.ToLower() == loc.City.ToLower() && location.Province.ToLower() == loc.Province.ToLower()){
-            return loc;
-          }
-        }
-      }
-      return null;
-    } 
-
     public async Task<bool> DeleteLocation(int locationId)
     {
       var location = await _context.Location.FindAsync(locationId);

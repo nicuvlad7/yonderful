@@ -41,7 +41,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCategory(EventDto eventDto) 
+        public async Task<IActionResult> PostEvent(EventDto eventDto) 
         {   
             var newEvent = await _eventService.CreateEvent(eventDto);
             

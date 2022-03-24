@@ -14,7 +14,7 @@ namespace YonderfulApi.Models
         public DateTime EndingDate { get; set; }
         public int MinimumParticipants { get; set; }
         public int MaximumParticipants { get; set; }
-        public bool Autocancel { get; set; }
+        public bool AutoCancel { get; set; }
         public bool AutoJoin { get; set; } 
         public DateTime JoinDeadline { get; set; }
         public int Fee { get; set; }
