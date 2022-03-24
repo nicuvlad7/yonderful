@@ -67,11 +67,11 @@ namespace YonderfulApi.Controllers
     }
 
     [HttpPut]
-    public async Task<ActionResult> PutCategory(int categoryId, CategoryDto updatedCategory)
+    public async Task<ActionResult> PutCategory(CategoryDto updatedCategory)
     {
       Category categoryToPut = await _categoryService.CreateCategory(updatedCategory);
 
-      var newCategory = await _categoryService.PutCategory(categoryId, categoryToPut);
+      var newCategory = await _categoryService.PutCategory(updatedCategory.Id, categoryToPut);
       if (newCategory == null)
       {
         return BadRequest();

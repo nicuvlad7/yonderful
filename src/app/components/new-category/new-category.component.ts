@@ -80,7 +80,7 @@ export class NewCategoryComponent implements OnInit {
     this.categoryCard.defaultBackground = this.categoryForm.get(
       'backgroundControl'
     )!.value as string;
-    console.log(this.categoryCard);
+    
     this.categoryService.addNewCategory(this.categoryCard).subscribe(
       (result) => {
         this.loading = false;
