@@ -85,11 +85,13 @@
                         <div class="event-form-item-container">
                             <label>End Time</label>
                             <mat-form-field class="event-form-item">
-                                <input matInput [ngxMatTimepicker]="endTimePicker" placeholder="4:00"
+                                <input matInput [ngxMatTimepicker]="endTimePicker" 
+                                    placeholder="4:00"
                                     formControlName="endTime">
                                 <mat-icon matSuffix (click)="endTimePicker.open()">
                                     watch_later
                                 </mat-icon>
+
                                 <mat-error 
                                     *ngIf="eventGeneralForm.get('endEvent')?.get('endTime')?.hasError('required')">
                                     End time for event is <strong>required</strong>
@@ -179,19 +181,20 @@
                     <div class="event-form-item-wrapper">
                         <div class="event-form-item-container">
                             <mat-checkbox class="checkBox" 
+                                [disabled]="eventGeneralForm.get('minimumParticipants')?.value ? false : true"
                                 formControlName="autocancel"
-                                matTooltip="Incoming information about autocanceling">Autocancel</mat-checkbox>
+                                matTooltip="Automatically cancels the event if minimum participants not met by join deadline">Autocancel</mat-checkbox>
                         </div>
 
                         <div class="event-form-item-container">
                             <mat-checkbox class="checkBox"
                                 formControlName="autojoin"
-                                matTooltip="Incoming information about autojoining">Autojoin Myself</mat-checkbox>
+                                matTooltip="Automatically adds the host as a participant to the event">Autojoin Myself</mat-checkbox>
                         </div>
                     </div>
 
                     <div class="event-form-item-wrapper">
-                        <div class="event-form-item-container description-container">
+                        <div class="event-form-item-container full-width-container">
                             <label>Description</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
@@ -315,8 +318,9 @@
                 </div>
 
                 <div class="event-form-item-wrapper">
-                    <label>Tags</label>
+
                     <div class="event-form-item-container">
+                        <label>Tags</label>
                         <mat-form-field class="event-form-item" appearance="fill">
                             <mat-chip-list #chipList>
                                 <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
@@ -335,16 +339,13 @@
                     </div>
                 </div>
 
-                <!-- <div class="event-form-item-wrapper">
-                    <label>Display image</label>
-
-                    <div class="event-form-item-container">
-                        <app-upload-file [form]="eventOthersForm" controlName="image"></app-upload-file>
-                    </div>
-                </div> -->
-
+                <app-upload-file [form]="eventOthersForm" controlName="image" formControlName="image" runMode="base64"
+                    class="upload-button">
+                </app-upload-file>
             </form>
+
         </mat-expansion-panel>
     </mat-accordion>
 
+    <button mat-button color="primary">Primary</button>
 </div>

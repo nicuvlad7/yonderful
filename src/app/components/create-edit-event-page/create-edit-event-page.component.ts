@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ChipTag } from 'src/app/models/chip-tag';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesResponse } from 'src/app/models/category';
 import { EditEventService } from 'src/app/services/edit-event.service';
+import { UserDetails } from 'src/app/models/user';
+import { UserEvent } from 'src/app/models/event';
 
 @Component({
   selector: 'app-create-edit-event-page',
@@ -14,7 +16,14 @@ import { EditEventService } from 'src/app/services/edit-event.service';
 })
 export class CreateEditEventPageComponent implements OnInit {
   editMode: boolean = false;
-  pageTitle: string = (this.editMode) ? 'Edit event' : 'Create event';
+  pageTitle: string = '';
+  
+  // TODO: get current user id from local storage after login
+  currentUserId: number = 1;
+  currentUser?: UserDetails;
+
+  currentEventId!: number;
+  currentEvent?: UserEvent;
 
   eventGeneralForm!: FormGroup;
   eventLocationForm!: FormGroup;
@@ -26,27 +35,97 @@ export class CreateEditEventPageComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   tags: ChipTag[] = [{ tagName: 'Activity' }];
 
-  autocancelChecked: boolean = true;
-  autojoinChecked!: boolean;
-
   constructor(private route: ActivatedRoute, private editEventService: EditEventService) { }
 
   ngOnInit(): void {
     this.fetchCategoryList();
+    this.initEventFormControls();
 
-    this.route.queryParams.subscribe(params => {
-      if (params && params['id']) {
+    this.route.params.subscribe(params => {
+      this.currentEventId = parseInt(params['id']);
+      if (this.currentEventId) {
+        // Edit mode
         this.editMode = true;
+        this.pageTitle = "Edit event";
+        this.fetchCurrentEvent();
       }
       else {
-        this.initEventFormControls();
+        // Create mode
+        this.pageTitle = "Create event";
+        this.fetchCurrentUserDetails();
       }
-    })
+    });
+
   }
 
   fetchCategoryList(): void {
+    // TODO: use real api when done
     this.editEventService.fetchAllCategories().subscribe(categories => {
-      this.categoryList.result = categories.result;
+      this.categoryList.result = categories.result 
+    });
+  }
+
+  fetchCurrentUserDetails(): void {
+    // TODO: use real api when done
+    this.editEventService.fetchCurrentUserDetails(this.currentUserId).subscribe(user => {
+      this.currentUser = { ...user };
+      this.eventOthersForm.get('email')?.setValue(this.currentUser.email);
+      this.eventOthersForm.get('mobileNumber')?.setValue(this.currentUser.phoneNo);
+    })
+  }
+
+  fetchCurrentEvent(): void {
+    // TODO: use real api when done
+    this.editEventService.fetchCurrentEvent(this.currentEventId).subscribe(event => {
+      // Popualte the General Information form
+      this.currentEvent = { ...event };
+      this.eventGeneralForm.get('title')?.setValue(this.currentEvent.title);
+      
+      // TODO: get date from date string
+      let startDate = '03-05-2022';
+      let startTime = '12:00';
+      this.eventGeneralForm.get('startEvent')?.get('startDate')?.setValue(startDate);
+      this.eventGeneralForm.get('startEvent')?.get('startTime')?.setValue(startTime);
+
+      // TODO: get date from date string
+      let endDate = '03/06/2022';
+      let endTime = '14:00';
+      this.eventGeneralForm.get('endEvent')?.get('endDate')?.setValue(endDate);
+      this.eventGeneralForm.get('endEvent')?.get('endTime')?.setValue(endTime);
+
+      this.eventGeneralForm.get('minimumParticipants')?.setValue(this.currentEvent.minimumParticipants);
+      this.eventGeneralForm.get('maximumParticipants')?.setValue(this.currentEvent.maximumParticipants);
+
+      this.eventGeneralForm.get('autocancel')?.setValue(this.currentEvent.autocancel);
+      this.eventGeneralForm.get('autojoin')?.setValue(this.currentEvent.autojoin);
+
+      // TODO: get date from date string
+      let joinDeadlineDate = '03/02/2022';
+      let joinDeadlineTime = '12:00';
+      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.setValue(joinDeadlineDate);
+      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.setValue(joinDeadlineTime);
+
+      this.eventGeneralForm.get('eventFee')?.setValue(this.currentEvent.fee);
+      this.eventGeneralForm.get('description')?.setValue(this.currentEvent.description);
+      
+      
+      // Populate the Location form
+      this.eventLocationForm.get('location')?.setValue(this.currentEvent.eventLocation.location);
+      this.eventLocationForm.get('locationDetails')?.setValue(this.currentEvent.eventLocation.locationDetails);
+      this.eventLocationForm.get('city')?.setValue(this.currentEvent.eventLocation.city);
+      this.eventLocationForm.get('state')?.setValue(this.currentEvent.eventLocation.state);
+
+
+      // Populate the Others form
+      this.eventOthersForm.get('email')?.setValue(this.currentEvent.contactEmail);
+      this.eventOthersForm.get('mobileNumber')?.setValue(this.currentEvent.contactMobileNumber);
+      let tags = this.currentEvent.tags.split('*');
+      for (let tag of tags) {
+        if (this.tags.length < 5) {
+          this.tags.push( {tagName: tag });
+        }
+      }
+
     })
   }
 
@@ -85,14 +164,14 @@ export class CreateEditEventPageComponent implements OnInit {
       email: new FormControl('', [Validators.required]),
       mobileNumber: new FormControl('', [Validators.required]),
       tags: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required])
+      image: new FormControl()
     })
   }
 
   addTag(event: MatChipInputEvent): void {
     const newTagName = (event.value || '').trim();
 
-    if (newTagName) {
+    if (newTagName && this.tags.length < 5) {
       this.tags.push({ tagName: newTagName });
     }
 

@@ -44,8 +44,12 @@
     align-items: center;
 }
 
-.description-container {
+.full-width-container {
     width: 100%;
+}
+
+.upload-button {
+    @include flex-container(row, flex-start);
 }
 
 mat-icon, mat-datepicker-toggle {
@@ -66,4 +70,8 @@ mat-icon:hover {
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
     padding-bottom: 25px;
+}
+
+.mat-form-field {
+    width: 100%;
 }
