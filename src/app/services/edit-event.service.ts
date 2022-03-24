@@ -19,27 +19,27 @@ export class EditEventService {
   }
 
   fetchAllCategories(): Observable<CategoriesResponse> {
-    // TODO: change with real api endpoint
     return this.httpService.getAll<CategoriesResponse>('categoriesResponse');
+    // return this.httpService.getAll<CategoriesResponse>('Category');
   }
 
   fetchCategoryById(categoryId: number): Observable<Category> {
-    // TODO change with real api endpoint
     return this.httpService.getById<Category>(categoryId, 'categories');
+    // return this.httpService.getById<Category>(categoryId, 'Category');
   }
 
   fetchCurrentUserDetails(currentUserId: number): Observable<UserDetails> {
-    // TODO: change with real api endpoint
-    return this.httpService.getById<UserDetails>(currentUserId, "usersDetails")
+    return this.httpService.getById<UserDetails>(currentUserId, "usersDetails");
+    // return this.httpService.getById<UserDetails>(currentUserId, "User/Id")
   }
 
   fetchCurrentEvent(currentEventId: number): Observable<UserEvent> {
-    // TODO: change with real api endpoint
     return this.httpService.getById<UserEvent>(currentEventId, "events");
+    // return this.httpService.getById<UserEvent>(currentEventId, "Event");
   }
 
   postEvent(event: UserEvent): Observable<UserEvent> {
-    // TODO: change with real api endpoint
     return this.httpService.post<UserEvent>(event, 'events');
+    // return this.httpService.post<UserEvent>(event, 'events');
   }
 }

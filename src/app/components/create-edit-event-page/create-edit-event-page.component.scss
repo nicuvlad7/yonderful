@@ -68,6 +68,13 @@
     transition: background-color 500ms linear;
 }
 
+.uploaded-image {
+  min-height: 75px;
+  min-width: 75px;
+  height: 100%;
+  width: 10%;
+}
+
 mat-icon, mat-datepicker-toggle {
     color: $yonder-pink;
 }
