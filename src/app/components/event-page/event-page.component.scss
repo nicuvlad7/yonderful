@@ -1,4 +1,12 @@
 @import '../../mixins.scss';
+.flex-row {
+    @include flex-container(row, flex-start);
+}
+
+.flex-column {
+    @include flex-container(column, flex-start);
+}
+
 .bold-element {
     font-weight: 700;
 }
@@ -11,6 +19,7 @@
     border-width: 0.1cm;
     border-color: #E5E4E2;
     margin-right: 45px;
+    height: 70%;
 }
 
 #top-div {
@@ -31,7 +40,7 @@
 
 #event-text-information {
     margin-top: 25px;
-    height: 100%;
+    height: 50%;
     justify-content: space-between;
 }
 
@@ -84,25 +93,92 @@
 }
 
 #middle-div {
-    margin-top: 7px;
+    margin-top: 5px;
     width: 100%;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 #default-message {
-    width: 70%;
-    font-size: 1.1vh;
+    width: 25%;
+    font-size: 1.5vh;
 }
 
 #participants-data {
-    align-self: flex-end;
+    margin-top: 10px;
+    margin-right: 20px;
+    align-self: center;
 }
 
-.flex-row {
-    @include flex-container(row, flex-start);
+#participants-icon {
+    margin-top: -2px;
+    margin-right: 5px;
 }
 
-.flex-column {
-    @include flex-container(column, flex-start);
+#current-participants-number {
+    margin-left: 8px;
+    font-size: 1.5vh;
 }
 
+#join-button {
+    background-color: lightgreen;
+    margin-left: 5px;
+    transform: scale(1.35);
+}
+
+#bottom-div {
+    width: 100%;
+    height: 50%;
+}
+
+#event-description {
+    border: solid;
+    border-color: #6096ba;
+    width: 60%;
+    justify-content: space-between;
+}
+
+#event-descripton-text {
+    margin-top: 20px;
+    margin-right: 30px;
+    font-size: 1.5vh;
+    margin-left: 20px;
+}
+
+.tags-list {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.tag {
+    color: green;
+    transform: scale(1.1);
+}
+
+#event-details {
+    border-top:    solid #6096ba;
+    border-right:  solid #6096ba; 
+    border-bottom: solid #6096ba;
+    width: 40%;
+    
+}
+
+#event-details-text {
+    font-size: 1.8vh;
+    margin-top: 20px;
+    margin-left: 20px;
+    justify-content: space-between;
+    height: 80%;
+}
+
+#event-location-details {
+    margin-top: 15px;
+}
+
+#starting-date {
+    margin-top: 15px;
+}
+
+#host-details {
+    margin-top: 15px;
+}

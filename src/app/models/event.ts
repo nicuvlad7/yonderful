@@ -1,3 +1,5 @@
+import { EventLocation } from "./event-location";
+
 export interface Event {
     id: number,
     categoryId: number,
@@ -12,7 +14,7 @@ export interface Event {
     joinDeadline: string,
     fee: number,
     description: string,
-    eventLocation: string,
+    eventLocation: EventLocation,
     contactEmail: string,
     contactPhone: string,
     tags: string,

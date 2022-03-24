@@ -25,9 +25,54 @@
     <div class="flex-row" id="middle-div">
         <div id="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
         <div id="participants-data" class="flex-row">
-            <mat-icon>group</mat-icon>
-            <div class="bold-element">Participants: </div>
+            <div class="flex-row" id="participants-data">
+                <mat-icon id="participants-icon">group</mat-icon>
+                <div class="bold-element">Participants: </div>
+                <div id="current-participants-number">7 / {{event.maximumParticipants}}</div>
+            </div>
+            <button id="join-button" mat-flat-button>Join</button>
+        </div>
+    </div>
+    <div class="flex-row" id="bottom-div">
+        <div class="flex-column" id="event-description">
+            <div id="event-descripton-text">{{event.description}}</div>
+            <mat-chip-list 
+               class="tags-list"   
+                cdkDropList 
+                cdkDropListOrientation="horizontal">
+                <mat-chip
+                    class="tag"
+                    cdkDrag
+                    *ngFor="let tag of tagsList">
+                        {{tag}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <div class="flex-column" id="event-details">
+            <div class="flex-column" id="event-details-text">
+                <div id="location-text">
+                    <div class="bold-element">Location</div>
+                    <div id="event-location-details">
+                        <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
+                        <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
+                        <div><a href="">View Map</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="bold-element">Date & Time</div>
+                    <div id="starting-date">{{event.startingDate}} -</div>
+                    <div>{{event.endingDate}}</div>
+                </div>
+                <div>
+                    <div class="bold-element">Host</div>
+                    <div id="host-details">
+                        <div>Email: {{event.contactEmail}}</div>
+                        <div>Phone: {{event.contactPhone}}</div>
 
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ import { CategoryService } from 'src/app/services/category.service';
 @Component({
   selector: 'app-new-category',
   templateUrl: './new-category.component.html',
-  styleUrls: ['../../styles/styles.scss'],
+  styleUrls: ['../../styles/category.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class NewCategoryComponent implements OnInit {
