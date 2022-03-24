@@ -6,13 +6,13 @@ using YonderfulApi.Models;
 
 namespace YonderfulApi.Service
 {
-    public interface IUserService
-    {
-        Task<IList<User>> GetUserList();
-        Task<User> GetUserById(int userId);
-        Task<User> GetUserByEmail(string email);
-        Task<User> PostUser(User user);
-        Task<User> PutUser(User user);
-        Task<bool> DeleteUser(int id);
-    }
-}                
+	public interface IUserService
+	{
+		Task<IList<User>> GetUserList();
+		Task<User> GetUserById(int userId);
+		Task<User> GetUserByEmail(string email);
+		Task<User> PostUser(User user);
+		Task<User> PutUser(User user);
+		Task<bool> DeleteUser(int id);
+	}
+}
