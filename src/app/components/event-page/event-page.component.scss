@@ -31,7 +31,7 @@
 
 #event-text-information {
     margin-top: 25px;
-    height: 30%;
+    height: 100%;
     justify-content: space-between;
 }
 
@@ -66,9 +66,10 @@
 }
 
 #fee-icon-row {
+    margin-top: 10px;
     justify-content: space-between;
     width: 90%;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 #event-fee {
