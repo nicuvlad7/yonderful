@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
-import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
@@ -25,9 +24,10 @@ export class LoginCardComponent implements OnInit {
     private loginService: AuthenticationService,
     private snackBar: MatSnackBar,
     private router: Router
-  ) {if (this.loginService.currentUserValue) { 
-            this.router.navigate(['/events-list']);
-  }
+  ) {
+      if (this.loginService.currentUserValue) { 
+          this.router.navigate(['/events-list']);
+      }
   }
 
   ngOnInit(): void {
