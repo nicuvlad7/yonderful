@@ -30,7 +30,11 @@ export class CreateEditEventPageComponent implements OnInit {
   eventLocationForm!: FormGroup;
   eventOthersForm!: FormGroup;
 
-  categoryList: CategoriesResponse = {result: []};
+  startDate!: Date;
+  endDate!: Date;
+  joinDeadlineDate!: Date;
+
+  categoryList: CategoriesResponse = { result: [] };
   selectedCategory: string = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -76,7 +80,8 @@ export class CreateEditEventPageComponent implements OnInit {
   fetchCategoryList(): void {
     // TODO: use real api when done
     this.editEventService.fetchAllCategories().subscribe(categories => {
-      this.categoryList.result = categories.result 
+      this.categoryList.result = categories.result;
+      this.categoryList.result.push();
     });
   }
 
@@ -91,53 +96,55 @@ export class CreateEditEventPageComponent implements OnInit {
 
   fetchCurrentEvent(): void {
     // TODO: use real api when done
+
     this.editEventService.fetchCurrentEvent(this.currentEventId).subscribe(event => {
-      // Popualte the General Information form
       this.currentEvent = { ...event };
+      
+      //
+      // Popualte the General Information for
       this.eventGeneralForm.get('title')?.setValue(this.currentEvent.title);
       
-      // TODO: get date from date string
-      let startDate = '03/05/2022';
-      let startDateObj = new Date(startDate);
-      let startTime = '12:00';
-      this.eventGeneralForm.get('startEvent')?.get('startDate')?.setValue(startDateObj);
+      let startDate = new Date(this.currentEvent.startDate);
+      this.startDate = startDate;
+      let startTime = startDate.getHours() + ':' + startDate.getMinutes();
+      this.eventGeneralForm.get('startEvent')?.get('startDate')?.setValue(startDate);
       this.eventGeneralForm.get('startEvent')?.get('startTime')?.setValue(startTime);
 
-      // TODO: get date from date string
-      let endDate = '03/06/2022';
-      let endDateObj = new Date(endDate);
-      let endTime = '14:00';
-      this.eventGeneralForm.get('endEvent')?.get('endDate')?.setValue(endDateObj);
+      let endDate = new Date(this.currentEvent.endDate);
+      this.endDate = endDate;
+      let endTime = endDate.getHours() + ':' + endDate.getMinutes();
+      this.eventGeneralForm.get('endEvent')?.get('endDate')?.setValue(endDate);
       this.eventGeneralForm.get('endEvent')?.get('endTime')?.setValue(endTime);
 
       this.eventGeneralForm.get('minimumParticipants')?.setValue(this.currentEvent.minimumParticipants);
+      
       this.eventGeneralForm.get('maximumParticipants')?.setValue(this.currentEvent.maximumParticipants);
       
       this.editEventService.fetchCategoryById(this.currentEvent.categoryId).subscribe(category => {
-        this.eventGeneralForm.get('category')?.setValue(category);
+        this.eventGeneralForm.get('category')?.setValue(category.title);
       })
 
       this.eventGeneralForm.get('autocancel')?.setValue(this.currentEvent.autocancel);
+
       this.eventGeneralForm.get('autojoin')?.setValue(this.currentEvent.autojoin);
 
-      // TODO: get date from date string
-      let joinDeadlineDate = '03/02/2022';
-      let joinDeadlineDateObj = new Date(joinDeadlineDate);
-      let joinDeadlineTime = '12:00';
-      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.setValue(joinDeadlineDateObj);
+      let joinDeadlineDate = new Date(this.currentEvent.joinDeadline);
+      let joinDeadlineTime = joinDeadlineDate.getHours() + ':' + joinDeadlineDate.getMinutes();
+      this.joinDeadlineDate = joinDeadlineDate;
+      this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.setValue(joinDeadlineDate);
       this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.setValue(joinDeadlineTime);
 
       this.eventGeneralForm.get('eventFee')?.setValue(this.currentEvent.fee);
       this.eventGeneralForm.get('description')?.setValue(this.currentEvent.description);
-      
 
+      // 
       // Populate the Location form
       this.eventLocationForm.get('location')?.setValue(this.currentEvent.eventLocation.location);
       this.eventLocationForm.get('locationDetails')?.setValue(this.currentEvent.eventLocation.locationDetails);
       this.eventLocationForm.get('city')?.setValue(this.currentEvent.eventLocation.city);
       this.eventLocationForm.get('state')?.setValue(this.currentEvent.eventLocation.state);
 
-
+      // 
       // Populate the Others form
       this.eventOthersForm.get('email')?.setValue(this.currentEvent.contactEmail);
       this.eventOthersForm.get('mobileNumber')?.setValue(this.currentEvent.contactMobileNumber);
@@ -188,6 +195,8 @@ export class CreateEditEventPageComponent implements OnInit {
       tags: new FormControl('', [Validators.required]),
       image: new FormControl()
     })
+
+    this.eventGeneralForm.get('category')?.errors;
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -210,7 +219,6 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   onEventAction(): void {
-    console.log('Hei');
-    console.log(this.eventOthersForm.get('image')?.value);
+    // TODO: post the event
   }
 }
