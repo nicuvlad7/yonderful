@@ -71,12 +71,17 @@ export class RegisterCardComponent implements OnInit {
         this.responseUserObject = { ...data };
         this.snackBar.open(
           `User ${this.responseUserObject.name} has been registered.`,
-          'Close'
+          '',
+          {
+            duration: 1000
+          }
         );
         this.router.navigate(['/login']);
       },
       error: (error: Error) => {
-        this.snackBar.open(error.message, 'Close');
+        this.snackBar.open(error.message, '', {
+          duration: 3000
+        });
       },
     });
   }

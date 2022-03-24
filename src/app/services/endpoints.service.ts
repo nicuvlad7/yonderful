@@ -24,10 +24,6 @@ export class EndpointsService {
     return of(this.eventList);
   }
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(environment.apiUrl + "employee")
-  }
-
   getCategories(): Observable<CategoriesResponse> {
     return this.http.get<CategoriesResponse>(environment.apiUrl + "Category") 
   }

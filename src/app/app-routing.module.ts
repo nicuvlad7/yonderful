@@ -7,17 +7,17 @@ import { EventListPageComponent } from './components/event-list-page/event-list-
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
+import { AuthGuard } from './helpers/auth.guard';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginCardComponent },
-  { path: 'events-list', component: EventListPageComponent}, 
-  { path: 'register', component: RegisterCardComponent },
-  { path: 'administrate-categories', component: CategoriesTableComponent},
+  { path: 'events-list', component: EventListPageComponent, canActivate: [AuthGuard]}, 
+  { path: 'administrate-categories', component: CategoriesTableComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterCardComponent},
-  { path: 'create-edit-event', component: CreateEditEventPageComponent },
-  { path : 'category/new', component: NewCategoryComponent},
-  { path : 'category/:id',component: CategoryCardComponent},
+  { path: 'create-edit-event', component: CreateEditEventPageComponent, canActivate: [AuthGuard] },
+  { path : 'category/new', component: NewCategoryComponent, canActivate: [AuthGuard]},
+  { path : 'category/:id',component: CategoryCardComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

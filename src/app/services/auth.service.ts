@@ -25,7 +25,6 @@ export class AuthenticationService {
   login(user: loginUser): Observable<loginUser> {
     return this.http.post<loginUser>(`${environment.apiUrl}Login`, user).pipe(
       map((user) => {
-        // user.token= token;
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
@@ -38,9 +37,6 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next({
-      email: '',
-      password: '',
-    });
+    this.currentUserSubject.next(null);
   }
 }

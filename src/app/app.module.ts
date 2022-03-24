@@ -24,7 +24,6 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -50,8 +49,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MaterialModules,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModules,
-    MatSnackBarModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

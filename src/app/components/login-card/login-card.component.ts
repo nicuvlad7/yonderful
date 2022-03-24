@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
+import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,21 +16,23 @@ export class LoginCardComponent implements OnInit {
   isInputValid: boolean = false;
   loginStatus: boolean = false;
   loginMessage: string = '';
+  error = '';
 
   responseUserObject?: loginUser;
 
   constructor(
+    private formBuilder: FormBuilder,
     private loginService: AuthenticationService,
     private snackBar: MatSnackBar,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.initFormControls();
+  ) {if (this.loginService.currentUserValue) { 
+            this.router.navigate(['/events-list']);
+  }
   }
 
-  initFormControls(): void {
-    this.loginForm = new FormGroup({
+  ngOnInit(): void {
+    debugger;
+    this.loginForm = this.formBuilder.group({
       loginEmailControl: new FormControl('', [
         Validators.required,
         Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com'),
@@ -37,7 +40,7 @@ export class LoginCardComponent implements OnInit {
       loginPasswordControl: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-      ]),
+      ])
     });
   }
 
@@ -54,19 +57,31 @@ export class LoginCardComponent implements OnInit {
   }
 
   onLoginUser(): void {
+    debugger;
     const user: loginUser = {
       email: this.loginForm.get('loginEmailControl')!.value,
       password: this.loginForm.get('loginPasswordControl')!.value,
     };
-
+    debugger;
+    console.log('aaa');
     this.loginService.login(user).subscribe({
+      error: (error: Error) => {
+        debugger;
+        this.snackBar.open(error.message, '', {
+          duration: 3000
+        });
+        
+      },
       next: (data: loginUser) => {
         this.responseUserObject = { ...data };
+        this.snackBar.open(`Login of user ${this.responseUserObject.name} successful!`,
+          '',
+          {
+            duration: 3000
+          })
+        debugger;
         this.router.navigate(['/events-list']);
-      },
-      error: (error: Error) => {
-        this.snackBar.open(error.message, 'Close');
-      },
+      }
     });
   }
 }
