@@ -15,6 +15,7 @@ namespace YonderfulApi.Extensions
       services.AddScoped<ICategoryService, CategoryService>();
       services.AddScoped<IUserService, UserService>();
       services.AddScoped<ILoginService, LoginService>();
+      services.AddScoped<IEventFiltersService, EventFiltersService>();
       return services;
     }
 
