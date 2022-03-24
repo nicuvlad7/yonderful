@@ -18,7 +18,7 @@
 .mat-form-field {
   width: 50%;
 }
-.button-category {
+.button {
   border-radius: 15px;
   border: none;
   color: white;
@@ -27,6 +27,7 @@
   width: 50px; //1
   margin: 6px;
 }
+
 .disabled-button {
   background-color: gray;
 }
@@ -85,7 +86,7 @@
   background-size: cover;
 }
 
-.button-category:active {
+.button:active {
   transform: scale(0.9); //1
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
