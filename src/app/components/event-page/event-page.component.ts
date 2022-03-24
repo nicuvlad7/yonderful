@@ -20,7 +20,7 @@ export class EventPageComponent implements OnInit {
     maximumParticipants: 9,
     autoCancel: false,
     autoJoin: true,
-    joinDeadline: '09/02/2022',
+    joinDeadline: '09/02/2022 @ 23:59',
     fee: 150,
     description: 'Description',
     eventLocation: 'Oradea',

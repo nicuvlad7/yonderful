@@ -1,3 +1,4 @@
+@import '../../mixins.scss';
 .bold-element {
     font-weight: 700;
 }
@@ -22,8 +23,24 @@
 }
 
 #event-information {
-    margin-top: 10px;
+    margin-top: 0;
     margin-left: 20px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#event-text-information {
+    margin-top: 25px;
+    height: 30%;
+    justify-content: space-between;
+}
+
+#title-date {
+    align-self: flex-start;
+}
+
+#deadline-participants {
+    align-self: flex-start;
 }
 
 #event-title {
@@ -31,15 +48,15 @@
 }
 
 #start-date {
-    margin-top: 7px;
     font-size: 1.5vh;
 }
 
-#join-deadline {
-    margin-top: 15px;
+#access-time {
+    margin-top: -2px;
+    transform: scale(0.85);
 }
 
-#ending-date {
+#deadline-text {
     margin-left: 7px;
 }
 
@@ -48,16 +65,27 @@
     font-size: 1.4vh;
 }
 
-#bottom-row {
-    margin-top: 30px;
+#fee-icon-row {
+    justify-content: space-between;
+    width: 90%;
+    margin-bottom: 35px;
 }
 
 #event-fee {
     font-size: 1.6vh;
+    align-self: flex-end;
+    
+}
+
+#category-icon {
+    align-self: flex-end;
+    transform: scale(1.5);
 }
 
 #middle-div {
     margin-top: 7px;
+    width: 100%;
+    justify-content: space-between;
 }
 
 #default-message {
@@ -66,7 +94,14 @@
 }
 
 #participants-data {
-    
+    align-self: flex-end;
 }
 
+.flex-row {
+    @include flex-container(row, flex-start);
+}
+
+.flex-column {
+    @include flex-container(column, flex-start);
+}
 

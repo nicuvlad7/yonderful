@@ -2,23 +2,32 @@
     <div class="flex-row" id="top-div">
         <img id="event-image" [src]="transformStringToImage() ? transformStringToImage() : 'assets/img/default.png'" alt="">
         <div id="event-information" class="flex-column">
-            <div id="event-title" class="bold-element">{{event.title}}</div>
-            <div id="start-date">{{event.startingDate}}</div>
-            <div id="join-deadline" class="flex-row">
-                <div class="bold-element">Join Deadline:</div>
-                <div id="ending-date">{{event.endingDate}}</div>
+            <div id="event-text-information" class="flex-column">
+                <div id="title-date">
+                    <div id="event-title" class="bold-element">{{event.title}}</div>
+                    <div id="start-date">{{event.startingDate}}</div>
+                </div>
+                <div id="deadline-participants">
+                    <div id="join-deadline" class="flex-row">
+                        <mat-icon id="access-time">access_time</mat-icon>
+                        <div class="bold-element">Deadline:</div>
+                        <div id="deadline-text">{{event.joinDeadline}}</div>
+                    </div>
+                    <div id="required-participants">Required participants: {{event.minimumParticipants}}</div>
+                </div>
             </div>
-            <div id="required-participants">Required participants: {{event.minimumParticipants}}</div>
-            <div id="bottom-row">
+            <div id="fee-icon-row" class="flex-row">
                 <div id="event-fee">{{event.fee}} lei</div>
+                <div id="category-icon"><mat-icon>brightness_5</mat-icon></div>
             </div>
         </div>
     </div>
     <div class="flex-row" id="middle-div">
         <div id="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
         <div id="participants-data" class="flex-row">
-            <div>Icon</div>
+            <mat-icon>group</mat-icon>
             <div class="bold-element">Participants: </div>
+
         </div>
     </div>
 </div>
