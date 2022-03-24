@@ -15,6 +15,8 @@ namespace YonderfulApi.Extensions
       services.AddScoped<ICategoryService, CategoryService>();
       services.AddScoped<IUserService, UserService>();
       services.AddScoped<ILoginService, LoginService>();
+      services.AddScoped<IEventService, EventService>();
+      services.AddScoped<ILocationService, LocationService>();
       return services;
     }
 
@@ -23,6 +25,8 @@ namespace YonderfulApi.Extensions
       services.AddAutoMapper(typeof(CategoryMappings));
       services.AddAutoMapper(typeof(UserMappings));
       services.AddAutoMapper(typeof(UserLoginMappings));
+      services.AddAutoMapper(typeof(EventMappings));
+      services.AddAutoMapper(typeof(LocationMappings));
       return services;
     }
   }
