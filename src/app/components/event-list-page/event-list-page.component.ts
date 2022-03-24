@@ -12,7 +12,6 @@ import { EndpointsService } from 'src/app/services/endpoints.service';
 export class EventListPageComponent implements OnInit {
   selectedEvent?: EventDetail;
   eventList: EventDetail[] = [];
-  employees: Employee[] = [];
 
   constructor(private endpointsService: EndpointsService) 
   {}
@@ -20,10 +19,6 @@ export class EventListPageComponent implements OnInit {
   ngOnInit(): void {
     this.endpointsService.getEvents().subscribe(result => {
       this.eventList = result;
-    });
-
-    this.endpointsService.getEmployees().subscribe(result => {
-      this.employees = result;
     });
   }
 
