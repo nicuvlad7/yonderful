@@ -14,22 +14,6 @@ namespace YonderfulApi.Service
     public LocationService(DataContext context) {
         _context = context;
     }
-    public async Task<int> createLocationFromString(string location)
-    {
-        var locationInfo = location.Split("*");
-        Location newLocation = new Location{
-          Street = locationInfo[0],
-          Address = locationInfo[1],
-          City = locationInfo[2],
-          Province = locationInfo[3]
-        };
-        var existingLocation = await GetLocation(newLocation);
-        if(existingLocation == null){
-          newLocation = await PostLocation(newLocation);
-          return newLocation.Id;
-        }
-        return existingLocation.Id;
-    }
 
     private async Task<Location> GetLocation(Location location){
       var locationList = await GetLocationList();
@@ -90,9 +74,5 @@ namespace YonderfulApi.Service
       return await _context.Location.AnyAsync(location => location.Id == newLocation.Id);
     }
 
-    public async Task<string> getLocationContent(string locationStrId){
-      var location = await GetLocation(Int32.Parse(locationStrId));
-      return location.Street+"*"+location.Address+"*"+location.City+"*"+location.Province;
-    }
   }
 }

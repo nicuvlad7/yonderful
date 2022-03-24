@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,7 +49,7 @@ namespace api.Controllers
             if(createdEvent == null) {
                 return BadRequest();
             }
-            return Created(nameof(GetEvent), _mapper.Map<EventDto>(createdEvent));
+            return Ok(_mapper.Map<EventDto>(createdEvent));
         }
     }
 }

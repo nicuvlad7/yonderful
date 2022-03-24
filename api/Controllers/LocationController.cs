@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using api.DTOs;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.Service;
@@ -10,17 +12,19 @@ namespace YonderfulApi.Controllers
     public class LocationController: ControllerBase
     {
         private readonly ILocationService _locationService;
+        private readonly IMapper _mapper;
 
-        public LocationController(ILocationService locationService)
+        public LocationController(ILocationService locationService, IMapper mapper)
         {
             _locationService = locationService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetLocations()
         {
             var myLocationList = await _locationService.GetLocationList();
-            return Ok(myLocationList);
+            return Ok(_mapper.Map<IList<LocationDto>>(myLocationList));
         }
 
     }

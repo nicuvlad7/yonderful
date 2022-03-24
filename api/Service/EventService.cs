@@ -58,13 +58,13 @@ namespace YonderfulApi.Service
 
     public async Task<IList<Event>> GetEventList()
     {
-        var events = await _context.Events.ToListAsync();
+        var events = await _context.Events.Include(a => a.EventLocation).ToListAsync();
         return events;
     }
 
     public async Task<Event> GetEvent(int id)
     {
-        var myEvent = await _context.Events.FindAsync(id);
+        var myEvent = await _context.Events.Include(a => a.EventLocation).FirstOrDefaultAsync(a => a.Id == id);
         return myEvent;
     }
 
@@ -74,7 +74,8 @@ namespace YonderfulApi.Service
 
         _context.Events.Add(newEvent);
         await _context.SaveChangesAsync();
-        return newEvent;
+        var postedEvent = await _context.Events.FindAsync(newEvent.Id);
+        return postedEvent;
     }
 
     public async Task<Event> PutEvent(int eventID, Event eventToPut)
