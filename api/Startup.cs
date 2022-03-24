@@ -47,7 +47,6 @@ namespace YonderfulApi
         };
       });
 
-
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
@@ -66,11 +65,12 @@ namespace YonderfulApi
       }
 
       app.UseHttpsRedirection();
+
       app.UseRouting();
-      app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+
       app.UseAuthorization();
 
-
+      app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
 
       app.UseEndpoints(endpoints =>
       {

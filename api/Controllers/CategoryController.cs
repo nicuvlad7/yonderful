@@ -70,7 +70,7 @@ namespace YonderfulApi.Controllers
     public async Task<ActionResult> PutCategory(int categoryId, CategoryDto updatedCategory)
     {
       Category categoryToPut = await _categoryService.CreateCategory(updatedCategory);
-      
+
       var newCategory = await _categoryService.PutCategory(categoryId, categoryToPut);
       if (newCategory == null)
       {
@@ -78,7 +78,5 @@ namespace YonderfulApi.Controllers
       }
       return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(newCategory));
     }
-
-
   }
 }
