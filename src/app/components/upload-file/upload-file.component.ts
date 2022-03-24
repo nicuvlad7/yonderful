@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
-  styleUrls: ['../../styles/category.scss'],
+  styleUrls: ['../../styles/styles.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class UploadFileComponent implements OnInit {

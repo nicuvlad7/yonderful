@@ -15,7 +15,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 @Component({
   selector: 'app-category-card',
   templateUrl: './category-card.component.html',
-  styleUrls: ['../../styles/category.scss'],
+  styleUrls: ['../../styles/styles.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class CategoryCardComponent implements OnInit {

@@ -3,18 +3,18 @@ export interface Event {
     categoryId: number,
     hostId: number,
     title: string,
-    startingDate: Date,
-    endingDate: Date,
+    startingDate: string,
+    endingDate: string,
     minimumParticipants: number,
     maximumParticipants: number,
     autoCancel: boolean,
     autoJoin: boolean,
-    joinDeadline: Date,
+    joinDeadline: string,
     fee: number,
     description: string,
-    eventLocationId: number,
+    eventLocation: string,
     contactEmail: string,
     contactPhone: string,
     tags: string,
-    backgroundId: number
+    backgroundImage: string
 }

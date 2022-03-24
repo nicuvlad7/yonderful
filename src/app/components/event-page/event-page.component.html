@@ -1,8 +1,12 @@
 <div class="flex-row" id="event-card"> 
     <div class="flex-column" id="top-div">
-        <img src="" alt="">
-        <div id="event-information">
-            <div></div>
+        <img class="tableIcon" [src]="transformStringToImage() ? transformStringToImage() : 'assets/img/default.png'" alt="">
+        <div id="event-information" class="flex-row">
+            <div>{{event.title}}</div>
+            <div>{{event.startingDate}}</div>
+            <div>Join Deadline: {{event.endingDate}}</div>
+            <div>Required participants: {{event.minimumParticipants}}</div>
+            <div>{{event.fee}}</div>
         </div>
     </div>
 </div>
