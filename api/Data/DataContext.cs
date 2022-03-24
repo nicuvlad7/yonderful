@@ -1,6 +1,5 @@
 using YonderfulApi.Models;
 using Microsoft.EntityFrameworkCore;
-using YonderfulApi.Models;
 
 namespace YonderfulApi.Data
 {
@@ -12,5 +11,7 @@ namespace YonderfulApi.Data
     public DbSet<Category> Categories { get; set; }
     public DbSet<Picture> Pictures { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Event> Events { get; set; }
+    public DbSet<Location> Location { get; set; }
   }
 }
