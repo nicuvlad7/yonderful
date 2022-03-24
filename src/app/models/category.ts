@@ -18,8 +18,9 @@ export interface CategoriesResponse {
     result: Category[];
 }
 export interface ICategory {
-    id?:number,
-    title: string,
-    icon: string,
-    backgroundImg: string
+  [x: string]: any;
+  id?: number;
+  title: string;
+  icon: string;
+  defaultBackground: string;
 }
