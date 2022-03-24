@@ -44,7 +44,7 @@ export class HttpService {
 
   delete<T>(id: number, endpoint: string): Observable<T> {
     this.setRequestHeaders();
-    const requestUrl = this.getRequestUrl(endpoint) + '/' + id;
+    const requestUrl = this.getRequestUrl(endpoint) + id;
 
     return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
   }
