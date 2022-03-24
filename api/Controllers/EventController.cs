@@ -45,16 +45,6 @@ namespace api.Controllers
             return Ok(eventDtoList);
         }
 
-        //Restrictions:
-        //X1. Category should exist 
-        //X2. HostId should be valid
-        //X3. Starting date < Ending date
-        //X4. Minimum participants < Maximum participants
-        //X5. JoinDeadline < starting date
-        //X6. Fee > 0
-        //x7. Contact email valid(exemple@exemple.com)
-        //x8. Contact phone valid exactly 10 digits or 14
-        //9. There should be max 5 tags
         [HttpPost]
         public async Task<IActionResult> PostEvent(EventDto eventDto) 
         {   
