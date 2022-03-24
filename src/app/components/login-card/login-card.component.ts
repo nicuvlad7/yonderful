@@ -31,7 +31,6 @@ export class LoginCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     this.loginForm = this.formBuilder.group({
       loginEmailControl: new FormControl('', [
         Validators.required,
@@ -57,16 +56,13 @@ export class LoginCardComponent implements OnInit {
   }
 
   onLoginUser(): void {
-    debugger;
     const user: loginUser = {
       email: this.loginForm.get('loginEmailControl')!.value,
       password: this.loginForm.get('loginPasswordControl')!.value,
     };
-    debugger;
     console.log('aaa');
     this.loginService.login(user).subscribe({
       error: (error: Error) => {
-        debugger;
         this.snackBar.open(error.message, '', {
           duration: 3000
         });
@@ -79,7 +75,6 @@ export class LoginCardComponent implements OnInit {
           {
             duration: 3000
           })
-        debugger;
         this.router.navigate(['/events-list']);
       }
     });
