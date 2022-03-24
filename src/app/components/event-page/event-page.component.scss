@@ -13,13 +13,10 @@
 
 #event-card {
     width: 85%;
-    margin-left: 45px;
+    margin-left: 7.5%;
     margin-top: 45px;
-    border: solid;
-    border-width: 0.1cm;
-    border-color: #E5E4E2;
-    margin-right: 45px;
     height: 70%;
+    @include flex-container(column);
 }
 
 #top-div {
@@ -53,16 +50,19 @@
 }
 
 #event-title {
-    font-size: 2vh;
+    font-size: 3vh;
 }
 
 #start-date {
-    font-size: 1.5vh;
+    font-size: 2vh;
+    margin-top: 3%;
 }
 
 #access-time {
-    margin-top: -2px;
     transform: scale(0.85);
+}
+#join-deadline {
+    font-size: 2vh;
 }
 
 #deadline-text {
@@ -71,7 +71,8 @@
 
 #required-participants {
     color: #52b788;
-    font-size: 1.4vh;
+    font-size: 1.7vh;
+    margin-top: 1%;
 }
 
 #fee-icon-row {
@@ -102,6 +103,7 @@
 #default-message {
     width: 25%;
     font-size: 1.5vh;
+    margin-left: 15px;
 }
 
 #participants-data {
@@ -134,6 +136,7 @@
 #event-description {
     border: solid;
     border-color: #6096ba;
+    border-width: 0.1px;
     width: 60%;
     justify-content: space-between;
 }
@@ -156,9 +159,9 @@
 }
 
 #event-details {
-    border-top:    solid #6096ba;
-    border-right:  solid #6096ba; 
-    border-bottom: solid #6096ba;
+    border-top:   0.1px solid #6096ba;
+    border-right: 0.1px solid #6096ba; 
+    border-bottom: 0.1px solid #6096ba;
     width: 40%;
     
 }
@@ -172,13 +175,13 @@
 }
 
 #event-location-details {
-    margin-top: 15px;
+    margin-top: 2%;
 }
 
 #starting-date {
-    margin-top: 15px;
+    margin-top: 2%;
 }
 
 #host-details {
-    margin-top: 15px;
+    margin-top: 2%;
 }
