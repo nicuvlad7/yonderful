@@ -1,7 +1,7 @@
 <div class="user-detials-wrapper">
     <mat-card class="user-card">
         <mat-card-header>
-            <mat-icon mat-card-avatar>account_circle</mat-icon>
+            <mat-icon mat-card-avatar class="account-icon">account_circle</mat-icon>
             <mat-card-title>{{user.name}}</mat-card-title>
             <mat-card-subtitle>{{user.position}}</mat-card-subtitle>
 
@@ -13,71 +13,68 @@
         </mat-card-header>
         <mat-card-content>
 
-            <div *ngIf="isView; then thenTemplateName else elseTemplateName"></div>
-            
-            <ng-template #thenTemplateName>
+            <div *ngIf="isView else editModeTemplate">
                 <div class="about-view">
-                    <div>
-                        <p>
-                            Name
-                            <span>{{user.name}} </span>
-                        </p>
+                    <div class="label-container">
+                        <p>Name</p>
+                        <p>E-mail</p>
+                        <p>Phone Number</p>
+                        <p>Profession</p>
                     </div>
-                    <div>
-                        <p>
-                            Email
-                            <span>{{user['email']}}</span>
+
+                    <div class="info-container">
+                        <p>{{user.name}} </p>
+                        <p>{{user.email}} </p>
+                        <p [ngClass]="isPhoneNoUnavailable ? 'red' : ''">
+                            {{isPhoneNoUnavailable ? "Unavailable" : user.phoneNo}}
                         </p>
-                    </div>
-                    <div>
-                        <p>
-                            Phone
-                            <span [ngClass]="user.phoneNo == null ? 'red' : ''">
-                                {{user.phoneNo == null ? "Unavailable" : user.phoneNo}}
-                            </span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>
-                            Profession
-                            <span >{{user.position}}</span>
-                        </p>
+                        <p>{{user.position}} </p>
                     </div>
                 </div>
-            </ng-template>
+            </div>
             
-            <ng-template #elseTemplateName>
+            <ng-template #editModeTemplate>
 
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <mat-form-field>
-                            <mat-label>Name</mat-label>
-                            <input matInput type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" />
-                            <mat-hint *ngIf="submitted && f['name'].errors" class="invalid-feedback">
-                                <div *ngIf="f['name'].errors['required']">First Name is required</div>
-                            </mat-hint>
+                <div class="form-container-wrapper">
+                    <div class="form-container">
+                    <form [formGroup]="form" (submit)="onSubmit()">
+
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label> Name
+                            </mat-label>
+                            <input matInput formControlName="name" required>
+                            <mat-error *ngIf="controls['name'].touched && controls['name'].invalid">
+                                <span *ngIf="controls['name'].hasError('required')">This field is mandatory.</span>
+                                <span *ngIf="controls['name'].hasError('pattern')">This field is invalid.</span>
+                            </mat-error>
                         </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Email</mat-label>
-                            <input matInput type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
-                            <mat-hint *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                                <div *ngIf="f['email'].errors['required']">Email is required</div>
-                                <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
-                            </mat-hint>
+
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label> Position
+                            </mat-label>
+                            <input matInput formControlName="position" placeholder="ex: Developer" required>
+                            <mat-error *ngIf="controls['position'].touched && controls['position'].invalid">
+                                <span *ngIf="controls['position'].hasError('required')">This field is mandatory.</span>
+                            </mat-error>
                         </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Phone Number</mat-label>
-                            <input matInput type="text" formControlName="phoneNo" class="form-control"/>
+
+                        <mat-form-field class="form-field" appearance="outline">
+                            <mat-label> Phone Number
+                            </mat-label>
+                            <input matInput formControlName="phoneNo" placeholder="ex: 0712345678">
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="controls['phoneNo'].touched && controls['phoneNo'].invalid">
+                                <span *ngIf="controls['phoneNo'].hasError('pattern')">Input a valid Phone Number.</span>
+                            </mat-error>
                         </mat-form-field>
-                    <div class="form-group">
-                        <button mat-button [disabled]="loading" class="btn btn-primary">
-                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                            Save
-                        </button>
-                        <button mat-button (click)= "toggleIsView()" class="btn btn-link">Cancel</button>
+
+                        <div class="btn-wrapper">
+                            <button mat-flat-button color="primary" type="submit" [disabled]="form.touched && form.invalid">Submit</button>
+                            <button mat-stroked-button color="warn" type="reset">Cancel</button>
+                        </div>
+                    </form>
                     </div>
-                </form>
-
-
+                </div>
 
             </ng-template>
 

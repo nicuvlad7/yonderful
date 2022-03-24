@@ -24,33 +24,35 @@ export class UserDetailsComponent implements OnInit {
     constructor(private userDetailsService: UserDetailsService, private formBuilder: FormBuilder,) { }
 
     ngOnInit(): void {
-        this.initFormControls();
+        this.form = this.formBuilder.group({
+            name: ['', Validators.required, Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*')],
+            position: ['', [Validators.required]],
+            phoneNo: ['', [Validators.pattern('^[0-9]{0,10}')]],
+        }, {});
         this.getUserDetails();
     }
 
-    get f() { return this.form.controls; }
-
-    initFormControls(): void {
-        this.form = this.formBuilder.group({
-            name: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-        }, {
-        });
-    }
+    get controls() { return this.form.controls; }
+    get isPhoneNoUnavailable() { return this.user.phoneNo == null || this.user.phoneNo == ''; }
 
     toggleIsView(): void {
         this.isView = !this.isView;
-        this.getUserDetails();
     }
 
     getUserDetails(): void {
+        //to be replaced with the getLoggedUserDetails api call when implemented
         this.userDetailsService.getAllUsers().subscribe(response => {
             this.user = response[0];
         })
     }
 
     onSubmit(): void {
-
+        //to be sent as PUT instead of locally (when getLoggedUserDetails implemented)
+        if (!this.form.invalid) {
+            this.user.name = this.form.value.name;
+            this.user.position = this.form.value.position;
+            this.user.phoneNo = this.form.value.phoneNo;
+        }
     }
 
 }
