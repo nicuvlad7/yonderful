@@ -8,7 +8,7 @@
 
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div class="action-container">
-      <button class="button-category" type="submit">
+      <button mat-icon-button type="submit" class="icon-button">
         <mat-icon>save</mat-icon>
       </button>
     </div>
@@ -54,7 +54,7 @@
         <div>Background image.</div>
         <mat-error
           *ngIf="
-            categoryForm.get('backgroundControl')!.hasError('required') && this.categoryForm.controls['iconControl'].touched
+            categoryForm.get('backgroundControl')!.hasError('required') && this.categoryForm.touched
           "
           >Choose an image.</mat-error
         >
@@ -90,7 +90,7 @@
         <mat-error
           *ngIf="
             categoryForm.get('iconControl')!.hasError('required') && 
-            this.categoryForm.controls['iconControl'].touched
+            this.categoryForm.touched
           "
           >Choose an image.</mat-error
         >

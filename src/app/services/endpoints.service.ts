@@ -12,10 +12,6 @@ export class EndpointsService {
   constructor(private http: HttpClient) { }
 
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(environment.apiUrl + "employee")
-  }
-
   getCategories(): Observable<CategoriesResponse> {
     return this.http.get<CategoriesResponse>(environment.apiUrl + "Category") 
   }

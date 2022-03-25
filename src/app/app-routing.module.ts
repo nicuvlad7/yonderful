@@ -7,6 +7,7 @@ import { EventPageComponent } from './components/event-page/event-page.component
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
+import { AuthGuard } from './helpers/auth.guard';
 
 
 const routes: Routes = [
