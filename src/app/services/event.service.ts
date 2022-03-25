@@ -14,4 +14,10 @@ export class EventService {
       .getById<Event>(eventId, 'Event')
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
+
+  deleteEvent(id: number): Observable<Event> {
+    return this.httpService
+      .delete<Event>(id, 'Event/')
+      .pipe(catchError(this.httpService.handleHttpErrorResponse));
+  }
 }

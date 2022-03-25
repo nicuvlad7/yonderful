@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, takeUntil } from 'rxjs';
 import { ICategory } from 'src/app/models/category';
 import { Event } from 'src/app/models/event';
 import { EventLocation } from 'src/app/models/event-location';
 import { CategoryService } from 'src/app/services/category.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { EventService } from 'src/app/services/event.service';
 @Component({
@@ -15,7 +16,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventPageComponent implements OnInit {
   eventId: number;
-  isHostMode: false;
+  isHostMode: true;
   event: Event = {
     id: 0,
     categoryId: 0,
@@ -44,8 +45,8 @@ export class EventPageComponent implements OnInit {
   };
   categoryIcon: SafeResourceUrl;
   tagsList: String[] = [];
-  constructor(private categoryService: CategoryService, private eventService: EventService, private sanitizer: DomSanitizer, private readonly route: ActivatedRoute) {
-    this.route.params.subscribe(params => {
+  constructor(private categoryService: CategoryService, private eventService: EventService, private sanitizer: DomSanitizer, private readonly activatedRoute: ActivatedRoute, private dialogService: DialogService, private router: Router) {
+    this.activatedRoute.params.subscribe(params => {
       if (params && params.id) {
         this.eventId = params.id
       }
@@ -95,15 +96,37 @@ export class EventPageComponent implements OnInit {
   }
 
   transformDate(date: String): string {
-    var splittedDate = date.split('T');
+    if (date) {
+      var splittedDate = date.split('T');
     var yearMonthDayString = splittedDate[0];
     var hourMinuteArray = splittedDate[1].split(':');
     var hourMinuteString = hourMinuteArray[0] + ":" + hourMinuteArray[1];
-    return yearMonthDayString + " @ " + hourMinuteString;
+    return yearMonthDayString + " @ " + hourMinuteString; 
+    } else {
+      return '';
+    }
   }
 
-  checkIfHostMode() {
-    
+  getMapLink(): string {
+    return "https://www.google.com/maps/place/" + this.event.eventLocation.street + "+" + this.event.eventLocation.address + "+" + this.event.eventLocation.city;
   }
-  
+
+  deleteEvent(): void {
+    this.openChangeRoleDialog().subscribe(result => {
+      if (result) {
+        this.eventService.deleteEvent(this.eventId).subscribe();
+        //TODO should redirect to hosted events page
+        this.router.navigate(['/administrate-categories']);
+      }
+    });
+  }
+
+  openChangeRoleDialog(): Observable<boolean>{
+    return this.dialogService.confirmDialog({
+      title: 'Delete Event',
+      message: 'Are you sure you want to delete the current event?',
+      confirmText: 'Yes',
+      cancelText: 'No'
+    })
+  }
 }

@@ -1,6 +1,6 @@
 <div id="event-card"> 
     <div class="flex-row" id="top-div">
-        <img id="event-image" [src]="transformStringToImage() ? transformStringToImage() : 'assets/img/default.png'" alt="">
+        <img id="event-image" [src]="transformStringToImage() ? transformStringToImage() : ''" alt="">
         <div id="event-information" class="flex-column">
             <div class="flex-row" id="event-information-first-row">
                 <div  id="event-text-information" class="flex-column">
@@ -17,14 +17,14 @@
                         <div id="required-participants">Required participants: {{event.minimumParticipants}}</div>
                     </div>
                 </div>
-                <div id="admin-buttons" class="flex-column">
-                    <button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                    <button class="admin-buttons-style"><mat-icon>clear</mat-icon></button>
+                <div id="admin-buttons" class="flex-column" *ngIf="isHostMode"}}>
+                    <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
+                    <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
                 </div>
             </div>
             <div id="fee-icon-row" class="flex-row">
                 <div id="event-fee">{{event.fee}} lei</div>
-                <img  id="category-icon" [src]="categoryIcon ? categoryIcon : 'assets/img/default.png'" alt="">
+                <img  id="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
                     <div id="event-location-details">
                         <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
                         <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
-                        <div><a href="">View Map</a></div>
+                        <div><a href={{getMapLink()}}>View Map</a></div>
                     </div>
                 </div>
                 <div>
