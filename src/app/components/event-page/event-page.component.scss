@@ -14,13 +14,14 @@
 #event-card {
     width: 85%;
     margin-left: 7.5%;
-    margin-top: 45px;
-    height: 70%;
+    margin-top: 5%;
+    height: 75%;
     @include flex-container(column);
 }
 
 #top-div {
     width: 100%;
+    height: 100%;
     background-color: #caf0f8;
 }
 
@@ -28,17 +29,36 @@
     width: 30%;
 }
 
+#event-information-first-row {
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+#admin-buttons {
+    margin-top: 15px;
+    margin-right: 20px;
+    justify-content: space-between;
+    height: 25%;
+}
+
+.admin-buttons-style {
+    background-color: transparent;
+    border: none;
+    transform: scale(1.8);
+}
+
 #event-information {
     margin-top: 0;
     margin-left: 20px;
     justify-content: space-between;
     width: 100%;
+    height: 100%;
 }
 
-#event-text-information {
-    margin-top: 25px;
-    height: 50%;
-    justify-content: space-between;
+#event-text-information {align-self: flex-start;
+    height: 70%;
+    justify-content: space-evenly;
 }
 
 #title-date {
@@ -78,19 +98,20 @@
 #fee-icon-row {
     margin-top: 10px;
     justify-content: space-between;
-    width: 90%;
-    margin-bottom: 25px;
+    width: 99%;
+    height: 10%;
+    margin-bottom: 10px;
 }
 
 #event-fee {
-    font-size: 1.6vh;
+    font-size: 2vh;
     align-self: flex-end;
-    
+    margin-bottom: 15px;
 }
 
 #category-icon {
     align-self: flex-end;
-    transform: scale(1.5);
+    width: 20%;
 }
 
 #middle-div {
@@ -130,7 +151,8 @@
 
 #bottom-div {
     width: 100%;
-    height: 50%;
+    height: 70%;
+    justify-content: space-between;
 }
 
 #event-description {

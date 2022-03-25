@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'create-edit-event', component: CreateEditEventPageComponent },
   { path : 'category/new', component: NewCategoryComponent},
   { path : 'category/:id',component: CategoryCardComponent},
-  { path: 'view-event', component: EventPageComponent},
+  { path: 'event-details/:id', component: EventPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 

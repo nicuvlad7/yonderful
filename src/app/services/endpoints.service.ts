@@ -19,9 +19,4 @@ export class EndpointsService {
   deleteCategory(categoryId: number): Observable<unknown> {
     return this.http.delete(environment.apiUrl + "Category", { params: { categoryId: categoryId.toString() } });
   }
-
-  getEventById(eventId: number): Observable<Event> {
-    //TODO: THIS MUST BE CHANGED TO WORK PROPERLY
-    return this.http.get<Event>(environment.apiUrl + "Event", { params: { eventId: eventId.toString() } });
-  }
 }
