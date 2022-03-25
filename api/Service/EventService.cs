@@ -15,7 +15,8 @@ namespace YonderfulApi.Service
 		private readonly ILocationService _locationService;
 		private readonly IMapper _mapper;
 
-		public EventService(DataContext context, IPictureService pictureService, ILocationService locationService, IMapper mapper) {
+		public EventService(DataContext context, IPictureService pictureService, ILocationService locationService, IMapper mapper)
+		{
 			_context = context;
 			_pictureService = pictureService;
 			_locationService = locationService;
@@ -24,7 +25,8 @@ namespace YonderfulApi.Service
 
 		public async Task<Event> CreateEvent(EventDto eventDto)
 		{
-			Event newEvent = new Event{
+			Event newEvent = new Event
+			{
 				Id = eventDto.Id,
 				CategoryId = eventDto.CategoryId,
 				HostId = eventDto.HostId,
@@ -50,7 +52,8 @@ namespace YonderfulApi.Service
 		public async Task<bool> DeleteEvent(int eventID)
 		{
 			var myEvent = await _context.Events.FindAsync(eventID);
-			if(myEvent == null) {
+			if (myEvent == null)
+			{
 				return false;
 			}
 			_context.Events.Remove(myEvent);
@@ -80,7 +83,8 @@ namespace YonderfulApi.Service
 		public async Task<Event> PutEvent(Event eventToPut)
 		{
 			var myEvent = await _context.Events.FindAsync(eventToPut.Id);
-			if(myEvent == null) {
+			if (myEvent == null)
+			{
 				return null;
 			}
 			myEvent.CategoryId = eventToPut.CategoryId;
@@ -95,7 +99,7 @@ namespace YonderfulApi.Service
 			myEvent.JoinDeadline = eventToPut.JoinDeadline;
 			myEvent.Fee = eventToPut.Fee;
 			myEvent.Description = eventToPut.Description;
-			myEvent.EventLocation = await _locationService.PostLocation(eventToPut.EventLocation);   
+			myEvent.EventLocation = await _locationService.PostLocation(eventToPut.EventLocation);
 			myEvent.ContactEmail = eventToPut.ContactEmail;
 			myEvent.ContactPhone = eventToPut.ContactPhone;
 			myEvent.Tags = eventToPut.Tags;
@@ -108,7 +112,8 @@ namespace YonderfulApi.Service
 
 		public async Task<EventDto> TransformEventDtoForOutput(EventDto eventDto)
 		{
-			if(eventDto != null){
+			if (eventDto != null)
+			{
 				eventDto.BackgroundImage = await _pictureService.GetPictureContent(eventDto.BackgroundImage);
 			}
 			return eventDto;
@@ -117,7 +122,8 @@ namespace YonderfulApi.Service
 		public async Task<IList<EventDto>> TransformEventDtoListForOutput(IList<EventDto> eventDtoList)
 		{
 			IList<EventDto> outputList = new List<EventDto>();
-			foreach(EventDto eventDto in eventDtoList) {
+			foreach (EventDto eventDto in eventDtoList)
+			{
 				outputList.Add(await TransformEventDtoForOutput(eventDto));
 			}
 			return outputList;

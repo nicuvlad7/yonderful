@@ -4,11 +4,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegisterService } from 'src/app/services/register-service';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-register-card',
   templateUrl: './register-card.component.html',
-  styleUrls: ['./register-card.component.scss']
+  styleUrls: ['./register-card.component.scss'],
 })
 export class RegisterCardComponent implements OnInit {
   registerForm!: FormGroup;
@@ -19,9 +20,11 @@ export class RegisterCardComponent implements OnInit {
 
   responseUserObject?: User;
 
-  constructor(private registerService: RegisterService, private snackBar: MatSnackBar, private router: Router) { 
-    
-  }
+  constructor(
+    private registerService: RegisterService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.initFormControls();
@@ -29,11 +32,19 @@ export class RegisterCardComponent implements OnInit {
 
   initFormControls(): void {
     this.registerForm = new FormGroup({
-      registerNameControl: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*')]),
-      registerEmailControl: new FormControl('', [Validators.required, Validators.pattern('^[a-z]+\\.[a-z]+@tss-yonder\\.com')]),
-      registerPasswordControl: new FormControl('', [Validators.required, Validators.minLength(6)])
+      registerNameControl: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z ]+'),
+      ]),
+      registerEmailControl: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z]+\\.[a-zA-Z]+@tss-yonder\\.com'),
+      ]),
+      registerPasswordControl: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
-
   }
 
   isRegisterFormCompleted(): boolean {
@@ -50,22 +61,28 @@ export class RegisterCardComponent implements OnInit {
 
   onRegisterUser(): void {
     const user: User = {
-      name: this.registerForm.get('registerNameControl')!.value.replace(/\s+/g, ' ').trim(), 
-      email: this.registerForm.get('registerEmailControl')!.value.trim(), 
-      password: this.registerForm.get('registerPasswordControl')!.value
+      name: this.registerForm.get('registerNameControl')!.value,
+      email: this.registerForm.get('registerEmailControl')!.value,
+      password: this.registerForm.get('registerPasswordControl')!.value,
     };
 
     this.registerService.register(user).subscribe({
       next: (data: User) => {
-        this.responseUserObject = {...data};
-        this.snackBar.open(`User ${this.responseUserObject.name} has been registered.`, '', {
-          duration: 2500
-        });
+        this.responseUserObject = { ...data };
+        this.snackBar.open(
+          `User ${this.responseUserObject.name} has been registered.`,
+          '',
+          {
+            duration: 1000
+          }
+        );
         this.router.navigate(['/login']);
       },
       error: (error: Error) => {
-        this.snackBar.open(error.message, 'Close');
-      }
-    })
+        this.snackBar.open(error.message, '', {
+          duration: 3000
+        });
+      },
+    });
   }
 }

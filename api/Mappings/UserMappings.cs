@@ -8,16 +8,16 @@ using AutoMapper;
 
 namespace YonderfulApi.Mappings
 {
-  public class UserMappings : Profile
-  {
-    public UserMappings()
-    {
-      CreateMap<User, UserDto>();
-      CreateMap<UserUpdateDto, User>();
-      CreateMap<User, UserUpdateDto>();
-      CreateMap<UserDetailsDto, User>();
-      CreateMap<User, UserDetailsDto>();
-      CreateMap<UserDto, User>();
-    }
-  }
+	public class UserMappings : Profile
+	{
+		public UserMappings()
+		{
+			CreateMap<User, UserDto>();
+			CreateMap<UserUpdateDto, User>();
+			CreateMap<User, UserUpdateDto>();
+			CreateMap<UserDetailsDto, User>();
+			CreateMap<User, UserDetailsDto>();
+			CreateMap<UserDto, User>();
+		}
+	}
 }

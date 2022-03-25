@@ -11,14 +11,15 @@ namespace YonderfulApi.Service
 	{
 		private readonly DataContext _context;
 
-		public LocationService(DataContext context) {
+		public LocationService(DataContext context)
+		{
 			_context = context;
 		}
 
 		public async Task<bool> DeleteLocation(int locationId)
 		{
 			var location = await _context.Location.FindAsync(locationId);
-			if(location == null)
+			if (location == null)
 				return false;
 			_context.Location.Remove(location);
 			return await _context.SaveChangesAsync() > 0;
@@ -49,7 +50,8 @@ namespace YonderfulApi.Service
 		public async Task<Location> PutLocation(Location locationToPut)
 		{
 			var location = await _context.Location.FindAsync(locationToPut.Id);
-			if(location == null) {
+			if (location == null)
+			{
 				return null;
 			}
 			location.Street = locationToPut.Street;
@@ -62,12 +64,14 @@ namespace YonderfulApi.Service
 			return location;
 		}
 
-		private async Task<Location> LocationExists(Location newLocation){
+		private async Task<Location> LocationExists(Location newLocation)
+		{
 			var locations = await _context.Location.ToListAsync();
-			foreach(Location loc in locations){
-				if(loc.Street == newLocation.Street && loc.Address == newLocation.Address &&
+			foreach (Location loc in locations)
+			{
+				if (loc.Street == newLocation.Street && loc.Address == newLocation.Address &&
 				loc.City == newLocation.City && loc.Province == newLocation.Province)
-				return loc;
+					return loc;
 			}
 			return null;
 		}

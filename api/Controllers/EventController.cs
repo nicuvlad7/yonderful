@@ -30,7 +30,8 @@ namespace api.Controllers
 		public async Task<IActionResult> GetEvent(int eventId)
 		{
 			var myEvent = await _eventService.GetEvent(eventId);
-			if(myEvent == null) {
+			if (myEvent == null)
+			{
 				return NotFound("Event with id given not found");
 			}
 			var eventDto = _eventService.TransformEventDtoForOutput(_mapper.Map<EventDto>(myEvent));
@@ -74,16 +75,19 @@ namespace api.Controllers
 		}
 
 		[HttpDelete("{eventId}")]
-		public async Task<IActionResult> DeleteEvent(int eventId){
+		public async Task<IActionResult> DeleteEvent(int eventId)
+		{
 			var deletedEvent = await _eventService.DeleteEvent(eventId);
 			return deletedEvent ? Ok() : BadRequest();
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> PutElement(EventDto newEventDto){
+		public async Task<IActionResult> PutElement(EventDto newEventDto)
+		{
 			var newEvent = await _eventService.CreateEvent(newEventDto);
 			var putEvent = await _eventService.PutEvent(newEvent);
-			if(putEvent == null){
+			if (putEvent == null)
+			{
 				return BadRequest();
 			}
 			return Ok(putEvent);
