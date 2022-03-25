@@ -22,6 +22,9 @@ namespace YonderfulApi.Controllers
       _mapper = mapper;
     }
 
+
+    
+
     [HttpGet("{categoryId}")]
     public async Task<IActionResult> GetCategory(int categoryId)
     {

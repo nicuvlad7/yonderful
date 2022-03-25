@@ -24,52 +24,13 @@ namespace YonderfulApi.Controllers
       _mapper = mapper;
     }
 
-
-  
-    [HttpGet("end-date")]
-    public async Task<IActionResult> GetEventsByEndDate(DateTime param)
+    [HttpPost]
+    public async Task<IActionResult> ApplyAllFilters(MockFiltersDto param)
     {
-      var eventList = await _eventFiltersService.FilterByEndDate(param);
-      if (eventList == null)
-      {
+      var eventList = await _eventFiltersService.FilterEvents(param);
+      if(eventList == null){
         return NotFound();
       }
-
-      return Ok(eventList);
-    }
-
-    [HttpGet("start-date")]
-    public async Task<IActionResult> GetEventsByStartDate(DateTime param)
-    {
-      var eventList = await _eventFiltersService.FilterByEndDate(param);
-      if (eventList == null)
-      {
-        return NotFound();
-      }
-      return Ok(eventList);
-    }
-
-    [HttpGet("has-category")]
-    public async Task<IActionResult> GetEventsByCategory(string param)
-    {
-      var eventList = await _eventFiltersService.FilterByCategory(param);
-      if (eventList == null)
-      {
-        return NotFound();
-      }
-
-      return Ok(eventList);
-    }
-
-    [HttpGet("is-hidden")]
-    public async Task<IActionResult> GetEventsByHidden(Boolean param)
-    {
-      var eventList = await _eventFiltersService.FilterByHidden(param);
-      if (eventList == null)
-      {
-        return NotFound();
-      }
-
       return Ok(eventList);
     }
 
