@@ -18,7 +18,6 @@ namespace YonderfulApi.DTOs
 		public DateTime StartingDate { get; set; } 
 		[Required]
 		public DateTime EndingDate { get; set; }
-		[Range(2, int.MaxValue, ErrorMessage = "There should be at least 2 participant")]
 		public int MinimumParticipants { get; set; }
 		public int MaximumParticipants { get; set; }
 		public bool AutoCancel { get; set; }

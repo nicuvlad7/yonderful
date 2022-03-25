@@ -66,6 +66,8 @@ namespace api.Controllers
 				return BadRequest("Minimum number of participants should be lower than the maximum one.");
 			if(newEvent.Tags.Split("*").Length > 5)
 				return BadRequest("Maximum 5 tags are allowed");
+			if(newEvent.MinimumParticipants == 0)
+				newEvent.AutoCancel = false;
 			
 			var createdEvent = await _eventService.PostEvent(newEvent);
 			if(createdEvent == null) {
