@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/models/employee';
 import { EventDetail } from 'src/app/models/event-details';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 
