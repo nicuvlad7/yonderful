@@ -14,15 +14,13 @@ namespace api.Controllers
 	public class EventController : ControllerBase
 	{
 		private readonly IEventService _eventService;
-		private readonly IFutureEventsService _futureEventsService;
 		private readonly IUserService _userService;
 		private readonly ICategoryService _categoryService;
 		private readonly IMapper _mapper;
 
-		public EventController(IEventService eventService, IFutureEventsService futureEventsService, ICategoryService categoryService, IUserService userService, IMapper mapper)
+		public EventController(IEventService eventService, ICategoryService categoryService, IUserService userService, IMapper mapper)
 		{
 			_eventService = eventService;
-			_futureEventsService = futureEventsService;
 			_categoryService = categoryService;
 			_userService = userService;
 			_mapper = mapper;
@@ -48,11 +46,10 @@ namespace api.Controllers
 			return Ok(eventDtoList);
 		}
 
-		[HttpGet]
-		[Route("api/[controller]/getFutureEvents")]
+		[HttpGet("getFutureEvents")]
 		public async Task<IActionResult> GetFutureEvents()
 		{
-			var myEventList = await _futureEventsService.GetFutureEventList();
+			var myEventList = await _eventService.GetFutureEventList();
 			var eventDtoList = _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
 			return Ok(eventDtoList);
 		}
