@@ -161,7 +161,7 @@ export class CreateEditEventPageComponent implements OnInit {
         startTime: new FormControl('', [Validators.required]),
         endDate: new FormControl('', [Validators.required]),
         endTime: new FormControl('', [Validators.required])
-      }, eventEndTimeValidator ),
+      }, eventEndTimeValidator()),
       minimumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
       maximumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
       category: new FormControl('', [Validators.required]),
@@ -211,6 +211,8 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   onEventAction(): void {
+    console.log(this.eventGeneralForm.get('eventDates')?.errors);
+
     let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value;
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
     let timeDict = timeStringParser(startTime);
@@ -224,7 +226,7 @@ export class CreateEditEventPageComponent implements OnInit {
     let joinDeadlineDate: Date = this.eventGeneralForm.get('joinEvent')!.get('joinDeadlineDate')!.value;
     let joinDeadlineTime: string = this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')!.value;
     timeDict = timeStringParser(joinDeadlineTime);
-    endDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
+    joinDeadlineDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
 
     let eventId: number = 0;
     let locationId: number = 0;
@@ -266,30 +268,32 @@ export class CreateEditEventPageComponent implements OnInit {
       backgroundImage: this.eventOthersForm.get('image')!.value
     }
 
-    if (this.editMode) {
-      this.editEventService.updateEvent(userEvent).subscribe({
-        next: (data: IUserEvent) => {
-          this.snackBar.open(`Event ${data.title} has been edited.`, '', {
-            duration: 2500
-          });
-        },
-        error: (error: Error) => {
-          this.snackBar.open(error.message, 'Close');
-        }
-      });
-    }
-    else {
-      this.editEventService.postEvent(userEvent).subscribe({
-        next: (data: IUserEvent) => {
-          this.snackBar.open(`Event ${data.title} has been created`, '', {
-            duration: 2500
-          })
-        },
-        error: (error: Error) => {
-          this.snackBar.open(error.message, 'Close');
-        }
-      })
-    }
+    console.log(userEvent);
+
+    // if (this.editMode) {
+    //   this.editEventService.updateEvent(userEvent).subscribe({
+    //     next: (data: IUserEvent) => {
+    //       this.snackBar.open(`Event ${data.title} has been edited.`, '', {
+    //         duration: 2500
+    //       });
+    //     },
+    //     error: (error: Error) => {
+    //       this.snackBar.open(error.message, 'Close');
+    //     }
+    //   });
+    // }
+    // else {
+    //   this.editEventService.postEvent(userEvent).subscribe({
+    //     next: (data: IUserEvent) => {
+    //       this.snackBar.open(`Event ${data.title} has been created`, '', {
+    //         duration: 2500
+    //       })
+    //     },
+    //     error: (error: Error) => {
+    //       this.snackBar.open(error.message, 'Close');
+    //     }
+    //   })
+    // }
 
   }
 }

@@ -4,8 +4,7 @@
         <h1> {{ pageTitle }}</h1>
 
         <div class="button-wrapper">
-            <button mat-raised-button color="primary" class="event-button" [disabled]="!isEventFormValid()"
-                (click)="onEventAction()">
+            <button mat-raised-button color="primary" class="event-button" (click)="onEventAction()">
                 <mat-icon class="button-icon" *ngIf="editMode; else save" class="button-icon">edit</mat-icon>
                 <ng-template #save>
                     <mat-icon classs="button-icon">save</mat-icon>
@@ -48,11 +47,8 @@
                         <div class="event-form-item-container">
                             <label>Start Date</label>
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput 
-                                [matDatepicker]="startDatePicker" 
-                                placeholder="MM/DD/YYYY"
-                                formControlName="startDate" 
-                                [min]="currentDate">
+                                <input matInput [matDatepicker]="startDatePicker" placeholder="MM/DD/YYYY"
+                                    formControlName="startDate" [min]="currentDate">
                                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #startDatePicker></mat-datepicker>
 
@@ -67,11 +63,8 @@
                         <div class="event-form-item-container">
                             <label>Start Time</label>
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput 
-                                [ngxMatTimepicker]="startTimePicker" 
-                                placeholder="4:00" 
-                                [format]="24"
-                                formControlName="startTime">
+                                <input matInput [ngxMatTimepicker]="startTimePicker" placeholder="4:00" [format]="24"
+                                    formControlName="startTime">
                                 <mat-icon class="form-icon" matSuffix (click)="startTimePicker.open()">
                                     watch_later
                                 </mat-icon>
@@ -89,10 +82,9 @@
                             <label>End Date</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput 
-                                [matDatepicker]="endDatePicker"
-                                [min]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
-                                placeholder="MM/DD/YYYY" formControlName="endDate">
+                                <input matInput [matDatepicker]="endDatePicker"
+                                    [min]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
+                                    placeholder="MM/DD/YYYY" formControlName="endDate">
                                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #endDatePicker></mat-datepicker>
                                 <mat-error
@@ -106,14 +98,15 @@
                             <label>End Time</label>
                             <mat-form-field class="event-form-item" appearance="outline">
 
-                                <input matInput 
-                                [ngxMatTimepicker]="endTimePicker" 
-                                placeholder="4:00" 
-                                [format]="24"
-                                formControlName="endTime">
+                                <input matInput [ngxMatTimepicker]="endTimePicker" placeholder="4:00" [format]="24"
+                                    formControlName="endTime">
                                 <mat-icon matSuffix (click)="endTimePicker.open()">
                                     watch_later
                                 </mat-icon>
+
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.errors?.['endTimeError']">
+                                    End time must be less than the start time
+                                </mat-error>
 
                                 <mat-error
                                     *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('required')">
@@ -124,7 +117,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="event-form-item-wrapper">
                         <div class="event-form-item-container">
