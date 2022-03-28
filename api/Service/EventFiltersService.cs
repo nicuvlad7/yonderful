@@ -20,10 +20,11 @@ namespace YonderfulApi.Service
 
     public async Task<IList<MockEvent>> FilterEvents(MockFiltersDto param)
     {
-      var eventsList = await _context.MockEvents.ToListAsync();
-      var test = Convert.ToDateTime(param.StartDate);
+      var eventsList = from s in _context.MockEvents select s;
       bool placeHolder = true;
+
       if (param.Hidden != null)
+
       {
         if (param.Hidden == "true")
         {
@@ -34,64 +35,24 @@ namespace YonderfulApi.Service
           placeHolder = false;
         }
       }
-
-      if (param.EndDate != null && param.Category != null && param.Hidden != null)
+      if (param.Hidden != null)
       {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate && b.EndDate <= param.EndDate)).Where(b => b.Hidden == placeHolder).Where(b => b.Category == param.Category)
-        .ToListAsync();
+        eventsList = eventsList.Where(b => b.Hidden == placeHolder);
+      }
+      if (param.Category != null)
+      {
+        eventsList = eventsList.Where(b => b.Category == param.Category);
+      }
+      if (param.EndDate != null)
+      {
+        eventsList = eventsList.Where(b => b.StartDate > param.StartDate && b.EndDate < param.EndDate);
+      }
+      else
+      {
+        eventsList = eventsList.Where(b => b.StartDate < param.StartDate);
       }
 
-      if (param.EndDate == null && param.Category != null && param.Hidden != null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate)).Where(b => b.Hidden == placeHolder).Where(b => b.Category == param.Category)
-        .ToListAsync();
-      }
-
-      if (param.EndDate == null && param.Category == null && param.Hidden != null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate)).Where(b => b.Hidden == placeHolder)
-        .ToListAsync();
-      }
-
-      if (param.EndDate == null && param.Category == null && param.Hidden == null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => b.StartDate >=test)
-        .ToListAsync();
-      }
-
-      if (param.EndDate != null && param.Category == null && param.Hidden != null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate && b.EndDate <= param.EndDate)).Where(b => b.Hidden == placeHolder)
-        .ToListAsync();
-      }
-
-      if (param.EndDate != null && param.Category == null && param.Hidden == null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.EndDate && b.EndDate <= param.StartDate))
-        .ToListAsync();
-      }
-
-      if (param.EndDate != null && param.Category != null && param.Hidden == null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate && b.EndDate <= param.EndDate)).Where(b => b.Category == param.Category)
-        .ToListAsync();
-      }
-
-      if (param.EndDate == null && param.Category != null && param.Hidden == null)
-      {
-        eventsList = await _context.MockEvents
-         .Where(b => (b.StartDate >= param.StartDate)).Where(b => b.Category == param.Category)
-        .ToListAsync();
-      }
-      return eventsList;
+      return await eventsList.ToListAsync();
     }
-
   }
 }
