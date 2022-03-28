@@ -1,140 +1,115 @@
-<div class="card">
-  <div class="loading-indicator" *ngIf="loading">
-    <mat-progress-spinner
-      mode="indeterminate"
-      color="accent"
-    ></mat-progress-spinner>
-  </div>
-  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-    <div class="action-container">
-      <button
-        (click)="onEditClick()"
-        *ngIf="!editMode"
-        type="button"
-        class="icon-button"
-        mat-icon-button
-      >
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button
-        (click)="onDelete()"
-        *ngIf="!editMode"
-        mat-icon-button
-        class="icon-button"
-        [disabled]="!canMakeChanges"
-        type="button"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        *ngIf="editMode"
-        class="icon-button"
-        type="submit"
-      >
-        <mat-icon>save</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="icon-button"
-        *ngIf="editMode"
-        (click)="onDiscard()"
-        type="button"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-    <div class="segment flex-center">
-      <mat-form-field appearance="fill">
-        <mat-label> Title. </mat-label>
-        <input
-          matInput
-          [readonly]="canMakeChanges && editMode ? null : true"
-          formControlName="titleControl"
-        />
-        <mat-error
-          *ngIf="
-            categoryForm.get('titleControl')!.hasError('required') &&
-            categoryForm.touched
-          "
-          >Title is required.</mat-error
-        >
-        <mat-error
-          *ngIf="
-            categoryForm.get('titleControl')!.hasError('maxlength') &&
-            categoryForm.touched
-          "
-          >Title cannot be longer than 24 characters.</mat-error
-        >
-        <mat-error
-          *ngIf="
-            categoryForm.get('titleControl')!.hasError('pattern') &&
-            categoryForm.touched
-          "
-          >Title can only contain letters.</mat-error
-        >
-      </mat-form-field>
-    </div>
+<div class="category-form-wrapper">
+	<h1>{{ "pageTitle" }}</h1>
+	<div class="category-form-container">
+		<div class="test4">
+			<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+				<div class="action-container">
+					<button
+						(click)="onEditClick()"
+						*ngIf="!editMode"
+						type="button"
+						class="icon-button"
+						mat-icon-button
+					>
+						<mat-icon>edit</mat-icon>
+					</button>
+					<button
+						(click)="onDelete()"
+						*ngIf="!editMode"
+						mat-icon-button
+						class="icon-button"
+						[disabled]="!canMakeChanges"
+						type="button"
+					>
+						<mat-icon>delete</mat-icon>
+					</button>
+					<button
+						mat-icon-button
+						*ngIf="editMode"
+						class="icon-button"
+						type="submit"
+					>
+						<mat-icon>save</mat-icon>
+					</button>
+					<button
+						mat-icon-button
+						class="icon-button"
+						*ngIf="editMode && !testNaN(urlID)"
+						(click)="onDiscard()"
+						type="button"
+					>
+						<mat-icon>close</mat-icon>
+					</button>
+				</div>
+				<div class="test3">
+					<label> Title </label>
+					<mat-form-field appearance="outline">
+						<mat-label>Title</mat-label>
+						<input
+							matInput
+							[readonly]="
+								canMakeChanges && editMode ? null : true
+							"
+							formControlName="titleControl"
+						/>
+						<mat-error
+							*ngIf="
+								categoryForm
+									.get('titleControl')!
+									.hasError('required') &&
+								categoryForm.touched
+							"
+							>Title is required.</mat-error
+						>
+						<mat-error
+							*ngIf="
+								categoryForm
+									.get('titleControl')!
+									.hasError('maxlength') &&
+								categoryForm.touched
+							"
+							>Title cannot be longer than 24
+							characters.</mat-error
+						>
+						<mat-error
+							*ngIf="
+								categoryForm
+									.get('titleControl')!
+									.hasError('pattern') && categoryForm.touched
+							"
+							>Title can only contain letters.</mat-error
+						>
+					</mat-form-field>
+				</div>
+				<div class="test-segment">
+					<div class="item">
+						<label class="item-spacing">Background image</label>
+						<app-upload-file
+							message="Choose your background"
+							controlName="backgroundControl"
+							*ngIf="editMode"
+							[form]="categoryForm"
+							runMode="base64"
+						></app-upload-file>
+						<img *ngIf="categoryForm.controls['backgroundControl'].valid" [src]="categoryForm.get('backgroundControl')!.value"/>
+						<span class="img-placeholder" *ngIf="!categoryForm.controls['backgroundControl'].valid">Choose an image.</span>
+					</div>
 
-    <div class="segment flex-center">
-      <div class="centered-segment flex-center">
-        <app-upload-file
-          [form]="categoryForm"
-          [hidden]="!editMode"
-          controlName="backgroundControl"
-          runMode="base64"
-        ></app-upload-file>
-        <div>Background image.</div>
-        <mat-error
-          *ngIf="
-            categoryForm
-              .get('backgroundControl')!
-              .hasError('wrongFileFormat') &&
-            this.categoryForm.controls['backgroundControl'].touched
-          "
-          >Choose a valid image format.</mat-error
-        >
-      </div>
-    </div>
-
-    <div class="background-segment flex-center">
-      <img
-        [src]="
-          categoryForm.get('backgroundControl')!.valid
-            ? categoryForm.get('backgroundControl')!.value
-            : '/assets/chooseImage.png'
-        "
-        class="bg-img"
-      />
-    </div>
-
-    <div class="segment flex-center">
-      <div class="centered-segment flex-center">
-        <app-upload-file
-          [form]="categoryForm"
-          [hidden]="!editMode"
-          controlName="iconControl"
-          runMode="base64"
-        ></app-upload-file>
-        <div>Category icon.</div>
-        <mat-error
-          *ngIf="
-            categoryForm.get('iconControl')!.hasError('wrongFileFormat') &&
-            this.categoryForm.controls['iconControl'].touched
-          "
-          >Choose a valid image format.</mat-error
-        >
-      </div>
-    </div>
-    <div class="icon-segment flex-center">
-      <img
-        [src]="
-          categoryForm.get('iconControl')!.valid
-            ? categoryForm.get('iconControl')!.value
-            : '/assets/chooseImage.png'
-        "
-        class="icon"
-      />
-    </div>
-  </form>
+					<div class="item">
+						<label>Icon</label>
+						<app-upload-file
+							[form]="categoryForm"
+							controlName="iconControl"
+							message="Choose your icon"
+							class="item-spacing"
+							*ngIf="editMode"
+							runMode="base64"
+						></app-upload-file>
+						<img *ngIf="categoryForm.controls['iconControl'].valid" [src]="categoryForm.get('iconControl')!.value"/>
+						<span class="img-placeholder" *ngIf="!categoryForm.controls['iconControl'].valid">Choose an image.</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>

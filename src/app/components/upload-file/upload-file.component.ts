@@ -4,14 +4,14 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-upload-file',
   templateUrl: './upload-file.component.html',
-  styleUrls: ['../../styles/category.scss'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./upload-file.component.scss'],
+
 })
 export class UploadFileComponent implements OnInit {
   @Input() form!: FormGroup;
   @Input() controlName!: string;
   @Input() runMode?: string;
-
+  @Input() message?:string;
   constructor() {}
 
   ngOnInit(): void {}
