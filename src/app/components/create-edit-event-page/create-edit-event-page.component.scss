@@ -69,8 +69,6 @@
 .event-button {
     background-color: $yonder-white;
     color: $yonder-white;
-    width: 100%;
-    height: auto;
     margin-bottom: 16px;
 }
 
@@ -82,11 +80,6 @@
 .chip-tag mat-icon {
     color: $yonder-pink;
 }
-
-// .event-button:enabled:hover {
-//     background-color: $yonder-pink;
-//     transition: background-color 500ms linear color;
-// }
 
 .upload-image-component-container {
     @include flex-container(row, flex-start);
@@ -106,13 +99,11 @@
 .uploaded-image-container {
     @include flex-container(row);
     align-items: center;
-    height: 200px;
-    width: 400px;
 }
 
 .uploaded-image {
-  height: 100%;
-  width: 100%;
+  width: 80%;
+  height: auto;
 }
 
 mat-icon, mat-datepicker-toggle {

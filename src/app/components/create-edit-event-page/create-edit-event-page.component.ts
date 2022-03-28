@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { COMMA, ENTER, P } from '@angular/cdk/keycodes';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { COMMA, ENTER,  } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ChipTag } from 'src/app/models/chip-tag';
 import { ActivatedRoute } from '@angular/router';
@@ -41,7 +41,7 @@ export class CreateEditEventPageComponent implements OnInit {
   selectedCategoryId?: number;
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  tags: ChipTag[] = [{ tagName: 'Activity' }];
+  tags: ChipTag[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -149,10 +149,6 @@ export class CreateEditEventPageComponent implements OnInit {
           this.tags.push({ tagName: tag });
         }
       }
-      this.eventOthersForm.patchValue({
-        tags: this.tags
-      })
-
     })
   }
 
@@ -188,7 +184,7 @@ export class CreateEditEventPageComponent implements OnInit {
     this.eventOthersForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]+\\.*[a-z]*@[a-z\\-]+\\.com$")]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
-      tags: new FormControl('', [Validators.required]),
+      // tags: new FormControl('', [Validators.required]),
       image: new FormControl()
     })
 
@@ -214,11 +210,6 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   onEventAction(): void {
-    console.log(this.eventGeneralForm);
-    console.log(this.eventLocationForm);
-    console.log(this.eventOthersForm);
-    console.log(this.tags);
-
     let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value;
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
     let timeDict = timeStringParser(startTime);
@@ -276,30 +267,30 @@ export class CreateEditEventPageComponent implements OnInit {
 
     console.log(userEvent);
 
-    // if (this.editMode) {
-    //   this.editEventService.updateEvent(userEvent).subscribe({
-    //     next: (data: IUserEvent) => {
-    //       this.snackBar.open(`Event ${data.title} has been edited.`, '', {
-    //         duration: 2500
-    //       });
-    //     },
-    //     error: (error: Error) => {
-    //       this.snackBar.open(error.message, 'Close');
-    //     }
-    //   });
-    // }
-    // else {
-    //   this.editEventService.postEvent(userEvent).subscribe({
-    //     next: (data: IUserEvent) => {
-    //       this.snackBar.open(`Event ${data.title} has been created`, '', {
-    //         duration: 2500
-    //       })
-    //     },
-    //     error: (error: Error) => {
-    //       this.snackBar.open(error.message, 'Close');
-    //     }
-    //   })
-    // }
+    if (this.editMode) {
+      this.editEventService.updateEvent(userEvent).subscribe({
+        next: (data: IUserEvent) => {
+          this.snackBar.open(`Event ${data.title} has been edited.`, '', {
+            duration: 2500
+          });
+        },
+        error: (error: Error) => {
+          this.snackBar.open(error.message, 'Close');
+        }
+      });
+    }
+    else {
+      this.editEventService.postEvent(userEvent).subscribe({
+        next: (data: IUserEvent) => {
+          this.snackBar.open(`Event ${data.title} has been created`, '', {
+            duration: 2500
+          })
+        },
+        error: (error: Error) => {
+          this.snackBar.open(error.message, 'Close');
+        }
+      })
+    }
 
   }
 }

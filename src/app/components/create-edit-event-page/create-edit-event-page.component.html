@@ -3,14 +3,10 @@
     <div class="event-form-header">
         <h1> {{ pageTitle }}</h1>
 
-        <div class="button-wrapper">
-            <button mat-raised-button color="primary" class="event-button" (click)="onEventAction()" [disabled]="!isEventFormValid()">
-                <mat-icon class="button-icon" *ngIf="editMode; else save" class="button-icon">edit</mat-icon>
-                <ng-template #save>
-                    <mat-icon classs="button-icon">save</mat-icon>
-                </ng-template>
-            </button>
-        </div>
+        <button mat-fab color="primary" class="event-button" (click)="onEventAction()" [disabled]="!isEventFormValid()">
+                <mat-icon class="button-icon">save</mat-icon>
+        </button>
+      
     </div>
 
     <!-- GENERAL INFORMATION PANEL & FORM -->
@@ -68,6 +64,11 @@
                                 <mat-icon class="form-icon" matSuffix (click)="startTimePicker.open()">
                                     watch_later
                                 </mat-icon>
+
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('endTimeError')">
+                                    End time must be greater than the start time
+                                </mat-error>
+
                                 <mat-error
                                     *ngIf="eventGeneralForm.get('eventDates')?.get('startTime')?.hasError('required')">
                                     Start time for event is <strong>required</strong>
@@ -104,7 +105,7 @@
                                     watch_later
                                 </mat-icon>
 
-                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.errors?.['endTimeError']">
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('endTimeError')">
                                     End time must be less than the start time
                                 </mat-error>
 
@@ -360,7 +361,7 @@
                                 </mat-chip>
                                 <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addTag($event)"
-                                    formControlName="tags">
+                                    >
                             </mat-chip-list>
                         </mat-form-field>
                     </div>

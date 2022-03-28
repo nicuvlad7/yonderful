@@ -22,8 +22,9 @@ export function eventEndTimeValidator(): ValidatorFn {
     endDate.setHours(endTimeDict.hours, endTimeDict.minutes, 0, 0);
 
     if (startDate.getTime() < endDate.getTime()) return null;
+    
+    eventDates.get('endTime')?.setErrors({ endTimeError: true });
 
-    console.log('Not good');
     return { endTimeError: true};
 };
 }
