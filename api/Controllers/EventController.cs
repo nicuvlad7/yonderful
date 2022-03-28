@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
-using YonderfulApi.Models;
 using YonderfulApi.Service;
 
 namespace api.Controllers
