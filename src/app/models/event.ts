@@ -1,25 +1,30 @@
-export interface UserEvent {
+export interface IUserEventResponse {
+    result: IUserEvent
+}
+
+export interface IUserEvent {
     id: number,
     categoryId: number,
     hostId: number,
     title: string,
-    startDate: Date,
-    endDate: Date,
+    startingDate: Date,
+    endingDate: Date,
     minimumParticipants: number,
     maximumParticipants: number,
-    autocancel: boolean,
-    autojoin: boolean,
+    autoCancel: boolean,
+    autoJoin: boolean,
     joinDeadline: Date,
     fee: number,
     description: string,
     eventLocation: {
-        location: string,
-        locationDetails: string,
+        id: number,
+        street: string,
+        address: string,
         city: string,
-        state: string
+        province: string
     },
     contactEmail: string,
-    contactMobileNumber: string,
+    contactPhone: string,
     tags: string,
     backgroundImage: string
 }

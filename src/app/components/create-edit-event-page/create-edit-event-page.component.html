@@ -1,21 +1,33 @@
 <div class="event-form-wrapper">
 
-    <h1> {{ pageTitle }}</h1>
+    <div class="event-form-header">
+        <h1> {{ pageTitle }}</h1>
+
+        <div class="button-wrapper">
+            <button mat-raised-button color="primary" class="event-button" [disabled]="!isEventFormValid()"
+                (click)="onEventAction()">
+                <mat-icon class="button-icon" *ngIf="editMode; else save" class="button-icon">edit</mat-icon>
+                <ng-template #save>
+                    <mat-icon classs="button-icon">save</mat-icon>
+                </ng-template>
+            </button>
+        </div>
+    </div>
 
     <!-- GENERAL INFORMATION PANEL & FORM -->
     <mat-accordion class="event-form-container">
-        <mat-expansion-panel>
+        <mat-expansion-panel class="event-panel">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Event general information
                 </mat-panel-title>
                 <mat-panel-description>
                     Type event dates, fees and other general information
-                    <mat-icon>event</mat-icon>
                 </mat-panel-description>
+                <mat-icon class="expansion-panel-icon">event</mat-icon>
             </mat-expansion-panel-header>
 
-            <div clas="event-form-content">
+            <div class="event-form-content">
 
                 <form class="event-form" [formGroup]="eventGeneralForm">
 
@@ -24,7 +36,6 @@
                             <label>Title</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-label>Title</mat-label>
                                 <input matInput type="text" placeholder="Title" formControlName="title">
                                 <mat-error *ngIf="eventGeneralForm.get('title')?.hasError('required')">
                                     Event title is <strong>required</strong>
@@ -33,31 +44,39 @@
                         </div>
                     </div>
 
-                    <div class="event-form-item-wrapper" formGroupName="startEvent">
+                    <div class="event-form-item-wrapper" formGroupName="eventDates">
                         <div class="event-form-item-container">
                             <label>Start Date</label>
-                            <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="startDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="startDate">
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput 
+                                [matDatepicker]="startDatePicker" 
+                                placeholder="MM/DD/YYYY"
+                                formControlName="startDate" 
+                                [min]="currentDate">
                                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #startDatePicker></mat-datepicker>
+
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('startEvent')?.get('startDate')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('startDate')?.hasError('required')">
                                     Start date for event is <strong>required</strong>
                                 </mat-error>
+
                             </mat-form-field>
                         </div>
 
                         <div class="event-form-item-container">
                             <label>Start Time</label>
-                            <mat-form-field class="event-form-item">
-                                <input matInput [ngxMatTimepicker]="startTimePicker" placeholder="4:00"
-                                    formControlName="startTime">
-                                <mat-icon matSuffix (click)="startTimePicker.open()">
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput 
+                                [ngxMatTimepicker]="startTimePicker" 
+                                placeholder="4:00" 
+                                [format]="24"
+                                formControlName="startTime">
+                                <mat-icon class="form-icon" matSuffix (click)="startTimePicker.open()">
                                     watch_later
                                 </mat-icon>
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('startEvent')?.get('startTime')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('startTime')?.hasError('required')">
                                     Start time for event is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -65,18 +84,19 @@
                         </div>
                     </div>
 
-                    <div class="event-form-item-wrapper" formGroupName="endEvent">
+                    <div class="event-form-item-wrapper" formGroupName="eventDates">
                         <div class="event-form-item-container">
                             <label>End Date</label>
 
-                            <mat-form-field class="event-form-item" appearance="fill">
-                                <input matInput [matDatepicker]="endDatePicker"
-                                    [min]="eventGeneralForm.get('startEvent')?.get('startDate')?.value"
-                                    placeholder="MM/DD/YYYY" formControlName="endDate">
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput 
+                                [matDatepicker]="endDatePicker"
+                                [min]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
+                                placeholder="MM/DD/YYYY" formControlName="endDate">
                                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #endDatePicker></mat-datepicker>
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('endEvent')?.get('endDate')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('endDate')?.hasError('required')">
                                     End date for event is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -84,15 +104,19 @@
 
                         <div class="event-form-item-container">
                             <label>End Time</label>
-                            <mat-form-field class="event-form-item">
-                                <input matInput [ngxMatTimepicker]="endTimePicker" placeholder="4:00"
-                                    formControlName="endTime">
+                            <mat-form-field class="event-form-item" appearance="outline">
+
+                                <input matInput 
+                                [ngxMatTimepicker]="endTimePicker" 
+                                placeholder="4:00" 
+                                [format]="24"
+                                formControlName="endTime">
                                 <mat-icon matSuffix (click)="endTimePicker.open()">
                                     watch_later
                                 </mat-icon>
 
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('endEvent')?.get('endTime')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('required')">
                                     End time for event is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -100,41 +124,15 @@
                         </div>
                     </div>
 
-                    <div class="event-form-item-wrapper">
-                        <div class="event-form-item-container">
-                            <label>Minimum number of participants</label>
-
-                            <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-label>Minimum</mat-label>
-                                <input matInput type="text" placeholder="ex: 23" formControlName="minimumParticipants">
-                            </mat-form-field>
-                        </div>
-
-                        <div class="event-form-item-container">
-                            <label>Maximum number of participants</label>
-
-                            <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-label>Maximum</mat-label>
-                                <input matInput type="text" placeholder="ex: 23" formControlName="maximumParticipants">
-                            </mat-form-field>
-                        </div>
-
-                        <div class="event-form-item-container">
-                            <label>Fee</label>
-                            <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput type="text" placeholder="0" formControlName="eventFee">
-                            </mat-form-field>
-                        </div>
-                    </div>
+                    
 
                     <div class="event-form-item-wrapper">
                         <div class="event-form-item-container">
                             <label>Category</label>
 
-                            <mat-form-field class="event-form-item" appearance="fill">
-                                <mat-label>Category</mat-label>
-                                <mat-select name="category" formControlName="category">
-                                    <mat-option *ngFor="let category of categoryList.result" [value]="category">
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId">
+                                    <mat-option *ngFor="let category of categoryList.result" [value]="category.id">
                                         {{ category.title }}
                                     </mat-option>
                                 </mat-select>
@@ -143,14 +141,51 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
+
+                        <div class="event-form-item-container">
+                            <label>Fee</label>
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput type="text" placeholder="0" formControlName="eventFee">
+                                <mat-error *ngIf="eventGeneralForm.get('eventFee')?.hasError('pattern')">
+                                    Fee must be a <strong>positive number</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
+
+                    <div class="event-form-item-wrapper">
+                        <div class="event-form-item-container">
+                            <label>Minimum number of participants</label>
+
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput type="text" placeholder="ex: 23" formControlName="minimumParticipants">
+                                <mat-error *ngIf="eventGeneralForm.get('minimumParticipants')?.hasError('pattern')">
+                                    Minimum number of participants must be a <strong>positive number</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="event-form-item-container">
+                            <label>Maximum number of participants</label>
+
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput type="text" placeholder="ex: 23" formControlName="maximumParticipants">
+                                <mat-error *ngIf="eventGeneralForm.get('maximumParticipants')?.hasError('pattern')">
+                                    Maximum number of participants must be <strong>positive number</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
 
                     <div class="event-form-item-wrapper" formGroupName="joinEvent">
                         <div class="event-form-item-container">
                             <label>Join Deadline</label>
-                            <mat-form-field class="event-form-item" appearance="fill">
+                            <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="joinDeadlineDate">
+                                    formControlName="joinDeadlineDate" [min]="currentDate"
+                                    [max]="eventGeneralForm.get('endEvent')?.get('endDate')?.value">
                                 <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #deadlineDatePicker></mat-datepicker>
                                 <mat-error
@@ -162,8 +197,8 @@
 
                         <div class="event-form-item-container">
                             <label>Joind Deadline Time</label>
-                            <mat-form-field class="event-form-item">
-                                <input matInput [ngxMatTimepicker]="deadlineTimePicker" placeholder="4:00"
+                            <mat-form-field class="event-form-item" appearance="outline">
+                                <input matInput [ngxMatTimepicker]="deadlineTimePicker" placeholder="4:00" [format]="24"
                                     formControlName="joinDeadlineTime">
                                 <mat-icon matSuffix (click)="deadlineTimePicker.open()">
                                     watch_later
@@ -199,7 +234,7 @@
                             <label>Description</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput type="text" placeholder="Type here..." formControlName="description">
+                                <textarea matInput placeholder="Type here..." formControlName="description"></textarea>
                                 <mat-error *ngIf="eventGeneralForm.get('description')?.hasError('required')">
                                     Description is <strong>required</strong>
                                 </mat-error>
@@ -213,40 +248,34 @@
         </mat-expansion-panel>
 
         <!-- LOCATION PANEL & FORM -->
-        <mat-expansion-panel>
+        <mat-expansion-panel class="event-panel">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Event location
                 </mat-panel-title>
                 <mat-panel-description>
                     Type event location information
-                    <mat-icon>location_on</mat-icon>
                 </mat-panel-description>
+                <mat-icon class="expansion-panel-icon">event</mat-icon>
             </mat-expansion-panel-header>
 
             <form class="event-form" [formGroup]="eventLocationForm">
                 <div class="event-form-item-wrapper">
                     <div class="event-form-item-container">
-                        <label>Location</label>
+                        <label>Street Address</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Location</mat-label>
-                            <input matInput type="text" formControlName="location">
-                            <mat-hint>Street Address</mat-hint>
-                            <mat-error *ngIf="eventLocationForm.get('location')?.hasError('required')">
+                            <input matInput type="text" formControlName="street">
+                            <mat-error *ngIf="eventLocationForm.get('street')?.hasError('required')">
                                 Event location is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
-                </div>
 
-                <div class="event-form-item-wrapper">
                     <div class="event-form-item-container">
-
+                        <label>Street Number, Ap, Other info</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Location Details</mat-label>
-                            <input matInput type="text" formControlName="locationDetails">
-                            <mat-hint>Street Number, Ap, Other info</mat-hint>
-                            <mat-error *ngIf="eventLocationForm.get('locationDetails')?.hasError('required')">
+                            <input matInput type="text" formControlName="address">
+                            <mat-error *ngIf="eventLocationForm.get('address')?.hasError('required')">
                                 Event location details are <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -255,9 +284,8 @@
 
                 <div class="event-form-item-wrapper">
                     <div class="event-form-item-container">
-
+                        <label>City</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>City</mat-label>
                             <input matInput type="text" formControlName="city">
                             <mat-error *ngIf="eventLocationForm.get('city')?.hasError('required')">
                                 City is <strong>required</strong>
@@ -266,11 +294,10 @@
                     </div>
 
                     <div class="event-form-item-container">
-
+                        <label>State / Province</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>State / Province</mat-label>
-                            <input matInput type="text" formControlName="state">
-                            <mat-error *ngIf="eventLocationForm.get('state')?.hasError('required')">
+                            <input matInput type="text" formControlName="province">
+                            <mat-error *ngIf="eventLocationForm.get('province')?.hasError('required')">
                                 State / Province is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
@@ -280,15 +307,15 @@
             </form>
         </mat-expansion-panel>
 
-        <mat-expansion-panel>
+        <mat-expansion-panel class="event-panel">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Contact info and others
                 </mat-panel-title>
                 <mat-panel-description>
                     Type your contact information and miscellaneous
-                    <mat-icon>perm_identity</mat-icon>
                 </mat-panel-description>
+                <mat-icon class="expansion-panel-icon">perm_identity</mat-icon>
             </mat-expansion-panel-header>
 
             <form class="event-form" [formGroup]="eventOthersForm">
@@ -297,8 +324,12 @@
                         <label>Contact Email</label>
 
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Email</mat-label>
                             <input matInput type="text" formControlName="email">
+
+                            <mat-error *ngIf="eventOthersForm.get('email')?.hasError('pattern')">
+                                Email is not valid
+                            </mat-error>
+
                             <mat-error *ngIf="eventOthersForm.get('email')?.hasError('required')">
                                 Email is <strong>required</strong>
                             </mat-error>
@@ -309,8 +340,12 @@
                         <label>Mobile Number</label>
 
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Mobile</mat-label>
                             <input matInput type="text" formControlName="mobileNumber">
+
+                            <mat-error *ngIf="eventOthersForm.get('mobileNumber')?.hasError('pattern')">
+                                Phone number must have <strong>10 digits</strong>
+                            </mat-error>
+
                             <mat-error *ngIf="eventOthersForm.get('mobileNumber')?.hasError('required')">
                                 Mobile number is <strong>required</strong>
                             </mat-error>
@@ -322,9 +357,9 @@
 
                     <div class="event-form-item-container full-width-container">
                         <label>Tags</label>
-                        <mat-form-field class="event-form-item" appearance="fill">
-                            <mat-chip-list #chipList>
-                                <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)">
+                        <mat-form-field class="event-form-item" appearance="outline">
+                            <mat-chip-list #chipList matTooltip="Add up to 5 tags describing your event">
+                                <mat-chip *ngFor="let tag of tags" (removed)="removeTag(tag)" class="chip-tag">
                                     {{ tag.tagName }}
                                     <button matChipRemove>
                                         <mat-icon>cancel</mat-icon>
@@ -340,28 +375,28 @@
 
                 <div class="event-form-item-wrapper">
                     <div class="event-form-item-container">
-                        <label>Upload image</label>
-                        <app-upload-file [form]="eventOthersForm" controlName="image" runMode="base64"
-                            class="upload-button">
-                        </app-upload-file>
+                        <label>Background image</label>
+
+                        <div class="upload-image-component-container">
+                            <app-upload-file [form]="eventOthersForm" controlName="image" runMode="base64"
+                                class="upload-button">
+                            </app-upload-file>
+                            <p class="upload-text">Choose your background</p>
+                        </div>
+
+                        <div class="uploaded-image-container">
+                            <img *ngIf="eventOthersForm.get('image')?.value; else displayText"
+                                [src]="eventOthersForm.get('image')?.value" class='uploaded-image'>
+                            <ng-template #displayText>
+                                <p>No file choosen.</p>
+                            </ng-template>
+                        </div>
+
                     </div>
                 </div>
 
-                <div class="event-form-item-wrapper">
-                    <div class="event-form-item-container">
-                        <img [src]="eventOthersForm.get('image')?.value ? 
-                                    eventOthersForm.get('image')?.value :
-                                    '/assets/chooseImage.png' " class="uploaded-image">
-                    </div>
-                </div>
             </form>
-
         </mat-expansion-panel>
     </mat-accordion>
 
-    <div class="button-wrapper">
-        <button mat-raised-button color="primary" class="event-button" [disabled]="isEventFormDone()"
-            (click)="onEventAction()"> {{ label }}
-        </button>
-    </div>
 </div>

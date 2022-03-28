@@ -8,13 +8,26 @@
 
 .event-form-container {
     @include flex-container(column);
-    padding: 25px 100px 25px 100px;
+    padding: 25px 100px;
 }
 
 .event-form-header {
-    @include flex-container(row);
+    @include flex-container(row, space-between);
+    align-items: center;
     color: $yonder-blue;
-    margin-bottom: 50px;
+    padding: 0 100px;
+}
+
+.event-panel:hover mat-panel-description {
+    color: $yonder-blue;
+}
+
+.event-panel:hover mat-panel-title {
+    color: $yonder-blue;
+}
+
+.expansion-panel-icon {
+    margin-right: 10px;
 }
 
 .event-form-item-wrapper {
@@ -48,34 +61,65 @@
     width: 100%;
 }
 
+.button-wrapper {
+    @include flex-container(row, center);
+    width: 36%;
+}
+
+.event-button {
+    background-color: $yonder-white;
+    color: $yonder-white;
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.chip-tag {
+    background-color: $yonder-white;
+    border: 2px solid $yonder-blue;
+}
+
+.chip-tag mat-icon {
+    color: $yonder-pink;
+}
+
+// .event-button:enabled:hover {
+//     background-color: $yonder-pink;
+//     transition: background-color 500ms linear color;
+// }
+
+.upload-image-component-container {
+    @include flex-container(row, flex-start);
+    align-items: center;
+    margin-left: -10px;
+}
+
+.upload-text {
+    margin-bottom: 0px;
+    font-weight: 450;
+}
+
 .upload-button {
     @include flex-container(row, flex-start);
 }
 
-.button-wrapper {
-    @include flex-container(row, center);
-    width: auto;
-}
-
-.event-button {
-    background-color: $yonder-blue;
-    color: $yonder-white;
-    width: 33%;
-}
-
-.event-button:enabled:hover {
-    background-color: $yonder-pink;
-    transition: background-color 500ms linear;
+.uploaded-image-container {
+    @include flex-container(row);
+    align-items: center;
+    height: 200px;
+    width: 400px;
 }
 
 .uploaded-image {
-  min-height: 75px;
-  min-width: 75px;
   height: 100%;
-  width: 10%;
+  width: 100%;
 }
 
 mat-icon, mat-datepicker-toggle {
+    color: $yonder-pink;
+}
+
+.button-icon {
     color: $yonder-pink;
 }
 
@@ -93,6 +137,10 @@ mat-icon:hover {
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
     padding-bottom: 25px;
+}
+
+.mat-expansion-panel-header-description {
+    flex-grow: 0;
 }
 
 .mat-form-field {
