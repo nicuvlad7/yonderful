@@ -1,7 +1,7 @@
 <div class="category-form-wrapper">
-	<h1>{{ "pageTitle" }}</h1>
+	<h1>{{ pageTitle }}</h1>
 	<div class="category-form-container">
-		<div class="test4">
+		<div class="category-form-shadow">
 			<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
 				<div class="action-container">
 					<button
@@ -41,7 +41,7 @@
 						<mat-icon>close</mat-icon>
 					</button>
 				</div>
-				<div class="test3">
+				<div class="title-input-container">
 					<label> Title </label>
 					<mat-form-field appearance="outline">
 						<mat-label>Title</mat-label>
@@ -81,32 +81,56 @@
 						>
 					</mat-form-field>
 				</div>
-				<div class="test-segment">
-					<div class="item">
-						<label class="item-spacing">Background image</label>
+				<div class="upload-display-container">
+					<div class="upload-display-item">
+						<label>Background image</label>
 						<app-upload-file
-							message="Choose your background"
 							controlName="backgroundControl"
 							*ngIf="editMode"
 							[form]="categoryForm"
 							runMode="base64"
-						></app-upload-file>
-						<img *ngIf="categoryForm.controls['backgroundControl'].valid" [src]="categoryForm.get('backgroundControl')!.value"/>
-						<span class="img-placeholder" *ngIf="!categoryForm.controls['backgroundControl'].valid">Choose an image.</span>
+							><div class="optional-label">
+								Choose your background
+							</div></app-upload-file
+						>
+						<img
+							*ngIf="
+								categoryForm.controls['backgroundControl'].valid
+							"
+							[src]="categoryForm.get('backgroundControl')!.value"
+						/>
+						<span
+							class="img-placeholder"
+							*ngIf="
+								!categoryForm.controls['backgroundControl']
+									.valid
+							"
+							>Choose an image</span
+						>
 					</div>
 
-					<div class="item">
+					<div class="upload-display-item">
 						<label>Icon</label>
 						<app-upload-file
 							[form]="categoryForm"
 							controlName="iconControl"
 							message="Choose your icon"
-							class="item-spacing"
 							*ngIf="editMode"
 							runMode="base64"
-						></app-upload-file>
-						<img *ngIf="categoryForm.controls['iconControl'].valid" [src]="categoryForm.get('iconControl')!.value"/>
-						<span class="img-placeholder" *ngIf="!categoryForm.controls['iconControl'].valid">Choose an image.</span>
+						>
+							<div class="optional-label">
+								Choose your icon
+							</div></app-upload-file
+						>
+						<img
+							*ngIf="categoryForm.controls['iconControl'].valid"
+							[src]="categoryForm.get('iconControl')!.value"
+						/>
+						<span
+							class="img-placeholder"
+							*ngIf="!categoryForm.controls['iconControl'].valid"
+							>Choose an image</span
+						>
 					</div>
 				</div>
 			</form>

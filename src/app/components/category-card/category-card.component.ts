@@ -40,10 +40,11 @@ export class CategoryCardComponent implements OnInit {
 		defaultBackground: '',
 		icon: '',
 	};
-	loading: boolean = false;
+
 	editMode: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
+	pageTitle:string ="";
 	constructor(
 		private categoryService: CategoryService,
 		private _snackBar: MatSnackBar,
@@ -76,13 +77,12 @@ export class CategoryCardComponent implements OnInit {
 		if (!this.urlID) {
 			this.editMode = true;
 			this.canMakeChanges = true;
+			this.pageTitle = "New Category"
 			return;
 		}
-		
-		this.loading = true;
+
 		this.categoryService.getCategory(this.urlID).subscribe(
 			(result: ICategory) => {
-				this.loading = false;
 				this.categoryCard.id = result['result'].id;
 				this.categoryCard.title = result['result'].title;
 				this.categoryCard.icon = result['result'].icon;
@@ -97,7 +97,6 @@ export class CategoryCardComponent implements OnInit {
 			},
 			(error) => {
 				{
-					this.loading = false;
 					this._snackBar.open(
 						`Error status ${error.status}: ${error.message}`,
 						'',
@@ -109,10 +108,15 @@ export class CategoryCardComponent implements OnInit {
 			}
 		);
 		if (editModeParam == 'true') {
+			this.pageTitle="Edit Category";
 			this.editMode = true;
 		}
 		if (editModeParam == 'false') {
+			this.pageTitle = 'Category';
 			this.editMode = false;
+		}
+		if(editModeParam == ''){
+			this.pageTitle = 'Category';
 		}
 	}
 
@@ -137,7 +141,6 @@ export class CategoryCardComponent implements OnInit {
 			if (!result) {
 				return;
 			}
-			this.editMode = false;
 			this.categoryForm.reset({
 				titleControl: this.categoryCard.title,
 				backgroundControl: this.categoryCard.defaultBackground,
@@ -153,19 +156,16 @@ export class CategoryCardComponent implements OnInit {
 		}
 		this.openDeleteDialog().subscribe((result) => {
 			if (result) {
-				this.loading = true;
 				this.categoryService
 					.deleteCategory(this.categoryCard.id!)
 					.subscribe(
 						(result) => {
-							this.loading = false;
 							this._snackBar.open('Category was deleted.', '', {
 								duration: 3000,
 							});
 							this.router.navigate(['/']);
 						},
 						(error) => {
-							this.loading = false;
 							this._snackBar.open(
 								`Error status ${error.status}: ${error.message}`,
 								'',
@@ -182,7 +182,6 @@ export class CategoryCardComponent implements OnInit {
 		if (!this.categoryForm.valid) {
 			return;
 		}
-		this.loading = true;
 
 		this.categoryCard.title = this.categoryForm.get('titleControl')!
 			.value as string;
@@ -195,14 +194,12 @@ export class CategoryCardComponent implements OnInit {
 		if (!this.urlID) {
 			this.categoryService.addNewCategory(this.categoryCard).subscribe(
 				(result) => {
-					this.loading = false;
 					this._snackBar.open('Category was added.', '', {
 						duration: 1500,
 					});
 					this.router.navigate(['/administrate-categories']);
 				},
 				(error) => {
-					this.loading = false;
 					this._snackBar.open(
 						`Error status ${error.status}: ${error.message}`,
 						'',
@@ -215,14 +212,12 @@ export class CategoryCardComponent implements OnInit {
 		} else {
 			this.categoryService.updateCategory(this.categoryCard).subscribe(
 				(result) => {
-					this.loading = false;
 					this._snackBar.open('Category was updated.', '', {
 						duration: 3000,
 					});
 					this.router.navigate(['/administrate-categories']);
 				},
 				(error) => {
-					this.loading = false;
 					this._snackBar.open(
 						`Error status ${error.status}: ${error.message}`,
 						'',
@@ -236,5 +231,6 @@ export class CategoryCardComponent implements OnInit {
 	}
 	onEditClick() {
 		this.editMode = true;
+		this.pageTitle = "Edit Category";
 	}
 }
