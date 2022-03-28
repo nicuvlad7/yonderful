@@ -149,6 +149,9 @@ export class CreateEditEventPageComponent implements OnInit {
           this.tags.push({ tagName: tag });
         }
       }
+      this.eventOthersForm.patchValue({
+        tags: this.tags
+      })
 
     })
   }
@@ -211,7 +214,10 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   onEventAction(): void {
-    console.log(this.eventGeneralForm.get('eventDates')?.errors);
+    console.log(this.eventGeneralForm);
+    console.log(this.eventLocationForm);
+    console.log(this.eventOthersForm);
+    console.log(this.tags);
 
     let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value;
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;

@@ -4,7 +4,7 @@
         <h1> {{ pageTitle }}</h1>
 
         <div class="button-wrapper">
-            <button mat-raised-button color="primary" class="event-button" (click)="onEventAction()">
+            <button mat-raised-button color="primary" class="event-button" (click)="onEventAction()" [disabled]="!isEventFormValid()">
                 <mat-icon class="button-icon" *ngIf="editMode; else save" class="button-icon">edit</mat-icon>
                 <ng-template #save>
                     <mat-icon classs="button-icon">save</mat-icon>
@@ -64,7 +64,7 @@
                             <label>Start Time</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [ngxMatTimepicker]="startTimePicker" placeholder="4:00" [format]="24"
-                                    formControlName="startTime">
+                                    formControlName="startTime" readonly>
                                 <mat-icon class="form-icon" matSuffix (click)="startTimePicker.open()">
                                     watch_later
                                 </mat-icon>
@@ -99,7 +99,7 @@
                             <mat-form-field class="event-form-item" appearance="outline">
 
                                 <input matInput [ngxMatTimepicker]="endTimePicker" placeholder="4:00" [format]="24"
-                                    formControlName="endTime">
+                                    formControlName="endTime" readonly>
                                 <mat-icon matSuffix (click)="endTimePicker.open()">
                                     watch_later
                                 </mat-icon>
@@ -192,7 +192,7 @@
                             <label>Joind Deadline Time</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [ngxMatTimepicker]="deadlineTimePicker" placeholder="4:00" [format]="24"
-                                    formControlName="joinDeadlineTime">
+                                    formControlName="joinDeadlineTime" readonly>
                                 <mat-icon matSuffix (click)="deadlineTimePicker.open()">
                                     watch_later
                                 </mat-icon>
