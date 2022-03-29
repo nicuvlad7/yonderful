@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
+
 
 @Component({
   selector: 'app-event-card',
@@ -8,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EventCardComponent implements OnInit {
   @Input() eventId?;
   
-  constructor() { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
   }
