@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoriesResponse } from 'src/app/models/category';
 import { EditEventService } from 'src/app/services/edit-event.service';
 import { UserDetails } from 'src/app/models/user';
-import { IUserEvent } from 'src/app/models/event';
+import { IEvent, IUserEvent } from 'src/app/models/event';
 import { timeStringParser } from 'src/app/helpers/helpers';
 import { eventEndTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,11 +24,11 @@ export class CreateEditEventPageComponent implements OnInit {
   buttonIconLabel: string = ''
 
   // TODO: get current user id from local storage after login
-  currentUserId: number = 1;
+  currentUserId!: number;
   currentUser?: UserDetails;
 
   currentEventId!: number;
-  currentEvent?: IUserEvent;
+  currentEvent?: IEvent;
 
   eventGeneralForm!: FormGroup;
   eventLocationForm!: FormGroup;
@@ -51,6 +51,7 @@ export class CreateEditEventPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentDate = new Date();
+    this.currentUserId = this.getCurrentLoggedInUserId();
     this.fetchCategoryList();
     this.initEventFormControls();
 
@@ -71,6 +72,10 @@ export class CreateEditEventPageComponent implements OnInit {
       }
 
     });
+  }
+
+  getCurrentLoggedInUserId(): number {
+    return JSON.parse(localStorage.getItem("currentUser")).id;
   }
 
   isEventFormValid(): boolean {
@@ -190,7 +195,6 @@ export class CreateEditEventPageComponent implements OnInit {
     this.eventOthersForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]+\\.*[a-z]*@[a-z\\-]+\\.com$")]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
-      // tags: new FormControl('', [Validators.required]),
       image: new FormControl()
     })
 
@@ -216,7 +220,7 @@ export class CreateEditEventPageComponent implements OnInit {
   }
 
   onEventAction(): void {
-    let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value;
+    let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
     let timeDict = timeStringParser(startTime);
     startDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
@@ -251,19 +255,20 @@ export class CreateEditEventPageComponent implements OnInit {
     let maximumParticipants = this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value ?
                               this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value : 0; 
 
+    console.log(startDate.toString());
 
-    let userEvent: IUserEvent = {
+    let userEvent: IEvent = {
       id: eventId,
       categoryId: this.eventGeneralForm.get('category')!.value,
       hostId: this.currentUserId,
       title: this.eventGeneralForm.get('title')!.value,
-      startingDate: startDate,
-      endingDate: endDate,
+      startingDate: startDate.toISOString(),
+      endingDate: endDate.toISOString(),
       minimumParticipants: minimumParticipants,
       maximumParticipants: maximumParticipants,
       autoCancel: autoCancel,
       autoJoin: autoJoin,
-      joinDeadline: joinDeadlineDate,
+      joinDeadline: joinDeadlineDate.toISOString(),
       fee: fee,
       description: this.eventGeneralForm.get('description')!.value,
       eventLocation: {
@@ -279,11 +284,9 @@ export class CreateEditEventPageComponent implements OnInit {
       backgroundImage: this.eventOthersForm.get('image')!.value
     }
 
-    console.log(userEvent);
-
     if (this.editMode) {
       this.editEventService.updateEvent(userEvent).subscribe({
-        next: (data: IUserEvent) => {
+        next: (data: IEvent) => {
           this.snackBar.open(`Event ${data.title} has been edited.`, '', {
             duration: 2500
           });
@@ -295,7 +298,7 @@ export class CreateEditEventPageComponent implements OnInit {
     }
     else {
       this.editEventService.postEvent(userEvent).subscribe({
-        next: (data: IUserEvent) => {
+        next: (data: IEvent) => {
           this.snackBar.open(`Event ${data.title} has been created`, '', {
             duration: 2500
           })

@@ -3,7 +3,7 @@ import { catchError, Observable } from 'rxjs';
 import { CategoriesResponse, Category, CategoryResponse } from '../models/category';
 import { UserDetails } from '../models/user';
 import { HttpService } from './http.service';
-import { IUserEvent, IUserEventResponse } from '../models/event';
+import { IEvent, IUserEvent, IUserEventResponse } from '../models/event';
 
 
 @Injectable({
@@ -34,14 +34,14 @@ export class EditEventService {
     return this.httpService.getById<IUserEventResponse>(currentEventId, "Event");
   }
   
-  postEvent(event: IUserEvent): Observable<IUserEvent> {
-    return this.httpService.post<IUserEvent>(event, 'Event').pipe(
+  postEvent(event: IEvent): Observable<IEvent> {
+    return this.httpService.post<IEvent>(event, 'Event').pipe(
       catchError(this.httpService.handleHttpErrorResponse)
     )
   }
 
-  updateEvent(event: IUserEvent): Observable<IUserEvent> {
-    return this.httpService.update<IUserEvent>(event, 'Event').pipe(
+  updateEvent(event: IEvent): Observable<IEvent> {
+    return this.httpService.update<IEvent>(event, 'Event').pipe(
       catchError(this.httpService.handleHttpErrorResponse)
     )
   }

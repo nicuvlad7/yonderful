@@ -44,7 +44,6 @@ export class EventPageComponent implements OnInit {
     contactPhone: '',
     tags: '',
     backgroundImage: '',
-    backgroundImageUrl: ''
   };
   categoryIcon: SafeResourceUrl;
   tagsList: String[] = [];
