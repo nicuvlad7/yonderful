@@ -147,13 +147,20 @@
                         </div>
                     </div>
 
-                    <div class="event-form-item-wrapper">
+                    <div class="event-form-item-wrapper" formGroupName="participantsInterval">
                         <div class="event-form-item-container">
                             <label>Minimum number of participants</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput type="text" placeholder="ex: 23" formControlName="minimumParticipants">
-                                <mat-error *ngIf="eventGeneralForm.get('minimumParticipants')?.hasError('pattern')">
+                                
+                                <mat-error
+                                    *ngIf="!eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.hasError('pattern') &&
+                                            eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.hasError('participantsIntervalError')">
+                                    Maximum number of participants is <strong>invalid</strong>
+                                </mat-error>
+                                
+                                <mat-error *ngIf="eventGeneralForm.get('participantsInterval')?.get('minimumParticipants')?.hasError('pattern')">
                                     Minimum number of participants must be a <strong>positive number</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -164,7 +171,14 @@
 
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput type="text" placeholder="ex: 23" formControlName="maximumParticipants">
-                                <mat-error *ngIf="eventGeneralForm.get('maximumParticipants')?.hasError('pattern')">
+                                
+                                <mat-error 
+                                    *ngIf="!eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.hasError('pattern') &&
+                                            eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.hasError('participantsIntervalError')">
+                                    Maximum number of participants is <strong>invalid</strong>
+                                </mat-error>
+                                
+                                <mat-error *ngIf="eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.hasError('pattern')">
                                     Maximum number of participants must be <strong>positive number</strong>
                                 </mat-error>
                             </mat-form-field>

@@ -9,7 +9,7 @@ import { EditEventService } from 'src/app/services/edit-event.service';
 import { UserDetails } from 'src/app/models/user';
 import { IUserEvent } from 'src/app/models/event';
 import { timeStringParser } from 'src/app/helpers/helpers';
-import { eventEndTimeValidator } from 'src/app/helpers/validators';
+import { eventEndTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -98,8 +98,10 @@ export class CreateEditEventPageComponent implements OnInit {
 
       this.eventGeneralForm.patchValue({
         title: this.currentEvent.title,
-        maximumParticipants: this.currentEvent.maximumParticipants,
-        minimumParticipants: this.currentEvent.minimumParticipants,
+        participantsInterval: {
+          maximumParticipants: this.currentEvent.maximumParticipants,
+          minimumParticipants: this.currentEvent.minimumParticipants,
+        },
         category: this.currentEvent.categoryId,
         autocancel: this.currentEvent.autoCancel,
         autojoin: this.currentEvent.autoJoin,
@@ -117,6 +119,7 @@ export class CreateEditEventPageComponent implements OnInit {
       this.eventOthersForm.patchValue({
         email: this.currentEvent.contactEmail,
         mobileNumber: this.currentEvent.contactPhone,
+        image: this.currentEvent.backgroundImage
       });
 
       this.selectedCategoryId = this.currentEvent.categoryId;
@@ -149,6 +152,7 @@ export class CreateEditEventPageComponent implements OnInit {
           this.tags.push({ tagName: tag });
         }
       }
+
     })
   }
 
@@ -161,8 +165,10 @@ export class CreateEditEventPageComponent implements OnInit {
         endDate: new FormControl('', [Validators.required]),
         endTime: new FormControl('', [Validators.required])
       }, eventEndTimeValidator()),
-      minimumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
-      maximumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
+      participantsInterval: new FormGroup ({
+        minimumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
+        maximumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")])
+      }, eventParticipantsIntervalValidator()),
       category: new FormControl('', [Validators.required]),
       autocancel: new FormControl(''),
       autojoin: new FormControl(''),
@@ -245,8 +251,8 @@ export class CreateEditEventPageComponent implements OnInit {
       title: this.eventGeneralForm.get('title')!.value,
       startingDate: startDate,
       endingDate: endDate,
-      minimumParticipants: this.eventGeneralForm.get('minimumParticipants')!.value,
-      maximumParticipants: this.eventGeneralForm.get('maximumParticipants')!.value,
+      minimumParticipants: this.eventGeneralForm.get('participantsInterval')!.get('minimumParticipants')!.value,
+      maximumParticipants: this.eventGeneralForm.get('participantsInterval')!.get('maximumParticipants')!.value,
       autoCancel: this.eventGeneralForm.get('autocancel')!.value,
       autoJoin: this.eventGeneralForm.get('autojoin')!.value,
       joinDeadline: joinDeadlineDate,
