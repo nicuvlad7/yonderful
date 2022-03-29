@@ -1,0 +1,84 @@
+<div class="event-card"> 
+    <div class="top-div">
+        <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+        <div class="event-information">
+            <div class="event-information-first-row">
+                <div  class="event-text-information">
+                    <div class="title-date">
+                        <div class="event-title">{{event.title}}</div>
+                        <div class="start-date">{{ event.startingDate | date:'short' }}</div>
+                    </div>
+                    <div class="deadline-participants">
+                        <div class="join-deadline">
+                            <mat-icon class="access-time">access_time</mat-icon>
+                            <div class="bold-element">Deadline:</div>
+                            <div class="deadline-text">{{event.joinDeadline | date:'short'}}</div>
+                        </div>
+                        <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
+                    </div>
+                </div>
+                <div class="admin-buttons" *ngIf="isHostMode"}}>
+                    <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
+                    <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
+                </div>
+            </div>
+            <div class="fee-icon-row">
+                <div class="event-fee">{{event.fee}} lei</div>
+                <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="middle-div">
+        <div class="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
+        <div class="participants-data">
+            <div  class="participants-card">
+                <mat-icon class="participants-icon">group</mat-icon>
+                <div class="bold-element">Participants: </div>
+                <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
+            </div>
+            <button class="join-button" mat-flat-button>Join</button>
+        </div>
+    </div>
+    <div class="bottom-div">
+        <div class="event-description">
+            <div class="event-descripton-text">{{event.description}}</div>
+            <mat-chip-list 
+               class="tags-list"   
+                cdkDropList 
+                cdkDropListOrientation="horizontal">
+                <mat-chip
+                    class="tag"
+                    cdkDrag
+                    *ngFor="let tag of tagsList">
+                        {{tag}}
+                </mat-chip>
+            </mat-chip-list>
+        </div>
+        <div class="event-details">
+            <div class="event-details-text">
+                <div class="location-text">
+                    <div class="bold-element">Location</div>
+                    <div class="event-location-details">
+                        <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
+                        <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
+                        <div><a href={{getMapLink()}}>View Map</a></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="bold-element">Date & Time</div>
+                    <div class="starting-date">{{event.startingDate | date:'short'}} -</div>
+                    <div>{{event.endingDate | date:'short'}}</div>
+                </div>
+                <div>
+                    <div class="bold-element">Host</div>
+                    <div class="host-details">
+                        <div>Email: {{event.contactEmail}}</div>
+                        <div>Phone: {{event.contactPhone}}</div>
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

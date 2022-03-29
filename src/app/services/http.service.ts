@@ -24,7 +24,6 @@ export class HttpService {
   getById<T>(id: number, endpoint: string): Observable<T> {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint) + '/' + id;
-
     return this.httpClient.get<T>(requestUrl, { headers: this.headers });
   }
 
