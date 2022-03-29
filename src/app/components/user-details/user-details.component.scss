@@ -1,0 +1,160 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.event-form-wrapper {
+    @include flex-container(column);
+    padding: 40px;
+}
+
+.event-form-container {
+    @include flex-container(column);
+    padding: 25px 100px 25px 100px;
+}
+
+.event-form-header {
+    @include flex-container(row, center);
+    color: $yonder-blue;
+    margin-bottom: 50px;
+}
+
+.event-form-item-wrapper {
+    @include flex-container(row, flex-start);
+    width: 100%;
+    padding: 0 20px 0 20px;
+    margin-bottom: 20px;
+}
+
+.event-form-item-container {
+    @include flex-container(column, space-between);
+    width: 33%;
+    margin-right: 80px;
+}
+
+.title-container {
+    width: 25%;
+}
+
+.time-picker {
+    @include flex-container(column, space-between);
+    width: auto;
+}
+
+.event-form-container .mat-expansion-panel-header-description {
+    @include flex-container(row, space-between);
+    align-items: center;
+}
+
+.description-container {
+    width: 100%;
+}
+
+mat-icon, mat-datepicker-toggle {
+    color: $yonder-pink;
+}
+
+mat-icon:hover {
+    cursor: pointer;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: $yonder-white;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 15px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 25px;
+}
+
+.card-avatar{
+    font-size: 40px;
+    padding-right: 20px;
+}
+
+::ng-deep.mat-input-element:disabled {
+    color:rgba(0, 0, 0, 0.87);
+    margin-left: -5px;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    opacity: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
+    opacity: 0;
+}
+
+.field-suffix-icon{
+    opacity: 0;
+}
+
+.button-view-mode{
+    display: none;
+}
+
+.submit-button{
+    background-color: $yonder-blue;
+    color: white;
+    width: 200px;
+    height: 40px;
+
+}
+
+.submit-button:enabled:hover {
+    background-color: $yonder-pink;
+    transition: background-color 100ms linear;
+}
+
+mat-card-header{
+    @include flex-container(row, space-between);
+    padding: 25px 20px;
+    max-width: 33%;
+}
+
+::ng-deep .mat-card-header-text{
+    display: none;
+}
+
+::ng-deep .mat-card-title-group{
+    flex-direction: row-reverse;
+}
+
+.mat-divider-wrapper{
+    margin-bottom: 25px;
+}
+
+mat-divider{
+    max-width: 33%;
+    margin-left: 38px;
+}
+
+
+::ng-deep mat-progress-spinner{
+    margin-top:50vh;
+}
+
+.loading-indicator {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+  
+.loading-indicator:before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}

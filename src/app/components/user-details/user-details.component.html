@@ -1,0 +1,97 @@
+<div class="event-form-wrapper">
+
+    <h1>My profile</h1>
+
+    <div class="event-form-container">
+        <mat-card>
+            <div class="loading-indicator" *ngIf="loading">
+                <mat-progress-spinner
+                  mode="indeterminate"
+                  color="accent"
+                ></mat-progress-spinner>
+            </div>
+
+            <mat-card-header>
+                <mat-card-title-group>
+                    <mat-icon mat-card-avatar class="card-avatar">account_circle</mat-icon>
+                    <mat-card-title>{{tempDetails.name}}</mat-card-title>
+                    <mat-card-subtitle>{{tempDetails.position}}</mat-card-subtitle>
+                </mat-card-title-group>
+                
+                <button  mat-stroked-button (click)="toggleEditMode()" matTooltip="{{editMode ? 'View' : 'Edit '}} User Details" [matTooltipShowDelay]="500" >
+                    <mat-icon *ngIf="!editMode">edit</mat-icon>
+                    <mat-icon *ngIf="editMode">visibility</mat-icon>
+                </button>
+            </mat-card-header>
+
+            <div class="mat-divider-wrapper">
+                <mat-divider></mat-divider>
+            </div>
+
+            <form class="event-form" [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
+                <div class="event-form-item-wrapper">                      
+                    <div class="event-form-item-container">
+                        <label>Name</label>
+                        <mat-form-field class="event-form-item" appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" formControlName="name">
+                            <mat-error *ngIf="userEditForm.get('name')?.hasError('required')">
+                               Name is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="userEditForm.get('name')?.hasError('pattern')">
+                                Name is <strong>invalid</strong>
+                             </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">                      
+                    <div class="event-form-item-container">
+                        <label>E-mail</label>
+                        <mat-form-field class="event-form-item" appearance="outline">
+                            <mat-label>E-mail</mat-label>
+                            <input matInput type="text" formControlName="email">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container">
+                        <label>Phone Number</label>
+                        <mat-form-field class="event-form-item" appearance="outline">
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput type="text" formControlName="phoneNo">
+                            <mat-icon matSuffix [ngClass]="{'field-suffix-icon': !editMode}">phone</mat-icon>
+                            <mat-error *ngIf="userEditForm.get('phoneNo')?.hasError('pattern')">
+                                Phone Number is <strong>invalid</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <div class="event-form-item-container">
+                        <label>Profession</label>
+                        <mat-form-field class="event-form-item" appearance="outline">
+                            <mat-label>Profession</mat-label>
+                            <input matInput type="text" formControlName="position">
+                            <mat-error *ngIf="userEditForm.get('position')?.hasError('required')">
+                                Profession is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="event-form-item-wrapper">
+                    <button mat-raised-button class="submit-button" type="submit" 
+                    [disabled]="!userEditForm.valid" 
+                    [ngClass]="{'button-view-mode': !editMode}" 
+                    matTooltip="Submit User Changes" [matTooltipShowDelay]="500">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+
+</div>
