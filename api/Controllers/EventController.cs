@@ -54,6 +54,17 @@ namespace api.Controllers
 			return Ok(eventDtoList);
 		}
 
+		
+		[HttpPost("getFilteredEvents")]
+		public async Task<IActionResult> GetFilteredEvents(FiltersDto filtersDto)
+		{
+			var myEventList = await _eventService.GetFilteredEvents(filtersDto);
+			if (myEventList == null)
+			{
+				return NotFound();
+			}
+			return Ok(myEventList);
+		}
 		[HttpPost]
 		public async Task<IActionResult> PostEvent(EventDto eventDto)
 		{
