@@ -5,6 +5,8 @@ using YonderfulApi.Models;
 using YonderfulApi.DTOs;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using System.Linq;
+using System;
 
 namespace YonderfulApi.Service
 {
@@ -127,6 +129,13 @@ namespace YonderfulApi.Service
 				outputList.Add(await TransformEventDtoForOutput(eventDto));
 			}
 			return outputList;
+		}
+
+		public async Task<IList<Event>> GetFutureEventList()
+		{
+			var events = await _context.Events
+				 .Where(x => (x.StartingDate >= DateTime.Now)).ToListAsync();
+			return events;
 		}
 	}
 }

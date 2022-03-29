@@ -46,31 +46,40 @@ namespace api.Controllers
 			return Ok(eventDtoList);
 		}
 
+		[HttpGet("getFutureEvents")]
+		public async Task<IActionResult> GetFutureEvents()
+		{
+			var myEventList = await _eventService.GetFutureEventList();
+			var eventDtoList = _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
+			return Ok(eventDtoList);
+		}
+
 		[HttpPost]
-		public async Task<IActionResult> PostEvent(EventDto eventDto) 
-		{   
+		public async Task<IActionResult> PostEvent(EventDto eventDto)
+		{
 			var newEvent = await _eventService.CreateEvent(eventDto);
 
 			var existingCategory = await _categoryService.GetCategory(newEvent.CategoryId);
 			var existingUser = await _userService.GetUserById(newEvent.HostId);
 
-			if(existingCategory == null)
+			if (existingCategory == null)
 				return BadRequest("Category doesn't exist.");
-			if(existingUser == null)
+			if (existingUser == null)
 				return BadRequest("Host doesn't exist.");
-			if(newEvent.StartingDate >= newEvent.EndingDate)
+			if (newEvent.StartingDate >= newEvent.EndingDate)
 				return BadRequest("Starting date should be before ending date.");
-			if(newEvent.StartingDate < newEvent.JoinDeadline)
+			if (newEvent.StartingDate < newEvent.JoinDeadline)
 				return BadRequest("Joining deadline should be before starting date.");
-			if(newEvent.MinimumParticipants > newEvent.MaximumParticipants)
+			if (newEvent.MinimumParticipants > newEvent.MaximumParticipants)
 				return BadRequest("Minimum number of participants should be lower than the maximum one.");
-			if(newEvent.Tags.Split("*").Length > 5)
+			if (newEvent.Tags.Split("*").Length > 5)
 				return BadRequest("Maximum 5 tags are allowed");
-			if(newEvent.MinimumParticipants == 0)
+			if (newEvent.MinimumParticipants == 0)
 				newEvent.AutoCancel = false;
-			
+
 			var createdEvent = await _eventService.PostEvent(newEvent);
-			if(createdEvent == null) {
+			if (createdEvent == null)
+			{
 				return BadRequest();
 			}
 			return Ok(_mapper.Map<EventDto>(createdEvent));
