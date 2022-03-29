@@ -141,14 +141,13 @@ namespace YonderfulApi.Service
 		{
 			var eventsList = from Events in _context.Events select Events;
 
-
 			if (filtersDto.Category != null)
 			{
 				var categoriesMatching = from category in _context.Categories where (category.Title == filtersDto.Category) select category.Id;
 				eventsList = eventsList.Where(b => categoriesMatching.Contains(b.CategoryId));
 			}
 
-			if (filtersDto.EndingDate != null)
+			if (filtersDto.EndingDate.HasValue)
 			{
 				eventsList = eventsList.Where(b => (b.StartingDate >= filtersDto.StartingDate) && (b.EndingDate <= filtersDto.EndingDate));
 			}
