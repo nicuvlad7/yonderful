@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { Role } from 'src/app/models/constants'
-import { DialogService } from 'src/app/services/dialog.service';
-import { Observable } from 'rxjs';
+import { loginUser } from 'src/app/models/loginUser';
 
 @Component({
   selector: 'app-sidenav',
@@ -13,9 +12,10 @@ import { Observable } from 'rxjs';
 export class SidenavComponent implements OnInit {
 
   menuLabelsVisible = false;
-  
-  roleType=Role;
-  userRole=Role.Admin;
+  currentUser: loginUser;
+
+  userRole: Role;
+  roleType= Role;
 
   primaryMenuItemsUser: MenuItem[] = [
     {title:"Dashboard", name:"home" },
@@ -39,23 +39,8 @@ export class SidenavComponent implements OnInit {
     this.menuLabelsVisible = !this.menuLabelsVisible;
   }
 
-  changePerspective(): void{
-    this.openChangeRoleDialog().subscribe(result => {
-      if(result)
-        this.userRole = this.userRole === Role.Admin ? Role.User : Role.Admin;
-    })
-    
-  }
-
-  constructor(private dialogService: DialogService) { }
-
-  openChangeRoleDialog():Observable<boolean>{
-    return this.dialogService.confirmDialog({
-      title: 'Confirm Action',
-      message: 'Are u sure?',
-      confirmText: 'Yes',
-      cancelText: 'No'
-    })
+  constructor() {
+    this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
   }
 
   ngOnInit(): void {

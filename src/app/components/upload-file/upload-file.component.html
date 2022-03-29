@@ -1,13 +1,14 @@
 <input
-  type="file"
-  class="file-input"
-  (change)="onFileSelected($event)"
-  #fileUpload
-  accept="image/*"
+	type="file"
+	class="file-input"
+	(change)="onFileSelected($event)"
+	#fileUpload
+	accept="image/*"
 />
-<div class="file-upload">
-  <button mat-icon-button type="button" (click)="fileUpload.click()">
-    <mat-icon class="icon-button">attach_file</mat-icon>
-  </button>
+<div class="file-upload optional-label-text">
+	<button mat-icon-button type="button" (click)="fileUpload.click()">
+		<mat-icon class="icon-button">attach_file</mat-icon>
+	</button>
+	<ng-content select=".optional-label"></ng-content>
 </div>
 

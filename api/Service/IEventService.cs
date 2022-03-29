@@ -5,17 +5,16 @@ using YonderfulApi.Models;
 
 namespace YonderfulApi.Service
 {
-    public interface IEventService
-    {
-        Task<IList<Event>> GetEventList();
-        Task<Event> GetEvent(int id);
-        Task<Event> PostEvent(Event newEvent);
-        Task<Event> PutEvent(Event eventToPut);
-        Task<bool> DeleteEvent(int eventID);
-        Task<EventDto> TransformEventDtoForOutput(EventDto eventDto);
-        Task<IList<EventDto>> TransformEventDtoListForOutput(IList<EventDto> eventDtoList);
-        Task<Event> CreateEvent(EventDto eventDto);
-
-
-    }
+	public interface IEventService
+	{
+		Task<IList<Event>> GetEventList();
+		Task<Event> GetEvent(int id);
+		Task<Event> PostEvent(Event newEvent);
+		Task<Event> PutEvent(Event eventToPut);
+		Task<bool> DeleteEvent(int eventID);
+		Task<EventDto> TransformEventDtoForOutput(EventDto eventDto);
+		Task<IList<EventDto>> TransformEventDtoListForOutput(IList<EventDto> eventDtoList);
+		Task<Event> CreateEvent(EventDto eventDto);
+		Task<IList<Event>> GetFutureEventList();
+	}
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Employee } from '../models/employee';
 import { EventDetail } from '../models/event-details';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -22,10 +21,6 @@ export class EndpointsService {
   getEvents():  Observable<EventDetail[]> {
     // TODO: get the events list from the
     return of(this.eventList);
-  }
-
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(environment.apiUrl + "employee")
   }
 
   getCategories(): Observable<CategoriesResponse> {
