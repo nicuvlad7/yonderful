@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using YonderfulApi.Data;
 using YonderfulApi.Models;
 using YonderfulApi.Service;
+using System.Linq;
 
 namespace api.Service
 {
@@ -18,40 +19,76 @@ namespace api.Service
 			_mapper = mapper;
 		}
 
-		public Task<bool> DeleteAttendance(Event myEvent, User user)
+		public async Task<bool> DeleteAttendance(int EventId, int UserId)
 		{
-			throw new System.NotImplementedException();
+			var attendance = await _context.Attendance
+									.Include(att => att.Participant)
+									.Include(att => att.Eveniment)
+									.FirstOrDefaultAsync(att => att.EvenimentId == EventId && att.ParticipantId == UserId);
+			if (attendance == null)
+			{
+				return false;
+			}
+			_context.Attendance.Remove(attendance);
+			return await _context.SaveChangesAsync() > 0;
 		}
 
 		public async Task<IList<Attendance>> GetAllAttendance()
 		{
-			var attendance = await _context.Attendance.Include(i => i.Participant).Include(i => i.Eveniment).ToListAsync();
-            return attendance;
+			var attendanceList = await _context.Attendance.Include(i => i.Participant).Include(i => i.Eveniment).ToListAsync();
+            return attendanceList;
 		}
 
-		public Task<Attendance> GetAttendance(int EventId, int UserId)
+		public async Task<Attendance> GetAttendance(int EventId, int UserId)
 		{
-			throw new System.NotImplementedException();
+			var attendance = await _context.Attendance
+									.Include(i => i.Participant)
+									.Include(i => i.Eveniment)
+									.FirstOrDefaultAsync(att => att.EvenimentId == EventId && att.ParticipantId == UserId);
+			return attendance;
 		}
 
-		public Task<IList<Attendance>> GetEvents(int UserId)
+		public async Task<IList<Attendance>> GetEventsForUser(int UserId)
 		{
-			throw new System.NotImplementedException();
+			var attendance = await _context.Attendance
+									.Where(att => att.ParticipantId == UserId)
+									.Include(i => i.Participant)
+									.Include(i => i.Eveniment)
+									.ToListAsync();
+			return attendance;
 		}
 
-		public Task<IList<Attendance>> GetParticipants(int EventId)
+		public async Task<IList<Attendance>> GetParticipants(int EventId)
 		{
-			throw new System.NotImplementedException();
+			var attendance = await _context.Attendance
+									.Where(att => att.EvenimentId == EventId)
+									.Include(i => i.Participant)
+									.Include(i => i.Eveniment)
+									.ToListAsync();
+			return attendance;
 		}
 
-		public Task<Attendance> PostAttendance(Event myEvent, User user)
+		public async Task<Attendance> PostAttendance(Attendance newAttendance)
 		{
-			throw new System.NotImplementedException();
+			var existingAttendance = await GetAttendance(newAttendance.EvenimentId, newAttendance.ParticipantId);
+			if(existingAttendance != null)
+				return null;
+			_context.Attendance.Add(newAttendance);
+			await _context.SaveChangesAsync();
+			return newAttendance;
 		}
 
-		public Task<Attendance> PutAttendance(Attendance newAttendance)
+		public async Task<Attendance> PutAttendance(Attendance attendanceToPut)
 		{
-			throw new System.NotImplementedException();
+			var existingAttendance = await GetAttendance(attendanceToPut.EvenimentId, attendanceToPut.ParticipantId);
+			if(existingAttendance == null)
+				return null;
+			existingAttendance.Eveniment = attendanceToPut.Eveniment;
+			existingAttendance.Participant = attendanceToPut.Participant;
+			existingAttendance.JoiningDate = attendanceToPut.JoiningDate;
+			_context.Attendance.Update(existingAttendance);
+			await _context.SaveChangesAsync();
+			return existingAttendance;
 		}
 	}
 }
