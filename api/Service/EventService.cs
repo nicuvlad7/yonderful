@@ -137,5 +137,26 @@ namespace YonderfulApi.Service
 				 .Where(x => (x.StartingDate >= DateTime.Now)).ToListAsync();
 			return events;
 		}
+		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
+		{
+			var eventsList = from Events in _context.Events select Events;
+
+			if (filtersDto.Category != null)
+			{
+				var categoriesMatching = from category in _context.Categories where (category.Title == filtersDto.Category) select category.Id;
+				eventsList = eventsList.Where(b => categoriesMatching.Contains(b.CategoryId));
+			}
+
+			if (filtersDto.EndingDate.HasValue)
+			{
+				eventsList = eventsList.Where(b => (b.StartingDate >= filtersDto.StartingDate) && (b.EndingDate <= filtersDto.EndingDate));
+			}
+			else
+			{
+				eventsList = eventsList.Where(b => b.StartingDate >= filtersDto.StartingDate);
+			}
+
+			return await eventsList.ToListAsync();
+		}
 	}
 }
