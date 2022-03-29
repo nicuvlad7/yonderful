@@ -243,6 +243,15 @@ export class CreateEditEventPageComponent implements OnInit {
       tags += tag.tagName + '*';
     }
 
+    let autoCancel: boolean = this.eventGeneralForm.get('autocancel')?.value ? this.eventGeneralForm.get('autoCancel')?.value : false;
+    let autoJoin: boolean = this.eventGeneralForm.get('autojoin')?.value ? this.eventGeneralForm.get('autojoin')?.value : false;
+    let fee: number = this.eventGeneralForm.get('fee')?.value ? parseInt(this.eventGeneralForm.get('fee')?.value, 10) : 0;
+    let minimumParticipants = this.eventGeneralForm.get('participantsInterval')?.get('minimumParticipants')?.value ? 
+                              this.eventGeneralForm.get('participantsInterval')?.get('minimumParticipants')?.value : 0; 
+    let maximumParticipants = this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value ?
+                              this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value : 0; 
+
+
     let userEvent: IUserEvent = {
       id: eventId,
       categoryId: this.eventGeneralForm.get('category')!.value,
@@ -250,12 +259,12 @@ export class CreateEditEventPageComponent implements OnInit {
       title: this.eventGeneralForm.get('title')!.value,
       startingDate: startDate,
       endingDate: endDate,
-      minimumParticipants: this.eventGeneralForm.get('participantsInterval')!.get('minimumParticipants')!.value,
-      maximumParticipants: this.eventGeneralForm.get('participantsInterval')!.get('maximumParticipants')!.value,
-      autoCancel: this.eventGeneralForm.get('autocancel')!.value,
-      autoJoin: this.eventGeneralForm.get('autojoin')!.value,
+      minimumParticipants: minimumParticipants,
+      maximumParticipants: maximumParticipants,
+      autoCancel: autoCancel,
+      autoJoin: autoJoin,
       joinDeadline: joinDeadlineDate,
-      fee: this.eventGeneralForm.get('eventFee')!.value,
+      fee: fee,
       description: this.eventGeneralForm.get('description')!.value,
       eventLocation: {
         id: locationId,

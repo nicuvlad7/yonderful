@@ -193,7 +193,7 @@
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM/DD/YYYY"
                                     formControlName="joinDeadlineDate" [min]="currentDate"
-                                    [max]="eventGeneralForm.get('endEvent')?.get('endDate')?.value">
+                                    [max]="eventGeneralForm.get('eventDates')?.get('startDate')?.value">
                                 <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #deadlineDatePicker></mat-datepicker>
                                 <mat-error
@@ -204,7 +204,7 @@
                         </div>
 
                         <div class="event-form-item-container">
-                            <label>Joind Deadline Time</label>
+                            <label>Join Deadline Time</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [ngxMatTimepicker]="deadlineTimePicker" placeholder="4:00" [format]="24"
                                     formControlName="joinDeadlineTime" readonly>
