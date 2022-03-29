@@ -8,18 +8,19 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { AuthGuard } from './helpers/auth.guard';
+import { RouteValues } from './models/constants';
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginCardComponent },
-  { path: 'register', component: RegisterCardComponent },
-  { path: 'administrate-categories', component: CategoriesTableComponent},
-  { path: 'register', component: RegisterCardComponent},
-  { path: 'create-edit-event', component: CreateEditEventPageComponent },
-  { path : 'category/new', component: NewCategoryComponent},
-  { path : 'category/:id',component: CategoryCardComponent},
-  { path: 'event-details/:id', component: EventPageComponent},
-  { path: '', redirectTo: 'login', pathMatch: 'full'}
+  { path: RouteValues.LOGIN, component: LoginCardComponent },
+  { path: RouteValues.REGISTER, component: RegisterCardComponent },
+  { path: RouteValues.ADMINISTRATE_CATEGORIES, component: CategoriesTableComponent},
+  { path: RouteValues.REGISTER, component: RegisterCardComponent},
+  { path: RouteValues.REGISTER, component: CreateEditEventPageComponent },
+  { path : RouteValues.CATEGORY_NEW, component: NewCategoryComponent},
+  { path : RouteValues.CATEGORY_ID,component: CategoryCardComponent},
+  { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent},
+  { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 
 @NgModule({

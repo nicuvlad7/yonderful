@@ -1,47 +1,47 @@
-<div id="event-card"> 
-    <div class="flex-row" id="top-div">
-        <img id="event-image" [src]="transformStringToImage() ? transformStringToImage() : ''" alt="">
-        <div id="event-information" class="flex-column">
-            <div class="flex-row" id="event-information-first-row">
-                <div  id="event-text-information" class="flex-column">
-                    <div id="title-date">
-                        <div id="event-title" class="bold-element">{{event.title}}</div>
-                        <div id="start-date">{{transformDate(event.startingDate)}}</div>
+<div class="event-card"> 
+    <div class="top-div">
+        <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+        <div class="event-information">
+            <div class="event-information-first-row">
+                <div  class="event-text-information">
+                    <div class="title-date">
+                        <div class="event-title">{{event.title}}</div>
+                        <div class="start-date">{{ event.startingDate | date:'short' }}</div>
                     </div>
-                    <div id="deadline-participants">
-                        <div id="join-deadline" class="flex-row">
-                            <mat-icon id="access-time">access_time</mat-icon>
+                    <div class="deadline-participants">
+                        <div class="join-deadline">
+                            <mat-icon class="access-time">access_time</mat-icon>
                             <div class="bold-element">Deadline:</div>
-                            <div id="deadline-text">{{transformDate(event.joinDeadline)}}</div>
+                            <div class="deadline-text">{{event.joinDeadline | date:'short'}}</div>
                         </div>
-                        <div id="required-participants">Required participants: {{event.minimumParticipants}}</div>
+                        <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
                     </div>
                 </div>
-                <div id="admin-buttons" class="flex-column" *ngIf="isHostMode"}}>
+                <div class="admin-buttons" *ngIf="isHostMode"}}>
                     <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
                     <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
                 </div>
             </div>
-            <div id="fee-icon-row" class="flex-row">
-                <div id="event-fee">{{event.fee}} lei</div>
-                <img  id="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
+            <div class="fee-icon-row">
+                <div class="event-fee">{{event.fee}} lei</div>
+                <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
             </div>
         </div>
     </div>
-    <div class="flex-row" id="middle-div">
-        <div id="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
-        <div id="participants-data" class="flex-row">
-            <div class="flex-row" id="participants-data">
-                <mat-icon id="participants-icon">group</mat-icon>
+    <div class="middle-div">
+        <div class="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
+        <div class="participants-data">
+            <div  class="participants-card">
+                <mat-icon class="participants-icon">group</mat-icon>
                 <div class="bold-element">Participants: </div>
-                <div id="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
+                <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
             </div>
-            <button id="join-button" mat-flat-button>Join</button>
+            <button class="join-button" mat-flat-button>Join</button>
         </div>
     </div>
-    <div class="flex-row" id="bottom-div">
-        <div class="flex-column" id="event-description">
-            <div id="event-descripton-text">{{event.description}}</div>
+    <div class="bottom-div">
+        <div class="event-description">
+            <div class="event-descripton-text">{{event.description}}</div>
             <mat-chip-list 
                class="tags-list"   
                 cdkDropList 
@@ -54,11 +54,11 @@
                 </mat-chip>
             </mat-chip-list>
         </div>
-        <div class="flex-column" id="event-details">
-            <div class="flex-column" id="event-details-text">
-                <div id="location-text">
+        <div class="event-details">
+            <div class="event-details-text">
+                <div class="location-text">
                     <div class="bold-element">Location</div>
-                    <div id="event-location-details">
+                    <div class="event-location-details">
                         <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
                         <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
                         <div><a href={{getMapLink()}}>View Map</a></div>
@@ -66,12 +66,12 @@
                 </div>
                 <div>
                     <div class="bold-element">Date & Time</div>
-                    <div id="starting-date">{{transformDate(event.startingDate)}} -</div>
-                    <div>{{transformDate(event.endingDate)}}</div>
+                    <div class="starting-date">{{event.startingDate | date:'short'}} -</div>
+                    <div>{{event.endingDate | date:'short'}}</div>
                 </div>
                 <div>
                     <div class="bold-element">Host</div>
-                    <div id="host-details">
+                    <div class="host-details">
                         <div>Email: {{event.contactEmail}}</div>
                         <div>Phone: {{event.contactPhone}}</div>
 

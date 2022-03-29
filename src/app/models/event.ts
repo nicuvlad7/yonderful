@@ -1,6 +1,7 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
 import { EventLocation } from "./event-location";
 
-export interface Event {
+export interface IEvent {
     id: number,
     categoryId: number,
     hostId: number,
@@ -18,5 +19,6 @@ export interface Event {
     contactEmail: string,
     contactPhone: string,
     tags: string,
-    backgroundImage: string
+    backgroundImage: string,
+    backgroundImageUrl: SafeResourceUrl
 }
