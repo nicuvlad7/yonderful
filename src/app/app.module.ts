@@ -19,7 +19,6 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { CreateEditEventPageComponent } from './components/create-edit-event-page/create-edit-event-page.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
-import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { EventPageComponent } from './components/event-page/event-page.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -37,7 +36,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     CreateEditEventPageComponent,
     CategoriesTableComponent,
     CategoryCardComponent,
-    NewCategoryComponent,
     UploadFileComponent,
     EventPageComponent,
   ],

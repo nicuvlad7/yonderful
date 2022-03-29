@@ -1,7 +1,7 @@
-@use "../../themes/colors.scss";
+@use "../../variables.scss";
 
 .toolbar{
-    background-color:colors.$yonder-blue;
+    background-color:variables.$yonder-light-blue;
     width:auto;
     height: 38pt;
     display:flex;
@@ -10,9 +10,9 @@
 }
 
 .icon-style{
-    color:colors.$yonder-pink;
+    color:variables.$yonder-pink;
 }
 
 .toolbar-text{
-    color:colors.$yonder-pink;
+    color:variables.$yonder-pink;
 }
