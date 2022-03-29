@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateEditEventPageComponent } from './components/create-edit-event-page/create-edit-event-page.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
@@ -9,11 +9,9 @@ import { RegisterCardComponent } from './components/register-card/register-card.
 import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
 import { RouteValues } from './models/constants';
 
-
 const routes: Routes = [
   { path: RouteValues.LOGIN, component: LoginCardComponent },
   { path: RouteValues.REGISTER, component: RegisterCardComponent },
-  { path: 'events-list', component: EventListPageComponent, canActivate: [AuthGuard, UserGuard]}, 
   { path: RouteValues.ADMINISTRATE_CATEGORIES, component: CategoriesTableComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: RouteValues.CREATE_EDIT_EVENT, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
   { path : RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
