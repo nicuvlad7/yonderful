@@ -38,7 +38,7 @@ export class AdminGuard implements CanActivate {
         }
 
         // normal user
-        this.router.navigate(['/events-list'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate([''], { queryParams: { returnUrl: state.url } });
         return false;
     }
 }

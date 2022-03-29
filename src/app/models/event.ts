@@ -1,3 +1,5 @@
+import { EventLocation } from "./event-location";
+
 export interface IUserEventResponse {
     result: IUserEvent
 }
@@ -7,24 +9,18 @@ export interface IUserEvent {
     categoryId: number,
     hostId: number,
     title: string,
-    startingDate: Date,
-    endingDate: Date,
+    startingDate: string,
+    endingDate: string,
     minimumParticipants: number,
     maximumParticipants: number,
     autoCancel: boolean,
     autoJoin: boolean,
-    joinDeadline: Date,
+    joinDeadline: string,
     fee: number,
     description: string,
-    eventLocation: {
-        id: number,
-        street: string,
-        address: string,
-        city: string,
-        province: string
-    },
+    eventLocation: EventLocation,
     contactEmail: string,
     contactPhone: string,
     tags: string,
-    backgroundImage: string
+    backgroundImage: string,
 }

@@ -1,24 +1,24 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateEditEventPageComponent } from './components/create-edit-event-page/create-edit-event-page.component';
 import { CategoriesTableComponent } from './components/categories-table/categories-table.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
-import { EventListPageComponent } from './components/event-list-page/event-list-page.component';
+import { EventPageComponent } from './components/event-page/event-page.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
-
+import { RouteValues } from './models/constants';
 
 const routes: Routes = [
-  { path: 'login', component: LoginCardComponent },
-  { path: 'events-list', component: EventListPageComponent, canActivate: [AuthGuard, UserGuard]}, 
-  { path: 'administrate-categories', component: CategoriesTableComponent, canActivate: [AuthGuard, AdminGuard]},
-  { path: 'register', component: RegisterCardComponent},
-  { path: 'create-edit-event', component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
-  { path: 'create-edit-event/:id', component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
-  { path : 'category', component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
-  { path : 'category/:id',component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
-  { path: '', redirectTo: 'login', pathMatch: 'full'}
+  { path: RouteValues.LOGIN, component: LoginCardComponent },
+  { path: RouteValues.REGISTER, component: RegisterCardComponent },
+  { path: RouteValues.ADMINISTRATE_CATEGORIES, component: CategoriesTableComponent, canActivate: [AuthGuard, AdminGuard]},
+  { path: RouteValues.CREATE_EDIT_EVENT, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.CREATE_EDIT_EVENT_ID, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
+  { path: RouteValues.CATEGORY_ID,component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
+  { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard]},
+  { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 
 @NgModule({
