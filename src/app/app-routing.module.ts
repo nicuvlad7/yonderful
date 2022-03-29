@@ -11,32 +11,12 @@ import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
 	{ path: 'login', component: LoginCardComponent },
-	{
-		path: 'events-list',
-		component: EventListPageComponent,
-		canActivate: [AuthGuard],
-	},
-	{
-		path: 'administrate-categories',
-		component: CategoriesTableComponent,
-		canActivate: [AuthGuard],
-	},
+	{ path: 'events-list', component: EventListPageComponent, canActivate: [AuthGuard]},
+	{ path: 'administrate-categories', component: CategoriesTableComponent, canActivate: [AuthGuard]},
 	{ path: 'register', component: RegisterCardComponent },
-	{
-		path: 'create-edit-event',
-		component: CreateEditEventPageComponent,
-		canActivate: [AuthGuard],
-	},
-	{
-		path: 'category',
-		component: CategoryCardComponent,
-		canActivate: [AuthGuard],
-	},
-	{
-		path: 'category/:id',
-		component: CategoryCardComponent,
-		canActivate: [AuthGuard],
-	},
+	{ path: 'create-edit-event', component: CreateEditEventPageComponent, canActivate: [AuthGuard]},
+	{ path: 'category', component: CategoryCardComponent, canActivate: [AuthGuard]},
+	{ path: 'category/:id', component: CategoryCardComponent, canActivate: [AuthGuard]},
 	{ path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
