@@ -15,7 +15,6 @@ namespace YonderfulApi.Service
 		Task<EventDto> TransformEventDtoForOutput(EventDto eventDto);
 		Task<IList<EventDto>> TransformEventDtoListForOutput(IList<EventDto> eventDtoList);
 		Task<Event> CreateEvent(EventDto eventDto);
-
-
+		Task<IList<Event>> GetFutureEventList();
 	}
 }

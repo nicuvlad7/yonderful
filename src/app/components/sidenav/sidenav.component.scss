@@ -1,4 +1,4 @@
-@use "../../themes/colors.scss";
+@use "../../variables.scss";
 
 .sidenav-container{
     width: 100%;
@@ -6,8 +6,9 @@
 }
 
 .sidenav{
-    padding: 10px;
-    background-color:colors.$yonder-blue;   
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color:variables.$yonder-light-blue;
 }
 
 .primary-menu-items, .secondary-menu-items{
@@ -16,16 +17,22 @@
 }
 
 .title{
-    display:none;
+    display: none;
 }
 
 .item-description{
     .title{
-        display:flex;
-        color:white;
+        display: inline-flex;
+        color:variables.$yonder-pink;
         font-weight: 500;
-        font-size:17px;
-        margin-top: 11.5px;
+        font-size:17.5px;
+        margin-left: 4px;
+    }
+
+    .icon-description{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 
 }
@@ -38,11 +45,5 @@
 }
 
 .icon-style{
-    color:colors.$yonder-pink;
-}
-
-.icon-description{
-    display: flex;
-    flex-direction: row;
-    /*align-items: center;*/
+    color:variables.$yonder-pink;
 }
