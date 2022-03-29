@@ -1,0 +1,65 @@
+@use "../../variables.scss";
+@import '../../mixins.scss';
+
+.incorporate-card {
+    width: 18%;
+    margin-left: 40%;
+    margin-top: 20%;
+}
+
+.event-card {
+    width: 100%;
+    height: 100%;
+    border: 3px solid variables.$yonder-light-blue;
+    box-shadow: 4px 4px 3px #d9d9d9;
+    border-radius: 10px;
+}
+
+.event-image {
+    width: 100%;
+}
+
+.about {
+    @include flex-container(column, flex-start);
+    justify-content: space-between;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.first-row {
+    width: 100%;
+    @include flex-container(row, flex-start);
+    margin-top: 1%;
+    margin-bottom: 2%;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 1.6vh;
+    font-weight: 700;
+}
+
+.countdown {
+    @include flex-container(row, flex-start);
+}
+
+.remaining-days {
+    font-size: 1.5vh;
+}
+
+.second-row {
+    width: 100%;
+    @include flex-container(row, flex-start);
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.start-date-time {
+    font-size: 1.5vh;
+    align-self: center;
+}
+
+.category-icon {
+    width: 23%;
+    border-radius: 50%;
+}

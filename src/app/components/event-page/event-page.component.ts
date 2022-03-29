@@ -2,13 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
-import { ICategory } from 'src/app/models/category';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
-import { EventLocation } from 'src/app/models/event-location';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
-import { EndpointsService } from 'src/app/services/endpoints.service';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -43,8 +40,7 @@ export class EventPageComponent implements OnInit {
     contactEmail: '',
     contactPhone: '',
     tags: '',
-    backgroundImage: '',
-    backgroundImageUrl: ''
+    backgroundImage: ''
   };
   categoryIcon: SafeResourceUrl;
   tagsList: String[] = [];
@@ -63,14 +59,12 @@ export class EventPageComponent implements OnInit {
       this.intializeTagsList();
       this.initalizeCategoryIcon();
     });
-    
   }
 
   initalizeCategoryIcon(): void {
     this.categoryService.getCategory(this.event.categoryId).subscribe((result) => {
       this.categoryIcon = this.sanitizer.bypassSecurityTrustResourceUrl(result.result.icon);
     })
-   
   }
 
   intializeTagsList(): void {

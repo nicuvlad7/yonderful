@@ -1,16 +1,21 @@
-<ng-container>
-    <img src="" alt="">
-    <div class="about">
-        <div class="first-row">
-            <div class="title"></div>
-            <div class="countdown">
-                <mat-icon>hourglass_empty</mat-icon>
-                <div class="remaining-days"></div>
+<div class="incorporate-card">
+    <mat-card class="event-card">
+        <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+        <div class="about">
+            <div class="first-row">
+                <div class="title">{{event.title}}</div>
+                <div class="countdown">
+                    <mat-icon>hourglass_empty</mat-icon>
+                    <div class="remaining-days">{{ countdownDays }} Days</div>
+                </div>
+            </div>
+            <div class="second-row">
+                <div class="start-date-time">{{ event.startingDate | date:'dd.L.y - H:mm' }}</div>
+                <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
             </div>
         </div>
-        <div class="second-row">
-            <div class="date-time"></div>
-            <img src="" alt="">
-        </div>
-    </div>
-</ng-container>
+    </mat-card>
+</div>
+
+
+
