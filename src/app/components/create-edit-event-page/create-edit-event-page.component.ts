@@ -243,7 +243,6 @@ export class CreateEditEventPageComponent implements OnInit {
       tags += tag.tagName + '*';
     }
 
-
     let userEvent: IUserEvent = {
       id: eventId,
       categoryId: this.eventGeneralForm.get('category')!.value,
