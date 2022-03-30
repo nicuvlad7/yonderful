@@ -1,6 +1,6 @@
 using AutoMapper;
 using YonderfulApi.DTOs;
-using YonderfulApi.Migrations;
+using YonderfulApi.Models;
 
 namespace api.Mappings
 {

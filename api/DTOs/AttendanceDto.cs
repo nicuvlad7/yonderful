@@ -7,9 +7,9 @@ namespace YonderfulApi.DTOs
     public class AttendanceDto
     {
         [Required]
-        public EventDto Eveniment { get; set; }
+        public int EvenimentId { get; set; }
         [Required]
-        public UserDetailsDto Participant { get; set; }
+        public int ParticipantId { get; set; }
         [Required]
         public DateTime JoiningDate { get; set; }
         

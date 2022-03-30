@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
+using YonderfulApi.Models;
 using YonderfulApi.Service;
 
 namespace YonderfulApi.Controllers
@@ -13,8 +15,9 @@ namespace YonderfulApi.Controllers
         private readonly IAttendanceService _attendanceService;
         private readonly IMapper _mapper;
 
-        public AttendanceController(IAttendanceService attendanceService){
+        public AttendanceController(IAttendanceService attendanceService, IMapper mapper){
             _attendanceService = attendanceService;
+            _mapper = mapper;
         }
 
         [HttpGet("{eventId}, {userId}")]
@@ -23,25 +26,25 @@ namespace YonderfulApi.Controllers
             if(attendance == null){
                 return BadRequest("No attendace found");
             }
-            return Ok(attendance);
+            return Ok(_mapper.Map<AttendanceDto>(attendance));
         }
 
-        [HttpGet("{eventId}")]
+        [HttpGet("[action]/{eventId}")]
         public async Task<IActionResult> GetParticipants(int eventId){
             var attendance = await _attendanceService.GetParticipants(eventId);
             if(attendance == null){
                 return BadRequest("No participants for event found");
             }
-            return Ok(attendance);
+            return Ok(_mapper.Map<IList<AttendanceDto>>(attendance));
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("[action]/{userId}")]
         public async Task<IActionResult> GetEventsForUser(int userId){
             var attendance = await _attendanceService.GetEventsForUser(userId);
             if(attendance == null){
                 return BadRequest("No events for user found");
             }
-            return Ok(attendance);
+            return Ok(_mapper.Map<IList<AttendanceDto>>(attendance));
         }
 
         [HttpGet]
@@ -50,12 +53,32 @@ namespace YonderfulApi.Controllers
             if(attendance == null){
                 return BadRequest("No events for user found");
             }
-            return Ok(attendance);
+            return Ok(_mapper.Map<IList<AttendanceDto>>(attendance));
         }
 
         [HttpPost]
         public async Task<IActionResult> PostAttendance(AttendanceDto attendanceDto){
-            return Ok();
+            var newAttendance = await _attendanceService.PostAttendance(_mapper.Map<Attendance>(attendanceDto));
+            if(newAttendance == null){
+                return BadRequest();
+            }
+            return Ok(_mapper.Map<AttendanceDto>(newAttendance));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> PutAttendance(AttendanceDto attendanceDto){
+			var putAttendance = await _attendanceService.PutAttendance(_mapper.Map<Attendance>(attendanceDto));
+			if (putAttendance == null)
+			{
+				return BadRequest();
+			}
+			return Ok(putAttendance);
+        }
+
+        [HttpDelete("{eventId}, {userId}")]
+        public async Task<IActionResult> DeleteAttendance(int eventId, int userId){
+            var deletedAttendance = await _attendanceService.DeleteAttendance(eventId, userId);
+			return deletedAttendance ? Ok() : BadRequest();
         }
     }
 }
