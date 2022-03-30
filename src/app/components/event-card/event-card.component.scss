@@ -1,12 +1,6 @@
 @use "../../variables.scss";
 @import '../../mixins.scss';
 
-.incorporate-card {
-    width: 18%;
-    margin-left: 40%;
-    margin-top: 20%;
-}
-
 .event-card {
     width: 100%;
     height: 100%;
@@ -22,15 +16,15 @@
 .about {
     @include flex-container(column, flex-start);
     justify-content: space-between;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .first-row {
     width: 100%;
     @include flex-container(row, flex-start);
-    margin-top: 1%;
-    margin-bottom: 2%;
+    margin-top: 5px;
+    margin-bottom: 10px;
     justify-content: space-between;
 }
 
@@ -51,11 +45,11 @@
     width: 100%;
     @include flex-container(row, flex-start);
     justify-content: space-between;
-    margin-bottom: 2%;
+    margin-bottom: 7px;
 }
 
 .start-date-time {
-    font-size: 1.5vh;
+    font-size: 1.7vh;
     align-self: center;
 }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 import { ICategory } from '../models/category';
 import { catchError } from 'rxjs/operators';
 import { HttpService } from './http.service';
@@ -26,7 +26,7 @@ export class CategoryService {
   getCategory(id: number): Observable<ICategory> {
     return this.httpService
       .getById<ICategory>(id, 'Category')
-      .pipe(catchError(this.httpService.handleHttpErrorResponse));
+      .pipe(map((response) => response.result), catchError(this.httpService.handleHttpErrorResponse));
   }
 
   updateCategory(category: ICategory): Observable<ICategory> {

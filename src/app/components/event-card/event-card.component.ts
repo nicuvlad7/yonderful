@@ -25,7 +25,7 @@ export class EventCardComponent implements OnInit {
 
   initalizeCategoryIcon(): void {
     this.categoryService.getCategory(this.event.categoryId).subscribe((result) => {
-      this.categoryIcon = this.sanitizer.bypassSecurityTrustResourceUrl(result.result.icon);
+      this.categoryIcon = this.sanitizer.bypassSecurityTrustResourceUrl(result.icon);
     })
   }
 
