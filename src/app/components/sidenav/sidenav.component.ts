@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
 import { Role } from 'src/app/models/constants'
 import { loginUser } from 'src/app/models/loginUser';
+import { Router } from '@angular/router';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-sidenav',
@@ -39,11 +41,15 @@ export class SidenavComponent implements OnInit {
     this.menuLabelsVisible = !this.menuLabelsVisible;
   }
 
-  constructor() {
+  constructor(private router: Router) {
     this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
   }
 
   ngOnInit(): void {
+  }
+
+  viewCategories(): void {
+    this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
   }
 
 }

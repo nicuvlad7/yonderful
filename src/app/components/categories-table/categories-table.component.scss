@@ -19,21 +19,16 @@
     font-size: larger;
 }
 
-.last-text {
-    color: $yonder-blue;
-    margin-right: 20px;
-}
-
 .table-row:hover {
     cursor: pointer;
 }
-
 
 .table-icon {
     object-fit: cover;
     border-radius: 50%;
     height: 50px;
     width: 50px;
+    padding: 5px;
 }
 
 .table-title-data {
@@ -45,7 +40,21 @@
 }
 
 .mat-column-Actions {
-    text-align: right;
-    // margin-right: 20px;
+    text-align: end;
+    margin-right: 0px;
     color: $yonder-pink;
+}
+
+.mat-column-Icon {
+    color: $yonder-blue;
+    padding-left: 56px;
+}
+
+.mat-header-cell:first-of-type {
+    padding-left: 30px;
+}
+
+.mat-header-cell:last-of-type {
+    color: $yonder-blue;
+    padding-right: 46px;
 }
