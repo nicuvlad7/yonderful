@@ -1,7 +1,5 @@
 <div class="event-form-wrapper">
 
-    <h1>My profile</h1>
-
     <div class="event-form-container">
         <mat-card>
             <div class="loading-indicator" *ngIf="loading">
@@ -14,14 +12,19 @@
             <mat-card-header>
                 <mat-card-title-group>
                     <mat-icon mat-card-avatar class="card-avatar">account_circle</mat-icon>
-                    <mat-card-title>{{tempDetails.name}}</mat-card-title>
-                    <mat-card-subtitle>{{tempDetails.position}}</mat-card-subtitle>
+                    <mat-card-title>{{userData.name}}</mat-card-title>
+                    <mat-card-subtitle>{{userData.position}}</mat-card-subtitle>
                 </mat-card-title-group>
                 
-                <button  mat-stroked-button (click)="toggleEditMode()" matTooltip="{{editMode ? 'View' : 'Edit '}} User Details" [matTooltipShowDelay]="500" >
-                    <mat-icon *ngIf="!editMode">edit</mat-icon>
-                    <mat-icon *ngIf="editMode">visibility</mat-icon>
-                </button>
+                <div class="action-btn-wrapper">
+                    <button mat-stroked-button *ngIf="editMode" [disabled]="!userEditForm.valid" type="submit" matTooltip="Submit User Changes" [matTooltipShowDelay]="500" (click)="onSubmit()">
+                        <mat-icon [ngClass]="{'disabled-icon': !userEditForm.valid}">save</mat-icon>
+                    </button>
+                    <button  mat-stroked-button (click)="toggleEditMode()" matTooltip="Details" [matTooltipShowDelay]="500" >
+                        <mat-icon *ngIf="!editMode">edit</mat-icon>
+                        <mat-icon *ngIf="editMode">close</mat-icon>
+                    </button>
+                </div>
             </mat-card-header>
 
             <div class="mat-divider-wrapper">
@@ -33,7 +36,6 @@
                     <div class="event-form-item-container">
                         <label>Name</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Name</mat-label>
                             <input matInput type="text" formControlName="name">
                             <mat-error *ngIf="userEditForm.get('name')?.hasError('required')">
                                Name is <strong>required</strong>
@@ -49,7 +51,6 @@
                     <div class="event-form-item-container">
                         <label>E-mail</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>E-mail</mat-label>
                             <input matInput type="text" formControlName="email">
                         </mat-form-field>
                     </div>
@@ -59,7 +60,7 @@
                     <div class="event-form-item-container">
                         <label>Phone Number</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Phone Number</mat-label>
+                            <span *ngIf="!editMode && !phoneNoExists" class="unavailable_text">N/A</span>
                             <input matInput type="text" formControlName="phoneNo">
                             <mat-icon matSuffix [ngClass]="{'field-suffix-icon': !editMode}">phone</mat-icon>
                             <mat-error *ngIf="userEditForm.get('phoneNo')?.hasError('pattern')">
@@ -73,22 +74,12 @@
                     <div class="event-form-item-container">
                         <label>Profession</label>
                         <mat-form-field class="event-form-item" appearance="outline">
-                            <mat-label>Profession</mat-label>
                             <input matInput type="text" formControlName="position">
                             <mat-error *ngIf="userEditForm.get('position')?.hasError('required')">
                                 Profession is <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
-                </div>
-
-                <div class="event-form-item-wrapper">
-                    <button mat-raised-button class="submit-button" type="submit" 
-                    [disabled]="!userEditForm.valid" 
-                    [ngClass]="{'button-view-mode': !editMode}" 
-                    matTooltip="Submit User Changes" [matTooltipShowDelay]="500">
-                        Submit
-                    </button>
                 </div>
             </form>
         </mat-card>

@@ -14,12 +14,8 @@ export class UserDetailsComponent implements OnInit {
     editMode: boolean = false;
 
     userEditForm!: FormGroup;
-    email: FormControl;
 
-    tempDetails = {
-        name: "Username",
-        position: "Position"
-    }
+    userData = {} as UserDetails;
 
     //until getCurrentlyLoggedUser call is implemented
     userId: number = 7;
@@ -46,16 +42,17 @@ export class UserDetailsComponent implements OnInit {
 
     retrieveUserData(): void {
         this.loading = true;
+
         this.userService.getUserById(this.userId).subscribe(
             (result) => {
 
-                this.tempDetails.name = result.name;
-                this.tempDetails.position = result.position;
+                this.userData.name = result.name;
+                this.userData.position = result.position;
 
-                this.controls.name.setValue(this.ifValueEmpty(result.name));
-                this.controls.position.setValue(this.ifValueEmpty(result.position));
-                this.controls.phoneNo.setValue(this.ifValueEmpty(result.phoneNo));
-                this.controls.email.setValue(this.ifValueEmpty(result.email));
+                this.controls.name.setValue(result.name);
+                this.controls.position.setValue(result.position);
+                this.controls.phoneNo.setValue(result.phoneNo);
+                this.controls.email.setValue(result.email);
 
                 this.loading = false;
             },
@@ -73,10 +70,6 @@ export class UserDetailsComponent implements OnInit {
         );
     }
 
-    ifValueEmpty(initialValue): string {
-        return initialValue == '' ? 'N/A' : initialValue;
-    }
-
     toggleEditMode(): void {
         this.editMode = !this.editMode;
 
@@ -86,6 +79,9 @@ export class UserDetailsComponent implements OnInit {
             this.controls.phoneNo.enable();
         }
         else {
+            if (this.userEditForm.dirty) {
+                this.retrieveUserData();
+            }
             this.userEditForm.disable();
         }
     }
@@ -98,15 +94,22 @@ export class UserDetailsComponent implements OnInit {
             position: this.controls.position.value,
         }
         this.loading = true;
+
         this.userService.putUser(user).subscribe(
             (result) => {
+                this.userData.name = result.name;
+                this.userData.position = result.position;
+
+                this.controls.name.setValue(result.name);
+                this.controls.position.setValue(result.position);
+                this.controls.phoneNo.setValue(result.phoneNo);
+
                 this.loading = false;
 
                 this._snackBar.open('User successfully updated.', '', {
                     duration: 3000,
                 });
 
-                this.retrieveUserData();
                 this.toggleEditMode();
             },
             (error) => {
@@ -121,6 +124,10 @@ export class UserDetailsComponent implements OnInit {
                 }
             }
         );
+    }
+
+    get phoneNoExists(): boolean {
+        return !(this.controls.phoneNo.value == '') && !(this.controls.phoneNo.value == null);
     }
 
 }

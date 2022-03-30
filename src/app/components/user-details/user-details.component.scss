@@ -3,10 +3,16 @@
 
 .event-form-wrapper {
     @include flex-container(column);
-    padding: 40px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: calc(100% - 38pt);
+    overflow: hidden;
 }
 
 .event-form-container {
+    min-width: 600px;
+    max-width: 1000px;
     @include flex-container(column);
     padding: 25px 100px 25px 100px;
 }
@@ -26,8 +32,8 @@
 
 .event-form-item-container {
     @include flex-container(column, space-between);
-    width: 33%;
-    margin-right: 80px;
+    width: 100%;
+    margin-right: 40px;
 }
 
 .title-container {
@@ -52,8 +58,8 @@ mat-icon, mat-datepicker-toggle {
     color: $yonder-pink;
 }
 
-mat-icon:hover {
-    cursor: pointer;
+.disabled-icon{
+    color: grey;
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
@@ -110,7 +116,7 @@ mat-icon:hover {
 mat-card-header{
     @include flex-container(row, space-between);
     padding: 25px 20px;
-    max-width: 33%;
+    max-width: 100%;
 }
 
 ::ng-deep .mat-card-header-text{
@@ -126,7 +132,7 @@ mat-card-header{
 }
 
 mat-divider{
-    max-width: 33%;
+    max-width: calc(100% - 76px);
     margin-left: 38px;
 }
 
@@ -157,4 +163,15 @@ mat-divider{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.action-btn-wrapper{
+    button{
+        margin-left: 10px; 
+        height: 100%;
+    }
+}
+
+.unavailable_text{
+    margin-left: -5px;
 }
