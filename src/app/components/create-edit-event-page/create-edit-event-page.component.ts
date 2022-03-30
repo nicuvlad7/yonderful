@@ -75,8 +75,8 @@ export class CreateEditEventPageComponent implements OnInit {
     });
   }
 
-  getCurrentLoggedInUserId(): void {
-    
+  getCurrentLoggedInUserId(): number {
+    // return this.editEventService.parseJwt(JSON.parse(localStorage.getItem('currentUser')).token);
     return JSON.parse(localStorage.getItem("currentUser")).id;
   }
 

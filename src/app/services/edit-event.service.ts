@@ -4,6 +4,7 @@ import { CategoriesResponse, Category, CategoryResponse } from '../models/catego
 import { UserDetails } from '../models/user';
 import { HttpService } from './http.service';
 import { IEvent, IUserEventResponse } from '../models/event';
+import { RouteEndpoints } from '../models/constants';
 
 
 @Injectable({
@@ -19,29 +20,29 @@ export class EditEventService {
   }
 
   fetchAllCategories(): Observable<CategoriesResponse> {
-    return this.httpService.getAll<CategoriesResponse>('Category');
+    return this.httpService.getAll<CategoriesResponse>(RouteEndpoints.CATEGORY);
   }
 
   fetchCategoryById(categoryId: number): Observable<CategoryResponse> {
-    return this.httpService.getById<CategoryResponse>(categoryId, 'Category');
+    return this.httpService.getById<CategoryResponse>(categoryId, RouteEndpoints.CATEGORY);
   }
 
   fetchCurrentUserDetails(currentUserId: number): Observable<UserDetails> {
-    return this.httpService.getById<UserDetails>(currentUserId, "User/Id")
+    return this.httpService.getById<UserDetails>(currentUserId, RouteEndpoints.USER + '/Id')
   }
 
   fetchCurrentEvent(currentEventId: number): Observable<IUserEventResponse> {
-    return this.httpService.getById<IUserEventResponse>(currentEventId, "Event");
+    return this.httpService.getById<IUserEventResponse>(currentEventId, RouteEndpoints.EVENT);
   }
   
   postEvent(event: IEvent): Observable<IEvent> {
-    return this.httpService.post<IEvent>(event, 'Event').pipe(
+    return this.httpService.post<IEvent>(event, RouteEndpoints.EVENT).pipe(
       catchError(this.httpService.handleHttpErrorResponse)
     )
   }
 
   updateEvent(event: IEvent): Observable<IEvent> {
-    return this.httpService.update<IEvent>(event, 'Event').pipe(
+    return this.httpService.update<IEvent>(event, RouteEndpoints.EVENT).pipe(
       catchError(this.httpService.handleHttpErrorResponse)
     )
   }
