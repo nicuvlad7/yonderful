@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AlertType } from 'src/app/models/alert.type';
 
 @Component({
@@ -6,20 +6,24 @@ import { AlertType } from 'src/app/models/alert.type';
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss']
 })
-export class InfoComponent {
+export class InfoComponent implements OnInit {
 
-    @Input() set type(type: string) {
-        this.internalType = type || AlertType.INFO;
-        this.internalIcon = this.icons[this.internalType];
-    }
+    @Input() type: string = '';
     @Input() text: string = '';
 
     internalIcon: string;
     internalType: AlertType | string;
-    
+
     private icons = {
         [AlertType.INFO]: 'info',
         [AlertType.WARNING]: 'warning',
         [AlertType.ERROR]: 'error'
+    }
+
+    constructor() { }
+
+    ngOnInit(): void {
+        this.internalType = this.type || AlertType.INFO;
+        this.internalIcon = this.icons[this.internalType];
     }
 }
