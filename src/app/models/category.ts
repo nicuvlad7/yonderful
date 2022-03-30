@@ -21,6 +21,7 @@ export interface CategoryToShow {
 export interface CategoriesResponse {
     result: Category[];
 }
+
 export interface ICategory {
   [x: string]: any;
   id?: number;

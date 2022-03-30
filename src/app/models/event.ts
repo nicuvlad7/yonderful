@@ -22,5 +22,5 @@ export interface IEvent {
     contactEmail: string,
     contactPhone: string,
     tags: string,
-    backgroundImage: string,
+    backgroundImage: string
 }
