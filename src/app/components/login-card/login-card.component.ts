@@ -61,7 +61,6 @@ export class LoginCardComponent implements OnInit {
       email: this.loginForm.get('loginEmailControl')!.value,
       password: this.loginForm.get('loginPasswordControl')!.value,
     };
-    console.log('aaa');
     this.loginService.login(user).subscribe({
       error: (error: Error) => {
         this.snackBar.open(error.message, '', {
