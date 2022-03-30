@@ -14,11 +14,6 @@
     width: 100%;
 }
 
-.table-header-text {
-    color: $yonder-blue;
-    font-size: larger;
-}
-
 .table-row:hover {
     cursor: pointer;
 }
@@ -29,10 +24,6 @@
     height: 50px;
     width: 50px;
     padding: 5px;
-}
-
-.table-title-data {
-   font-size: larger;
 }
 
 .table-row:hover .table-title-data {

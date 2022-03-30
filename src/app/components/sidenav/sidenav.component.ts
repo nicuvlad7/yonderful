@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
-import { Role } from 'src/app/models/constants'
+import { Role, SidenavItems } from 'src/app/models/constants'
 import { loginUser } from 'src/app/models/loginUser';
 import { Router } from '@angular/router';
 import { RouteValues } from 'src/app/models/constants';
@@ -12,9 +12,10 @@ import { RouteValues } from 'src/app/models/constants';
 })
 
 export class SidenavComponent implements OnInit {
-
+  sidenavItems = SidenavItems;
   menuLabelsVisible = false;
   currentUser: loginUser;
+
 
   userRole: Role;
   roleType= Role;

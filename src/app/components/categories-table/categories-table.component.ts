@@ -6,7 +6,6 @@ import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
 import { Observable, sequenceEqual } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
-import { RouteValues } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-categories-table',

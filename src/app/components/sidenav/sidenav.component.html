@@ -17,7 +17,7 @@
                 </ng-container>
                 <ng-container *ngIf="userRole==roleType.Admin">
                     <ng-container  *ngFor="let item of primaryMenuItemsAdmin">
-                        <button mat-button class="icon-description" (click)="item.title==='Categories'? viewCategories() : null">
+                        <button mat-button class="icon-description" (click)="item.title===sidenavItems.CATEGORIES ? viewCategories() : null">
                             <mat-icon class="icon-style">{{item.name}}</mat-icon>
                             <span class="title">{{item.title}}</span>
                         </button>

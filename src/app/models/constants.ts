@@ -19,3 +19,8 @@ export class RouteEndpoints
 {
     static readonly EVENT = 'Event';
 };
+
+export class SidenavItems
+{
+    static readonly CATEGORIES = 'Categories';
+};

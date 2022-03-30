@@ -24,3 +24,8 @@ label {
 .icon-button {
   color: $yonder-pink;
 }
+
+.mat-table th.mat-header-cell{
+    color: $yonder-blue;
+    font-size: larger;
+}
