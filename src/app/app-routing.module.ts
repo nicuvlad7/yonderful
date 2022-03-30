@@ -8,7 +8,7 @@ import { LoginCardComponent } from './components/login-card/login-card.component
 import { RegisterCardComponent } from './components/register-card/register-card.component';
 import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
 import { RouteValues } from './models/constants';
-import { EventCardComponent } from './components/event-card/event-card.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: RouteValues.LOGIN, component: LoginCardComponent },
@@ -17,8 +17,9 @@ const routes: Routes = [
   { path: RouteValues.CREATE_EDIT_EVENT, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
   { path : RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path : RouteValues.CATEGORY_ID,component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
-  { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard]},
-  { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full' },
+  { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.DASHBOARD, component: DashboardComponent},
+  { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 
 @NgModule({
