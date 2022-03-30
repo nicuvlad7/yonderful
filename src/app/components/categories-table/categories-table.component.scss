@@ -19,6 +19,11 @@
     font-size: larger;
 }
 
+.last-text {
+    color: $yonder-blue;
+    margin-right: 20px;
+}
+
 .table-row:hover {
     cursor: pointer;
 }
@@ -37,4 +42,10 @@
 
 .table-row:hover .table-title-data {
     color: $yonder-blue;
+}
+
+.mat-column-Actions {
+    text-align: right;
+    // margin-right: 20px;
+    color: $yonder-pink;
 }

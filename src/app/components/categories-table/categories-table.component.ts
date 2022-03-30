@@ -65,12 +65,12 @@ export class CategoriesTableComponent implements OnInit {
   }
 
   editCategory(categoryId: number): void {
-    this.router.navigate(['category', categoryId, {editMode: true}]);
+    this.router.navigate(['category', categoryId], {queryParams: {editMode: true}});
   }
 
   onCategoryRowClick(selectedRow: any): void {
     const categoryId: number = selectedRow.id;
-    this.router.navigate(['category', categoryId, {editMode: false}]);
+    this.router.navigate(['category', categoryId]);
   }
  }
 
