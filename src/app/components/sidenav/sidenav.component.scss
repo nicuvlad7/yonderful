@@ -6,7 +6,7 @@
 }
 
 .sidenav{
-    padding-top: 10px;
+    padding-top: 6.5px;
     padding-bottom: 10px;
     background-color:variables.$yonder-light-blue;
 }
@@ -20,12 +20,17 @@
     display: none;
 }
 
+.icon-description{
+    height: 45px;
+}
+
 .item-description{
+    
     .title{
         display: inline-flex;
         color:variables.$yonder-pink;
         font-weight: 500;
-        font-size:17.5px;
+        font-size:15.5px;
         margin-left: 4px;
     }
 
@@ -33,6 +38,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        
     }
 
 }
