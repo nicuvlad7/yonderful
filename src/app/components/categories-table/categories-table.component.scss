@@ -1,7 +1,21 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+
+.admin-categories-wrapper {
+    @include flex-container(column);
+    padding: 40px;
+}
+
+.admin-categories-container {
+    @include flex-container(column);
+    width: 100%;
+}
+
 table {
-    width: 80%;
-    margin-left: 25px;
-    margin-top: 35px;
+    // width: 80%;
+    // margin-left: 25px;
+    // margin-top: 35px;
 }
 
 .tableIcon {

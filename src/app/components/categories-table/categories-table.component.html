@@ -1,26 +1,28 @@
-<ng-container *ngIf="displayedCategories.length; else noDataBlock">
-  <table mat-table [dataSource]="displayedCategories" class="mat-elevation-z8">
-    
-    <ng-container matColumnDef="Icon">
-      <th mat-header-cell *matHeaderCellDef> Icon </th>
-      <td mat-cell *matCellDef="let element"> <img class="tableIcon" [src]="element.icon ? element.icon : 'assets/img/default.png'" alt=""> </td>
-    </ng-container>
-    
-    <ng-container class="tableColumn" matColumnDef="Title">
-      <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td class="tableTitle" mat-cell *matCellDef="let element"> {{element.title}} </td>
-    </ng-container>
+<div class="admin-categories-wrapper">
+  <ng-container *ngIf="displayedCategories.length; else noDataBlock" class="admin-categories-container">
+    <table mat-table [dataSource]="displayedCategories" class="mat-elevation-z8">
+      
+      <ng-container matColumnDef="Icon">
+        <th mat-header-cell *matHeaderCellDef> Icon </th>
+        <td mat-cell *matCellDef="let element"> <img class="tableIcon" [src]="element.icon ? element.icon : 'assets/img/default.png'" alt=""> </td>
+      </ng-container>
+      
+      <ng-container class="tableColumn" matColumnDef="Title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td class="tableTitle" mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
 
-    <ng-container class="tableColumn" matColumnDef="Actions">
-      <th mat-header-cell  *matHeaderCellDef > Actions </th>
-      <td mat-cell *matCellDef="let element" >
-        <button mat-button ><mat-icon>edit</mat-icon></button>
-        <button mat-button (click)="deleteCategory(element.id)"><mat-icon>delete</mat-icon></button>
-      </td>
-    </ng-container>
+      <ng-container class="tableColumn" matColumnDef="Actions">
+        <th mat-header-cell  *matHeaderCellDef > Actions </th>
+        <td mat-cell *matCellDef="let element" >
+          <button mat-button ><mat-icon>edit</mat-icon></button>
+          <button mat-button (click)="deleteCategory(element.id)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-container>
+</div>
 <ng-template #noDataBlock>Sorry, there is nothing to show</ng-template>
