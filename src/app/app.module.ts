@@ -22,6 +22,7 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { EventPageComponent } from './components/event-page/event-page.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     CategoryCardComponent,
     UploadFileComponent,
     EventPageComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

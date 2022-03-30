@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import { RouteValues } from '../../models/constants';
 
 @Component({
   selector: 'app-login-card',
@@ -26,7 +27,7 @@ export class LoginCardComponent implements OnInit {
     private router: Router
   ) {
       if (this.loginService.currentUserValue) { 
-          this.router.navigate(['/events-list']);
+          this.router.navigate([RouteValues.DASHBOARD]);
       }
   }
 
@@ -75,7 +76,7 @@ export class LoginCardComponent implements OnInit {
           {
             duration: 3000
           })
-        this.router.navigate(['/events-list']);
+        this.router.navigate([RouteValues.DASHBOARD]);
       }
     });
   }
