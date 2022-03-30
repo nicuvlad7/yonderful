@@ -3,7 +3,7 @@ import { Category, CategoryToShow } from 'src/app/models/category';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
-import { Observable } from 'rxjs';
+import { Observable, sequenceEqual } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
 
@@ -64,8 +64,13 @@ export class CategoriesTableComponent implements OnInit {
     })
   }
 
-  onCategoryRowClick(): void {
-    
+  editCategory(categoryId: number): void {
+    this.router.navigate(['category', categoryId, {editMode: true}]);
+  }
+
+  onCategoryRowClick(selectedRow: any): void {
+    const categoryId: number = selectedRow.id;
+    this.router.navigate(['category', categoryId, {editMode: false}]);
   }
  }
 
