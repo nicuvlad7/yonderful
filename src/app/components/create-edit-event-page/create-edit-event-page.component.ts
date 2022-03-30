@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoriesResponse } from 'src/app/models/category';
 import { EditEventService } from 'src/app/services/edit-event.service';
 import { UserDetails } from 'src/app/models/user';
-import { IEvent, IUserEvent } from 'src/app/models/event';
+import { IEvent } from 'src/app/models/event';
 import { timeStringParser } from 'src/app/helpers/helpers';
 import { eventEndTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,7 +24,8 @@ export class CreateEditEventPageComponent implements OnInit {
   buttonIconLabel: string = ''
 
   // TODO: get current user id from local storage after login
-  currentUserId!: number;
+  // The User object stored in local storage does not have an attribute for id
+  currentUserId: number = 3;
   currentUser?: UserDetails;
 
   currentEventId!: number;
@@ -51,7 +52,7 @@ export class CreateEditEventPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentDate = new Date();
-    this.currentUserId = this.getCurrentLoggedInUserId();
+    // this.currentUserId = this.getCurrentLoggedInUserId();
     this.fetchCategoryList();
     this.initEventFormControls();
 
@@ -74,7 +75,8 @@ export class CreateEditEventPageComponent implements OnInit {
     });
   }
 
-  getCurrentLoggedInUserId(): number {
+  getCurrentLoggedInUserId(): void {
+    
     return JSON.parse(localStorage.getItem("currentUser")).id;
   }
 
@@ -153,7 +155,7 @@ export class CreateEditEventPageComponent implements OnInit {
 
       let tags = this.currentEvent.tags.split('*');
       for (let tag of tags) {
-        if (this.tags.length < 5) {
+        if (this.tags.length < 5 && tag !== '') {
           this.tags.push({ tagName: tag });
         }
       }

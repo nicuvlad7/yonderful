@@ -3,7 +3,7 @@ import { catchError, Observable } from 'rxjs';
 import { CategoriesResponse, Category, CategoryResponse } from '../models/category';
 import { UserDetails } from '../models/user';
 import { HttpService } from './http.service';
-import { IEvent, IUserEvent, IUserEventResponse } from '../models/event';
+import { IEvent, IUserEventResponse } from '../models/event';
 
 
 @Injectable({
