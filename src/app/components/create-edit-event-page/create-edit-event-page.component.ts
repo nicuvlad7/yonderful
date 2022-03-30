@@ -226,7 +226,7 @@ export class CreateEditEventPageComponent implements OnInit {
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
     let timeDict = timeStringParser(startTime);
     startDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
-
+  
     let endDate: Date = this.eventGeneralForm.get('eventDates')!.get('endDate')!.value;
     let endTime: string = this.eventGeneralForm.get('eventDates')?.get('endTime')!.value;
     timeDict = timeStringParser(endTime);
@@ -256,8 +256,6 @@ export class CreateEditEventPageComponent implements OnInit {
                               this.eventGeneralForm.get('participantsInterval')?.get('minimumParticipants')?.value : 0; 
     let maximumParticipants = this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value ?
                               this.eventGeneralForm.get('participantsInterval')?.get('maximumParticipants')?.value : 0; 
-
-    console.log(startDate.toString());
 
     let userEvent: IEvent = {
       id: eventId,
