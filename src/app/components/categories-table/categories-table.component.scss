@@ -1,27 +1,40 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
-
 .admin-categories-wrapper {
     @include flex-container(column);
     padding: 40px;
 }
 
 .admin-categories-container {
-    @include flex-container(column);
+    padding: 25px 100px 25px 100px
+}
+
+.table-container {
     width: 100%;
 }
 
-table {
-    // width: 80%;
-    // margin-left: 25px;
-    // margin-top: 35px;
+.table-header-text {
+    color: $yonder-blue;
+    font-size: larger;
 }
 
-.tableIcon {
-    height: 7vh;
+.table-row:hover {
+    cursor: pointer;
 }
 
-.tableTitle {
-    font-size: 3.5vh;
+
+.table-icon {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.table-title-data {
+   font-size: larger;
+}
+
+.table-row:hover .table-title-data {
+    color: $yonder-blue;
 }

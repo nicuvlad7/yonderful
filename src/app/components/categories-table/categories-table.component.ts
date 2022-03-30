@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories-table',
@@ -17,7 +18,11 @@ export class CategoriesTableComponent implements OnInit {
   displayedCategories: CategoryToShow[] = [];
   displayedColumns = ["Icon", "Title", "Actions"];
   valoare: Number = 0;
-  constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer, private dialogService: DialogService) {
+  constructor(
+    private endpointsService: EndpointsService, 
+    private sanitizer: DomSanitizer, 
+    private dialogService: DialogService,
+    private router: Router) {
   }
   
   ngOnInit(): void {
@@ -57,6 +62,10 @@ export class CategoriesTableComponent implements OnInit {
       confirmText: 'Yes',
       cancelText: 'No'
     })
+  }
+
+  onCategoryRowClick(): void {
+    
   }
  }
 
