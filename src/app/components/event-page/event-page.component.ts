@@ -112,10 +112,12 @@ export class EventPageComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
   //to-do:
   //remove mock data after demo, and use real data once the endpoints 
   //for attendance are available
   //isEventOwner should recieve a value after a check
+  
 	testArr: User[] = [
 		{ id: 1, name: 'Bill', email: 'abc', password: 'asdcasdcas' },
 		{ id: 2, name: 'Richard', email: 'abc', password: 'asdcasdcas' },

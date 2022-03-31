@@ -9,9 +9,11 @@ import { HttpService } from './http.service';
 })
 export class ParticipantsAttendanceService {
 	constructor(private httpService: HttpService) {}
+
     //to-do:
     //once the attendance table is merged into master,come back here and configure the right links,
     //data type for the participants/attendance
+    
 	deleteParticipant(id: number): Observable<User> {
 		return this.httpService
 			.delete<User>(id, `Attendance?attendanceId=`)

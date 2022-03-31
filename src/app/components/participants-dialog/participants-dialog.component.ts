@@ -20,6 +20,7 @@ export class ParticipantsDialogComponent implements OnInit {
 		private dialogService: DialogService,
 		private participantsService: ParticipantsAttendanceService
 	) {}
+  
 	ngOnInit(): void {}
 
 	openDeleteDialog(): Observable<boolean> {
@@ -30,6 +31,7 @@ export class ParticipantsDialogComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
 	deleteParticipant(id: number) {
 		this.openDeleteDialog().subscribe((result) => {
 			if (result) {
