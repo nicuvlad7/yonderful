@@ -54,7 +54,7 @@ export class EventPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.event = result['result'];
+      this.event = result;
       this.intializeTagsList();
       this.initalizeCategoryIcon();
     });

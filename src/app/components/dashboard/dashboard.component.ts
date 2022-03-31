@@ -17,8 +17,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.dashboardEvent = result['result'];
-      
+      console.log(this.eventId);
+      this.dashboardEvent = result;
     });
   }
 }
