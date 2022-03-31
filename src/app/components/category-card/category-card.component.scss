@@ -1,23 +1,35 @@
 @import "../../variables.scss";
 @import "../../mixins.scss";
 
-.category-form-wrapper {
-	@include flex-container(column);
-	padding: 40px;
+.content-container {
+	@include flex-container(column, flex-start);
+	align-items: center;
 }
 
-.category-form-container {
-	@include flex-container(column);
-	padding: 25px 100px 25px 100px;
+.category-header {
+	padding: 0;
 }
+
 .category-form-shadow {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;
-	padding: 50px;
+	padding: 40px;
+	width: 60%;
 }
+
+.category-title {
+	margin-top: 10px;
+}
+
+.title-action-container {
+	@include flex-container(row, space-between);
+}
+
 .title-input-container {
-	@include flex-container(column, wrap);
+	@include flex-container(column, flex-start);
+	width: 100%;
 }
+
 .action-container {
 	@include flex-container(row, flex-end);
 }
