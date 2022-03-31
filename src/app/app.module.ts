@@ -25,6 +25,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InfoComponent } from './components/info/info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
+import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
         EventPageComponent,
         InfoComponent,
         DashboardComponent,
+        ParticipantsDialogComponent,
     ],
     imports: [
         BrowserModule,
