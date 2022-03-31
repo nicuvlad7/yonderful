@@ -4,9 +4,9 @@ import { Role, RouteValues } from 'src/app/models/constants'
 import { loginUser } from 'src/app/models/loginUser';
 
 @Component({
-    selector: 'app-sidenav',
-    templateUrl: './sidenav.component.html',
-    styleUrls: ['./sidenav.component.scss']
+	selector: 'app-sidenav',
+	templateUrl: './sidenav.component.html',
+	styleUrls: ['./sidenav.component.scss']
 })
 
 export class SidenavComponent implements OnInit {
@@ -15,7 +15,7 @@ export class SidenavComponent implements OnInit {
     currentUser: loginUser;
 
     userRole: Role;
-    roleType = Role;
+    roleType= Role;
 
     primaryMenuItemsUser: MenuItem[] = [
         { title: "Dashboard", name: "home", route: RouteValues.DASHBOARD },
@@ -37,14 +37,14 @@ export class SidenavComponent implements OnInit {
     ]
 
     toggleSidebar(): void {
-        this.menuLabelsVisible = !this.menuLabelsVisible;
+      this.menuLabelsVisible = !this.menuLabelsVisible;
     }
 
     constructor() {
-        this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
     }
 
     ngOnInit(): void {
+      this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
     }
 
 }
