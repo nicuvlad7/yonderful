@@ -20,7 +20,7 @@ const routes: Routes = [
   { path : RouteValues.CATEGORY_ID,component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard, UserGuard] },
-  { path: RouteValues.DASHBOARD, component: DashboardComponent},
+  { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard]},
   { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 

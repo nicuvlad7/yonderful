@@ -3,8 +3,10 @@ import { Category, CategoryToShow } from 'src/app/models/category';
 import { EndpointsService } from 'src/app/services/endpoints.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
-import { Observable } from 'rxjs';
+import { Observable, sequenceEqual } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
+import { Router } from '@angular/router';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-categories-table',
@@ -17,7 +19,11 @@ export class CategoriesTableComponent implements OnInit {
   displayedCategories: CategoryToShow[] = [];
   displayedColumns = ["Icon", "Title", "Actions"];
   valoare: Number = 0;
-  constructor(private endpointsService: EndpointsService, private sanitizer: DomSanitizer, private dialogService: DialogService) {
+  constructor(
+    private endpointsService: EndpointsService, 
+    private sanitizer: DomSanitizer, 
+    private dialogService: DialogService,
+    private router: Router) {
   }
   
   ngOnInit(): void {
@@ -57,6 +63,15 @@ export class CategoriesTableComponent implements OnInit {
       confirmText: 'Yes',
       cancelText: 'No'
     })
+  }
+
+  editCategory(categoryId: number): void {
+    this.router.navigate([RouteValues.CATEGORY, categoryId], {queryParams: {editMode: true}});
+  }
+
+  onCategoryRowClick(selectedRow: any): void {
+    const categoryId: number = selectedRow.id;
+    this.router.navigate([RouteValues.CATEGORY, categoryId]);
   }
  }
 
