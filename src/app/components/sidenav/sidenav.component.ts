@@ -42,15 +42,15 @@ export class SidenavComponent implements OnInit {
         this.menuLabelsVisible = !this.menuLabelsVisible;
     }
 
-  constructor(private router: Router) {
-    this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
-  }
+    constructor(private router: Router) {
+      this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
+    }
 
     ngOnInit(): void {
     }
 
-  viewCategories(): void {
-    this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
-  }
+    viewCategories(): void {
+      this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
+    }
 
 }
