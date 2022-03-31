@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YonderfulApi.Data;
 
 namespace YonderfulApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220328124415_Attendance")]
+    partial class Attendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,20 +20,20 @@ namespace YonderfulApi.Migrations
 
             modelBuilder.Entity("YonderfulApi.Models.Attendance", b =>
                 {
-                    b.Property<int>("EventId")
+                    b.Property<int>("EvenimentId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ParticipantId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("JoiningDate")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("EventId", "UserId");
+                    b.HasKey("EvenimentId", "ParticipantId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ParticipantId");
 
-                    b.ToTable("Attendance");
+                    b.ToTable("Attendace");
                 });
 
             modelBuilder.Entity("YonderfulApi.Models.Category", b =>
@@ -187,21 +189,21 @@ namespace YonderfulApi.Migrations
 
             modelBuilder.Entity("YonderfulApi.Models.Attendance", b =>
                 {
-                    b.HasOne("YonderfulApi.Models.Event", "Event")
+                    b.HasOne("YonderfulApi.Models.Event", "Eveniment")
                         .WithMany()
-                        .HasForeignKey("EventId")
+                        .HasForeignKey("EvenimentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("YonderfulApi.Models.User", "User")
+                    b.HasOne("YonderfulApi.Models.User", "Participant")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Event");
+                    b.Navigation("Eveniment");
 
-                    b.Navigation("User");
+                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("YonderfulApi.Models.Event", b =>
