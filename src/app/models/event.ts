@@ -5,6 +5,7 @@ export interface IUserEventResponse {
 }
 
 export interface IEvent {
+    [x: string]: any,
     id: number,
     categoryId: number,
     hostId: number,
