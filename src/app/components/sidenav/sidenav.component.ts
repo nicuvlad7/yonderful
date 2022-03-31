@@ -10,9 +10,9 @@ import { loginUser } from 'src/app/models/loginUser';
 })
 
 export class SidenavComponent implements OnInit {
-
     menuLabelsVisible = false;
     currentUser: loginUser;
+
 
     userRole: Role;
     roleType= Role;

@@ -6,10 +6,15 @@ export interface User {
 }
 
 export interface UserDetails {
+    id: number,
     name: string,
     email: string,
-    password: string,
-    role: number,
-    position: string,
-    phoneNo: string
+    phoneNo: string,
+    position: string
+}
+export interface UserUpdate {
+    id: number,
+    name: string,
+    phoneNo: string,
+    position: string
 }
