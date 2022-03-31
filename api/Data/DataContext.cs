@@ -13,5 +13,13 @@ namespace YonderfulApi.Data
     public DbSet<User> Users { get; set; }
     public DbSet<Event> Events { get; set; }
     public DbSet<Location> Location { get; set; }
+    public DbSet<Attendance> Attendance { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Attendance>().HasKey(i => new { i.EventId, i.UserId });
+    }
   }
 }
