@@ -1,1 +1,5 @@
-<p>Welcome to dashboard!</p>
+<div class="page-container">
+    <div class="event-container" *ngIf="dashboardEvent">
+        <app-event-card class="event-card" [event]='dashboardEvent'></app-event-card>
+    </div>    
+</div>
