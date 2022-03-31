@@ -6,6 +6,7 @@ import { ConfirmComponent } from '../dialogs/confirm/confirm.component';
 import { Observable, sequenceEqual } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-categories-table',
@@ -65,12 +66,13 @@ export class CategoriesTableComponent implements OnInit {
   }
 
   editCategory(categoryId: number): void {
-    this.router.navigate(['category', categoryId], {queryParams: {editMode: true}});
+    this.router.navigate([RouteValues.CATEGORY, categoryId], {queryParams: {editMode: true}});
   }
 
   onCategoryRowClick(selectedRow: any): void {
     const categoryId: number = selectedRow.id;
-    this.router.navigate(['category', categoryId]);
+    console.log(RouteValues.CATEGORY_ID);
+    this.router.navigate([RouteValues.CATEGORY, categoryId]);
   }
  }
 
