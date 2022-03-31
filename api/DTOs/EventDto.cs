@@ -32,7 +32,7 @@ namespace YonderfulApi.DTOs
 		[Required]
 		public LocationDto EventLocation { get; set; }
 		[Required]
-		[RegularExpression("^[a-z]+\\.*[a-z]*@[a-z\\-]+\\.com$", ErrorMessage = "E-mail is not valid")]
+		[RegularExpression("^[a-z]+(\\.){0,1}[a-z\\-]*@[a-z]+(\\-){0,1}[a-z]*(\\.){1}com$", ErrorMessage = "E-mail is not valid")]
 		public string ContactEmail { get; set; }
 		[Required]
 		[StringLength(10, ErrorMessage = "Phone number should have 10 digits", MinimumLength =10)]

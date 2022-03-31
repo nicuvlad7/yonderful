@@ -195,7 +195,7 @@ export class CreateEditEventPageComponent implements OnInit {
     });
 
     this.eventOthersForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]+\\.*[a-z]*@[a-z\\-]+\\.com$")]),
+      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]+(\.){0,1}[a-z\-]*@[a-z]+(\-){0,1}[a-z]*(\.){1}com$")]),
       mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{10}$")]),
       image: new FormControl()
     })
