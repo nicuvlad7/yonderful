@@ -1,0 +1,29 @@
+.alert {
+  width: fit-content;
+  border-radius: 8px;
+  display: flex;
+  min-width: 200px;
+  margin: 20px;
+  align-items: center;
+  padding: 10px;
+
+    &--info {
+      color: #4440ab;
+      border: 1px solid #4440ab;
+    }
+    
+    &--warning {
+      color: #b9aa1d;
+      border: 1px solid #b9aa1d;
+    }
+    
+    &--error {
+      color: #c22e13;
+      border: 1px solid #c22e13;
+    }
+
+    &-icon {
+        vertical-align: -6px;
+        margin-right: 10px;
+    } 
+}
