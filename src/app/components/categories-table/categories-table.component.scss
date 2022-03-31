@@ -1,35 +1,6 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
-.admin-categories-wrapper {
-    @include flex-container(column);
-    padding: 40px;
-}
-
-.admin-categories-container {
-    padding: 25px 100px 25px 100px
-}
-
-.table-container {
-    width: 100%;
-}
-
-.table-row:hover {
-    cursor: pointer;
-}
-
-.table-icon {
-    object-fit: cover;
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    padding: 5px;
-}
-
-.table-row:hover .table-title-data {
-    color: $yonder-blue;
-}
-
 .mat-column-Actions {
     text-align: end;
     margin-right: 0px;
