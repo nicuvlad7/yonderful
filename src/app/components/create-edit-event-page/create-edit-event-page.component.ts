@@ -226,16 +226,20 @@ export class CreateEditEventPageComponent implements OnInit {
     let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
     let timeDict = timeStringParser(startTime);
     startDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
+    startDate.setHours(startDate.getHours() - startDate.getTimezoneOffset() / 60);
   
     let endDate: Date = this.eventGeneralForm.get('eventDates')!.get('endDate')!.value;
     let endTime: string = this.eventGeneralForm.get('eventDates')?.get('endTime')!.value;
     timeDict = timeStringParser(endTime);
     endDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
+    endDate.setHours(endDate.getHours() - endDate.getTimezoneOffset() / 60);
+
 
     let joinDeadlineDate: Date = this.eventGeneralForm.get('joinEvent')!.get('joinDeadlineDate')!.value;
     let joinDeadlineTime: string = this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')!.value;
     timeDict = timeStringParser(joinDeadlineTime);
     joinDeadlineDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
+    joinDeadlineDate.setHours(joinDeadlineDate.getHours() - joinDeadlineDate.getTimezoneOffset() / 60);
 
     let eventId: number = 0;
     let locationId: number = 0;
