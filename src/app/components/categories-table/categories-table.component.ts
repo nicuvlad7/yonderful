@@ -71,7 +71,6 @@ export class CategoriesTableComponent implements OnInit {
 
   onCategoryRowClick(selectedRow: any): void {
     const categoryId: number = selectedRow.id;
-    console.log(RouteValues.CATEGORY_ID);
     this.router.navigate([RouteValues.CATEGORY, categoryId]);
   }
  }
