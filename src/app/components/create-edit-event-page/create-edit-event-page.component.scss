@@ -8,13 +8,27 @@
 
 .event-form-container {
     @include flex-container(column);
-    padding: 25px 100px 25px 100px;
+    padding: 25px 100px;
 }
 
 .event-form-header {
-    @include flex-container(row, center);
+    @include flex-container(row, space-between);
+    align-items: center;
     color: $yonder-blue;
-    margin-bottom: 50px;
+    padding: 0 100px;
+}
+
+.event-panel:hover {
+    mat-panel-description {
+        color: $yonder-blue;
+    }
+    mat-panel-title {
+         color: $yonder-blue;
+    }
+}
+
+.expansion-panel-icon {
+    margin-right: 10px;
 }
 
 .event-form-item-wrapper {
@@ -30,6 +44,10 @@
     margin-right: 80px;
 }
 
+.full-width {
+    width: 100%;
+}
+
 .title-container {
     width: 25%;
 }
@@ -39,16 +57,65 @@
     width: auto;
 }
 
-.event-form-container .mat-expansion-panel-header-description {
-    @include flex-container(row, space-between);
+.event-form-container {
+    .mat-expansion-panel-header-description {
+        @include flex-container(row, space-between);
+        align-items: center;
+    }
+}
+
+.button-wrapper {
+    @include flex-container(row, center);
+    width: 36%;
+}
+
+.event-button {
+    background-color: $yonder-white;
+    color: $yonder-white;
+    margin-bottom: 16px;
+}
+
+.chip-tag {
+    background-color: $yonder-white;
+    border: 2px solid $yonder-blue;
+}
+
+.chip-tag {
+    mat-icon {
+        color: $yonder-pink;
+    }
+}
+
+.upload-image-component-container {
+    @include flex-container(row, flex-start);
+    align-items: center;
+    margin-left: -10px;
+}
+
+.upload-text {
+    margin-bottom: 0px;
+    font-weight: 450;
+}
+
+.upload-button {
+    @include flex-container(row, flex-start);
+}
+
+.uploaded-image-container {
+    @include flex-container(row);
     align-items: center;
 }
 
-.description-container {
-    width: 100%;
+.uploaded-image {
+  width: 80%;
+  height: auto;
 }
 
 mat-icon, mat-datepicker-toggle {
+        color: $yonder-pink;
+}
+
+.button-icon {
     color: $yonder-pink;
 }
 
@@ -56,14 +123,26 @@ mat-icon:hover {
     cursor: pointer;
 }
 
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-    background-color: $yonder-white;
+::ng-deep .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+        background-color: $yonder-white;
+    }
 }
 
 ::ng-deep .mat-form-field-wrapper {
     padding-bottom: 15px;
 }
 
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
-    padding-bottom: 25px;
+::ng-deep .mat-form-field-appearance-legacy {
+    .mat-form-field-wrapper {
+        padding-bottom: 25px;
+    }
+}
+
+.mat-expansion-panel-header-description {
+    flex-grow: 0;
+}
+
+.mat-form-field {
+    width: 100%;
 }

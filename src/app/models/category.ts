@@ -7,6 +7,10 @@ export interface Category {
     defaultBackground: string;
 }
 
+export interface CategoryResponse {
+    result: Category;
+}
+
 export interface CategoryToShow {
     id: number;
     title: string;
@@ -17,6 +21,7 @@ export interface CategoryToShow {
 export interface CategoriesResponse {
     result: Category[];
 }
+
 export interface ICategory {
   [x: string]: any;
   id?: number;

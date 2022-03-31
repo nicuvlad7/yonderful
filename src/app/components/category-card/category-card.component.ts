@@ -44,7 +44,9 @@ export class CategoryCardComponent implements OnInit {
 	editMode: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
-	pageTitle:string ="";
+	pageTitle:string = "";
+	isParamNan: boolean = this.testNaN(this.urlID);
+
 	constructor(
 		private categoryService: CategoryService,
 		private _snackBar: MatSnackBar,
@@ -83,16 +85,16 @@ export class CategoryCardComponent implements OnInit {
 
 		this.categoryService.getCategory(this.urlID).subscribe(
 			(result: ICategory) => {
-				this.categoryCard.id = result['result'].id;
-				this.categoryCard.title = result['result'].title;
-				this.categoryCard.icon = result['result'].icon;
+				this.categoryCard.id = result.id;
+				this.categoryCard.title = result.title;
+				this.categoryCard.icon = result.icon;
 				this.categoryCard.defaultBackground =
-					result['result'].defaultBackground;
+					result.defaultBackground;
 
 				this.categoryForm.patchValue({
-					['titleControl']: result['result'].title,
-					['backgroundControl']: result['result'].defaultBackground,
-					['iconControl']: result['result'].icon,
+					['titleControl']: result.title,
+					['backgroundControl']: result.defaultBackground,
+					['iconControl']: result.icon,
 				});
 			},
 			(error) => {

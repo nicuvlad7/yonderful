@@ -16,6 +16,24 @@ namespace YonderfulApi.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("YonderfulApi.Models.Attendance", b =>
+                {
+                    b.Property<int>("EventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("JoiningDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EventId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attendance");
+                });
+
             modelBuilder.Entity("YonderfulApi.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -42,10 +60,10 @@ namespace YonderfulApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AutoJoin")
+                    b.Property<bool>("AutoCancel")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Autocancel")
+                    b.Property<bool>("AutoJoin")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BackgroundId")
@@ -165,6 +183,25 @@ namespace YonderfulApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("YonderfulApi.Models.Attendance", b =>
+                {
+                    b.HasOne("YonderfulApi.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YonderfulApi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YonderfulApi.Models.Event", b =>

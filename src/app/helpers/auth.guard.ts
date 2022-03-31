@@ -38,7 +38,7 @@ export class AdminGuard implements CanActivate {
         }
 
         // normal user
-        this.router.navigate([''], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/dashboard'], { queryParams: { returnUrl: state.url } });
         return false;
     }
 }
@@ -52,10 +52,10 @@ export class UserGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         var userRole = JSON.parse(localStorage.getItem("currentUser")).role;
         if (userRole == Role.User) {
-            // admin
+            // normal user
             return true;
         }
-        // normal user
+        // admin
         this.router.navigate(['/administrate-categories'], { queryParams: { returnUrl: state.url } });
         return false;
     }
