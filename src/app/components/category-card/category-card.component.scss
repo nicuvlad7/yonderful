@@ -7,6 +7,11 @@
 }
 
 .category-header {
+	width: 60%;
+	margin-left: -80px;
+}
+
+.no-padding {
 	padding: 0;
 }
 
@@ -15,10 +20,15 @@
 	transition: 0.3s;
 	padding: 40px;
 	width: 60%;
+	margin-top: 20px;
 }
 
 .category-title {
 	margin-top: 10px;
+}
+
+.category-title-text {
+	margin-left: 5px;
 }
 
 .title-action-container {
@@ -33,34 +43,39 @@
 .action-container {
 	@include flex-container(row, flex-end);
 }
+
 .upload-display-container {
-	@include flex-container(flex, wrap);
+	@include flex-container(row, space-between);
 }
+
 .upload-display-item {
-	width: 50%;
+	@include flex-container(column);
+
+	img {
+		height: 250px;
+		width: 350px;
+		max-width: 100%;
+		min-height: 150px;
+		margin: 0 5px;
+	}
 }
-img {
-	height: 250px;
-	width: 350px;
-	max-width: 100%;
-	min-height: 150px;
-}
+
 .img-placeholder {
 	height: 250px;
 	width: 350px;
 	max-width: 100%;
 	width: 100%;
-	@include flex-container(center);
-	align-items: center;
 }
 
 .mat-form-field {
 	width: 50%;
 }
+
 ::ng-deep .file-upload {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
 label {
 	margin-left: 5px;
 	margin-bottom: 10px;

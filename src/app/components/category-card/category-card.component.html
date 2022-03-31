@@ -1,8 +1,8 @@
 <div class="content-wrapper content-center">
 
-	<h1 class="content-container">{{ pageTitle }}</h1>
+	<div class="content-container no-padding">
+		<h1 class="category-header no-padding">{{ pageTitle }}</h1>
 
-	<div class="content-container category-header">
 		<div class="category-form-shadow">
 			<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
 				
@@ -10,7 +10,8 @@
 					
 					<div class="title-input-container">
 						<label class="category-title"> Title </label>
-						<mat-form-field appearance="outline">
+						
+						<mat-form-field *ngIf="editMode; else categoryTitle" appearance="outline">
 							<input matInput [readonly]="
 								canMakeChanges && editMode ? null : true
 								" formControlName="titleControl" />
@@ -33,6 +34,11 @@
 								.hasError('pattern') && categoryForm.touched
 								">Title can only contain letters.</mat-error>
 						</mat-form-field>
+
+						<ng-template #categoryTitle>
+							<p class="category-title-text"> {{ categoryCard.title }} </p>
+						</ng-template>
+
 					</div>
 
 					<div class="action-container">
@@ -131,4 +137,5 @@
 			</form>
 		</div>
 	</div>
+
 </div>
