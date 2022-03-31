@@ -13,5 +13,9 @@ namespace YonderfulApi.Service
         Task<Attendance> CreateAttendance(Attendance newAttendance);
         Task<Attendance> UpdateAttendance(Attendance attendanceToPut);
         Task<bool> DeleteAttendance(int EventId, int UserId);
+
+        Task<int> NumberOfParticipants(int EventId);
+
+        Task<bool> CheckRestrictions(int EventId, Attendance newAttendance);
     }
 }

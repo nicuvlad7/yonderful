@@ -31,7 +31,7 @@
     <div class="middle-div">
         <div class="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
         <div class="participants-data">
-            <div  class="participants-card">
+            <div  class="participants-card" (click)="openParticipantsDialog()">
                 <mat-icon class="participants-icon">group</mat-icon>
                 <div class="bold-element">Participants: </div>
                 <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>

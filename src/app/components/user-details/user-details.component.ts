@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DecodeToken } from 'src/app/helpers/decode.token';
 import { UserDetails, UserUpdate } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,14 +18,15 @@ export class UserDetailsComponent implements OnInit {
 
     userData = {} as UserDetails;
 
-    //until getCurrentlyLoggedUser call is implemented
-    userId: number = 7;
+    userId: number;
 
     get controls() {
         return this.userEditForm.controls
     }
 
-    constructor(private userService: UserService, private _snackBar: MatSnackBar) { }
+    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken) {
+        this.userId = this.decodeToken.getCurrentUserId();
+     }
 
     ngOnInit(): void {
         this.initUserFormControls();

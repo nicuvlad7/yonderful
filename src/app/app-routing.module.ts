@@ -15,10 +15,12 @@ const routes: Routes = [
     { path: RouteValues.LOGIN, component: LoginCardComponent },
     { path: RouteValues.REGISTER, component: RegisterCardComponent },
     { path: RouteValues.ADMINISTRATE_CATEGORIES, component: CategoriesTableComponent, canActivate: [AuthGuard, AdminGuard] },
-    { path: RouteValues.CREATE_EDIT_EVENT, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
+    { path: RouteValues.CREATE_EVENT, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
+    { path: RouteValues.EVENT_ID, component: CreateEditEventPageComponent, canActivate: [AuthGuard, UserGuard] },
     { path: RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard] },
     { path: RouteValues.CATEGORY_ID, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard] },
     { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
+    { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard, UserGuard] },
     { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
     { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full' }
 ];

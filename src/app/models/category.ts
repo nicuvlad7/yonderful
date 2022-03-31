@@ -7,6 +7,10 @@ export interface Category {
     defaultBackground: string;
 }
 
+export interface CategoryResponse {
+    result: Category;
+}
+
 export interface CategoryToShow {
     id: number;
     title: string;
