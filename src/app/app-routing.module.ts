@@ -9,6 +9,7 @@ import { RegisterCardComponent } from './components/register-card/register-card.
 import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
 import { RouteValues } from './models/constants';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AllEventsComponent } from './components/all-events/all-events.component';
 
 const routes: Routes = [
   { path: RouteValues.LOGIN, component: LoginCardComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path : RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path : RouteValues.CATEGORY_ID,component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
-  { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard]},
+  { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.ALL_EVENTS, component: AllEventsComponent },
   { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 

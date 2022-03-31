@@ -14,9 +14,11 @@ export class RouteValues
     static readonly CATEGORY_ID = 'category/:id'
     static readonly EVENT_DETAILS_ID = 'event-details/:id'
     static readonly DASHBOARD = 'dashboard'
+    static readonly ALL_EVENTS = 'all-events'
 };
 
 export class RouteEndpoints
 {
     static readonly EVENT = 'Event';
+    static readonly FUTURE_EVENTS = 'Event/getFutureEvents'
 };

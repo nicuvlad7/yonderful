@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { HttpService } from './http.service';
 import {IEvent} from '../models/event'
 import { RouteEndpoints } from '../models/constants';
@@ -19,6 +19,12 @@ export class EventService {
   deleteEvent(id: number): Observable<IEvent> {
     return this.httpService
       .delete<IEvent>(id, RouteEndpoints.EVENT + '/')
+      .pipe(catchError(this.httpService.handleHttpErrorResponse));
+  }
+
+  getFutureEvents(): Observable<IEvent[]> {
+    return this.httpService
+      .getAll<IEvent[]>(RouteEndpoints.FUTURE_EVENTS)
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 }
