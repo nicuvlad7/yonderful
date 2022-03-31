@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using YonderfulApi.DTOs;
+using YonderfulApi.Models;
 using YonderfulApi.Service;
 
 namespace api.Controllers
@@ -14,13 +16,15 @@ namespace api.Controllers
 		private readonly IEventService _eventService;
 		private readonly IUserService _userService;
 		private readonly ICategoryService _categoryService;
+		private readonly IPictureService _pictureService;
 		private readonly IMapper _mapper;
 
-		public EventController(IEventService eventService, ICategoryService categoryService, IUserService userService, IMapper mapper)
-		{
+		public EventController(IEventService eventService, ICategoryService categoryService, 
+								IUserService userService, IPictureService pictureService, IMapper mapper){
 			_eventService = eventService;
 			_categoryService = categoryService;
 			_userService = userService;
+			_pictureService = pictureService;
 			_mapper = mapper;
 		}
 
@@ -67,23 +71,11 @@ namespace api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> PostEvent(EventDto eventDto)
 		{
+			eventDto = await checkBackgroundImage(eventDto);
 			var newEvent = await _eventService.CreateEvent(eventDto);
 
-			var existingCategory = await _categoryService.GetCategory(newEvent.CategoryId);
-			var existingUser = await _userService.GetUserById(newEvent.HostId);
+			var isValid = EventValidations(newEvent);
 
-			if (existingCategory == null)
-				return BadRequest("Category doesn't exist.");
-			if (existingUser == null)
-				return BadRequest("Host doesn't exist.");
-			if (newEvent.StartingDate >= newEvent.EndingDate)
-				return BadRequest("Starting date should be before ending date.");
-			if (newEvent.StartingDate < newEvent.JoinDeadline)
-				return BadRequest("Joining deadline should be before starting date.");
-			if (newEvent.MinimumParticipants > newEvent.MaximumParticipants)
-				return BadRequest("Minimum number of participants should be lower than the maximum one.");
-			if (newEvent.Tags.Split("*").Length > 5)
-				return BadRequest("Maximum 5 tags are allowed");
 			if (newEvent.MinimumParticipants == 0)
 				newEvent.AutoCancel = false;
 
@@ -103,7 +95,7 @@ namespace api.Controllers
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> PutElement(EventDto newEventDto)
+		public async Task<IActionResult> PutEvent(EventDto newEventDto)
 		{
 			var newEvent = await _eventService.CreateEvent(newEventDto);
 			var putEvent = await _eventService.PutEvent(newEvent);
@@ -112,6 +104,35 @@ namespace api.Controllers
 				return BadRequest();
 			}
 			return Ok(putEvent);
+		}
+
+		private async Task<Tuple<bool, string>> EventValidations(Event newEvent){
+			var existingCategory = await _categoryService.GetCategory(newEvent.CategoryId);
+			var existingUser = await _userService.GetUserById(newEvent.HostId);
+
+			if (existingCategory == null)
+				return new Tuple<bool, string>(false, "Category doesn't exist.");
+			if (existingUser == null)
+				return new Tuple<bool, string>(false, "Host doesn't exist.");
+			if (newEvent.StartingDate >= newEvent.EndingDate)
+				return new Tuple<bool, string>(false, "Starting date should be before ending date.");
+			if (newEvent.StartingDate < newEvent.JoinDeadline)
+				return new Tuple<bool, string>(false, "Joining deadline should be before starting date.");
+			if (newEvent.MinimumParticipants > newEvent.MaximumParticipants)
+				return new Tuple<bool, string>(false, "Minimum number of participants should be lower than the maximum one.");
+			if (newEvent.Tags.Split("*").Length > 5)
+				return new Tuple<bool, string>(false, "Maximum 5 tags are allowed");
+
+			return new Tuple<bool, string>(true, "");
+		}
+
+		private async Task<EventDto> checkBackgroundImage(EventDto eventDto){
+			if(eventDto.BackgroundImage == ""){
+				var eventCategory = await _categoryService.GetCategory(eventDto.CategoryId);
+				eventDto.BackgroundImage = await _pictureService.GetPictureContent(eventCategory.DefaultBackgroundId.ToString());
+				return eventDto;
+			}
+			return eventDto;
 		}
 	}
 }
