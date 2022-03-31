@@ -1,49 +1,50 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/models/MenuItem';
-import { Role } from 'src/app/models/constants'
+import { Role, RouteValues } from 'src/app/models/constants'
 import { loginUser } from 'src/app/models/loginUser';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+	selector: 'app-sidenav',
+	templateUrl: './sidenav.component.html',
+	styleUrls: ['./sidenav.component.scss']
 })
 
 export class SidenavComponent implements OnInit {
+    menuLabelsVisible = false;
+    currentUser: loginUser;
 
-  menuLabelsVisible = false;
-  currentUser: loginUser;
 
-  userRole: Role;
-  roleType= Role;
+    userRole: Role;
+    roleType= Role;
 
-  primaryMenuItemsUser: MenuItem[] = [
-    {title:"Dashboard", name:"home" },
-    {title:"All Events", name:"calendar_today" },
-    {title:"Joined Events", name:"list_alt" },
-    {title:"Hosted Events", name:"people" },
-    {title:"My history", name:"history" }
-  ]
+    primaryMenuItemsUser: MenuItem[] = [
+        { title: "Dashboard", name: "home", route: RouteValues.DASHBOARD },
+        { title: "All Events", name: "calendar_today", route: RouteValues.CREATE_EDIT_EVENT },
+        { title: "Joined Events", name: "list_alt", route: "" },
+        { title: "Hosted Events", name: "people", route: "" },
+        { title: "My history", name: "history", route: "" },
 
-  secondaryMenuItems: MenuItem[] = [
-    {title:"My Profile", name:"person_outline" },
-    {title:"Info", name:"info" },
-  ]
+    ]
 
-  primaryMenuItemsAdmin: MenuItem[] = [
-    {title:"Dashboard", name:"home" },
-    {title:"Categories", name:"widgets" }
-  ]
+    secondaryMenuItems: MenuItem[] = [
+        { title: "My Profile", name: "person_outline", route: RouteValues.USER_DETAILS },
+        { title: "Info", name: "info", route: "" },
+    ]
 
-  toggleSidebar(): void {
-    this.menuLabelsVisible = !this.menuLabelsVisible;
-  }
+    primaryMenuItemsAdmin: MenuItem[] = [
+        { title: "Dashboard", name: "home", route: RouteValues.DASHBOARD },
+        { title: "Categories", name: "widgets", route: RouteValues.ADMINISTRATE_CATEGORIES }
+    ]
 
-  constructor() {
-    this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
-  }
+    toggleSidebar(): void {
+      this.menuLabelsVisible = !this.menuLabelsVisible;
+    }
 
-  ngOnInit(): void {
-  }
+    constructor() {
+    }
+
+    ngOnInit(): void {
+      this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
+    }
 
 }
