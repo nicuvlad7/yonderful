@@ -40,10 +40,10 @@ export class SidenavComponent implements OnInit {
   }
 
   constructor() {
-    this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
   }
 
   ngOnInit(): void {
+    this.userRole = JSON.parse(localStorage.getItem("currentUser")).role;
   }
 
 }
