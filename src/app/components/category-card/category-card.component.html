@@ -72,7 +72,7 @@
 						<button
 							mat-icon-button
 							class="icon-button"
-							*ngIf="editMode && !testNaN(urlID)"
+							*ngIf="editMode && !isParamNan"
 							(click)="onDiscard()"
 							type="button"
 						>

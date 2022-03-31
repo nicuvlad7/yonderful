@@ -44,7 +44,9 @@ export class CategoryCardComponent implements OnInit {
 	editMode: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
-	pageTitle:string ="";
+	pageTitle:string = "";
+	isParamNan: boolean = this.testNaN(this.urlID);
+
 	constructor(
 		private categoryService: CategoryService,
 		private _snackBar: MatSnackBar,
