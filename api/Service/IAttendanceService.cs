@@ -10,8 +10,8 @@ namespace YonderfulApi.Service
         Task<IList<Attendance>> GetAllAttendance();
         Task<IList<Attendance>> GetParticipants(int EventId);
         Task<IList<Attendance>> GetEventsForUser(int UserId);
-        Task<Attendance> PostAttendance(Attendance newAttendance);
-        Task<Attendance> PutAttendance(Attendance attendanceToPut);
+        Task<Attendance> CreateAttendance(Attendance newAttendance);
+        Task<Attendance> UpdateAttendance(Attendance attendanceToPut);
         Task<bool> DeleteAttendance(int EventId, int UserId);
     }
 }

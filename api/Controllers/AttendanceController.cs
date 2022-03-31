@@ -58,7 +58,7 @@ namespace YonderfulApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> PostAttendance(AttendanceDto attendanceDto){
-            var newAttendance = await _attendanceService.PostAttendance(_mapper.Map<Attendance>(attendanceDto));
+            var newAttendance = await _attendanceService.CreateAttendance(_mapper.Map<Attendance>(attendanceDto));
             if(newAttendance == null){
                 return BadRequest();
             }
@@ -67,7 +67,7 @@ namespace YonderfulApi.Controllers
 
         [HttpPut]
         public async Task<IActionResult> PutAttendance(AttendanceDto attendanceDto){
-			var putAttendance = await _attendanceService.PutAttendance(_mapper.Map<Attendance>(attendanceDto));
+			var putAttendance = await _attendanceService.UpdateAttendance(_mapper.Map<Attendance>(attendanceDto));
 			if (putAttendance == null)
 			{
 				return BadRequest();

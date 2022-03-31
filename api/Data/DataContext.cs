@@ -16,11 +16,10 @@ namespace YonderfulApi.Data
     public DbSet<Attendance> Attendance { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
-        {
-
+    {
             base.OnModelCreating(builder);
 
-            builder.Entity<Attendance>().HasKey(i => new { i.EvenimentId, i.ParticipantId });
-        }
+            builder.Entity<Attendance>().HasKey(i => new { i.EventId, i.UserId });
+    }
   }
 }

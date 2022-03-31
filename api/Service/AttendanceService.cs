@@ -11,9 +11,9 @@ namespace api.Service
 {
 	public class AttendanceService : IAttendanceService
 	{
-        private readonly DataContext _context;
-        private readonly IMapper _mapper;
-        public AttendanceService(DataContext context, IMapper mapper)
+		private readonly DataContext _context;
+		private readonly IMapper _mapper;
+		public AttendanceService(DataContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;
@@ -22,9 +22,9 @@ namespace api.Service
 		public async Task<bool> DeleteAttendance(int EventId, int UserId)
 		{
 			var attendance = await _context.Attendance
-									.Include(att => att.Participant)
-									.Include(att => att.Eveniment)
-									.FirstOrDefaultAsync(att => att.EvenimentId == EventId && att.ParticipantId == UserId);
+									.Include(att => att.User)
+									.Include(att => att.Event)
+									.FirstOrDefaultAsync(att => att.EventId == EventId && att.UserId == UserId);
 			if (attendance == null)
 			{
 				return false;
@@ -35,25 +35,25 @@ namespace api.Service
 
 		public async Task<IList<Attendance>> GetAllAttendance()
 		{
-			var attendanceList = await _context.Attendance.Include(i => i.Participant).Include(i => i.Eveniment).ToListAsync();
-            return attendanceList;
+			var attendanceList = await _context.Attendance.Include(i => i.User).Include(i => i.Event).ToListAsync();
+			return attendanceList;
 		}
 
 		public async Task<Attendance> GetAttendance(int EventId, int UserId)
 		{
 			var attendance = await _context.Attendance
-									.Include(i => i.Participant)
-									.Include(i => i.Eveniment)
-									.FirstOrDefaultAsync(att => att.EvenimentId == EventId && att.ParticipantId == UserId);
+									.Include(i => i.User)
+									.Include(i => i.Event)
+									.FirstOrDefaultAsync(att => att.EventId == EventId && att.UserId == UserId);
 			return attendance;
 		}
 
 		public async Task<IList<Attendance>> GetEventsForUser(int UserId)
 		{
 			var attendance = await _context.Attendance
-									.Where(att => att.ParticipantId == UserId)
-									.Include(i => i.Participant)
-									.Include(i => i.Eveniment)
+									.Where(att => att.UserId == UserId)
+									.Include(i => i.User)
+									.Include(i => i.Event)
 									.ToListAsync();
 			return attendance;
 		}
@@ -61,16 +61,16 @@ namespace api.Service
 		public async Task<IList<Attendance>> GetParticipants(int EventId)
 		{
 			var attendance = await _context.Attendance
-									.Where(att => att.EvenimentId == EventId)
-									.Include(i => i.Participant)
-									.Include(i => i.Eveniment)
+									.Where(att => att.EventId == EventId)
+									.Include(i => i.User)
+									.Include(i => i.Event)
 									.ToListAsync();
 			return attendance;
 		}
 
-		public async Task<Attendance> PostAttendance(Attendance newAttendance)
+		public async Task<Attendance> CreateAttendance(Attendance newAttendance)
 		{
-			var existingAttendance = await GetAttendance(newAttendance.EvenimentId, newAttendance.ParticipantId);
+			var existingAttendance = await GetAttendance(newAttendance.EventId, newAttendance.UserId);
 			if(existingAttendance != null)
 				return null;
 			_context.Attendance.Add(newAttendance);
@@ -78,14 +78,14 @@ namespace api.Service
 			return newAttendance;
 		}
 
-		public async Task<Attendance> PutAttendance(Attendance attendanceToPut)
+		public async Task<Attendance> UpdateAttendance(Attendance updatedAttendance)
 		{
-			var existingAttendance = await GetAttendance(attendanceToPut.EvenimentId, attendanceToPut.ParticipantId);
+			var existingAttendance = await GetAttendance(updatedAttendance.EventId, updatedAttendance.UserId);
 			if(existingAttendance == null)
 				return null;
-			existingAttendance.Eveniment = attendanceToPut.Eveniment;
-			existingAttendance.Participant = attendanceToPut.Participant;
-			existingAttendance.JoiningDate = attendanceToPut.JoiningDate;
+			existingAttendance.Event = updatedAttendance.Event;
+			existingAttendance.User = updatedAttendance.User;
+			existingAttendance.JoiningDate = updatedAttendance.JoiningDate;
 			_context.Attendance.Update(existingAttendance);
 			await _context.SaveChangesAsync();
 			return existingAttendance;
