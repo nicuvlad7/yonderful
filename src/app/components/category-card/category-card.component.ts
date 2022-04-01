@@ -99,7 +99,6 @@ export class CategoryCardComponent implements OnInit {
 			},
 			(error) => {
 				{
-					console.log(error.message,error.status);
 					if (error.status != undefined) {
 						this._snackBar.open(
 							`Error status ${error.status}: ${error.message}`,

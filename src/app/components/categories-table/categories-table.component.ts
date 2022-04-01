@@ -17,8 +17,7 @@ export class CategoriesTableComponent implements OnInit {
 	dataSource: Category[] = [];
 	displayedCategories: CategoryToShow[] = [];
 	displayedColumns = ['Icon', 'Title', 'Actions'];
-	valoare: Number = 0;
-	deleteRow: boolean = false;
+
 	constructor(
 		private endpointsService: EndpointsService,
 		private sanitizer: DomSanitizer,
@@ -51,22 +50,17 @@ export class CategoriesTableComponent implements OnInit {
 	}
 
 	deleteCategory(categoryId: number): void {
-		this.deleteRow = true;
 		this.openChangeRoleDialog().subscribe((result) => {
 			if (result) {
 				this.endpointsService
 					.deleteCategory(categoryId)
 					.subscribe(() => {
-						this.deleteRow = true;
 						this.displayedCategories =
 							this.displayedCategories.filter(
 								(category: CategoryToShow) =>
 									category.id != categoryId
 							);
 					});
-				this.deleteRow = false;
-			} else {
-				this.deleteRow = false;
 			}
 		});
 	}
@@ -87,9 +81,7 @@ export class CategoriesTableComponent implements OnInit {
 	}
 
 	onCategoryRowClick(selectedRow: any): void {
-		if (!this.deleteRow) {
-			const categoryId: number = selectedRow.id;
+	  	const categoryId: number = selectedRow.id;
 			this.router.navigate([RouteValues.CATEGORY, categoryId]);
-		}
 	}
 }

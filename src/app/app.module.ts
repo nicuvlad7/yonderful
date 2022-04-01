@@ -49,7 +49,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         DashboardComponent,
         ParticipantsDialogComponent,
 		UserDetailsComponent,
-  NotFoundComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,

@@ -24,7 +24,7 @@
           <th mat-header-cell  *matHeaderCellDef class="table-header-text"> Actions </th>
           <td mat-cell *matCellDef="let element" >
             <button mat-button (click)="editCategory(element.id)"><mat-icon>edit</mat-icon></button>
-            <button mat-button (click)="deleteCategory(element.id)"><mat-icon>delete</mat-icon></button>
+            <button mat-button (click)="deleteCategory(element.id)" (click)="$event.stopPropagation()"><mat-icon>delete</mat-icon></button>
           </td>
         </ng-container>
 
@@ -32,7 +32,8 @@
         <tr mat-row 
           class="table-row"
           *matRowDef="let row; columns: displayedColumns;"
-          (click)="onCategoryRowClick(row)"></tr>
+          (click)="onCategoryRowClick(row)"
+          ></tr>
       </table>
 
     </div>

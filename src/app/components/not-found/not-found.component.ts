@@ -6,8 +6,8 @@ import { RouteValues } from '../../models/constants';
 	styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent implements OnInit {
+	redirectURL: string = '/' + RouteValues.DASHBOARD;
 	constructor() {}
 
 	ngOnInit(): void {}
-	redirect: string = '/' + RouteValues.DASHBOARD;
 }
