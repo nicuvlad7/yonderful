@@ -9,7 +9,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/auth.service';
-
+import { RouteValues } from '../models/constants';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 	constructor(
@@ -28,7 +28,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 						this.authenticationService.logout();
 						break;
 					case 404:
-						this.router.navigate(['not-found']);
+						this.router.navigate([RouteValues.NOT_FOUND]);
+						break;
 				}
 
 				const error = {
