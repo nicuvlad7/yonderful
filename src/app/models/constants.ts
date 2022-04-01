@@ -16,6 +16,7 @@ export class RouteValues {
     static readonly EVENT_DETAILS_ID = 'event-details/:id'
     static readonly USER_DETAILS = 'user-details';
     static readonly DASHBOARD = 'dashboard'
+    static readonly NOT_FOUND = 'not-found'
 };
 
 export class RouteEndpoints {
