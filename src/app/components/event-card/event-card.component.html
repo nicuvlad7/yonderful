@@ -1,5 +1,7 @@
 <mat-card class="event-card">
-    <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+    <div class="image-div">
+        <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+    </div>
     <div class="about">
         <div class="first-row">
             <div class="title">{{event.title}}</div>
