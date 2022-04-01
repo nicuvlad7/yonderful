@@ -27,6 +27,7 @@ import { InfoComponent } from './components/info/info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { ParticipantsDialogComponent } from './components/participants-dialog/pa
         DashboardComponent,
         ParticipantsDialogComponent,
 		UserDetailsComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,
