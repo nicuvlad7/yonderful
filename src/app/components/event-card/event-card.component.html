@@ -4,12 +4,12 @@
         <div class="first-row">
             <div class="title">{{event.title}}</div>
             <div class="countdown">
-                <mat-icon>hourglass_empty</mat-icon>
+                <mat-icon class="icon">hourglass_empty</mat-icon>
                 <div class="remaining-days">{{ countdownDays }} Days</div>
             </div>
         </div>
         <div class="second-row">
-            <div class="start-date-time">{{ event.startingDate | date:'dd.L.y - H:mm' }}</div>
+            <div class="start-date-time">{{ event.startingDate | date:'dd.LL.y - H:mm' }}</div>
             <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
         </div>
     </div>

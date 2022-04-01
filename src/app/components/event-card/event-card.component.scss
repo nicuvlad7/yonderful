@@ -29,7 +29,7 @@
 }
 
 .title {
-    font-size: 1.6vh;
+    font-size: 30px;
     font-weight: 700;
 }
 
@@ -37,7 +37,14 @@
     @include flex-container(row, flex-start);
 }
 
+.icon {
+    vertical-align: bottom;
+    font-size: 18px !important;
+    margin-right: -5px;
+}
+
 .remaining-days {
+    vertical-align: -6px;
     font-size: 1.5vh;
 }
 
@@ -54,6 +61,7 @@
 }
 
 .category-icon {
-    width: 23%;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
