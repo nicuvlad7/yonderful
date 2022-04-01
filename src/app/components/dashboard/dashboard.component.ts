@@ -11,13 +11,10 @@ import { EventCardComponent } from '../event-card/event-card.component';
 })
 export class DashboardComponent implements OnInit {
   dashboardEvent: IEvent;
-  eventId = 2;
 
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-    this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.dashboardEvent = result;
-    });
+    
   }
 }
