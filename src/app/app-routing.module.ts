@@ -10,6 +10,7 @@ import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
 import { RouteValues } from './models/constants';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   { path: RouteValues.LOGIN, component: LoginCardComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard]},
+  { path: RouteValues.NOT_FOUND,component:NotFoundComponent,},
   { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
 
