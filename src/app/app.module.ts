@@ -28,43 +28,44 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-
+import { GenericFilterComponent } from './components/generic-filter/generic-filter.component';
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginCardComponent,
-        RegisterCardComponent,
-        SidenavComponent,
-        ToolbarComponent,
-        ConfirmComponent,
-        RegisterCardComponent,
-        LoginCardComponent,
-        CreateEditEventPageComponent,
-        CategoriesTableComponent,
-        CategoryCardComponent,
-        UploadFileComponent,
-        EventCardComponent,
-        EventPageComponent,
-        InfoComponent,
-        DashboardComponent,
-        ParticipantsDialogComponent,
+	declarations: [
+		AppComponent,
+		LoginCardComponent,
+		RegisterCardComponent,
+		SidenavComponent,
+		ToolbarComponent,
+		ConfirmComponent,
+		RegisterCardComponent,
+		LoginCardComponent,
+		CreateEditEventPageComponent,
+		CategoriesTableComponent,
+		CategoryCardComponent,
+		UploadFileComponent,
+		EventCardComponent,
+		EventPageComponent,
+		InfoComponent,
+		DashboardComponent,
+		ParticipantsDialogComponent,
 		UserDetailsComponent,
-        NotFoundComponent,
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MaterialModules,
-        ReactiveFormsModule,
-        HttpClientModule,
-    ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        MatDatepickerModule,
-    ],
-    bootstrap: [AppComponent],
+		NotFoundComponent,
+		GenericFilterComponent,
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MaterialModules,
+		ReactiveFormsModule,
+		HttpClientModule,
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		MatDatepickerModule,
+	],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

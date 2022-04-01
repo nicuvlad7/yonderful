@@ -1,0 +1,26 @@
+<div class="filters-wrapper">
+	<div class="filters-container">
+		<div class="sort-container">
+			<div class="sort-header"><mat-icon>sort</mat-icon>Sort By</div>
+			<div class="sort-select">
+				<mat-form-field appearance="fill">
+					<mat-label>Favorite food</mat-label>
+					<mat-select>
+						<mat-option> Example1 </mat-option>
+						<mat-option> Example1 </mat-option>
+						<mat-option> Example1 </mat-option>
+					</mat-select>
+				</mat-form-field>
+				<div class="sort-icon">
+					<mat-icon>arrow_upward</mat-icon>
+					<mat-icon *ngIf="isAscending">arrow_downward</mat-icon>
+				</div>
+			</div>
+		</div>
+		<div class="filter-container">
+			<div class="date-picker"></div>
+			<div class="select"></div>
+			<div class="check-boxes"></div>
+		</div>
+	</div>
+</div>
