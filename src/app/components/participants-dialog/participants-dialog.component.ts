@@ -42,11 +42,7 @@ export class ParticipantsDialogComponent implements OnInit {
 						);
 					},
 					(error) => {
-            //to-do:
-            //remove this after demo
-						this.data.participants = this.data.participants.filter(
-							(el) => el.id != id
-						);
+            
 					}
 				);
 			}
