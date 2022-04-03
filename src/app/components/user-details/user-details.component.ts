@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { DecodeToken } from 'src/app/helpers/decode.token';
 import { UserDetails, UserUpdate } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
     selector: 'app-user-details',
@@ -24,9 +26,9 @@ export class UserDetailsComponent implements OnInit {
         return this.userEditForm.controls
     }
 
-    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken) {
+    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken, private dialogService: DialogService) {
         this.userId = this.decodeToken.getCurrentUserId();
-     }
+    }
 
     ngOnInit(): void {
         this.initUserFormControls();
@@ -73,18 +75,27 @@ export class UserDetailsComponent implements OnInit {
     }
 
     toggleEditMode(): void {
-        this.editMode = !this.editMode;
+        if (!this.editMode) {
+            this.editMode = !this.editMode;
 
-        if (this.editMode) {
             this.controls.name.enable();
             this.controls.position.enable();
             this.controls.phoneNo.enable();
         }
         else {
             if (this.userEditForm.dirty) {
-                this.retrieveUserData();
+                this.openConfirmDialog().subscribe((result) => {
+                    if (result) {
+                        this.editMode = !this.editMode;
+                        this.retrieveUserData();
+                        this.userEditForm.disable();
+                    }
+                });
             }
-            this.userEditForm.disable();
+            else {
+                this.editMode = !this.editMode;
+                this.userEditForm.disable();
+            }
         }
     }
 
@@ -112,7 +123,12 @@ export class UserDetailsComponent implements OnInit {
                     duration: 3000,
                 });
 
-                this.toggleEditMode();
+                this.editMode = !this.editMode;
+                if (this.userEditForm.dirty) {
+                    this.retrieveUserData();
+                }
+                this.userEditForm.disable();
+
             },
             (error) => {
                 {
@@ -126,6 +142,16 @@ export class UserDetailsComponent implements OnInit {
                 }
             }
         );
+    }
+
+
+    openConfirmDialog(): Observable<boolean> {
+        return this.dialogService.confirmDialog({
+            title: 'Discard Changes',
+            message: 'Are you sure you want to discard changes?',
+            confirmText: 'Yes',
+            cancelText: 'No',
+        });
     }
 
     get phoneNoExists(): boolean {
