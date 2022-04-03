@@ -6,7 +6,7 @@
     height: 255px;
     padding: 0;
     box-shadow: 4px 4px 3px #d9d9d9;
-    border-radius: 6px 6px 6px 6px;
+    border-radius: 6px;
 }
 
 .image-div {
@@ -20,27 +20,23 @@
 
 .event-image {
     width: 340px;
-    height: 180px;
+    height: 160px;
     object-fit: cover;
     object-position: 100% 0;
 }
 
 .about {
-    @include flex-container(column, flex-start);
-    justify-content: space-between;
-    display: flex;
+    @include flex-container(column, space-between);
     padding: 0px 8px 8px 8px;
     margin-left: 5px;
     margin-right: 5px;
 }
 
 .first-row {
+    @include flex-container(row, space-between);
     width: 100%;
     margin: auto;
-    display: flex;
-    @include flex-container(row);
     margin-top: 5px;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -53,8 +49,6 @@
 .countdown {
     @include flex-container(row);
     margin-top: 5px;
-    flex-direction: row;
-    justify-content: center;
 }
 
 .icon {
@@ -70,10 +64,7 @@
 
 .second-row {
     width: 100%;
-    @include flex-container(row);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
     margin-top: 20px;
     align-content: end;
 }
