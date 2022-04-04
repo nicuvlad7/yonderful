@@ -53,9 +53,7 @@ export class UserDetailsComponent implements OnInit {
                 this.userData.name = result.name;
                 this.userData.position = result.position;
 
-                this.controls.name.setValue(result.name);
-                this.controls.position.setValue(result.position);
-                this.controls.phoneNo.setValue(result.phoneNo);
+                this.setValues(result)
                 this.controls.email.setValue(result.email);
 
                 this.loading = false;
@@ -74,6 +72,12 @@ export class UserDetailsComponent implements OnInit {
         );
     }
 
+    setValues(result): void {
+        this.controls.name.setValue(result.name);
+        this.controls.position.setValue(result.position);
+        this.controls.phoneNo.setValue(result.phoneNo);
+    }
+
     toggleEditMode(): void {
         if (!this.editMode) {
             this.editMode = !this.editMode;
@@ -81,6 +85,7 @@ export class UserDetailsComponent implements OnInit {
             this.controls.name.enable();
             this.controls.position.enable();
             this.controls.phoneNo.enable();
+            this.userEditForm.markAsPristine();
         }
         else {
             if (this.userEditForm.dirty) {
@@ -113,9 +118,7 @@ export class UserDetailsComponent implements OnInit {
                 this.userData.name = result.name;
                 this.userData.position = result.position;
 
-                this.controls.name.setValue(result.name);
-                this.controls.position.setValue(result.position);
-                this.controls.phoneNo.setValue(result.phoneNo);
+                this.setValues(result)
 
                 this.loading = false;
 
@@ -125,7 +128,7 @@ export class UserDetailsComponent implements OnInit {
 
                 this.editMode = !this.editMode;
                 if (this.userEditForm.dirty) {
-                    this.retrieveUserData();
+                    this.setValues(result)
                 }
                 this.userEditForm.disable();
 
