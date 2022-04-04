@@ -47,7 +47,7 @@ export class CategoryCardComponent implements OnInit {
 	createNewCategory: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
-	pageTitle:string = "";
+	pageTitle: string = '';
 	isParamNan: boolean = this.testNaN(this.urlID);
 
 	constructor(
@@ -94,8 +94,7 @@ export class CategoryCardComponent implements OnInit {
 				this.categoryCard.id = result.id;
 				this.categoryCard.title = result.title;
 				this.categoryCard.icon = result.icon;
-				this.categoryCard.defaultBackground =
-					result.defaultBackground;
+				this.categoryCard.defaultBackground = result.defaultBackground;
 
 				this.categoryForm.patchValue({
 					['titleControl']: result.title,
@@ -105,25 +104,27 @@ export class CategoryCardComponent implements OnInit {
 			},
 			(error) => {
 				{
-					this._snackBar.open(
-						`Error status ${error.status}: ${error.message}`,
-						'',
-						{
-							duration: 5000,
-						}
-					);
+					if (error.status != undefined) {
+						this._snackBar.open(
+							`Error status ${error.status}: ${error.message}`,
+							'',
+							{
+								duration: 5000,
+							}
+						);
+					}
 				}
 			}
 		);
 		if (editModeParam == 'true') {
-			this.pageTitle="Edit Category";
+			this.pageTitle = 'Edit Category';
 			this.editMode = true;
 		}
 		if (editModeParam == 'false') {
 			this.pageTitle = 'Category';
 			this.editMode = false;
 		}
-		if(editModeParam == ''){
+		if (editModeParam == '') {
 			this.pageTitle = 'Category';
 		}
 	}
@@ -254,6 +255,6 @@ export class CategoryCardComponent implements OnInit {
 	}
 	onEditClick() {
 		this.editMode = true;
-		this.pageTitle = "Edit Category";
+		this.pageTitle = 'Edit Category';
 	}
 }
