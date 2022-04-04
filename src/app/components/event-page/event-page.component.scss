@@ -1,235 +1,245 @@
 @import '../../mixins.scss';
 @import '../../variables.scss';
 
-.bold-element {
-    font-weight: 700;
+.event {
+    @include flex-container(column);
+    padding: 50px;
+    align-items: center;
 }
 
 .event-card {
-    width: 85%;
-    margin-left: 7.5%;
-    margin-top: 5%;
-    height: 75%;
-    @include flex-container(column);
+    width: 100em;
+    height: 85vh;
 }
 
 .top-div {
-    width: 100%;
-    height: 100%;
-    background-color: #caf0f8;
-    @include flex-container(row, flex-start);
+    @include flex-container(row, auto);
+    background-color: #f0f0f0;
 }
 
 .event-image {
-    width: 30%;
+    height: 350px;
 }
 
-.event-information-first-row {
-    width: 100%;
-    height: 100%;
-    @include flex-container(column, flex-start);
-    justify-content: space-between;
-}
-
-.admin-buttons {
-    margin-top: 15px;
-    margin-right: 20px;
-    justify-content: space-between;
-    height: 25%;
-    @include flex-container(column, flex-start);
-}
-
-.admin-buttons-style {
-    background-color: transparent;
-    border: none;
-    transform: scale(1.8);
+.event-image img {
+    object-fit: cover;
+    padding: 0px;
+    min-width: 600px;
+    max-height: 350px;
 }
 
 .event-information {
-    margin-top: 0;
-    margin-left: 20px;
-    @include flex-container(column, flex-start);
+    display: flex;
+    flex-direction: column;
+    min-width: 730px;
+    padding: 20px 10px;
+    margin-left: auto;
+    margin-right: auto;
     justify-content: space-between;
-    width: 100%;
-    height: 100%;
 }
 
-.event-text-information {align-self: flex-start;
-    height: 70%;
-    @include flex-container(column, flex-start);
-    justify-content: space-evenly;
+
+.admin-buttons {
+    
+}
+
+.admin-buttons-style {
     
 }
 
 .title-date {
-    align-self: flex-start;
+    // margin: 40px 0 0;
 }
 
 .deadline-participants {
-    align-self: flex-start;
-}
-
-.event-title {
-    font-size: 3vh;
-    font-weight: 700;
-}
-
-.start-date {
-    font-size: 2vh;
-    margin-top: 3%;
-}
-
-.access-time {
-    transform: scale(0.85);
-}
-.join-deadline {
-    font-size: 2vh;
-    @include flex-container(row, flex-start);
-}
-
-.deadline-text {
-    margin-left: 7px;
-}
-
-.required-participants {
-    color: #52b788;
-    font-size: 1.7vh;
-    margin-top: 1%;
-}
-
-.fee-icon-row {
-    margin-top: 10px;
-    @include flex-container(row, flex-start);
-    justify-content: space-between;
-    width: 99%;
-    height: 10%;
-    margin-bottom: 10px;
    
 }
 
-.event-fee {
-    font-size: 2vh;
-    align-self: flex-end;
-    margin-bottom: 15px;
+.event-title {
+    font-size: 1.8rem;
 }
 
-.category-icon {
-    align-self: flex-end;
-    width: 20%;
-}
-
-.middle-div {
-    margin-top: 5px;
-    width: 100%;
-    @include flex-container(row, flex-start);
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.default-message {
-    width: 25%;
-    font-size: 1.5vh;
-    margin-left: 15px;
-}
-
-.participants-data {
-    margin-top: 10px;
-    margin-right: 20px;
-    @include flex-container(row, flex-start);
-    justify-content: space-between;
+.start-date {
     
 }
 
+.access-time {
+}
+
+.join-deadline {
+    display: flex;
+    gap: 5px;
+    color: #0f0f0f;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.start-date, .deadline-date {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.deadline-date, .helper-text p {
+    color: #585858;
+}
+
+.helper-text {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.helper-text p {
+    padding: 0;
+    margin: 0;
+    margin-right: 7px;
+}
+
+.deadline-text {
+    
+}
+
+.required-participants {
+    color: green;
+}
+
+.fee-icon-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin: 75px 0 0;
+}
+
+.event-fee {
+    
+}
+
+.category-icon {
+   width: 50px;
+   height: auto;
+}
+
+.middle-div {
+}
+
+.default-message {
+    margin-top: 5px;
+}
+
+.participants-data, .participants-card {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 10px;
+}
+
 .participants-card {
-    @include flex-container(row, flex-start);
-    align-self: center;
     cursor: pointer;
 }
 
+.participants-card:hover {
+    color: $yonder-pink;
+}
+
 .current-participants-number {
-    margin-left: 8px;
-    font-size: 1.5vh;
+   
 }
 
 .participants-icon {
-    margin-top: -2px;
-    margin-right: 5px;
+    
 }
 
 
 .join-button {
-    background-color: lightgreen;
-    margin-left: 25px;
-    transform: scale(1.35);
+    color: green;
+    background-color: #f0f0f0;
+}
+
+.join-button {
+    background-color: $yonder-blue;
+    color: white;
+}
+
+.join-button:enabled:hover {
+    background-color: $yonder-pink;
+    transition: background-color 100ms linear;
 }
 
 .bottom-div {
-    width: 100%;
-    height: 70%;
-    @include flex-container(row, flex-start);
-    justify-content: space-between;
+    display: flex;
+    height: 53vh;
 }
 
 .event-description {
-    border: solid;
-    border-color: $yonder-blue;
-    border-width: 0.1px;
-    width: 60%;
-    @include flex-container(column, flex-start);
-    justify-content: space-between;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
 }
 
 .event-descripton-text {
-    margin-top: 20px;
-    margin-right: 30px;
-    font-size: 1.5vh;
-    margin-left: 20px;
+    margin-bottom: 20px;
+    align-self: flex-start;
 }
 
 .tags-list {
-    margin-bottom: 20px;
-    margin-left: 20px;
+    margin-top: auto;
 }
 
 .tag {
-    color: green;
-    transform: scale(1.1);
-}
-
-.event-details {
-    border-top:   0.1px solid #6096ba;
-    border-right: 0.1px solid #6096ba; 
-    border-bottom: 0.1px solid #6096ba;
-    width: 40%;
-    @include flex-container(column, flex-start);
     
 }
 
-.event-details-text {
-    font-size: 1.8vh;
+.event-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    align-items: flex-end;
+    gap: 20px;
+    align-self: flex-end;
+    min-width: 330px;
     margin-top: 20px;
-    margin-left: 20px;
-    @include flex-container(column, flex-start);
-    justify-content: space-between;
-    height: 80%;
+    padding: 20px;
+    margin-right: 220px;
+}
+
+.location {
+    margin: 0;
+}
+
+.location-text {
+    margin: 0;
+}
+.date {
+    margin: 0;
+}
+
+.host {
+    margin: 0;
+}
+
+.event-details-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .event-location-details {
-    margin-top: 2%;
+    
 }
 
 .starting-date {
-    margin-top: 2%;
+    
 }
 
 .host-details {
-    margin-top: 2%;
+    
 }
 
 .flex-row {
-    @include flex-container(row, flex-start);
+    
 }
 
 .flex-column {
-    @include flex-container(column, flex-start);
+    
 }
