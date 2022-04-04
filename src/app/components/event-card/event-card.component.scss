@@ -48,13 +48,12 @@
 
 .countdown {
     @include flex-container(row);
+    align-items: center;
     margin-top: 5px;
 }
 
 .icon {
-    vertical-align: bottom;
-    font-size: 18px !important;
-    margin-right: -5px;
+    padding-right: 3px;
 }
 
 .remaining-days {
