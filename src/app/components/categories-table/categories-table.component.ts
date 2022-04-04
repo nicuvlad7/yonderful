@@ -52,6 +52,8 @@ export class CategoriesTableComponent implements OnInit {
           .subscribe(() => {
             this.displayedCategories = this.displayedCategories
               .filter((category: CategoryToShow) => category.id != categoryId)
+            
+            this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
           });
     })
   }

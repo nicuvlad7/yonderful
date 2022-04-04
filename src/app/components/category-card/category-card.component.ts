@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
-import { CategoryConfirmDialogData, ConfirmDialogData } from 'src/app/models/confirm-dialog-data';
+import { ConfirmDialogData } from 'src/app/models/confirm-dialog-data';
 import { RouteValues } from 'src/app/models/constants';
 
 @Component({
@@ -186,7 +186,7 @@ export class CategoryCardComponent implements OnInit {
 							this._snackBar.open('Category was deleted.', '', {
 								duration: 3000,
 							});
-							this.router.navigate(['/']);
+							this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 						},
 						(error) => {
 							this._snackBar.open(
@@ -220,7 +220,7 @@ export class CategoryCardComponent implements OnInit {
 					this._snackBar.open('Category was added.', '', {
 						duration: 1500,
 					});
-					this.router.navigate(['/administrate-categories']);
+					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
 				(error) => {
 					this._snackBar.open(
@@ -238,7 +238,7 @@ export class CategoryCardComponent implements OnInit {
 					this._snackBar.open('Category was updated.', '', {
 						duration: 3000,
 					});
-					this.router.navigate(['/administrate-categories']);
+					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
 				(error) => {
 					this._snackBar.open(

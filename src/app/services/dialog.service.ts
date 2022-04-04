@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmComponent } from '../components/dialogs/confirm/confirm.component';
 import { ParticipantsDialogComponent } from '../components/participants-dialog/participants-dialog.component';
-import { CategoryConfirmDialogData, ConfirmDialogData } from '../models/confirm-dialog-data';
+import { ConfirmDialogData } from '../models/confirm-dialog-data';
 import { User } from '../models/user';
 
 @Injectable({
@@ -18,16 +18,6 @@ export class DialogService {
 				data,
 				width: '400px',
 				disableClose: true,
-			})
-			.afterClosed();
-	}
-
-	confirmCategoryDialog(data: CategoryConfirmDialogData): Observable<boolean> {
-		return this.dialog.
-			open(ConfirmComponent, {
-				data, 
-				width: '400px', 
-				disableClose: true
 			})
 			.afterClosed();
 	}
