@@ -13,7 +13,7 @@ export class EventService {
   getEvent(eventId: number): Observable<IEvent> {
     return this.httpService
       .getById<IEvent>(eventId, RouteEndpoints.EVENT)
-      .pipe(catchError(this.httpService.handleHttpErrorResponse));
+      .pipe(map((response) => response.result),catchError(this.httpService.handleHttpErrorResponse));
   }
 
   deleteEvent(id: number): Observable<IEvent> {

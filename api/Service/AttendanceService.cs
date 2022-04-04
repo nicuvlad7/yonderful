@@ -90,5 +90,16 @@ namespace api.Service
 			await _context.SaveChangesAsync();
 			return existingAttendance;
 		}
+
+		public async Task<int> NumberOfParticipants(int EventId)
+		{
+			var members = await GetParticipants(EventId);
+			return members.Count;
+		}
+
+		public Task<bool> CheckRestrictions(int EventId, Attendance newAttendance)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

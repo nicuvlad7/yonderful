@@ -1,0 +1,13 @@
+@import "../../mixins.scss";
+@import "../../variables.scss";
+.participants-container {
+	@include flex-container(row, space-between);
+}
+.close-button {
+	@include flex-container(row, flex-end);
+    margin-top:10px;
+}
+.mat-button {
+    color:white;
+    background-color: $yonder-blue;
+}

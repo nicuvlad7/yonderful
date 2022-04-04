@@ -41,6 +41,8 @@ namespace YonderfulApi.Service
 			var existingLocation = await LocationExists(newLocation);
 			if (existingLocation != null) return existingLocation;
 
+			newLocation.Id = 0;
+
 			_context.Location.Add(newLocation);
 			await _context.SaveChangesAsync();
 			return newLocation;

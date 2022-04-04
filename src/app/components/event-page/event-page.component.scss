@@ -143,6 +143,7 @@
 .participants-card {
     @include flex-container(row, flex-start);
     align-self: center;
+    cursor: pointer;
 }
 
 .current-participants-number {

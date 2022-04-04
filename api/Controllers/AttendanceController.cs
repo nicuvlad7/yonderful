@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,10 +14,12 @@ namespace YonderfulApi.Controllers
     public class AttendanceController: ControllerBase
     {
         private readonly IAttendanceService _attendanceService;
+        private readonly IEventService _eventService;
         private readonly IMapper _mapper;
 
-        public AttendanceController(IAttendanceService attendanceService, IMapper mapper){
+        public AttendanceController(IAttendanceService attendanceService, IEventService eventService, IMapper mapper){
             _attendanceService = attendanceService;
+            _eventService = eventService;
             _mapper = mapper;
         }
 
@@ -58,27 +61,42 @@ namespace YonderfulApi.Controllers
 
         [HttpPost]
         public async Task<IActionResult> PostAttendance(AttendanceDto attendanceDto){
-            var newAttendance = await _attendanceService.CreateAttendance(_mapper.Map<Attendance>(attendanceDto));
+            var newAttendance = _mapper.Map<Attendance>(attendanceDto);
+            newAttendance.JoiningDate = DateTime.UtcNow.ToLocalTime();
+            
+            var isValid = await CheckPostValidations(newAttendance);
+
+            if(isValid.Item1 == false){
+                return BadRequest(isValid.Item2);
+            }
+
+            newAttendance = await _attendanceService.CreateAttendance(newAttendance);
             if(newAttendance == null){
                 return BadRequest();
             }
             return Ok(_mapper.Map<AttendanceDto>(newAttendance));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutAttendance(AttendanceDto attendanceDto){
-			var putAttendance = await _attendanceService.UpdateAttendance(_mapper.Map<Attendance>(attendanceDto));
-			if (putAttendance == null)
-			{
-				return BadRequest();
-			}
-			return Ok(putAttendance);
-        }
-
         [HttpDelete("{eventId}, {userId}")]
         public async Task<IActionResult> DeleteAttendance(int eventId, int userId){
             var deletedAttendance = await _attendanceService.DeleteAttendance(eventId, userId);
 			return deletedAttendance ? Ok() : BadRequest();
+        }
+        
+        private async Task<Tuple<bool, string>> CheckPostValidations(Attendance attendance){
+            var attendanceEvent = await _eventService.GetEvent(attendance.EventId);
+            var maxMembers = attendanceEvent.MaximumParticipants;
+            var numberOfMembers = await _attendanceService.NumberOfParticipants(attendance.EventId);
+            var joiningDeadline = attendanceEvent.JoinDeadline;
+
+            if(numberOfMembers >= maxMembers && maxMembers != 0){
+                return new Tuple<bool, string>(false, "The maximum capacity of the event is reached");
+            }
+            
+            if(joiningDeadline < attendance.JoiningDate){
+                return new Tuple<bool, string>(false, "The joining deadline has passed");
+            }
+            return new Tuple<bool, string>(true, "");
         }
     }
 }

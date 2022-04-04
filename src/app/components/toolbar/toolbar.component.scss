@@ -9,6 +9,12 @@
     justify-content: space-between;
 }
 
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
 .icon-style{
     color:variables.$yonder-pink;
 }

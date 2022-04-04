@@ -1,86 +1,87 @@
-<div class="category-form-wrapper">
-	<h1>{{ pageTitle }}</h1>
-	<div class="category-form-container">
+<div class="content-wrapper content-center">
+
+	<h1 class="category-header no-padding">{{ pageTitle }}</h1>
+
+	<div class="content-container no-padding">
 		<div class="category-form-shadow">
 			<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-				<div class="action-container">
-					<button
-						(click)="onEditClick()"
-						*ngIf="!editMode"
-						type="button"
-						class="icon-button"
-						mat-icon-button
-					>
-						<mat-icon>edit</mat-icon>
-					</button>
-					<button
-						(click)="onDelete()"
-						*ngIf="!editMode"
-						mat-icon-button
-						class="icon-button"
-						[disabled]="!canMakeChanges"
-						type="button"
-					>
-						<mat-icon>delete</mat-icon>
-					</button>
-					<button
-						mat-icon-button
-						*ngIf="editMode"
-						class="icon-button"
-						type="submit"
-					>
-						<mat-icon>save</mat-icon>
-					</button>
-					<button
-						mat-icon-button
-						class="icon-button"
-						*ngIf="editMode && !testNaN(urlID)"
-						(click)="onDiscard()"
-						type="button"
-					>
-						<mat-icon>close</mat-icon>
-					</button>
-				</div>
-				<div class="title-input-container">
-					<label> Title </label>
-					<mat-form-field appearance="outline">
-						<mat-label>Title</mat-label>
-						<input
-							matInput
-							[readonly]="
+				
+				<div class="title-action-container">
+					
+					<div class="title-input-container">
+						<label class="category-title"> Title </label>
+						
+						<mat-form-field *ngIf="editMode; else categoryTitle" appearance="outline">
+							<input matInput [readonly]="
 								canMakeChanges && editMode ? null : true
-							"
-							formControlName="titleControl"
-						/>
-						<mat-error
-							*ngIf="
+								" formControlName="titleControl" />
+							<mat-error *ngIf="
 								categoryForm
-									.get('titleControl')!
-									.hasError('required') &&
+								.get('titleControl')!
+								.hasError('required') &&
 								categoryForm.touched
-							"
-							>Title is required.</mat-error
-						>
-						<mat-error
-							*ngIf="
+								">Title is required.</mat-error>
+							<mat-error *ngIf="
 								categoryForm
-									.get('titleControl')!
-									.hasError('maxlength') &&
+								.get('titleControl')!
+								.hasError('maxlength') &&
 								categoryForm.touched
-							"
-							>Title cannot be longer than 24
-							characters.</mat-error
-						>
-						<mat-error
-							*ngIf="
+								">Title cannot be longer than 24
+								characters.</mat-error>
+							<mat-error *ngIf="
 								categoryForm
-									.get('titleControl')!
-									.hasError('pattern') && categoryForm.touched
-							"
-							>Title can only contain letters.</mat-error
+								.get('titleControl')!
+								.hasError('pattern') && categoryForm.touched
+								">Title can only contain letters.</mat-error>
+						</mat-form-field>
+
+						<ng-template #categoryTitle>
+							<p class="category-title-text"> {{ categoryCard.title }} </p>
+						</ng-template>
+
+					</div>
+
+					<div class="action-container">
+						<button
+							(click)="onEditClick()"
+							*ngIf="!editMode"
+							type="button"
+							class="icon-button"
+							mat-icon-button
 						>
-					</mat-form-field>
+							<mat-icon>edit</mat-icon>
+						</button>
+						<button
+							(click)="onDelete()"
+							*ngIf="!editMode"
+							mat-icon-button
+							class="icon-button"
+							[disabled]="!canMakeChanges"
+							type="button"
+						>
+							<mat-icon>delete</mat-icon>
+						</button>
+						<button
+							mat-icon-button
+							*ngIf="editMode"
+							class="icon-button"
+							type="submit"
+						>
+							<mat-icon>save</mat-icon>
+						</button>
+						<button
+							mat-icon-button
+							class="icon-button"
+							*ngIf="editMode && !isParamNan"
+							(click)="onDiscard()"
+							type="button"
+						>
+							<mat-icon>close</mat-icon>
+						</button>
+					</div>
+					
 				</div>
+
 				<div class="upload-display-container">
 					<div class="upload-display-item">
 						<label>Background image</label>
@@ -136,4 +137,5 @@
 			</form>
 		</div>
 	</div>
+
 </div>
