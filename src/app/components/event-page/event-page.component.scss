@@ -29,54 +29,41 @@
 }
 
 .event-information {
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column, space-between);
     min-width: 730px;
     padding: 20px 10px;
     margin-left: auto;
     margin-right: auto;
-    justify-content: space-between;
 }
 
 
 .admin-buttons {
-    
+    @include flex-container(column, flex-start);
+    margin-top: 15px;
+    margin-right: 20px;
+    justify-content: space-between;
+    height: 25%;
 }
 
 .admin-buttons-style {
-    
-}
-
-.title-date {
-    // margin: 40px 0 0;
-}
-
-.deadline-participants {
-   
+    background-color: transparent;
+    border: none;
+    transform: scale(1.8);
 }
 
 .event-title {
     font-size: 1.8rem;
 }
 
-.start-date {
-    
-}
-
-.access-time {
-}
-
 .join-deadline {
-    display: flex;
+    @include flex-container(auto, space-between);
     gap: 5px;
     color: #0f0f0f;
-    justify-content: space-between;
     text-align: center;
 }
 
 .start-date, .deadline-date {
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column);
     padding: 0;
     margin: 0;
 }
@@ -86,8 +73,7 @@
 }
 
 .helper-text {
-    display: flex;
-    justify-content: flex-end;
+    @include flex-container(auto, flex-end);
 }
 
 .helper-text p {
@@ -96,23 +82,17 @@
     margin-right: 7px;
 }
 
-.deadline-text {
-    
-}
-
 .required-participants {
     color: green;
 }
 
 .fee-icon-row {
-    display: flex;
-    justify-content: space-between;
+    @include flex-container(auto, space-between);
     align-items: center;
-    // margin: 75px 0 0;
 }
 
 .event-fee {
-    
+    font-size: 20px;
 }
 
 .category-icon {
@@ -128,8 +108,7 @@
 }
 
 .participants-data, .participants-card {
-    display: flex;
-    justify-content: flex-end;
+    @include flex-container(row, flex-end);
     align-items: baseline;
     gap: 10px;
 }
@@ -140,20 +119,6 @@
 
 .participants-card:hover {
     color: $yonder-pink;
-}
-
-.current-participants-number {
-   
-}
-
-.participants-icon {
-    
-}
-
-
-.join-button {
-    color: green;
-    background-color: #f0f0f0;
 }
 
 .join-button {
@@ -173,8 +138,7 @@
 
 .event-description {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column);
     word-wrap: break-word;
 }
 
@@ -187,13 +151,8 @@
     margin-top: auto;
 }
 
-.tag {
-    
-}
-
 .event-details {
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column, auto);
     margin-left: auto;
     align-items: flex-end;
     gap: 20px;
@@ -220,26 +179,5 @@
 }
 
 .event-details-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.event-location-details {
-    
-}
-
-.starting-date {
-    
-}
-
-.host-details {
-    
-}
-
-.flex-row {
-    
-}
-
-.flex-column {
-    
+    @include flex-container(column);
 }
