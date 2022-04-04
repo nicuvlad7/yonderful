@@ -1,1 +1,14 @@
-<p>all-events works!</p>
+<div class="all-events-table">
+    <div class="future-events-wrapper">
+        <div class="future-events">
+            <div class="event-card" *ngFor="let event of eventsArray">
+                <div *ngIf="event">
+                    <app-event-card class="card-data" [event]='event'></app-event-card>
+                </div> 
+            </div>
+        </div>
+        <div class="filter-sort">
+            <!-- The filter and sort menu should be added here -->
+        </div>
+    </div>
+</div>
