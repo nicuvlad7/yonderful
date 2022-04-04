@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { HttpService } from './http.service';
-import {IEvent} from '../models/event'
+import {EventsResponse, IEvent} from '../models/event'
 import { RouteEndpoints } from '../models/constants';
 @Injectable({
   providedIn: 'root'
@@ -22,9 +22,9 @@ export class EventService {
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
-  getFutureEvents(): Observable<IEvent[]> {
+  getFutureEvents(): Observable<EventsResponse> {
     return this.httpService
-      .getAll<IEvent[]>(RouteEndpoints.FUTURE_EVENTS)
+      .getAll<EventsResponse>(RouteEndpoints.FUTURE_EVENTS)
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 }
