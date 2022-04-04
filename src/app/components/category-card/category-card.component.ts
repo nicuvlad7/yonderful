@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
+import { CategoryConfirmDialogData, ConfirmDialogData } from 'src/app/models/confirm-dialog-data';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
 	selector: 'app-category-card',
@@ -42,6 +44,7 @@ export class CategoryCardComponent implements OnInit {
 	};
 
 	editMode: boolean = false;
+	createNewCategory: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
 	pageTitle:string = "";
@@ -53,7 +56,9 @@ export class CategoryCardComponent implements OnInit {
 		private route: ActivatedRoute,
 		private dialogService: DialogService,
 		private router: Router
-	) {}
+	) {
+		
+	}
 
 	validateExtension(control: AbstractControl): { [key: string]: any } | null {
 		let extn = control.value as string;
@@ -79,7 +84,8 @@ export class CategoryCardComponent implements OnInit {
 		if (!this.urlID) {
 			this.editMode = true;
 			this.canMakeChanges = true;
-			this.pageTitle = "New Category"
+			this.pageTitle = "New Category";
+			this.createNewCategory = true;
 			return;
 		}
 
@@ -130,6 +136,7 @@ export class CategoryCardComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
 	openDeleteDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm deletion.',
@@ -138,11 +145,13 @@ export class CategoryCardComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
 	onDiscard() {
 		this.openDiscardDialog().subscribe((result) => {
 			if (!result) {
 				return;
 			}
+
 			this.categoryForm.reset({
 				titleControl: this.categoryCard.title,
 				backgroundControl: this.categoryCard.defaultBackground,
@@ -150,8 +159,20 @@ export class CategoryCardComponent implements OnInit {
 			});
 			this.categoryForm.controls['iconControl'].markAsUntouched();
 			this.categoryForm.controls['backgroundControl'].markAsUntouched();
+			
+			if (this.createNewCategory) {
+				this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
+				return;
+			}
+
+			if (this.editMode) {
+				this.editMode = false;
+				this.ngOnInit();
+			}
+			
 		});
 	}
+
 	onDelete() {
 		if (!this.canMakeChanges) {
 			return;

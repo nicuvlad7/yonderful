@@ -45,40 +45,23 @@
 					</div>
 
 					<div class="action-container">
-						<button
-							(click)="onEditClick()"
-							*ngIf="!editMode"
-							type="button"
-							class="icon-button"
-							mat-icon-button
-						>
+						<button mat-icon-button type="button" class="icon-button" 
+								(click)="onEditClick()" *ngIf="!editMode">
 							<mat-icon>edit</mat-icon>
 						</button>
-						<button
-							(click)="onDelete()"
-							*ngIf="!editMode"
-							mat-icon-button
-							class="icon-button"
-							[disabled]="!canMakeChanges"
-							type="button"
-						>
+						
+						<button mat-icon-button type="button" class="icon-button" 
+								[disabled]="!canMakeChanges" (click)="onDelete()" *ngIf="!editMode">
 							<mat-icon>delete</mat-icon>
 						</button>
-						<button
-							mat-icon-button
-							*ngIf="editMode"
-							class="icon-button"
-							type="submit"
-						>
+
+						<button mat-icon-button type="submit" class="icon-button"
+								*ngIf="editMode">
 							<mat-icon>save</mat-icon>
 						</button>
-						<button
-							mat-icon-button
-							class="icon-button"
-							*ngIf="editMode && !isParamNan"
-							(click)="onDiscard()"
-							type="button"
-						>
+
+						<button mat-icon-button type="button" class="icon-button"
+								(click)="onDiscard()" *ngIf="editMode && !isParamNan">
 							<mat-icon>close</mat-icon>
 						</button>
 					</div>
@@ -87,7 +70,7 @@
 
 				<div class="upload-display-container">
 					<div class="upload-display-item">
-						<label>Background image</label>
+						<label class="upload-label">Background image</label>
 						<app-upload-file
 							controlName="backgroundControl"
 							*ngIf="editMode"
@@ -114,7 +97,7 @@
 					</div>
 
 					<div class="upload-display-item">
-						<label>Icon</label>
+						<label class="upload-label">Icon</label>
 						<app-upload-file
 							[form]="categoryForm"
 							controlName="iconControl"
