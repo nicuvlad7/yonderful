@@ -46,12 +46,9 @@ namespace api.Controllers
 			var hostedEvents = await _eventService.GetHostedEvents(hostId);
 			var joinedEvents = await _eventService.GetFutureJoinedEvents(hostId);
 
-			IList<EventDto> hostedEventsDto = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(hostedEvents));
-			IList<EventDto> joinedEventsDto = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(joinedEvents));
+			dashBoardEventsDto.HostedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(hostedEvents));
+			dashBoardEventsDto.JoinedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(joinedEvents));
 
-			dashBoardEventsDto.HostedEvents = hostedEventsDto;
-			dashBoardEventsDto.JoinedEvents = joinedEventsDto;
-			
 			return Ok(dashBoardEventsDto);
 		}
 
