@@ -70,6 +70,7 @@ export class EventPageComponent implements OnInit {
     ngOnInit(): void {
         this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
             this.event = result;
+            this.mapLink = this.getMapLink();
             this.intializeTagsList();
             this.initalizeCategoryIcon();
             if (this.event.hostId == this.decodeToken.getCurrentUserId()) {
@@ -77,7 +78,6 @@ export class EventPageComponent implements OnInit {
             }
         });
         this.noOfParticipants = this.testArr.length;
-        this.mapLink = this.getMapLink();
     }
 
     initalizeCategoryIcon(): void {
