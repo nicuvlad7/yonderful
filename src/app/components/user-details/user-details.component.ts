@@ -52,6 +52,7 @@ export class UserDetailsComponent implements OnInit {
 
                 this.userData.name = result.name;
                 this.userData.position = result.position;
+                this.userData.phoneNo = result.phoneNo;
 
                 this.setValues(result)
                 this.controls.email.setValue(result.email);
@@ -92,7 +93,7 @@ export class UserDetailsComponent implements OnInit {
                 this.openConfirmDialog().subscribe((result) => {
                     if (result) {
                         this.editMode = !this.editMode;
-                        this.retrieveUserData();
+                        this.setValues(this.userData);
                         this.userEditForm.disable();
                     }
                 });
