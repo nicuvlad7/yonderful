@@ -26,8 +26,9 @@ export class SidenavComponent implements OnInit {
 
     ]
 
-    secondaryMenuItems: MenuItem[] = [
-        { title: "Info", name: "info", route: "" },
+  secondaryMenuItems: MenuItem[] = [
+      { title: "My Profile", name: "person_outline", route: RouteValues.USER_DETAILS },
+        { title: "Info", name: "info", route: "" }
     ]
 
     primaryMenuItemsAdmin: MenuItem[] = [
