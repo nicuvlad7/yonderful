@@ -12,11 +12,17 @@
 }
 
 .content-header {
-	@include flex-container(row, flex-start);
+	@include flex-container(row, space-between);
+	margin-bottom: 25px;
 }
 
-.category-header {
-	margin-bottom: 40px;
+.header {
+	@include flex-container(row);
+	align-items: center;
+
+	h1 {
+		margin: 0px;
+	}
 }
 
 .no-padding {
@@ -53,7 +59,6 @@
 
 .title-input-container {
 	@include flex-container(column, flex-start);
-	// width: 100%;
 	width: 350px;
 }
 
@@ -63,6 +68,34 @@
 
 .action-container {
 	@include flex-container(row, flex-end);
+	align-items: center;
+}
+
+.button-label {
+	@include flex-container(row, space-between);
+	align-items: center;
+
+}
+
+.icon-button {
+	@include flex-container(row);
+	height: auto;
+	width: 120px;
+	border-radius: 20px;
+
+	mat-icon {
+		font-size: 20px;
+	}
+}
+
+.icon-button-action {
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+
+.icon-button-cancel {
+	border: 1px solid $yonder-pink;
+	margin-left: 20px;
 }
 
 .upload-display-container {

@@ -3,7 +3,34 @@
 	<div class="content-container no-padding">
 
 		<div class="content-header">
-			<h1 class="category-header no-padding">{{ pageTitle }}</h1>
+
+			<div class="header">
+				<h1 class="no-padding">{{ pageTitle }}</h1>
+			</div>
+
+			<div class="action-container">
+				<button mat-raised-button type="button" class="icon-button icon-button-action" (click)="onEditClick()" *ngIf="!editMode">
+					Edit
+					<mat-icon>edit</mat-icon>
+				</button>
+			
+				<button mat-raised-button type="button" class="icon-button icon-button-cancel" [disabled]="!canMakeChanges" (click)="onDelete()"
+					*ngIf="!editMode">
+					Delete
+					<mat-icon>delete</mat-icon>
+				</button>
+			
+				<button mat-raised-button type="submit" class="icon-button icon-button-action" *ngIf="editMode" 
+				(click)="onSubmit()" [disabled]="!categoryForm.valid">
+					Save
+					<mat-icon>save</mat-icon>
+				</button>
+			
+				<button mat-raised-button type="button" class="icon-button icon-button-cancel" (click)="onDiscard()" *ngIf="editMode && !isParamNan">
+					Close
+					<mat-icon>close</mat-icon>
+				</button>
+			</div>
 		</div>
 
 		<div class="category-form-shadow">
@@ -19,7 +46,6 @@
 								type="text" 
 								formControlName="titleControl" 
 								class="title-input"/>
-
 
 							<mat-error *ngIf="
 								categoryForm
@@ -41,13 +67,9 @@
 								">Title can only contain letters.</mat-error>
 						</mat-form-field>
 
-						<!-- <ng-template #categoryTitle>
-							<p class="category-title-text"> {{ categoryCard.title }} </p>
-						</ng-template> -->
-
 					</div>
 
-					<div class="action-container">
+					<!-- <div class="action-container">
 						<button mat-icon-button type="button" class="icon-button" 
 								(click)="onEditClick()" *ngIf="!editMode">
 							<mat-icon>edit</mat-icon>
@@ -67,7 +89,7 @@
 								(click)="onDiscard()" *ngIf="editMode && !isParamNan">
 							<mat-icon>close</mat-icon>
 						</button>
-					</div>
+					</div> -->
 					
 				</div>
 
