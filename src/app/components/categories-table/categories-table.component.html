@@ -2,7 +2,12 @@
 
   <div class="top-row">
     <h1>Administrate categories</h1>
-    <button mat-raised-button class="add-new-button" (click)="navigatetoCategoryNew()">+ New</button>
+    <button mat-raised-button class="add-new-button" (click)="navigatetoCategoryNew()">
+      <div class="add-button-text">
+        <mat-icon class="add-button-icon">add</mat-icon> 
+        <div class="add-button-new">New</div>
+      </div>
+    </button>
   </div>
 
 

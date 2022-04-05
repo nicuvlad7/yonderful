@@ -9,21 +9,31 @@
     display: flex;
     @include flex-container(row, flex-start);
     justify-content: space-between;
-    padding-right: 146px;
+    padding-right: 100px;
 }
 
 .add-new-button {
-    width: 10%;
+    width: 150px;
     font-size: 2vh;
     color: $yonder-pink;
+
+}
+
+.add-button-text {
+    margin-left: 5px;
+    @include flex-container(row, flex-start);
+}
+
+.add-button-icon {
+    margin-top: 5px;
+}
+
+.add-button-new {
+    margin-left: 10px;
 }
 
 h1{
     padding-left:100px;
-}
-
-.add-new-button {
-    align-self: flex-end;
 }
 
 .mat-column-Actions {
