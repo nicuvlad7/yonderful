@@ -50,6 +50,10 @@ export class EventPageComponent implements OnInit {
 	tagsList: String[] = [];
 	participantsNumber: number;
 	currentUserId: number;
+	participantsArray: IAttendance[];
+	isCurrentUserNotAttending: boolean;
+	isMaximumReached: boolean;
+	isDeadlineOverdue: boolean;
 
 	constructor(
 		private categoryService: CategoryService,
@@ -68,14 +72,16 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-  ngOnInit(): void {
-    this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.event = result;
-      this.intializeTagsList();
-		this.initalizeCategoryIcon();
-		this.currentUserId = this.decodeToken.getCurrentUserId();
-    });
-  }
+	ngOnInit(): void {
+		this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
+		this.event = result;
+		this.intializeTagsList();
+			this.initalizeCategoryIcon();
+			this.currentUserId = this.decodeToken.getCurrentUserId();
+			this.getCurrentParticipants();
+			this.checkJoinDeadlineOverdue();
+		});
+	}
 
 	initalizeCategoryIcon(): void {
 		this.categoryService
@@ -88,6 +94,41 @@ export class EventPageComponent implements OnInit {
 
 	intializeTagsList(): void {
 		this.tagsList = this.event.tags.split('*');
+	}
+
+	getCurrentParticipants(): void {
+		this.attendanceService.getParticipantsForEvent(this.eventId).subscribe((result) => {
+			this.participantsArray = result;
+			this.checkIfCurrentuserAttends();
+			this.checkIfMaximumReached();
+		})
+	}
+
+	checkIfCurrentuserAttends(): void {
+		this.isCurrentUserNotAttending = true;
+		this.participantsArray.forEach(element => {
+			if (element.userId == this.currentUserId) {
+				this.isCurrentUserNotAttending = false;
+			}
+		});
+	}
+
+	checkIfMaximumReached(): void {
+		if (this.participantsArray.length == this.event.maximumParticipants) {
+			this.isMaximumReached = true;
+		} else {
+			this.isMaximumReached = false;
+		}
+	}
+
+	checkJoinDeadlineOverdue(): void {
+		var currentDateTime = new Date();
+		var deadlineDate = new Date(this.event.joinDeadline);
+		if (currentDateTime > deadlineDate) {
+			this.isDeadlineOverdue = true;
+		} else {
+			this.isDeadlineOverdue = false;
+		}
 	}
 
 	getMapLink(): string {
@@ -148,6 +189,15 @@ export class EventPageComponent implements OnInit {
 			userId: this.currentUserId,
 			joinDate: new Date()
 		};
-		this.attendanceService.addNewAttendance(newAttendance).subscribe();
+		this.attendanceService.addNewAttendance(newAttendance).subscribe((result) => {
+			this.getCurrentParticipants();
+		});
+		
+	}
+
+	leaveEvent(): void {
+		this.attendanceService.deleteAttendance(this.eventId, this.currentUserId).subscribe((result) => {
+			this.getCurrentParticipants();
+		});
 	}
 }

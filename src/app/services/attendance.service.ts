@@ -15,11 +15,17 @@ export class AttendanceService {
 		return this.httpService
 			.post<IAttendance>(attendance, RouteEndpoints.ATTENDANCE)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
-  }
+  	}
   
-  getParticipantsForEvent(eventId: number): Observable<IAttendance> {
+  	getParticipantsForEvent(eventId: number): Observable<IAttendance[]> {
 		return this.httpService
-			.getById<IAttendance>(eventId, RouteEndpoints.ATTENDANCE)
+			.getById<IAttendance[]>(eventId, RouteEndpoints.ATTENDANCE_GET_PARTICIPANTS)
+			.pipe(catchError(this.httpService.handleHttpErrorResponse));
+	}
+
+	deleteAttendance(eventId: number, userId: number): Observable<IAttendance> {
+		return this.httpService
+			.deleteByTwoId<IAttendance>(eventId, userId, RouteEndpoints.ATTENDANCE)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
 }
