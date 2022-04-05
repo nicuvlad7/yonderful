@@ -158,5 +158,28 @@ namespace YonderfulApi.Service
 
 			return await eventsList.ToListAsync();
 		}
+
+		public async Task<IList<Event>> GetHostedEvents(int hostId){
+			var hostedEvents = await _context.Events
+								.Where(ev => ev.HostId == hostId && ev.StartingDate >= DateTime.Now)
+								.OrderBy(ev => ev.StartingDate)
+								.Include(ev => ev.EventLocation)
+								.Take(3)
+								.ToListAsync();
+			return hostedEvents;
+		}
+
+		public async Task<IList<Event>> GetFutureJoinedEvents(int hostId){
+			var futureJoinedEvents = await _context.Attendance
+								.Where(att => att.UserId == hostId)
+								.Include(att => att.Event)
+								.Include(att => att.Event.EventLocation)
+								.Select(att => att.Event)
+								.Where(ev => ev.StartingDate >= DateTime.Now && ev.HostId != hostId)
+								.OrderBy(ev => ev.StartingDate)
+								.Take(3)
+								.ToListAsync();
+			return futureJoinedEvents;
+		}
 	}
 }
