@@ -2,7 +2,7 @@
     <mat-card class="event-card">
         <div class="top-div">
             <div class="event-image">
-                <img  [src]="event.backgroundImage != 'string' ? event.backgroundImage : 'https://media.istockphoto.com/photos/baby-husky-puppy-playing-in-the-park-picture-id989949432?k=20&m=989949432&s=170667a&w=0&h=SWbImVzYQZnWUerppitlWdqDo3rAfaztstpbqiO2Pjo='" alt="">
+                <img [src]="event.backgroundImage ?  event.backgroundImage : ''" alt="">
             </div>
 
             <div class="event-information">
@@ -23,16 +23,14 @@
                 </div>
                 <div>
                     <div class="title-date">
-                        <!-- <h2 class="event-title">{{ event.title }}</h2> -->
-                        <h2 class="event-title">SOCIAL & ROLLERSKATING </h2>
-                        
-                    </div>
-                    <div class="admin-buttons" *ngIf="isHostMode"}}>
-                        <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                        <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
+                        <h2 class="event-title">{{ event.title }}</h2>
                     </div>
                     <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
                 </div>
+                    <div class="admin-buttons" *ngIf="isHostMode">
+                        <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
+                        <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
+                    </div>
                 <div class="fee-icon-row">
                     <div class="event-fee">{{event.fee}} lei</div>
                     <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
@@ -44,15 +42,14 @@
             <div class="participants-data">
                 <div class="participants-card" (click)="openParticipantsDialog()">
                     <div class="bold-element">Participants: </div>
-                    <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
+                    <div class="current-participants-number">{{noOfParticipants}} / {{event.maximumParticipants}}</div>
                 </div>
                 <button class="join-button" mat-flat-button>Join</button>
             </div>
         </div>
         <div class="bottom-div">
             <div class="event-description">
-                <!-- <div class="event-descripton-text">{{event.description}}</div> -->
-                <div class="event-descripton-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                <div class="event-descripton-text">{{event.description}}</div>
                 <mat-chip-list 
                    class="tags-list"   
                     cdkDropList 
@@ -72,13 +69,13 @@
                         <div class="event-location-details">
                             <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
                             <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
-                            <div><a href={{getMapLink()}}>View Map</a></div>
+                            <div><a href={{mapLink}}>View Map</a></div>
                         </div>
                     </div>
                     <div>
                         <h2 class="date">Date & Time:</h2>
-                        <div class="starting-date">{{event.startingDate | date:'dd.mm.yyyy, HH:ss'}} -</div>
-                        <div>{{event.endingDate | date:'dd.mm.yyyy, HH:ss'}}</div>
+                        <div class="starting-date">{{event.startingDate | date:longDate}} -</div>
+                        <div>{{event.endingDate | date:longDate}}</div>
                     </div>
                     <div>
                         <h2 class="host">Host:</h2>
