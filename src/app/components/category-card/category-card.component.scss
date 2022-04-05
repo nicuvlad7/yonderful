@@ -136,3 +136,16 @@ label {
 .optional-label {
 	color: $yonder-blue;
 }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    opacity: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
+    opacity: 0;
+}
+
+::ng-deep.mat-input-element:disabled {
+    color:rgba(0, 0, 0, 0.87);
+    margin-left: -5px;
+}

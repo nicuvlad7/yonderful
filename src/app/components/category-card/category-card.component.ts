@@ -93,6 +93,7 @@ export class CategoryCardComponent implements OnInit {
 			this.canMakeChanges = true;
 			this.pageTitle = "New Category";
 			this.createNewCategory = true;
+			this.categoryForm.controls.titleControl.enable();
 			return;
 		}
 
@@ -127,19 +128,14 @@ export class CategoryCardComponent implements OnInit {
 			this.pageTitle = 'Edit Category';
 			this.editMode = true;
 			this.categoryForm.controls.titleControl.enable();
-			this.categoryForm.controls.iconControl.enable();
-			this.categoryForm.controls.backgroundControl.enable();
 		}
 		if (editModeParam == 'false') {
 			this.pageTitle = 'Category';
 			this.editMode = false;
-			this.categoryForm.disable();
+			this.categoryForm.controls.titleControl.disable();
 		}
 		if (editModeParam == '') {
 			this.pageTitle = 'Category';
-			this.categoryForm.controls.titleControl.enable();
-			this.categoryForm.controls.iconControl.enable();
-			this.categoryForm.controls.backgroundControl.enable();
 		}
 	}
 
