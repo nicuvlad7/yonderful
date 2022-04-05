@@ -1,11 +1,11 @@
 <div class="all-events-table">
     <div class="future-events-container">
-        <div class="data-container" *ngIf="eventsArray.length > 0 else noDataBlock" >
+        <div class="data-container" *ngIf="eventsArray?.length > 0 else noDataBlock" >
             <h1 class="title">Future Events</h1>
             <div class="future-events">
                 <div class="event-card" *ngFor="let event of eventsArray">
                     <div *ngIf="event">
-                        <app-event-card (click)="navigateToEventView(event.id)" class="card-data" [event]='event'></app-event-card>
+                        <app-event-card (click)="navigateToEventView(event.id)" class="card-data" [event]="event"></app-event-card>
                     </div> 
                 </div>
             </div>
