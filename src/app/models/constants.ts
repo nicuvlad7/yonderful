@@ -16,11 +16,14 @@ export class RouteValues {
     static readonly EVENT_DETAILS_ID = 'event-details/:id'
     static readonly USER_DETAILS = 'user-details';
     static readonly DASHBOARD = 'dashboard'
+    static readonly ALL_EVENTS = 'all-events'
     static readonly NOT_FOUND = 'not-found'
+    static readonly EVENT_DETAILS = 'event-details'
 };
 
 export class RouteEndpoints {
     static readonly EVENT = 'Event';
+    static readonly FUTURE_EVENTS = 'Event/getFutureEvents'
     static readonly CATEGORY = 'Category';
     static readonly USER = 'User'
 };
