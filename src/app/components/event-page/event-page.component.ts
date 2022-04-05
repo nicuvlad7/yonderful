@@ -19,7 +19,7 @@ import { ParticipantsAttendanceService } from 'src/app/services/participants-att
 export class EventPageComponent implements OnInit {
     longDate = 'dd.MM.yyyy, HH:ss';
     eventId: number;
-    isHostMode: boolean = true;
+    isHostMode: boolean = false;
     noOfParticipants: number;
     mapLink: string;
     event: IEvent = {
