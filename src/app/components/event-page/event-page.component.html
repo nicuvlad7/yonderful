@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="fee-icon-row">
-                <div class="event-fee">{{event.fee}} lei</div>
+                <div class="event-fee">{{event.fee === 0 ? "Free" : event.fee + " lei"}}</div>
                 <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
             </div>
         </div>
