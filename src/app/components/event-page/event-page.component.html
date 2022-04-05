@@ -36,7 +36,7 @@
                 <div class="bold-element">Participants: </div>
                 <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
             </div>
-            <button class="join-button" mat-flat-button>Join</button>
+            <button class="join-button" mat-flat-button (click)="joinOnEvent()">Join</button>
         </div>
     </div>
     <div class="bottom-div">

@@ -2,9 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
+import { DecodeToken } from 'src/app/helpers/decode.token';
+import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
 import { User } from 'src/app/models/user';
+import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
@@ -45,13 +48,18 @@ export class EventPageComponent implements OnInit {
 	};
 	categoryIcon: SafeResourceUrl;
 	tagsList: String[] = [];
+	participantsNumber: number;
+	currentUserId: number;
+
 	constructor(
 		private categoryService: CategoryService,
 		private eventService: EventService,
 		private sanitizer: DomSanitizer,
 		private readonly activatedRoute: ActivatedRoute,
 		private dialogService: DialogService,
-		private router: Router
+		private router: Router,
+		private decodeToken: DecodeToken,
+		private attendanceService: AttendanceService
 	) {
 		this.activatedRoute.params.subscribe((params) => {
 			if (params && params.id) {
@@ -64,7 +72,8 @@ export class EventPageComponent implements OnInit {
     this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
       this.event = result;
       this.intializeTagsList();
-      this.initalizeCategoryIcon();
+		this.initalizeCategoryIcon();
+		this.currentUserId = this.decodeToken.getCurrentUserId();
     });
   }
 
@@ -131,5 +140,14 @@ export class EventPageComponent implements OnInit {
 			participants: this.testArr,
 			isEventOwner: false,
 		});
+	}
+
+	joinOnEvent(): void {
+		var newAttendance: IAttendance = {
+			eventId: this.eventId,
+			userId: this.currentUserId,
+			joinDate: new Date()
+		};
+		this.attendanceService.addNewAttendance(newAttendance).subscribe();
 	}
 }

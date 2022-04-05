@@ -26,6 +26,7 @@ export class RouteEndpoints {
     static readonly FUTURE_EVENTS = 'Event/getFutureEvents'
     static readonly CATEGORY = 'Category';
     static readonly USER = 'User'
+    static readonly ATTENDANCE = 'Attendance'
 };
 
 export class SidenavItems
