@@ -14,13 +14,16 @@ namespace api.Controllers
 		private readonly IEventService _eventService;
 		private readonly IUserService _userService;
 		private readonly ICategoryService _categoryService;
+		private readonly IAttendanceService _attendanceService;
 		private readonly IMapper _mapper;
 
-		public EventController(IEventService eventService, ICategoryService categoryService, IUserService userService, IMapper mapper)
+		public EventController(IEventService eventService, IAttendanceService attendanceService,
+		ICategoryService categoryService, IUserService userService, IMapper mapper)
 		{
 			_eventService = eventService;
 			_categoryService = categoryService;
 			_userService = userService;
+			_attendanceService = attendanceService;
 			_mapper = mapper;
 		}
 
@@ -32,15 +35,31 @@ namespace api.Controllers
 			{
 				return NotFound("Event with id given not found");
 			}
-			var eventDto = _eventService.TransformEventDtoForOutput(_mapper.Map<EventDto>(myEvent));
+			var eventDto = await _eventService.TransformEventDtoForOutput(_mapper.Map<EventDto>(myEvent));
 			return Ok(eventDto);
+		}
+
+		[HttpGet("[action]/{hostId}")]
+		public async Task<IActionResult> GetDashboardEvents(int hostId){
+			DashBoardEventsDto dashBoardEventsDto = new DashBoardEventsDto();
+
+			var hostedEvents = await _eventService.GetHostedEvents(hostId);
+			var joinedEvents = await _eventService.GetFutureJoinedEvents(hostId);
+
+			IList<EventDto> hostedEventsDto = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(hostedEvents));
+			IList<EventDto> joinedEventsDto = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(joinedEvents));
+
+			dashBoardEventsDto.HostedEvents = hostedEventsDto;
+			dashBoardEventsDto.JoinedEvents = joinedEventsDto;
+			
+			return Ok(dashBoardEventsDto);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetEvents()
 		{
 			var myEventList = await _eventService.GetEventList();
-			var eventDtoList = _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
+			var eventDtoList = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
 			return Ok(eventDtoList);
 		}
 
