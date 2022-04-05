@@ -5,19 +5,16 @@ import { EventService } from 'src/app/services/event.service';
 import { EventCardComponent } from '../event-card/event-card.component';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  dashboardEvent: IEvent;
-  eventId = 2;
+    dashboardEvent: IEvent;
 
-  constructor(private eventService: EventService) { }
+    constructor(private eventService: EventService) { }
 
-  ngOnInit(): void {
-    this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.dashboardEvent = result;
-    });
-  }
+    ngOnInit(): void {
+
+    }
 }

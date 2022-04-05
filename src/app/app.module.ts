@@ -26,6 +26,9 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { InfoComponent } from './components/info/info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
+import { AllEventsComponent } from './components/all-events/all-events.component';
+import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +48,10 @@ import { EventCardComponent } from './components/event-card/event-card.component
         EventPageComponent,
         InfoComponent,
         DashboardComponent,
+        AllEventsComponent,
+        ParticipantsDialogComponent,
 		UserDetailsComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,

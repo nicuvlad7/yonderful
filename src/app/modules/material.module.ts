@@ -38,7 +38,7 @@ const importModules = [
     MatCheckboxModule,
     MatListModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
 ];
 
 @NgModule({

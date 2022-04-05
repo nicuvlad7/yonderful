@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Participants</h2>
+
+<div mat-dialog-content>
+	<div *ngFor="let item of data.participants" class="participants-container">
+		<div>{{ item.name }}</div>
+		<button
+			*ngIf="!data.isEventOwner"
+			mat-icon-button
+			(click)="deleteParticipant(item.id)"
+		>
+			<mat-icon>delete</mat-icon>
+		</button>
+	</div>
+	<div class="close-button">
+		<button mat-button [mat-dialog-close]="true">Close</button>
+	</div>
+</div>

@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
+import { ConfirmDialogData } from 'src/app/models/confirm-dialog-data';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
 	selector: 'app-category-card',
@@ -42,16 +44,21 @@ export class CategoryCardComponent implements OnInit {
 	};
 
 	editMode: boolean = false;
+	createNewCategory: boolean = false;
 	canMakeChanges: boolean = true;
 	urlID: number = -1;
-	pageTitle:string ="";
+	pageTitle: string = '';
+	isParamNan: boolean = this.testNaN(this.urlID);
+
 	constructor(
 		private categoryService: CategoryService,
 		private _snackBar: MatSnackBar,
 		private route: ActivatedRoute,
 		private dialogService: DialogService,
 		private router: Router
-	) {}
+	) {
+		
+	}
 
 	validateExtension(control: AbstractControl): { [key: string]: any } | null {
 		let extn = control.value as string;
@@ -77,7 +84,8 @@ export class CategoryCardComponent implements OnInit {
 		if (!this.urlID) {
 			this.editMode = true;
 			this.canMakeChanges = true;
-			this.pageTitle = "New Category"
+			this.pageTitle = "New Category";
+			this.createNewCategory = true;
 			return;
 		}
 
@@ -86,8 +94,7 @@ export class CategoryCardComponent implements OnInit {
 				this.categoryCard.id = result.id;
 				this.categoryCard.title = result.title;
 				this.categoryCard.icon = result.icon;
-				this.categoryCard.defaultBackground =
-					result.defaultBackground;
+				this.categoryCard.defaultBackground = result.defaultBackground;
 
 				this.categoryForm.patchValue({
 					['titleControl']: result.title,
@@ -97,25 +104,27 @@ export class CategoryCardComponent implements OnInit {
 			},
 			(error) => {
 				{
-					this._snackBar.open(
-						`Error status ${error.status}: ${error.message}`,
-						'',
-						{
-							duration: 5000,
-						}
-					);
+					if (error.status != undefined) {
+						this._snackBar.open(
+							`Error status ${error.status}: ${error.message}`,
+							'',
+							{
+								duration: 5000,
+							}
+						);
+					}
 				}
 			}
 		);
 		if (editModeParam == 'true') {
-			this.pageTitle="Edit Category";
+			this.pageTitle = 'Edit Category';
 			this.editMode = true;
 		}
 		if (editModeParam == 'false') {
 			this.pageTitle = 'Category';
 			this.editMode = false;
 		}
-		if(editModeParam == ''){
+		if (editModeParam == '') {
 			this.pageTitle = 'Category';
 		}
 	}
@@ -128,6 +137,7 @@ export class CategoryCardComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
 	openDeleteDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm deletion.',
@@ -136,11 +146,13 @@ export class CategoryCardComponent implements OnInit {
 			cancelText: 'No',
 		});
 	}
+
 	onDiscard() {
 		this.openDiscardDialog().subscribe((result) => {
 			if (!result) {
 				return;
 			}
+
 			this.categoryForm.reset({
 				titleControl: this.categoryCard.title,
 				backgroundControl: this.categoryCard.defaultBackground,
@@ -148,8 +160,20 @@ export class CategoryCardComponent implements OnInit {
 			});
 			this.categoryForm.controls['iconControl'].markAsUntouched();
 			this.categoryForm.controls['backgroundControl'].markAsUntouched();
+			
+			if (this.createNewCategory) {
+				this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
+				return;
+			}
+
+			if (this.editMode) {
+				this.editMode = false;
+				this.ngOnInit();
+			}
+			
 		});
 	}
+
 	onDelete() {
 		if (!this.canMakeChanges) {
 			return;
@@ -163,7 +187,7 @@ export class CategoryCardComponent implements OnInit {
 							this._snackBar.open('Category was deleted.', '', {
 								duration: 3000,
 							});
-							this.router.navigate(['/']);
+							this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 						},
 						(error) => {
 							this._snackBar.open(
@@ -197,7 +221,7 @@ export class CategoryCardComponent implements OnInit {
 					this._snackBar.open('Category was added.', '', {
 						duration: 1500,
 					});
-					this.router.navigate(['/administrate-categories']);
+					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
 				(error) => {
 					this._snackBar.open(
@@ -215,7 +239,7 @@ export class CategoryCardComponent implements OnInit {
 					this._snackBar.open('Category was updated.', '', {
 						duration: 3000,
 					});
-					this.router.navigate(['/administrate-categories']);
+					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
 				(error) => {
 					this._snackBar.open(
@@ -231,6 +255,6 @@ export class CategoryCardComponent implements OnInit {
 	}
 	onEditClick() {
 		this.editMode = true;
-		this.pageTitle = "Edit Category";
+		this.pageTitle = 'Edit Category';
 	}
 }
