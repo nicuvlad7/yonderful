@@ -14,10 +14,14 @@
 					<div class="title-input-container">
 						<label class="category-title"> Title </label>
 						
-						<mat-form-field *ngIf="editMode; else categoryTitle" appearance="outline">
-							<input matInput [readonly]="
-								canMakeChanges && editMode ? null : true
-								" formControlName="titleControl" />
+						<mat-form-field appearance="outline">
+							<input matInput
+								type="text" 
+								[readonly]="canMakeChanges && editMode ? false : true" 
+								formControlName="titleControl" 
+								class="title-input"/>
+
+
 							<mat-error *ngIf="
 								categoryForm
 								.get('titleControl')!
@@ -38,9 +42,9 @@
 								">Title can only contain letters.</mat-error>
 						</mat-form-field>
 
-						<ng-template #categoryTitle>
+						<!-- <ng-template #categoryTitle>
 							<p class="category-title-text"> {{ categoryCard.title }} </p>
-						</ng-template>
+						</ng-template> -->
 
 					</div>
 
@@ -70,54 +74,50 @@
 
 				<div class="upload-display-container">
 					<div class="upload-display-item">
-						<label class="upload-label">Background image</label>
-						<app-upload-file
-							controlName="backgroundControl"
-							*ngIf="editMode"
-							[form]="categoryForm"
-							runMode="base64"
-							><div class="optional-label">
-								Choose your background
-							</div></app-upload-file
-						>
-						<img
+						<label class="margin-right-10">Background image</label>
+					
+						<img class="background-image"
 							*ngIf="
 								categoryForm.controls['backgroundControl'].valid
 							"
 							[src]="categoryForm.get('backgroundControl')!.value"
 						/>
 						<span
-							class="img-placeholder"
+							class="img-placeholder img-placeholder-background"
 							*ngIf="
 								!categoryForm.controls['backgroundControl']
 									.valid
 							"
 							>Choose an image</span
 						>
+
+							<app-upload-file class="upload-item-background" controlName="backgroundControl" *ngIf="editMode" [form]="categoryForm"
+								runMode="base64">
+								<div class="optional-label">
+									Choose your background
+								</div>
+							</app-upload-file>
 					</div>
 
 					<div class="upload-display-item">
-						<label class="upload-label">Icon</label>
-						<app-upload-file
-							[form]="categoryForm"
-							controlName="iconControl"
-							message="Choose your icon"
-							*ngIf="editMode"
-							runMode="base64"
-						>
-							<div class="optional-label">
-								Choose your icon
-							</div></app-upload-file
-						>
-						<img
+						<label class="margin-left-10">Icon</label>
+						
+						<img class="icon-image"
 							*ngIf="categoryForm.controls['iconControl'].valid"
 							[src]="categoryForm.get('iconControl')!.value"
 						/>
 						<span
-							class="img-placeholder"
+							class="img-placeholder img-placeholder-icon"
 							*ngIf="!categoryForm.controls['iconControl'].valid"
 							>Choose an image</span
 						>
+
+						<app-upload-file [form]="categoryForm" controlName="iconControl" message="Choose your icon" *ngIf="editMode"
+							runMode="base64">
+							<div class="optional-label">
+								Choose your icon
+							</div>
+						</app-upload-file>
 					</div>
 				</div>
 			</form>
