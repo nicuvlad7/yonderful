@@ -81,4 +81,8 @@ export class CategoriesTableComponent implements OnInit {
 	  	const categoryId: number = selectedRow.id;
 			this.router.navigate([RouteValues.CATEGORY, categoryId]);
 	}
+
+	navigatetoCategoryNew(): void {
+		this.router.navigate([RouteValues.CATEGORY_NEW]);
+	}
 }

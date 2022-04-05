@@ -1,6 +1,10 @@
 <div class="content-wrapper">
 
-  <h1>Administrate categories</h1>
+  <div class="top-row">
+    <h1>Administrate categories</h1>
+    <button mat-raised-button class="add-new-button" (click)="navigatetoCategoryNew()">+ New</button>
+  </div>
+
 
   <ng-container *ngIf="displayedCategories.length; else noDataBlock" >
 
