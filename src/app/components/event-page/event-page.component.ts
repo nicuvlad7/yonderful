@@ -17,32 +17,7 @@ import { EventService } from 'src/app/services/event.service';
 export class EventPageComponent implements OnInit {
 	eventId: number;
 	isHostMode: true;
-	event: IEvent = {
-		id: 0,
-		categoryId: 0,
-		hostId: 0,
-		title: '',
-		startingDate: '',
-		endingDate: '',
-		minimumParticipants: 0,
-		maximumParticipants: 0,
-		autoCancel: true,
-		autoJoin: true,
-		joinDeadline: '',
-		fee: 0,
-		description: '',
-		eventLocation: {
-			id: 0,
-			street: '',
-			address: '',
-			city: '',
-			province: '',
-		},
-		contactEmail: '',
-		contactPhone: '',
-		tags: '',
-		backgroundImage: '',
-	};
+	event: IEvent;
 	categoryIcon: SafeResourceUrl;
 	tagsList: String[] = [];
 	constructor(
@@ -62,9 +37,9 @@ export class EventPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.event = result;
-      this.intializeTagsList();
-      this.initalizeCategoryIcon();
+		this.event = result;
+		this.intializeTagsList();
+		this.initalizeCategoryIcon();
     });
   }
 
