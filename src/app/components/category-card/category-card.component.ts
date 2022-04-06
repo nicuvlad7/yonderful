@@ -214,10 +214,8 @@ export class CategoryCardComponent implements OnInit {
 	}
 	onSubmit() {
 		if (!this.categoryForm.valid) {
-			console.log('HereInvalid');
 			return;
 		}
-		console.log('Here');
 
 		this.categoryCard.title = this.categoryForm.get('titleControl')!
 			.value as string;
