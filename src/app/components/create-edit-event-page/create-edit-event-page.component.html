@@ -44,7 +44,12 @@
                             <label>Start Date</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="startDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="startDate" [min]="currentDate">
+                                    formControlName="startDate" 
+                                    [min]="currentDate"
+                                    [max]="eventGeneralForm.get('eventDates')?.get('endDate')?.value !== '' ?
+                                        eventGeneralForm.get('eventDates')?.get('endDate')?.value : null"
+                                    
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #startDatePicker></mat-datepicker>
 
@@ -85,7 +90,8 @@
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="endDatePicker"
                                     [min]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
-                                    placeholder="MM/DD/YYYY" formControlName="endDate">
+                                    placeholder="MM/DD/YYYY" formControlName="endDate"
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #endDatePicker></mat-datepicker>
                                 <mat-error

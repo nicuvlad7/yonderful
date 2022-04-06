@@ -236,7 +236,6 @@ export class CreateEditEventPageComponent implements OnInit {
         endDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
         endDate.setHours(endDate.getHours() - endDate.getTimezoneOffset() / 60);
 
-
         let joinDeadlineDate: Date = this.eventGeneralForm.get('joinEvent')!.get('joinDeadlineDate')!.value;
         let joinDeadlineTime: string = this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')!.value;
         timeDict = timeStringParser(joinDeadlineTime);
