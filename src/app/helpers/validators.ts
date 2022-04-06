@@ -7,10 +7,15 @@ export function eventEndTimeValidator(): ValidatorFn {
         let endDate: Date = eventDates.get('endDate')?.value;
         let startTime: string = eventDates.get('startTime')?.value;
         let endTime: string = eventDates.get('endTime')?.value;
-
+        
         if (!startDate || !endDate) return null;
 
         if (!startTime || !endTime) return null;
+
+        eventDates.get('startDate').updateValueAndValidity({onlySelf: true});
+        eventDates.get('endDate').updateValueAndValidity({ onlySelf: true });
+        eventDates.get('startTime').updateValueAndValidity({ onlySelf: true });
+        eventDates.get('endTime').updateValueAndValidity({ onlySelf: true });
 
         // Crate startDate and endDate objects with complete user input information
         // Additionally, set the seconds and miliseconds to zero to prepare for comparison
