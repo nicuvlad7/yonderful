@@ -215,6 +215,12 @@
                                     *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('required')">
                                     Deadline time for event is <strong>required</strong>
                                 </mat-error>
+
+                                <mat-error
+                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('joinTimeError')">
+                                    Join deadline time must be <strong>grater than</strong> current time
+                                </mat-error>
+                                
                             </mat-form-field>
                             <ngx-mat-timepicker #deadlineTimePicker></ngx-mat-timepicker>
                         </div>

@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { timeStringParser } from "./helpers";
 
 export function eventEndTimeValidator(): ValidatorFn {
-    return  (eventDates: AbstractControl): ValidationErrors | null => {
+    return (eventDates: AbstractControl): ValidationErrors | null => {
         let startDate: Date = eventDates.get('startDate')?.value;
         let endDate: Date = eventDates.get('endDate')?.value;
         let startTime: string = eventDates.get('startTime')?.value;
@@ -21,13 +21,13 @@ export function eventEndTimeValidator(): ValidatorFn {
         endDate.setHours(endTimeDict.hours, endTimeDict.minutes, 0, 0);
 
         if (startDate.getTime() < endDate.getTime()) return null;
-        
-        const error: ValidationErrors = { endTimeError: true};
-        
+
+        const error: ValidationErrors = { endTimeError: true };
+
         eventDates.get('endTime')?.setErrors(error);
-        
+
         return error;
-};
+    };
 }
 
 export function eventParticipantsIntervalValidator(): ValidatorFn {
@@ -48,4 +48,37 @@ export function eventParticipantsIntervalValidator(): ValidatorFn {
 
         return error;
     }
+}
+
+export function joinDeadlineValidator(): ValidatorFn {
+    return (joinEvent: AbstractControl): ValidationErrors | null => {
+        let today = new Date();
+        let currentDate: Date = new Date(today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate());
+        let currentTime: string = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let joinDeadlineDate: Date = joinEvent.get('joinDeadlineDate')?.value;
+        let joinDeadlineTime: string = joinEvent.get('joinDeadlineTime')?.value;
+
+        if (!currentDate || !joinDeadlineDate) return null;
+
+        if (!currentTime || !joinDeadlineTime) return null;
+
+        let currentTimeDict: { hours: number, minutes: number } = timeStringParser(currentTime);
+        currentDate.setHours(currentTimeDict.hours, currentTimeDict.minutes, 0, 0);
+
+        let joinDeadlineTimeDict: { hours: number, minutes: number } = timeStringParser(joinDeadlineTime);
+        joinDeadlineDate.setHours(joinDeadlineTimeDict.hours, joinDeadlineTimeDict.minutes, 0, 0);
+
+
+        if (joinDeadlineDate.getDate() == currentDate.getDate() &&
+            joinDeadlineDate.getMonth() == currentDate.getMonth() &&
+            joinDeadlineDate.getFullYear() == currentDate.getFullYear()) {
+            if (joinDeadlineDate.getTime() < currentDate.getTime()) {
+                const error: ValidationErrors = { joinTimeError: true };
+                joinEvent.get('joinDeadlineTime')?.setErrors(error);
+                return error;
+            }
+        };
+        return null;
+    };
+
 }
