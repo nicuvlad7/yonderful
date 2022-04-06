@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FiltersData } from 'src/app/models/filters-data';
+import { SortData } from 'src/app/models/sort-data';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
@@ -7,22 +9,67 @@ import { CategoryService } from 'src/app/services/category.service';
 	styleUrls: ['./generic-filter.component.scss'],
 })
 export class GenericFilterComponent implements OnInit {
-	@Output() isAscending = new EventEmitter<Boolean>();
-  @Output() sortBy = new EventEmitter<string>();
-  @Output() startDate = new EventEmitter<Date>();
-  @Output() endDate = new EventEmitter<Date>();
-  @Output() categories = new EventEmitter<string[]>();
-  @Output() hiddenIfFee = new EventEmitter<boolean>();
-  @Output() hiddenIfStarted = new EventEmitter<boolean>();
-  
-  sortBy2:string;
-  isAscending2:boolean=false;
+	@Output() sortData = new EventEmitter<SortData>();
+	@Output() filtersData = new EventEmitter<FiltersData>();
+	@Output() clickFilterButton = new EventEmitter();
+	@Input() showHiddenSection: boolean;
+
+	sortDataSelected: SortData = {
+		isAscending: false,
+		sortBy: 'Start Date',
+	};
+
+	filtersDataSelected: FiltersData = {
+		startDate: new Date(),
+		hiddenIfFee: false,
+		hiddenIfStarted: false,
+		categories: [],
+	};
+
+	categoriesPool: string[];
+
+	sortMethods: string[] = ['Start Date', 'Join Deadline', 'Title', 'Fee'];
+
 	constructor(private categoryService: CategoryService) {}
 
 	ngOnInit(): void {
+		this.categoryService.getCategories().subscribe((result) => {
+			this.categoriesPool = result['result'].map((el) => el.title);
+		});
+	}
 
-  }
-  emitSortBy(){
-    this.sortBy.emit(this.sortBy2);
-  }
+	emitSortData() {
+		this.sortData.emit(this.sortDataSelected);
+	}
+
+	changeIsAscending() {
+		if (this.sortDataSelected.isAscending) {
+			this.sortDataSelected.isAscending = false;
+		} else if (!this.sortDataSelected.isAscending) {
+			this.sortDataSelected.isAscending = true;
+		}
+	}
+
+	emitFiltersData() {
+		this.filtersData.emit(this.filtersDataSelected)
+	}
+
+	clearFields() {
+		this.filtersDataSelected = {
+			startDate: new Date(),
+			endDate: null,
+			categories: [],
+			hiddenIfFee: false,
+			hiddenIfStarted: false,
+		};
+
+		this.sortDataSelected = {
+			sortBy: 'Start Date',
+			isAscending: false,
+		};
+	}
+
+	emitClickFilter() {
+		this.clickFilterButton.emit();
+	}
 }

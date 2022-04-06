@@ -1,90 +1,135 @@
-<div class="filters-wrapper">
-	<div class="filters-container">
-		<div class="sort-container">
-			<div class="sort-header">
-				<mat-icon>sort</mat-icon><label>Sort by</label>
-			</div>
-			<div class="sort-select">
-				<mat-form-field appearance="fill" class="sort-select-input">
-					<mat-label>Sort by</mat-label>
-					<mat-select [(value)]="sortBy2" (selectionChange)="emitSortBy()">
-						<mat-option value="Start date"> Start date </mat-option>
-						<mat-option value="Join deadline"> Join deadline </mat-option>
-						<mat-option value="Title"> Title </mat-option>
-						<mat-option value="Fee">Fee</mat-option>
-					</mat-select>
-				</mat-form-field>
-				
-				<div>
-					<button mat-button class="sort-button" *ngIf="!isAscending2">
-						<mat-icon>arrow_upward</mat-icon>
-					</button>
-					<button mat-button class="sort-button" *ngIf="isAscending2">
-						<mat-icon>arrow_downward</mat-icon>
-					</button>
-				</div>
+<div class="filters-and-sort-container">
+	<div class="sort-container">
+		<div class="sort-header">
+			<mat-icon>sort</mat-icon><label>Sort by</label>
+		</div>
+		<div class="sort-select">
+			<mat-form-field appearance="fill" class="sort-select-input">
+				<mat-label>Sort by</mat-label>
+				<mat-select
+					(selectionChange)="emitSortData()"
+					[(ngModel)]="sortDataSelected.sortBy"
+				>
+					<mat-option
+						*ngFor="let sortItem of sortMethods"
+						[value]="sortItem"
+						>{{ sortItem }}</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
+
+			<div>
+				<button
+					mat-button
+					*ngIf="!sortDataSelected.isAscending"
+					(click)="changeIsAscending(); emitSortData()"
+				>
+					<mat-icon>arrow_upward</mat-icon>
+				</button>
+				<button
+					mat-button
+					*ngIf="sortDataSelected.isAscending"
+					(click)="changeIsAscending(); emitSortData()"
+				>
+					<mat-icon>arrow_downward</mat-icon>
+				</button>
 			</div>
 		</div>
-		<div class="filter-container">
-			<div class="filters-header">
-				<div class="filters-header-icon">
-					<mat-icon>filter_alt</mat-icon>
-					<label>Filters</label>
-				</div>
-				<button mat-button class="clear-filters-button">Clear</button>
+	</div>
+	<div class="filter-container">
+		<div class="filters-header">
+			<div class="filters-header-icon">
+				<mat-icon>filter_alt</mat-icon>
+				<label>Filters</label>
 			</div>
-			<div class="date-picker">
-				<div class="date-container">
-					<label>Start Date</label>
-					<div class="date-item">
-						<mat-form-field class="date-input" appearance="outline">
-							<input matInput placeholder="MM/DD/YYYY" [min]="" />
-							<mat-datepicker-toggle
-								matSuffix
-								[for]="startDatePicker"
-							></mat-datepicker-toggle>
-							<mat-datepicker #startDatePicker></mat-datepicker>
-						</mat-form-field>
-					</div>
-				</div>
-				<div class="date-container">
-					<label>End Date</label>
-					<div class="date-item">
-						<mat-form-field class="date-input" appearance="outline">
-							<input
-								matInput
-								[matDatepicker]="startDatePicker"
-								placeholder="MM/DD/YYYY"
-								[min]=""
-							/>
-							<mat-datepicker-toggle
-								matSuffix
-								[for]="startDatePicker"
-							></mat-datepicker-toggle>
-							<mat-datepicker #startDatePicker></mat-datepicker>
-						</mat-form-field>
-					</div>
-				</div>
-			</div>
-			<div class="multiple-select">
-				<label> Category </label>
-				<mat-form-field appearance="fill" class="filter-select-input">
-					<mat-label>Favorite food</mat-label>
-					<mat-select multiple>
-						<mat-option> Example1 </mat-option>
-						<mat-option> Example1 </mat-option>
-						<mat-option> Example1 </mat-option>
-					</mat-select>
+			<button
+				mat-button
+				class="clear-filters-button"
+				(click)="clearFields()"
+			>
+				Clear
+			</button>
+		</div>
+		<div class="date-picker">
+			<div class="date-container">
+				<label>Start Date</label>
+				<mat-form-field class="date-input" appearance="outline">
+					<input
+						matInput
+						placeholder="MM/DD/YYYY"
+						[max]="filtersDataSelected.endDate"
+						[matDatepicker]="startDatePicker"
+						(dateChange)="emitFiltersData()"
+						[(ngModel)]="filtersDataSelected.startDate"
+						readonly
+					/>
+					<mat-datepicker-toggle
+						matSuffix
+						[for]="startDatePicker"
+					></mat-datepicker-toggle>
+					<mat-datepicker #startDatePicker></mat-datepicker>
 				</mat-form-field>
 			</div>
-			<div class="check-boxes">
-				<mat-checkbox class="check-box-item"
-					>Hide events past join deadline</mat-checkbox
-				>
-				<mat-checkbox class="check-box-item"
-					>Hide events with a fee</mat-checkbox
-				>
+			<div class="date-container">
+				<label>End Date</label>
+					<mat-form-field class="date-input" appearance="outline">
+						<input
+							matInput
+							[matDatepicker]="endDatePicker"
+							(dateChange)="emitFiltersData()"
+							[(ngModel)]="filtersDataSelected.endDate"
+							placeholder="MM/DD/YYYY"
+							[min]="filtersDataSelected.startDate"
+							readonly
+						/>
+						<mat-datepicker-toggle
+							matSuffix
+							[for]="endDatePicker"
+						></mat-datepicker-toggle>
+						<mat-datepicker #endDatePicker></mat-datepicker>
+					</mat-form-field>
 			</div>
+		</div>
+		<div class="multiple-select">
+			<label> Category </label>
+			<mat-form-field appearance="fill" class="filter-select-input">
+				<mat-label>Choose categories</mat-label>
+				<mat-select
+					multiple
+					[(value)]="filtersDataSelected.categories"
+					(selectionChange)="emitFiltersData()"
+				>
+					<mat-option
+						*ngFor="let category of categoriesPool"
+						[value]="category"
+					>
+						{{ category }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="check-boxes" *ngIf="showHiddenSection">
+			<mat-checkbox
+				class="check-box-item"
+				(change)="emitFiltersData()"
+				[(ngModel)]="filtersDataSelected.hiddenIfStarted"
+				>Hide events past join deadline</mat-checkbox
+			>
+			<mat-checkbox
+				class="check-box-item"
+				(change)="emitFiltersData()"
+				[(ngModel)]="filtersDataSelected.hiddenIfFee"
+				>Hide events with a fee</mat-checkbox
+			>
+		</div>
+		<div class="apply-filters-button">
+			<button
+				mat-button
+				class="clear-filters-button"
+				(click)="emitClickFilter()"
+			>
+				Filter
+			</button>
 		</div>
 	</div>
 </div>

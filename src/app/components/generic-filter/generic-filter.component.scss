@@ -1,12 +1,8 @@
 @import "../../variables.scss";
 @import "../../mixins.scss";
 
-.filters-wrapper {
-	padding-right: 50px;
-}
-.filters-container {
+.filters-and-sort-container {
 	width: 300px;
-	margin-top: 50px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.5s;
 }
@@ -27,13 +23,6 @@
 .sort-select {
 	@include flex-container(row, space-between);
 	align-items: center;
-}
-.sort-button-wrapper {
-	margin-left: 10px;
-}
-.sort-button {
-	padding-left: 0px;
-	padding-right: 0px;
 }
 
 .filter-container {
@@ -69,9 +58,6 @@
 .date-input {
 	width: 100%;
 }
-.date-item {
-	width: 100%;
-}
 
 .check-boxes {
 	@include flex-container(column);
@@ -90,4 +76,8 @@
 
 label {
 	margin-left: 10px;
+}
+
+.apply-filters-button {
+	@include flex-container(row, flex-end);
 }

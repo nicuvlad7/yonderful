@@ -40,4 +40,9 @@ export class CategoryService {
 			)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
+	
+	getCategories():Observable<ICategory[]>{
+		return this.httpService.getAll<ICategory[]>(RouteEndpoints.CATEGORY).
+		pipe(catchError(this.httpService.handleHttpErrorResponse));
+	}
 }
