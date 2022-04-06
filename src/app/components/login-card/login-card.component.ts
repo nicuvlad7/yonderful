@@ -68,7 +68,7 @@ export class LoginCardComponent implements OnInit {
         });
         
       },
-      next: (data: loginUser) => {
+        next: (data: loginUser) => {
         this.responseUserObject = { ...data };
         this.snackBar.open(`Login of user ${this.responseUserObject.name} successful!`,
           '',

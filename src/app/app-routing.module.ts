@@ -10,6 +10,7 @@ import { AdminGuard, AuthGuard, UserGuard } from './helpers/auth.guard';
 import { RouteValues } from './models/constants';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AllEventsComponent } from './components/all-events/all-events.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: RouteValues.CATEGORY_NEW, component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: RouteValues.CATEGORY_ID,component: CategoryCardComponent, canActivate: [AuthGuard, AdminGuard]},
   { path: RouteValues.EVENT_DETAILS_ID, component: EventPageComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.ALL_EVENTS, component: AllEventsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard]},
   { path: RouteValues.NOT_FOUND,component:NotFoundComponent,},
