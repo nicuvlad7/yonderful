@@ -23,9 +23,7 @@ export class CreateEditEventPageComponent implements OnInit {
     pageTitle: string = '';
     label: string = '';
     buttonIconLabel: string = ''
-
-    // TODO: get current user id from local storage after login
-    // The User object stored in local storage does not have an attribute for id
+    
     currentUserId!: number;
     currentUser?: UserDetails;
 
@@ -167,7 +165,7 @@ export class CreateEditEventPageComponent implements OnInit {
 
     initEventFormControls(): void {
         this.eventGeneralForm = new FormGroup({
-            title: new FormControl('', [Validators.required]),
+            title: new FormControl('', [Validators.required, Validators.maxLength(15)]),
             eventDates: new FormGroup({
                 startDate: new FormControl('', [Validators.required]),
                 startTime: new FormControl('', [Validators.required]),
