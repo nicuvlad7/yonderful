@@ -1,0 +1,6 @@
+@import '../../mixins.scss';
+
+.component-wrapper {
+    @include flex-container(row, flex-start);
+    justify-content: space-evenly;
+}

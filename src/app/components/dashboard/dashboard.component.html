@@ -11,11 +11,7 @@
                 </button>
             </div>
             <div class="event-cards" *ngIf="dashboardEvents && areJoinedEvents else missingJoinedEvents">
-                <div class="event-card" *ngFor="let event of dashboardEvents.joinedEvents">
-                    <div *ngIf="event">
-                        <app-event-card (click)="navigateToEventView(event.id)" class="card-data" [event]="event"></app-event-card>
-                    </div> 
-                </div>
+                <app-three-events class="three-events-component" [eventsList]="dashboardEvents.joinedEvents"></app-three-events>
             </div>
             <ng-template #missingJoinedEvents class="missing-button-template">
                 <button mat-stroked-button class="missing-button" (click)="navigateToAllEvents()">
@@ -37,11 +33,7 @@
                 </button>
             </div>
             <div class="event-cards" *ngIf="dashboardEvents && areHostedEvents else missingHostedEvents">
-                <div class="event-card" *ngFor="let event of dashboardEvents.hostedEvents">
-                    <div *ngIf="event">
-                        <app-event-card (click)="navigateToEventView(event.id)" class="card-data" [event]="event"></app-event-card>
-                    </div> 
-                </div>
+                <app-three-events class="three-events-component" [eventsList]="dashboardEvents.hostedEvents"></app-three-events>
             </div>
             <ng-template #missingHostedEvents class="missing-button-template">
                 <button mat-stroked-button class="missing-button" (click)="navigateToCreateEvent()">

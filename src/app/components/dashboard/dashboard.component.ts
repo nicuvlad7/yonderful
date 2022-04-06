@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DecodeToken } from 'src/app/helpers/decode.token';
@@ -23,9 +23,9 @@ export class DashboardComponent implements OnInit {
     ngOnInit(): void {
         this.currentUserId = this.decodeToken.getCurrentUserId();
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
-            this.dashboardEvents = result;
-            this.checkIfJoinedEvents();
-            this.checkIfHostedEvents();
+        this.dashboardEvents = result;
+        this.checkIfJoinedEvents();
+        this.checkIfHostedEvents();
         }
         )
     }
