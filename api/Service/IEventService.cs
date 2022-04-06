@@ -17,5 +17,7 @@ namespace YonderfulApi.Service
 		Task<Event> CreateEvent(EventDto eventDto);
 		Task<IList<Event>> GetFutureEventList();
 		Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto);
+		Task<IList<Event>> GetHostedEvents(int hostId);
+		Task<IList<Event>> GetFutureJoinedEvents(int hostId);
 	}
 }

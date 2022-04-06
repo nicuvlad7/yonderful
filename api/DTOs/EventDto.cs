@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using api.DTOs;
 
@@ -40,5 +41,12 @@ namespace YonderfulApi.DTOs
 		public string ContactPhone { get; set; }
 		public string Tags { get; set; }
 		public string BackgroundImage { get; set; }
+	}
+
+	public class DashBoardEventsDto{
+		[Required]
+		public IList<EventDto> HostedEvents { get; set; }
+		[Required]
+		public IList<EventDto> JoinedEvents { get; set; }
 	}
 }

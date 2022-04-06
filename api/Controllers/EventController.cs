@@ -36,15 +36,28 @@ namespace api.Controllers
 			{
 				return NotFound("Event with id given not found");
 			}
-			var eventDto = _eventService.TransformEventDtoForOutput(_mapper.Map<EventDto>(myEvent));
+			var eventDto = await _eventService.TransformEventDtoForOutput(_mapper.Map<EventDto>(myEvent));
 			return Ok(eventDto);
+		}
+
+		[HttpGet("[action]/{hostId}")]
+		public async Task<IActionResult> GetDashboardEvents(int hostId){
+			DashBoardEventsDto dashBoardEventsDto = new DashBoardEventsDto();
+
+			var hostedEvents = await _eventService.GetHostedEvents(hostId);
+			var joinedEvents = await _eventService.GetFutureJoinedEvents(hostId);
+
+			dashBoardEventsDto.HostedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(hostedEvents));
+			dashBoardEventsDto.JoinedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(joinedEvents));
+
+			return Ok(dashBoardEventsDto);
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetEvents()
 		{
 			var myEventList = await _eventService.GetEventList();
-			var eventDtoList = _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
+			var eventDtoList = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(myEventList));
 			return Ok(eventDtoList);
 		}
 
