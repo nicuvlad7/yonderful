@@ -13,6 +13,7 @@ namespace YonderfulApi.Service
 		Task<User> GetUserByEmail(string email);
 		Task<User> PostUser(User user);
 		Task<User> PutUser(User user);
+		Task<IList<User>> GetParticipantsForEvent(int eventId);
 		Task<bool> DeleteUser(int id);
 	}
 }

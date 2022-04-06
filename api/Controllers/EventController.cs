@@ -39,12 +39,18 @@ namespace api.Controllers
 			return Ok(eventDto);
 		}
 
+		[HttpGet("[action]/{userId}")]
+		public async Task<IActionResult> GetJoinedEventsForUser(int userId){
+			var joinedEvents = await _eventService.GetJoinedEventsForUser(userId);
+			return Ok(_mapper.Map<IList<EventDto>>(joinedEvents));
+		}
+
 		[HttpGet("[action]/{hostId}")]
-		public async Task<IActionResult> GetDashboardEvents(int hostId){
+		public async Task<IActionResult> GetDashboardEvents(int userId){
 			DashBoardEventsDto dashBoardEventsDto = new DashBoardEventsDto();
 
-			var hostedEvents = await _eventService.GetHostedEvents(hostId);
-			var joinedEvents = await _eventService.GetFutureJoinedEvents(hostId);
+			var hostedEvents = await _eventService.GetHostedEvents(userId);
+			var joinedEvents = await _eventService.GetFutureJoinedEvents(userId);
 
 			dashBoardEventsDto.HostedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(hostedEvents));
 			dashBoardEventsDto.JoinedEvents = await _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(joinedEvents));
@@ -108,7 +114,7 @@ namespace api.Controllers
 			{
 				return BadRequest();
 			}
-			return Ok(_mapper.Map<EventDto>(createdEvent));
+			return Created(nameof(GetEvent), _mapper.Map<EventDto>(createdEvent));
 		}
 
 		[HttpDelete("{eventId}")]

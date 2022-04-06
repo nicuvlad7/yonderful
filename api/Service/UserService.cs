@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,6 +32,15 @@ namespace YonderfulApi.Service
 		{
 			var userList = await _context.Users.ToListAsync();
 			return userList;
+		}
+
+		public async Task<IList<User>> GetParticipantsForEvent(int eventId){
+			var attendance = await _context.Attendance
+								.Where(att => att.EventId == eventId)
+								.Include(att => att.User)
+								.Select(att => att.User)
+								.ToListAsync();
+			return attendance;
 		}
 
 		public async Task<User> PostUser(User user)
