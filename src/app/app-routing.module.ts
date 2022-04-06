@@ -25,7 +25,6 @@ const routes: Routes = [
   { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.ALL_EVENTS, component: AllEventsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard, UserGuard] },
-  { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard]},
   { path: RouteValues.NOT_FOUND,component:NotFoundComponent,},
   { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}
 ];
