@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using api.DTOs;
 
@@ -39,7 +40,13 @@ namespace YonderfulApi.DTOs
 		[RegularExpression("^[0-9]+", ErrorMessage = "Phone number should be formed out of only digits")]
 		public string ContactPhone { get; set; }
 		public string Tags { get; set; }
-		[Required]
 		public string BackgroundImage { get; set; }
+	}
+
+	public class DashBoardEventsDto{
+		[Required]
+		public IList<EventDto> HostedEvents { get; set; }
+		[Required]
+		public IList<EventDto> JoinedEvents { get; set; }
 	}
 }

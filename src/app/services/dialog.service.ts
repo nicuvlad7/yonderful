@@ -29,6 +29,7 @@ export class DialogService {
 		return this.dialog
 			.open(ParticipantsDialogComponent, {
 				data,
+                autoFocus: false,
 				width: '400px',
 				disableClose: true,
 			})

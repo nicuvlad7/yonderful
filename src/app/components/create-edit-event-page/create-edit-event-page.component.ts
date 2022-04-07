@@ -9,7 +9,9 @@ import { EditEventService } from 'src/app/services/edit-event.service';
 import { UserDetails } from 'src/app/models/user';
 import { IEvent } from 'src/app/models/event';
 import { timeStringParser } from 'src/app/helpers/helpers';
-import { eventEndTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
+
+import { eventEndTimeValidator, eventJoinTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
+import { joinDeadlineValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DecodeToken } from 'src/app/helpers/decode.token';
 
@@ -23,9 +25,7 @@ export class CreateEditEventPageComponent implements OnInit {
     pageTitle: string = '';
     label: string = '';
     buttonIconLabel: string = ''
-
-    // TODO: get current user id from local storage after login
-    // The User object stored in local storage does not have an attribute for id
+    
     currentUserId!: number;
     currentUser?: UserDetails;
 
@@ -103,8 +103,8 @@ export class CreateEditEventPageComponent implements OnInit {
 
     fetchCurrentEvent(): void {
         this.editEventService.fetchCurrentEvent(this.currentEventId).subscribe(event => {
-            this.currentEvent = { ...event.result };
-
+            this.currentEvent = { ...event };
+            
             this.eventGeneralForm.patchValue({
                 title: this.currentEvent.title,
                 participantsInterval: {
@@ -147,12 +147,10 @@ export class CreateEditEventPageComponent implements OnInit {
                     startDate: startDate,
                     startTime: startTime,
                     endDate: endDate,
-                    endTime: endTime
-                },
-                joinEvent: {
+                    endTime: endTime,
                     joinDeadlineDate: joinDeadlineDate,
                     joinDeadlineTime: joinDeadlineTime
-                }
+                },
             })
 
             let tags = this.currentEvent.tags.split('*');
@@ -161,19 +159,28 @@ export class CreateEditEventPageComponent implements OnInit {
                     this.tags.push({ tagName: tag });
                 }
             }
+            
+            // By pathcing a form, validators are not 'executed'.
+            // Since endTime, joinDeadlineDate and joinDeadlineTime controls are injected with a custom error, 
+            //they should be marked as touched to trigger the validator.
+            this.eventGeneralForm.get('eventDates').get('endTime').markAsTouched();
+            this.eventGeneralForm.get('eventDates').get('joinDeadlineTime').markAsTouched();
+            this.eventGeneralForm.get('eventDates').get('joinDeadlineDate').markAsTouched();
 
         })
     }
 
     initEventFormControls(): void {
         this.eventGeneralForm = new FormGroup({
-            title: new FormControl('', [Validators.required]),
+            title: new FormControl('', [Validators.required, Validators.maxLength(25)]),
             eventDates: new FormGroup({
                 startDate: new FormControl('', [Validators.required]),
                 startTime: new FormControl('', [Validators.required]),
                 endDate: new FormControl('', [Validators.required]),
-                endTime: new FormControl('', [Validators.required])
-            }, eventEndTimeValidator()),
+                endTime: new FormControl('', [Validators.required]),
+                joinDeadlineDate: new FormControl('', [Validators.required]),
+                joinDeadlineTime: new FormControl('', [Validators.required]),
+            }, [eventEndTimeValidator(), eventJoinTimeValidator(), joinDeadlineValidator()]),
             participantsInterval: new FormGroup({
                 minimumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
                 maximumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")])
@@ -181,10 +188,6 @@ export class CreateEditEventPageComponent implements OnInit {
             category: new FormControl('', [Validators.required]),
             autocancel: new FormControl(''),
             autojoin: new FormControl(''),
-            joinEvent: new FormGroup({
-                joinDeadlineDate: new FormControl('', [Validators.required]),
-                joinDeadlineTime: new FormControl('', [Validators.required]),
-            }),
             eventFee: new FormControl(0, [Validators.pattern("^[0-9]*")]),
             description: new FormControl('', [Validators.required])
         });
@@ -236,9 +239,8 @@ export class CreateEditEventPageComponent implements OnInit {
         endDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
         endDate.setHours(endDate.getHours() - endDate.getTimezoneOffset() / 60);
 
-
-        let joinDeadlineDate: Date = this.eventGeneralForm.get('joinEvent')!.get('joinDeadlineDate')!.value;
-        let joinDeadlineTime: string = this.eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')!.value;
+        let joinDeadlineDate: Date = this.eventGeneralForm.get('eventDates')!.get('joinDeadlineDate')!.value;
+        let joinDeadlineTime: string = this.eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')!.value;
         timeDict = timeStringParser(joinDeadlineTime);
         joinDeadlineDate.setHours(timeDict.hours, timeDict.minutes, 0, 0);
         joinDeadlineDate.setHours(joinDeadlineDate.getHours() - joinDeadlineDate.getTimezoneOffset() / 60);
