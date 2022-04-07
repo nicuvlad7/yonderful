@@ -80,6 +80,7 @@ export class CreateEditEventPageComponent implements OnInit {
     }
 
     getCurrentLoggedInUserId(): number {
+        this.decodeToken.initializeTokenInfo();
         return this.decodeToken.getCurrentUserId();
     }
 
