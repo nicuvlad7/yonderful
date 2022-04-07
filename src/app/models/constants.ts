@@ -26,6 +26,8 @@ export class RouteEndpoints {
     static readonly FUTURE_EVENTS = 'Event/getFutureEvents'
     static readonly CATEGORY = 'Category'
     static readonly USER = 'User'
+    static readonly ATTENDANCE = 'Attendance'
+    static readonly ATTENDANCE_GET_PARTICIPANTS = 'Attendance/GetParticipants'
     static readonly DASHBOARD_EVENTS = 'Event/GetDashboardEvents'
     static readonly PARTICIPANTS_LIST = 'User/GetParticipantsForEvent'
 };

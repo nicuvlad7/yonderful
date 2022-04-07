@@ -17,7 +17,7 @@ export class DecodeToken {
         }
     }
 
-    getCurrentUserId() {
+    getCurrentUserId(): number {
         return this.tokenInfo.UserID;
     }
 

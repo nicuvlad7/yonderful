@@ -48,9 +48,9 @@ export class HttpService {
     return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
   }
 
-  deleteUsing2Ids<T>(id1: number, id2: number, endpoint: string): Observable<T> {
+  deleteByTwoId<T>(id1: number, id2: number, endpoint: string): Observable<T> {
     this.setRequestHeaders();
-    const requestUrl = this.getRequestUrl(endpoint) + id1 + ', ' + id2;
+    const requestUrl = this.getRequestUrl(endpoint) + "/" + id1 + ", " + id2;
 
     return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
   }
