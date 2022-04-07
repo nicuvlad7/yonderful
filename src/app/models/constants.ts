@@ -27,6 +27,7 @@ export class RouteEndpoints {
     static readonly CATEGORY = 'Category'
     static readonly USER = 'User'
     static readonly DASHBOARD_EVENTS = 'Event/GetDashboardEvents'
+    static readonly PARTICIPANTS_LIST = 'User/GetParticipantsForEvent'
 };
 
 export class SidenavItems

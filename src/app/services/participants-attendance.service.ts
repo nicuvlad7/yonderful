@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from '../models/user';
+import { RouteEndpoints } from '../models/constants';
+import { UserDetails, User } from '../models/user';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -13,10 +14,16 @@ export class ParticipantsAttendanceService {
     //to-do:
     //once the attendance table is merged into master,come back here and configure the right links,
     //data type for the participants/attendance
-    
-	deleteParticipant(id: number): Observable<User> {
+
+	getParticipant(eventId: number): Observable<UserDetails[]>{
 		return this.httpService
-			.delete<User>(id, `Attendance?attendanceId=`)
+			.getById(eventId, RouteEndpoints.PARTICIPANTS_LIST)
+			.pipe(catchError(this.httpService.handleHttpErrorResponse));
+	}
+    
+	deleteParticipant(eventId: number, userId: number): Observable<User> {
+		return this.httpService
+			.deleteUsing2Ids<User>(eventId, userId, 'Attendance/')
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
 

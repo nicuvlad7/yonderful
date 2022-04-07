@@ -23,6 +23,8 @@ namespace YonderfulApi.DTOs
 	public class UserDetailsDto
 	{
 		[Required]
+		public int Id { get; set; }
+		[Required]
 		public string Name { get; set; }
 		[Required]
 		[EmailAddress(ErrorMessage = "Invalid Email Address")]

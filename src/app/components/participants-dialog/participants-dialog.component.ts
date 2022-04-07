@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { UserDetails } from 'src/app/models/user';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ParticipantsAttendanceService } from 'src/app/services/participants-attendance.service';
 
@@ -14,8 +14,9 @@ export class ParticipantsDialogComponent implements OnInit {
 	constructor(
 		@Inject(MAT_DIALOG_DATA)
 		public data: {
-			participants: User[];
+			participants: UserDetails[];
 			isEventOwner: boolean;
+			eventId: number;
 		},
 		private dialogService: DialogService,
 		private participantsService: ParticipantsAttendanceService
@@ -32,13 +33,13 @@ export class ParticipantsDialogComponent implements OnInit {
 		});
 	}
 
-	deleteParticipant(id: number) {
+	deleteParticipant(userId: number) {
 		this.openDeleteDialog().subscribe((result) => {
 			if (result) {
-				this.participantsService.deleteParticipant(id!).subscribe(
+				this.participantsService.deleteParticipant(this.data.eventId, userId).subscribe(
 					(result) => {
 						this.data.participants = this.data.participants.filter(
-							(el) => el.id != id
+							(el) => el.id != userId
 						);
 					},
 					(error) => {

@@ -1,13 +1,16 @@
+import { L } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
+import { DecodeToken } from 'src/app/helpers/decode.token';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
-import { User } from 'src/app/models/user';
+import { User, UserDetails } from 'src/app/models/user';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
+import { ParticipantsAttendanceService } from 'src/app/services/participants-attendance.service';
 
 @Component({
 	selector: 'app-event-page',
@@ -23,9 +26,11 @@ export class EventPageComponent implements OnInit {
 	constructor(
 		private categoryService: CategoryService,
 		private eventService: EventService,
+		private participantsService: ParticipantsAttendanceService,
 		private sanitizer: DomSanitizer,
 		private readonly activatedRoute: ActivatedRoute,
 		private dialogService: DialogService,
+		private decodeToken: DecodeToken,
 		private router: Router
 	) {
 		this.activatedRoute.params.subscribe((params) => {
@@ -36,6 +41,7 @@ export class EventPageComponent implements OnInit {
 	}
 
   ngOnInit(): void {
+	this.decodeToken.initializeTokenInfo();
     this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
 		this.event = result;
 		this.intializeTagsList();
@@ -88,23 +94,24 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-  //to-do:
-  //remove mock data after demo, and use real data once the endpoints 
-  //for attendance are available
-  //isEventOwner should recieve a value after a check
-  
-	testArr: User[] = [
-		{ id: 1, name: 'Bill', email: 'abc', password: 'asdcasdcas' },
-		{ id: 2, name: 'Richard', email: 'abc', password: 'asdcasdcas' },
-		{ id: 3, name: 'Radahan', email: 'abc', password: 'asdcasdcas' },
-		{ id: 4, name: 'Godfrey', email: 'abc', password: 'asdcasdcas' },
-		{ id: 5, name: 'Michael', email: 'abc', password: 'asdcasdcas' },
-	];
-
 	openParticipantsDialog(): Observable<boolean> {
+		var eventParticipants: UserDetails[] = [];
+		var isHost: boolean;
+
+		this.participantsService.getParticipant(this.event.id).subscribe(
+			(result:UserDetails[]) => {
+				console.log(result);
+				result.forEach(function (value){
+					eventParticipants.push(value);
+				});
+			});
+		
+		isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+
 		return this.dialogService.participantsDialog({
-			participants: this.testArr,
-			isEventOwner: false,
+			participants: eventParticipants,
+			isEventOwner: isHost,
+			eventId: this.eventId
 		});
 	}
 }
