@@ -20,21 +20,8 @@
 	align-items: center;
 }
 
-.add-new-button {
-    @include flex-container(row);
-	height: auto;
-	width: 120px;
+.main-button {
 	border-radius: 20px;
-
-	mat-icon {
-		font-size: 20px;
-	}
-
-}
-
-.main-button-action {
-	color: $yonder-white;
-	background-color: $yonder-pink;
 }
 
 h1{

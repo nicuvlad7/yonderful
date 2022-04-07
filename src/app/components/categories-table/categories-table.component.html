@@ -3,13 +3,12 @@
   <div class="top-row">
     <h1>Administrate categories</h1>
     <div class="action-container">
-      <button mat-raised-button class="add-new-button main-button-action" (click)="navigatetoCategoryNew()">
+      <button mat-raised-button class="main-button main-button-action" (click)="navigatetoCategoryNew()">
           <mat-icon class="add-button-icon">add</mat-icon> 
           New
       </button>
     </div>
   </div>
-
 
   <ng-container *ngIf="displayedCategories.length; else noDataBlock" >
 
