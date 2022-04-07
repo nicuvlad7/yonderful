@@ -21,32 +21,7 @@ export class EventPageComponent implements OnInit {
 	loading = true;
 	eventId: number;
 	isHostMode: true;
-	event: IEvent = {
-		id: 0,
-		categoryId: 0,
-		hostId: 0,
-		title: '',
-		startingDate: '',
-		endingDate: '',
-		minimumParticipants: 0,
-		maximumParticipants: 0,
-		autoCancel: true,
-		autoJoin: true,
-		joinDeadline: '',
-		fee: 0,
-		description: '',
-		eventLocation: {
-			id: 0,
-			street: '',
-			address: '',
-			city: '',
-			province: '',
-		},
-		contactEmail: '',
-		contactPhone: '',
-		tags: '',
-		backgroundImage: '',
-	};
+	event: IEvent;
 	categoryIcon: SafeResourceUrl;
 	tagsList: String[] = [];
 	participantsNumber: number;
