@@ -1,5 +1,59 @@
-<div class="page-container">
-    <div class="event-container" *ngIf="dashboardEvent">
-        <app-event-card class="event-card" [event]='dashboardEvent'></app-event-card>
+<div class="page-wrapper">
+    <div class="page-container" *ngIf="areJoinedEvents || areHostedEvents else missingBothEventCategories">
+        <div class="joined-events">
+            <div class="events-top-row">
+                <h2 class="event-title">Your Upcoming Events</h2>
+                <button *ngIf="areJoinedEvents" mat-stroked-button class="buttons" (click)="navigateToAllEvents()">
+                    <div class="buttons-text">
+                        <mat-icon>person_add</mat-icon> 
+                        <div class="button-inner-text">Join event</div>
+                    </div>
+                </button>
+            </div>
+            <div class="event-cards" *ngIf="dashboardEvents && areJoinedEvents else missingJoinedEvents">
+                <app-three-events class="three-events-component" [eventsList]="dashboardEvents.joinedEvents"></app-three-events>
+            </div>
+            <ng-template #missingJoinedEvents class="missing-button-template">
+                <button mat-stroked-button class="missing-button" (click)="navigateToAllEvents()">
+                    <div class="buttons-text"> 
+                        <div>Join event</div>
+                    </div>
+                </button>
+            </ng-template>
+
+        </div>
+        <div class="hosted-events">
+            <div class="events-top-row">
+                <h2 class="event-title">Upcoming Hosted Events</h2>
+                <button *ngIf="areHostedEvents" mat-stroked-button class="buttons" (click)="navigateToCreateEvent()">
+                    <div class="buttons-text">
+                        <mat-icon>add</mat-icon> 
+                        <div class="button-inner-text">Create event</div>
+                    </div>
+                </button>
+            </div>
+            <div class="event-cards" *ngIf="dashboardEvents && areHostedEvents else missingHostedEvents">
+                <app-three-events class="three-events-component" [eventsList]="dashboardEvents.hostedEvents"></app-three-events>
+            </div>
+            <ng-template #missingHostedEvents class="missing-button-template">
+                <button mat-stroked-button class="missing-button" (click)="navigateToCreateEvent()">
+                    <div class="buttons-text"> 
+                        <div>Create an event</div>
+                    </div>
+                </button>
+            </ng-template>
+        </div>   
     </div>    
+    <ng-template #missingBothEventCategories>
+        <div class="message-wrapper">
+            <div class="no-events-text">It seems you have no upcoming events...</div>
+            <button mat-stroked-button class="both-missing-button" (click)="navigateToAllEvents()">
+                <div class="missing-button-inner-text">Join event</div>
+            </button>
+            <div class="or">or</div>
+            <button mat-stroked-button class="both-missing-button" (click)="navigateToCreateEvent()">
+                <div class="missing-button-inner-text">Create an event</div>
+            </button>
+        </div>
+    </ng-template>
 </div>
