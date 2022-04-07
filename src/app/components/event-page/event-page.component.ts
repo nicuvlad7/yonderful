@@ -55,6 +55,7 @@ export class EventPageComponent implements OnInit {
 		]).subscribe(result => {
 			this.event = result[0];
 			this.participantsArray = result[1];
+			this.decodeToken.initializeTokenInfo();
 			this.currentUserId = this.decodeToken.getCurrentUserId();
 			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.userId == this.currentUserId) === undefined;
 			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
