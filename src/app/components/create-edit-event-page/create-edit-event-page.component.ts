@@ -14,6 +14,7 @@ import { eventEndTimeValidator, eventJoinTimeValidator, eventParticipantsInterva
 import { joinDeadlineValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DecodeToken } from 'src/app/helpers/decode.token';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-create-edit-event-page',
@@ -227,7 +228,12 @@ export class CreateEditEventPageComponent implements OnInit {
     }
 
     onEventCancel(): void {
-
+        if (this.editMode) {
+            this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
+        }
+        else {
+            this.router.navigate([RouteValues.DASHBOARD]);
+        }
     }
 
     onEventAction(): void {
@@ -307,6 +313,7 @@ export class CreateEditEventPageComponent implements OnInit {
                     this.snackBar.open(error.message, 'Close');
                 }
             });
+            this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
         }
         else {
             this.editEventService.postEvent(userEvent).subscribe({
@@ -319,7 +326,8 @@ export class CreateEditEventPageComponent implements OnInit {
                 error: (error: Error) => {
                     this.snackBar.open(error.message, 'Close');
                 }
-            })
+            });
+            this.router.navigate([RouteValues.DASHBOARD]);
         }
 
     }
