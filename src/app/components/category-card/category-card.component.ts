@@ -21,21 +21,7 @@ import { RouteValues } from 'src/app/models/constants';
 	styleUrls: ['./category-card.component.scss'],
 })
 export class CategoryCardComponent implements OnInit {
-	categoryForm: FormGroup = new FormGroup({
-		titleControl: new FormControl('Placeholder', [
-			Validators.required,
-			Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
-			Validators.maxLength(24),
-		]),
-		iconControl: new FormControl('', [
-			Validators.required,
-			this.validateExtension,
-		]),
-		backgroundControl: new FormControl('', [
-			Validators.required,
-			this.validateExtension,
-		]),
-	});
+	categoryForm: FormGroup;
 
 	categoryCard: ICategory = {
 		title: '',
@@ -60,6 +46,24 @@ export class CategoryCardComponent implements OnInit {
 		
 	}
 
+	initCategoryForm(): void {
+		this.categoryForm = new FormGroup({
+			titleControl: new FormControl( { value: 'Placeholder', disabled: true }, [
+				Validators.required,
+				Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
+				Validators.maxLength(24),
+			]),
+			iconControl: new FormControl('', [
+				Validators.required,
+				this.validateExtension,
+			]),
+			backgroundControl: new FormControl('', [
+				Validators.required,
+				this.validateExtension,
+			]),
+		});
+	}
+
 	validateExtension(control: AbstractControl): { [key: string]: any } | null {
 		let extn = control.value as string;
 		if (extn.substring(5, 10) != 'image') {
@@ -68,13 +72,16 @@ export class CategoryCardComponent implements OnInit {
 			return null;
 		}
 	}
+
 	testNaN(param: number) {
 		return isNaN(param) ? true : false;
 	}
+
 	ngOnInit(): void {
 		//to-do:
 		//on page init we should look for events that belong in the current category
 		//we are in, and if there are , dont let it be delete-able nor changes to its title
+		this.initCategoryForm();
 
 		this.urlID = parseInt(this.route.snapshot.paramMap.get('id'));
 
@@ -86,6 +93,7 @@ export class CategoryCardComponent implements OnInit {
 			this.canMakeChanges = true;
 			this.pageTitle = "New Category";
 			this.createNewCategory = true;
+			this.categoryForm.controls.titleControl.enable();
 			return;
 		}
 
@@ -119,10 +127,12 @@ export class CategoryCardComponent implements OnInit {
 		if (editModeParam == 'true') {
 			this.pageTitle = 'Edit Category';
 			this.editMode = true;
+			this.categoryForm.controls.titleControl.enable();
 		}
 		if (editModeParam == 'false') {
 			this.pageTitle = 'Category';
 			this.editMode = false;
+			this.categoryForm.controls.titleControl.disable();
 		}
 		if (editModeParam == '') {
 			this.pageTitle = 'Category';
@@ -256,5 +266,6 @@ export class CategoryCardComponent implements OnInit {
 	onEditClick() {
 		this.editMode = true;
 		this.pageTitle = 'Edit Category';
+		this.categoryForm.controls.titleControl.enable();
 	}
 }
