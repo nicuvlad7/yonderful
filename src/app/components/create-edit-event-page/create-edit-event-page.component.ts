@@ -103,8 +103,6 @@ export class CreateEditEventPageComponent implements OnInit {
         this.editEventService.fetchCurrentEvent(this.currentEventId).subscribe(event => {
             this.currentEvent = { ...event };
             
-            console.log(this.currentEvent);
-
             this.eventGeneralForm.patchValue({
                 title: this.currentEvent.title,
                 participantsInterval: {
@@ -164,7 +162,7 @@ export class CreateEditEventPageComponent implements OnInit {
             // Since endTime, joinDeadlineDate and joinDeadlineTime controls are injected with a custom error, 
             //they should be marked as touched to trigger the validator.
             this.eventGeneralForm.get('eventDates').get('endTime').markAsTouched();
-             this.eventGeneralForm.get('eventDates').get('joinDeadlineTime').markAsTouched();
+            this.eventGeneralForm.get('eventDates').get('joinDeadlineTime').markAsTouched();
             this.eventGeneralForm.get('eventDates').get('joinDeadlineDate').markAsTouched();
 
         })
@@ -172,7 +170,7 @@ export class CreateEditEventPageComponent implements OnInit {
 
     initEventFormControls(): void {
         this.eventGeneralForm = new FormGroup({
-            title: new FormControl('', [Validators.required, Validators.maxLength(15)]),
+            title: new FormControl('', [Validators.required, Validators.maxLength(25)]),
             eventDates: new FormGroup({
                 startDate: new FormControl('', [Validators.required]),
                 startTime: new FormControl('', [Validators.required]),
@@ -227,8 +225,6 @@ export class CreateEditEventPageComponent implements OnInit {
     }
 
     onEventAction(): void {
-        console.log(this.eventGeneralForm);
-
         let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value
         let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
         let timeDict = timeStringParser(startTime);
