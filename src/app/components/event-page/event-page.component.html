@@ -1,6 +1,5 @@
 <div class="central-div">
     <mat-card class="event-card">
-<<<<<<< HEAD
         <div class="top-row">
                 <div class="img-container">
                     <img class="event-img" src="https://www.zooplus.ro/ghid/wp-content/uploads/2021/11/Husky-Siberieni-inhamati-la-sanie.jpg">
@@ -42,97 +41,9 @@
         <div class="bottom-row">
             <div class="event-fee">
                 
-=======
-        <div class="top-div">
-            <div class="event-image">
-                <img [src]="event.backgroundImage ?  event.backgroundImage : ''" alt="">
-            </div>
-
-            <div class="event-information">
-                <div>
-                    <div class="helper-text">
-                        <p>Join until</p>
-                    </div>
-                    <div class="join-deadline">
-                        <div class="start-date">
-                            <p class="start-date">{{ event.startingDate | date:'dd.MM.yyyy' }}</p>
-                            <p class="start-time">{{ event.startingDate | date:'HH:ss' }}</p>
-                        </div>
-                        <div class="deadline-date">
-                            <p class="deadline-date">{{event.joinDeadline | date:'dd.MM.yyyy'}}</p>
-                            <p class="deadline-time">{{event.joinDeadline | date:'HH:ss'}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title-date">
-                        <h2 class="event-title">{{ event.title }}</h2>
-                    </div>
-                    <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
-                </div>
-                    <div class="admin-buttons" *ngIf="isHostMode">
-                        <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                        <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
-                    </div>
-                <div class="fee-icon-row">
-                    <div class="event-fee">{{event.fee}} lei</div>
-                    <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="middle-div">
-            <div class="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
-            <div class="participants-data">
-                <div class="participants-card" (click)="openParticipantsDialog()">
-                    <div class="bold-element">Participants: </div>
-                    <div class="current-participants-number">{{noOfParticipants}} / {{event.maximumParticipants}}</div>
-                </div>
-                <button class="join-button" mat-flat-button>Join</button>
->>>>>>> efcc3e2aa49e2360eb1b062e9dc48ecbfa988175
             </div>
             <div class="event-description">
-<<<<<<< HEAD
                 <p class="event-description-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-=======
-                <div class="event-descripton-text">{{event.description}}</div>
-                <mat-chip-list 
-                   class="tags-list"   
-                    cdkDropList 
-                    cdkDropListOrientation="horizontal">
-                    <mat-chip
-                        class="tag"
-                        cdkDrag
-                        *ngFor="let tag of tagsList">
-                            {{tag}}
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
-            <div class="event-details">
-                <div class="event-details-text">
-                    <div class="location-text">
-                        <h2 class="location">Location:</h2>
-                        <div class="event-location-details">
-                            <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
-                            <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
-                            <div><a href={{mapLink}}>View Map</a></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="date">Date & Time:</h2>
-                        <div class="starting-date">{{event.startingDate | date:longDate}} -</div>
-                        <div>{{event.endingDate | date:longDate}}</div>
-                    </div>
-                    <div>
-                        <h2 class="host">Host:</h2>
-                        <div class="host-details">
-                            <div>Email: {{event.contactEmail}}</div>
-                            <div>Phone: {{event.contactPhone}}</div>
-
-                        </div>
-                    </div>
-                </div>
-
->>>>>>> efcc3e2aa49e2360eb1b062e9dc48ecbfa988175
             </div>
         </div>
     </mat-card>
