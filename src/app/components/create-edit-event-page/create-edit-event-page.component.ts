@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER, } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -16,7 +16,7 @@ import { DecodeToken } from 'src/app/helpers/decode.token';
 @Component({
     selector: 'app-create-edit-event-page',
     templateUrl: './create-edit-event-page.component.html',
-    styleUrls: ['./create-edit-event-page.component.scss']
+    styleUrls: ['./create-edit-event-page.component.scss'],
 })
 export class CreateEditEventPageComponent implements OnInit {
     editMode: boolean = false;
@@ -221,6 +221,10 @@ export class CreateEditEventPageComponent implements OnInit {
         if (index >= 0) {
             this.tags.splice(index, 1);
         }
+    }
+
+    onEventCancel(): void {
+
     }
 
     onEventAction(): void {

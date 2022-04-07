@@ -18,6 +18,40 @@
     padding: 0 100px;
 }
 
+.action-container {
+    @include flex-container(row, flex-end);
+	align-items: center;
+}
+
+.main-button {
+	@include flex-container(row);
+	height: auto;
+	width: 120px;
+	border-radius: 20px;
+
+	mat-icon {
+		font-size: 20px;
+	}
+}
+
+.button-label {
+	@include flex-container(row, space-between);
+	align-items: center;
+
+}
+
+.main-button-action {
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+
+.main-button-cancel {
+    color: $yonder-pink;
+	border: 1px solid $yonder-pink;
+	margin-left: 20px;
+}
+
+
 .event-panel:hover {
     mat-panel-description {
         color: $yonder-blue;
@@ -69,11 +103,6 @@
     width: 36%;
 }
 
-.event-button {
-    background-color: $yonder-white;
-    color: $yonder-white;
-    margin-bottom: 16px;
-}
 
 .chip-tag {
     background-color: $yonder-white;
@@ -111,12 +140,10 @@
   height: auto;
 }
 
-mat-icon, mat-datepicker-toggle {
+.event-form-container {
+    mat-icon, mat-datepicker-toggle {
         color: $yonder-pink;
-}
-
-.button-icon {
-    color: $yonder-pink;
+    }
 }
 
 mat-icon:hover {
