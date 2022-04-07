@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { COMMA, ENTER, } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -14,11 +14,12 @@ import { eventEndTimeValidator, eventJoinTimeValidator, eventParticipantsInterva
 import { joinDeadlineValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DecodeToken } from 'src/app/helpers/decode.token';
+import { RouteValues } from 'src/app/models/constants';
 
 @Component({
     selector: 'app-create-edit-event-page',
     templateUrl: './create-edit-event-page.component.html',
-    styleUrls: ['./create-edit-event-page.component.scss']
+    styleUrls: ['./create-edit-event-page.component.scss'],
 })
 export class CreateEditEventPageComponent implements OnInit {
     editMode: boolean = false;
@@ -79,6 +80,7 @@ export class CreateEditEventPageComponent implements OnInit {
     }
 
     getCurrentLoggedInUserId(): number {
+        this.decodeToken.initializeTokenInfo();
         return this.decodeToken.getCurrentUserId();
     }
 
@@ -226,6 +228,15 @@ export class CreateEditEventPageComponent implements OnInit {
         }
     }
 
+    onEventCancel(): void {
+        if (this.editMode) {
+            this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
+        }
+        else {
+            this.router.navigate([RouteValues.DASHBOARD]);
+        }
+    }
+
     onEventAction(): void {
         let startDate: Date = this.eventGeneralForm.get('eventDates')!.get('startDate')!.value
         let startTime: string = this.eventGeneralForm.get('eventDates')?.get('startTime')!.value;
@@ -303,6 +314,7 @@ export class CreateEditEventPageComponent implements OnInit {
                     this.snackBar.open(error.message, 'Close');
                 }
             });
+            this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
         }
         else {
             this.editEventService.postEvent(userEvent).subscribe({
@@ -315,7 +327,8 @@ export class CreateEditEventPageComponent implements OnInit {
                 error: (error: Error) => {
                     this.snackBar.open(error.message, 'Close');
                 }
-            })
+            });
+            this.router.navigate([RouteValues.DASHBOARD]);
         }
 
     }
