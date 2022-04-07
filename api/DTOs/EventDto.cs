@@ -40,7 +40,6 @@ namespace YonderfulApi.DTOs
 		[RegularExpression("^[0-9]+", ErrorMessage = "Phone number should be formed out of only digits")]
 		public string ContactPhone { get; set; }
 		public string Tags { get; set; }
-		[Required]
 		public string BackgroundImage { get; set; }
 	}
 

@@ -9,7 +9,9 @@ import { EditEventService } from 'src/app/services/edit-event.service';
 import { UserDetails } from 'src/app/models/user';
 import { IEvent } from 'src/app/models/event';
 import { timeStringParser } from 'src/app/helpers/helpers';
+
 import { eventEndTimeValidator, eventJoinTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
+import { joinDeadlineValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DecodeToken } from 'src/app/helpers/decode.token';
 
@@ -178,7 +180,7 @@ export class CreateEditEventPageComponent implements OnInit {
                 endTime: new FormControl('', [Validators.required]),
                 joinDeadlineDate: new FormControl('', [Validators.required]),
                 joinDeadlineTime: new FormControl('', [Validators.required]),
-            }, [eventEndTimeValidator(), eventJoinTimeValidator()]),
+            }, [eventEndTimeValidator(), eventJoinTimeValidator(), joinDeadlineValidator()]),
             participantsInterval: new FormGroup({
                 minimumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")]),
                 maximumParticipants: new FormControl('', [Validators.pattern("^[0-9]*")])
