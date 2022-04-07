@@ -23,7 +23,7 @@ export class ParticipantsAttendanceService {
     
 	deleteParticipant(eventId: number, userId: number): Observable<User> {
 		return this.httpService
-			.deleteUsing2Ids<User>(eventId, userId, 'Attendance/')
+			.deleteByTwoId<User>(eventId, userId, 'Attendance')
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
 
