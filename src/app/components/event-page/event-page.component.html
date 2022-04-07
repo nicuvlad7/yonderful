@@ -38,15 +38,15 @@
             </div>
             <div *ngIf="isCurrentUserNotAttending else leaveButtonBlock">
                 <div *ngIf="!isMaximumReached && !isDeadlineOverdue else disabledJoinBlock">
-                    <button class="join-button-active" mat-flat-button (click)="joinOnEvent()">Join</button>
+                    <button class="join-button-active template-button" mat-flat-button (click)="joinOnEvent()">Join</button>
                 </div>
                 <ng-template #disabledJoinBlock>
-                    <button class="join-button-disabled" mat-flat-button>Join</button>
+                    <button class="join-button-disabled template-button" mat-flat-button>Join</button>
                 </ng-template>
                 
             </div>
             <ng-template #leaveButtonBlock> 
-                <button class="leave-button" mat-flat-button (click)="leaveEvent()">Leave</button>
+                <button class="leave-button template-button" mat-flat-button (click)="leaveEvent()">Leave</button>
             </ng-template>
 
             
