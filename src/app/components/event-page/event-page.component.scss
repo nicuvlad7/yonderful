@@ -1,180 +1,198 @@
 @import '../../mixins.scss';
 @import '../../variables.scss';
 
-.event {
-    @include flex-container(column);
-    padding: 50px;
+.central-div {
+    height: calc(100vh - 50.6667px);
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.event-card {
-    width: 100em;
-    height: 85vh;
+.event-card{
+    height: 90%;
+    width: 70%;
+    min-width: 350px;
+    padding: 0;
+    border-radius: 6px 6px 6px 6px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
 }
 
-.top-div {
-    @include flex-container(row, auto);
-    background-color: #f0f0f0;
+.top-row {
+    @include flex-container(row, space-between);
+    border-radius: 6px 6px 0 0;
+    width: 100%;
+    height: 50%;
 }
 
-.event-image {
-    height: 350px;
+.img-container {
+    border-radius: 6px 0 0 0;
+    display: flex;
+    width: 70%;
+    height: 100%;
 }
 
-.event-image img {
+.event-img {
     object-fit: cover;
-    padding: 0px;
-    min-width: 600px;
-    max-height: 350px;
+    border-radius: 6px 0 0 0;
+    width: 100%;
+    height: 100%;
 }
 
-.event-information {
-    @include flex-container(column, space-between);
-    min-width: 730px;
-    padding: 20px 10px;
+.event-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: rgba(241, 241, 241, 0.31);
+    width: 30%;
+    height: 100%;
+}
+
+.date {
+    padding: 30px 0px 0px 0px;
+    word-wrap: break-word;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
+    word-spacing: 2px;
 }
 
+.date-div {
+    display: flex;
+    flex-direction: row;
+}
+
+.date-time {
+    color: $yonder-blue;
+    font-family: Quicksand;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.date-day {
+    font-size: 27px;
+    font-weight: 500;
+    color: $yonder-pink;
+    margin-right: 5px;
+}
+
+.date-month-and-year {
+    font-size: 21px;
+    font-weight: 400;
+    color: $yonder-blue;    
+}
+
+.title {
+    margin-top: 10%;
+    overflow: hidden;
+    align-self: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    color: $yonder-blue;
+    font-family: Quicksand;
+}
+
+.location {
+    display: flex;
+    margin-top: auto;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.location-icon {
+    color: $yonder-pink;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+}
+
+.location-text {
+    margin-left: 10px;
+    color: $yonder-blue;
+    font-weight: 500;
+}
+
+.middle-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    border-top: 1px solid rgba(170, 170, 170, 0.442);
+    border-bottom: 1px solid rgba(170, 170, 170, 0.442);
+    background-color: rgba(241, 241, 241, 0.31);
+    height: 7%;
+}
+
+.disclaimer-text {
+    align-self: center;
+    font-size: small;
+    color: $yonder-blue;
+    padding-left: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+}
 
 .admin-buttons {
-    @include flex-container(column, flex-start);
-    margin-top: 15px;
-    margin-right: 20px;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    height: 25%;
 }
 
 .admin-buttons-style {
-    background-color: transparent;
-    border: none;
-    transform: scale(1.8);
-}
-
-.event-title {
-    font-size: 1.8rem;
-}
-
-.join-deadline {
-    @include flex-container(auto, space-between);
-    gap: 5px;
-    color: #0f0f0f;
+    display: flex;
+    justify-content: center;
     text-align: center;
-}
-
-.start-date, .deadline-date {
-    @include flex-container(column);
-    padding: 0;
-    margin: 0;
-}
-
-.deadline-date, .helper-text p {
-    color: #585858;
-}
-
-.helper-text {
-    @include flex-container(auto, flex-end);
-}
-
-.helper-text p {
-    padding: 0;
-    margin: 0;
-    margin-right: 7px;
-}
-
-.required-participants {
-    color: green;
-}
-
-.fee-icon-row {
-    @include flex-container(auto, space-between);
-    align-items: center;
-}
-
-.event-fee {
-    font-size: 20px;
-}
-
-.category-icon {
-   width: 50px;
-   height: auto;
-}
-
-.default-message {
-    margin-top: 5px;
-}
-
-.participants-data, .participants-card {
-    @include flex-container(row, flex-end);
-    align-items: baseline;
-    gap: 10px;
-}
-
-.participants-card {
-    cursor: pointer;
-}
-
-.participants-card:hover {
+    padding-left: 1px;
+    margin: 10px;
+    background-color: $yonder-white;
     color: $yonder-pink;
+    flex-direction: row;
+    overflow: hidden;
+    height: auto;
+    min-width: 100px;
+    border-radius: 20px;
+    border: 1px solid $yonder-pink;
+}
+
+.admin-buttons-style:hover {
+    background-color: $yonder-pink;
+    color: $yonder-white;
+    transform: 200ms;
+}
+
+.admin-icon {
+    font-size: 20px;
+    vertical-align: middle;
 }
 
 .join-button {
-    background-color: $yonder-blue;
-    color: white;
+    padding-left: 14px;
+    min-height: 36px;
 }
 
-.join-button:enabled:hover {
-    background-color: $yonder-pink;
-    transition: background-color 100ms linear;
-}
-
-.bottom-div {
+.bottom-row {
     display: flex;
-    height: 53vh;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 0 6px 6px;
+    height: 43%;
 }
 
 .event-description {
     padding: 20px;
-    @include flex-container(column);
-    word-wrap: break-word;
-}
-
-.event-descripton-text {
-    margin-bottom: 20px;
-    align-self: flex-start;
-}
-
-.tags-list {
-    margin-top: auto;
-}
-
-.event-details {
-    @include flex-container(column, auto);
-    margin-left: auto;
-    align-items: flex-end;
-    gap: 20px;
-    align-self: flex-end;
-    min-width: 330px;
-    margin-top: 20px;
-    padding: 20px;
-    margin-right: 220px;
-}
-
-.location {
-    margin: 0;
-}
-
-.location-text {
-    margin: 0;
-}
-.date {
-    margin: 0;
-}
-
-.host {
-    margin: 0;
-}
-
-.event-details-text {
-    @include flex-container(column);
+    font-family: Quicksand;
+    font-weight: 800;
 }

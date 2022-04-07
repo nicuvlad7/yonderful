@@ -1,95 +1,49 @@
-<div class="event">
+<div class="central-div">
     <mat-card class="event-card">
-        <div class="top-div">
-            <div class="event-image">
-                <img  [src]="event.backgroundImage != 'string' ? event.backgroundImage : 'https://media.istockphoto.com/photos/baby-husky-puppy-playing-in-the-park-picture-id989949432?k=20&m=989949432&s=170667a&w=0&h=SWbImVzYQZnWUerppitlWdqDo3rAfaztstpbqiO2Pjo='" alt="">
+        <div class="top-row">
+                <div class="img-container">
+                    <img class="event-img" src="https://www.zooplus.ro/ghid/wp-content/uploads/2021/11/Husky-Siberieni-inhamati-la-sanie.jpg">
+                </div>
+                <div class="event-info">
+                    <time class="date">
+                        <div class="date-div">
+                            <p class="date-day">{{event.startingDate | date:'dd'}}</p>
+                            <p class="date-month-and-year">{{event.startingDate | date:'MMM y'}}</p>
+                        </div>
+                        <p class="date-time">{{event.startingDate | date:'HH:mm'}}</p>
+                    </time>
+                    <!-- <h2 class="title">{{ event.title }}</h2> -->
+                    <h2 class="title">Marea plimbare a tuturor cainilor cuminti!</h2>
+                    <div class="location">
+                        <mat-icon class="location-icon">explore</mat-icon>
+                        <p class="location-text">Location: {{location}}</p>
+                    </div>
+                </div>
+        </div>
+        <div class="middle-row">
+            <p class="disclaimer-text">*event will be canceled if minimum attendance is not met*</p>
+            <div class="buttons">
+                <div class="admin-buttons" *ngIf="isHostMode">
+                    <button mat-raised-button class="admin-buttons-style">
+                        <mat-icon class="admin-icon">edit</mat-icon>
+                        Edit
+                    </button>
+                    <button mat-raised-button class="admin-buttons-style" (click)="deleteEvent()">
+                        <mat-icon class="admin-icon">clear</mat-icon>
+                        Delete
+                    </button>
+                </div>
             </div>
-
-            <div class="event-information">
-                <div>
-                    <div class="helper-text">
-                        <p>Join until</p>
-                    </div>
-                    <div class="join-deadline">
-                        <div class="start-date">
-                            <p class="start-date">{{ event.startingDate | date:'dd.mm.yyyy' }}</p>
-                            <p class="start-time">{{ event.startingDate | date:'HH:ss' }}</p>
-                        </div>
-                        <div class="deadline-date">
-                            <p class="deadline-date">{{event.joinDeadline | date:'dd.mm.yyyy'}}</p>
-                            <p class="deadline-time">{{event.joinDeadline | date:'HH:ss'}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title-date">
-                        <!-- <h2 class="event-title">{{ event.title }}</h2> -->
-                        <h2 class="event-title">SOCIAL & ROLLERSKATING </h2>
-                        
-                    </div>
-                    <div class="admin-buttons" *ngIf="isHostMode"}}>
-                        <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                        <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
-                    </div>
-                    <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
-                </div>
-                <div class="fee-icon-row">
-                    <div class="event-fee">{{event.fee}} lei</div>
-                    <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
-                </div>
+            <div class="buttons">
+                <button mat-raised-button class="admin-buttons-style join-button">Join</button>
             </div>
         </div>
-        <div class="middle-div">
-            <div class="default-message">Event will automatically cancel if minimum number of participants is not met by deadline</div>
-            <div class="participants-data">
-                <div class="participants-card" (click)="openParticipantsDialog()">
-                    <div class="bold-element">Participants: </div>
-                    <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
-                </div>
-                <button class="join-button" mat-flat-button>Join</button>
+        <div class="bottom-row">
+            <div class="event-fee">
+                
             </div>
-        </div>
-        <div class="bottom-div">
             <div class="event-description">
-                <!-- <div class="event-descripton-text">{{event.description}}</div> -->
-                <div class="event-descripton-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-                <mat-chip-list 
-                   class="tags-list"   
-                    cdkDropList 
-                    cdkDropListOrientation="horizontal">
-                    <mat-chip
-                        class="tag"
-                        cdkDrag
-                        *ngFor="let tag of tagsList">
-                            {{tag}}
-                    </mat-chip>
-                </mat-chip-list>
-            </div>
-            <div class="event-details">
-                <div class="event-details-text">
-                    <div class="location-text">
-                        <h2 class="location">Location:</h2>
-                        <div class="event-location-details">
-                            <div>{{event.eventLocation.street}} {{event.eventLocation.address}}</div>
-                            <div>{{event.eventLocation.city}}, {{event.eventLocation.province}}</div>
-                            <div><a href={{getMapLink()}}>View Map</a></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="date">Date & Time:</h2>
-                        <div class="starting-date">{{event.startingDate | date:'dd.mm.yyyy, HH:ss'}} -</div>
-                        <div>{{event.endingDate | date:'dd.mm.yyyy, HH:ss'}}</div>
-                    </div>
-                    <div>
-                        <h2 class="host">Host:</h2>
-                        <div class="host-details">
-                            <div>Email: {{event.contactEmail}}</div>
-                            <div>Phone: {{event.contactPhone}}</div>
-
-                        </div>
-                    </div>
-                </div>
-
+                <p class="event-description-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
             </div>
         </div>
     </mat-card>
