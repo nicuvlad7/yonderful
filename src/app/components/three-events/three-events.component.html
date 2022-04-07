@@ -1,0 +1,8 @@
+<div class="component-wrapper">
+    <div *ngFor="let event of eventsList">
+        <div *ngIf="event">
+            <app-event-card (click)="navigateToEventView(event.id)" [event]="event"></app-event-card>
+        </div> 
+    </div>
+</div>
+

@@ -3,9 +3,17 @@
     <div class="event-form-header">
         <h1> {{ pageTitle }}</h1>
 
-        <button mat-fab color="primary" class="event-button" (click)="onEventAction()" [disabled]="!isEventFormValid()">
-                <mat-icon class="button-icon">save</mat-icon>
-        </button>
+        <div class="action-container">
+            <button mat-raised-button type="button" class="main-button main-button-action" (click)="onEventAction()" [disabled]="!isEventFormValid()">
+                <mat-icon>save</mat-icon>
+                Save
+            </button>
+
+            <button mat-raised-button type="button" class="main-button main-button-cancel" (click)="onEventCancel()">
+                <mat-icon>cancel</mat-icon>
+                Cancel
+            </button>
+        </div>
       
     </div>
 
@@ -36,7 +44,7 @@
                                 <mat-error *ngIf="
                                     !eventGeneralForm.get('title')?.hasError('required') &&
                                     eventGeneralForm.get('title')?.hasError('maxlength')">
-                                    Event title must have <strong>at most</strong> 15 characters
+                                    Event title must have <strong>at most</strong> 25 characters
                                 </mat-error>
 
                                 <mat-error *ngIf="eventGeneralForm.get('title')?.hasError('required')">

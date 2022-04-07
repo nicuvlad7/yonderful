@@ -61,3 +61,31 @@ label {
     color: $yonder-blue;
     font-size: larger;
 }
+
+// MAIN BUTTONS STYLES
+.main-button {
+	@include flex-container(row);
+	height: auto;
+	width: 120px;
+	border-radius: 20px;
+
+	mat-icon {
+		font-size: 20px;
+	}
+}
+
+.button-label {
+	@include flex-container(row, space-between);
+	align-items: center;
+}
+
+.main-button-action {
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+
+.main-button-cancel {
+  color: $yonder-pink;
+	border: 1px solid $yonder-pink;
+	margin-left: 20px;
+}
