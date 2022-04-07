@@ -156,9 +156,19 @@
     margin-right: 5px;
 }
 
+.join-button-active {
+    background-color: $join-green;
+}
 
-.join-button {
-    background-color: lightgreen;
+.join-button-disabled {
+    background-color: $join-disabled;
+}
+
+.leave-button {
+    background-color: $leave-red;
+}
+
+.template-button {
     margin-left: 25px;
     transform: scale(1.35);
 }
