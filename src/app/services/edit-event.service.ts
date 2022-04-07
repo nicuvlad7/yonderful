@@ -31,8 +31,8 @@ export class EditEventService {
     return this.httpService.getById<UserDetails>(currentUserId, RouteEndpoints.USER + '/Id')
   }
 
-  fetchCurrentEvent(currentEventId: number): Observable<IUserEventResponse> {
-    return this.httpService.getById<IUserEventResponse>(currentEventId, RouteEndpoints.EVENT);
+  fetchCurrentEvent(currentEventId: number): Observable<IEvent> {
+    return this.httpService.getById<IEvent>(currentEventId, RouteEndpoints.EVENT);
   }
   
   postEvent(event: IEvent): Observable<IEvent> {
