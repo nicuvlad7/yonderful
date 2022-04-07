@@ -29,6 +29,7 @@ import { EventCardComponent } from './components/event-card/event-card.component
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ThreeEventsComponent } from './components/three-events/three-events.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         ParticipantsDialogComponent,
 		UserDetailsComponent,
         NotFoundComponent,
+        ThreeEventsComponent,
     ],
     imports: [
         BrowserModule,

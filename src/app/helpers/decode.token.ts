@@ -3,11 +3,10 @@ import jwt_decode from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class DecodeToken {
-    token = JSON.parse(localStorage.getItem('currentUser')).token;
+    token: string;
     tokenInfo: any;
 
     constructor() {
-        this.initialiseLocalStorage();
     }
 
     getDecodedAccessToken(token: string): any {
@@ -22,7 +21,12 @@ export class DecodeToken {
         return this.tokenInfo.UserID;
     }
 
-    initialiseLocalStorage() {
+    initializeTokenInfo() {
+        this.token = JSON.parse(localStorage.getItem('currentUser')).token;
         this.tokenInfo = this.getDecodedAccessToken(this.token); // decode token
+    }
+
+    resetToken() {
+        this.tokenInfo = '';
     }
 }
