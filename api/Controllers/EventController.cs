@@ -146,7 +146,7 @@ namespace api.Controllers
 		}
 
 		private async Task<EventDto> checkBackgroundImage(EventDto eventDto){
-			if(eventDto.BackgroundImage == ""){
+			if(string.IsNullOrEmpty(eventDto.BackgroundImage)){
 				var eventCategory = await _categoryService.GetCategory(eventDto.CategoryId);
 				eventDto.BackgroundImage = await _pictureService.GetPictureContent(eventCategory.DefaultBackgroundId.ToString());
 				return eventDto;
