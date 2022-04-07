@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, takeUntil } from 'rxjs';
+import { forkJoin, Observable, takeUntil } from 'rxjs';
 import { DecodeToken } from 'src/app/helpers/decode.token';
 import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
@@ -18,6 +18,7 @@ import { EventService } from 'src/app/services/event.service';
 	styleUrls: ['./event-page.component.scss'],
 })
 export class EventPageComponent implements OnInit {
+	loading = true;
 	eventId: number;
 	isHostMode: true;
 	event: IEvent = {
@@ -73,13 +74,19 @@ export class EventPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-		this.event = result;
-		this.intializeTagsList();
-			this.initalizeCategoryIcon();
+		forkJoin([
+			this.eventService.getEvent(this.eventId),
+			this.attendanceService.getParticipantsForEvent(this.eventId)
+		]).subscribe(result => {
+			this.event = result[0];
+			this.participantsArray = result[1];
 			this.currentUserId = this.decodeToken.getCurrentUserId();
-			this.getCurrentParticipants();
+			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.userId == this.currentUserId) === undefined;
+			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
+			this.intializeTagsList();
+			this.initalizeCategoryIcon();
 			this.checkJoinDeadlineOverdue();
+			this.loading = false;
 		});
 	}
 
@@ -96,39 +103,10 @@ export class EventPageComponent implements OnInit {
 		this.tagsList = this.event.tags.split('*');
 	}
 
-	getCurrentParticipants(): void {
-		this.attendanceService.getParticipantsForEvent(this.eventId).subscribe((result) => {
-			this.participantsArray = result;
-			this.checkIfCurrentuserAttends();
-			this.checkIfMaximumReached();
-		})
-	}
-
-	checkIfCurrentuserAttends(): void {
-		this.isCurrentUserNotAttending = true;
-		this.participantsArray.forEach(element => {
-			if (element.userId == this.currentUserId) {
-				this.isCurrentUserNotAttending = false;
-			}
-		});
-	}
-
-	checkIfMaximumReached(): void {
-		if (this.participantsArray.length == this.event.maximumParticipants) {
-			this.isMaximumReached = true;
-		} else {
-			this.isMaximumReached = false;
-		}
-	}
-
 	checkJoinDeadlineOverdue(): void {
 		var currentDateTime = new Date();
 		var deadlineDate = new Date(this.event.joinDeadline);
-		if (currentDateTime > deadlineDate) {
-			this.isDeadlineOverdue = true;
-		} else {
-			this.isDeadlineOverdue = false;
-		}
+		this.isDeadlineOverdue = currentDateTime > deadlineDate;
 	}
 
 	getMapLink(): string {
@@ -190,14 +168,16 @@ export class EventPageComponent implements OnInit {
 			joinDate: new Date()
 		};
 		this.attendanceService.addNewAttendance(newAttendance).subscribe((result) => {
-			this.getCurrentParticipants();
+			this.isCurrentUserNotAttending = false;
+			this.participantsArray.push(newAttendance);
 		});
 		
 	}
 
 	leaveEvent(): void {
 		this.attendanceService.deleteAttendance(this.eventId, this.currentUserId).subscribe((result) => {
-			this.getCurrentParticipants();
+			this.isCurrentUserNotAttending = true;
+			this.participantsArray = this.participantsArray.filter(participant => participant.userId != this.currentUserId);
 		});
 	}
 }
