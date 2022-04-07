@@ -48,6 +48,13 @@ export class HttpService {
     return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
   }
 
+  deleteByTwoId<T>(id1: number, id2: number, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint) + "/" + id1 + ", " + id2;
+
+    return this.httpClient.delete<T>(requestUrl, { headers: this.headers });
+  }
+
   private setRequestHeaders(): void {
     // TODO: set authorization token
     this.headers = new HttpHeaders()
