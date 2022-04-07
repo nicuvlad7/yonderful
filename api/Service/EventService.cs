@@ -211,6 +211,8 @@ namespace YonderfulApi.Service
 
 		private async Task<bool> VerifyCategory(Event myEvent)
 		{
+			//to-do:
+			//make it work with SingleOrDefaultAsync();
 			var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
 			if (eventsWithSameCategory.Count == 1)
 			{
