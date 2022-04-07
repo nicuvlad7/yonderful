@@ -19,6 +19,7 @@
 				<span
 					matTooltip="You cannot delete categories that have an associated event."
 					[matTooltipDisabled]="!categoryCard.hasEvents"
+					[matTooltipPosition]="'right'"
 				>
 					<button
 						mat-raised-button
@@ -70,6 +71,7 @@
 										? 'You cannot modify the title of categories with associated events.'
 										: null
 								"
+								[matTooltipPosition]="'left'"
 							>
 								<input
 									matInput
