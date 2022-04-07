@@ -119,7 +119,7 @@
                                 </mat-icon>
 
                                 <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('endTimeError')">
-                                    End time must be less than the start time
+                                    End time must be greater than the start time
                                 </mat-error>
 
                                 <mat-error
@@ -200,17 +200,25 @@
                     </div>
 
 
-                    <div class="event-form-item-wrapper" formGroupName="joinEvent">
+                    <div class="event-form-item-wrapper" formGroupName="eventDates">
                         <div class="event-form-item-container">
                             <label>Join Deadline</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="joinDeadlineDate" [min]="currentDate"
-                                    [max]="eventGeneralForm.get('eventDates')?.get('startDate')?.value">
+                                    formControlName="joinDeadlineDate" 
+                                    [min]="currentDate"
+                                    [max]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
+                                   
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #deadlineDatePicker></mat-datepicker>
+                                
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineDate')?.hasError('joinDeadlineDateError')">
+                                    Deadline date for event should be less than the starting date
+                                </mat-error>
+                                
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineDate')?.hasError('required')">
                                     Deadline date for event is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -224,6 +232,11 @@
                                 <mat-icon matSuffix (click)="deadlineTimePicker.open()">
                                     watch_later
                                 </mat-icon>
+
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('joinDeadlineTimeError')">
+                                    Join deadline time must be less than the start time
+                                </mat-error>
+
                                 <mat-error
                                     *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('required')">
                                     Deadline time for event is <strong>required</strong>

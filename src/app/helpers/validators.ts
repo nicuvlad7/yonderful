@@ -12,9 +12,6 @@ export function eventEndTimeValidator(): ValidatorFn {
 
         if (!startTime || !endTime) return null;
 
-        eventDates.get('startDate').updateValueAndValidity({onlySelf: true});
-        eventDates.get('endDate').updateValueAndValidity({ onlySelf: true });
-        eventDates.get('startTime').updateValueAndValidity({ onlySelf: true });
         eventDates.get('endTime').updateValueAndValidity({ onlySelf: true });
 
         // Crate startDate and endDate objects with complete user input information
@@ -32,7 +29,49 @@ export function eventEndTimeValidator(): ValidatorFn {
         eventDates.get('endTime')?.setErrors(error);
         
         return error;
-};
+    };
+}
+
+export function eventJoinTimeValidator(): ValidatorFn {
+    return (eventDates: AbstractControl): ValidationErrors | null => {
+        let startDate: Date = eventDates.get('startDate')?.value;
+        let startTime: string = eventDates.get('startTime')?.value;
+
+        let joinDeadlineDate: Date = eventDates.get('joinDeadlineDate')?.value;
+        let joinDeadlineTime: string = eventDates.get('joinDeadlineTime')?.value;
+
+        if (!startDate || !joinDeadlineDate) return null;
+
+        if (!startTime || !joinDeadlineTime) return null;
+
+        eventDates.get('joinDeadlineTime').updateValueAndValidity({ onlySelf: true });
+        eventDates.get('joinDeadlineDate').updateValueAndValidity({ onlySelf: true });
+        
+        startDate.setHours(0, 0, 0, 0);
+        joinDeadlineDate.setHours(0, 0, 0, 0);
+
+        if (joinDeadlineDate.getTime() > startDate.getTime()) {
+            const error: ValidationErrors = { joinDeadlineDateError: true };
+            eventDates.get('joinDeadlineDate')?.setErrors(error);
+            return error;
+        }
+
+        let startTimeDict: { hours: number, minutes: number } = timeStringParser(eventDates.get('startTime')?.value);
+        startDate.setHours(startTimeDict.hours, startTimeDict.minutes, 0, 0);
+
+        let joinDeadlineTimeDict: { hours: number, minutes: number } = timeStringParser(eventDates.get('joinDeadlineTime')?.value);
+        joinDeadlineDate.setHours(joinDeadlineTimeDict.hours, joinDeadlineTimeDict.minutes, 0, 0);
+
+
+        if (joinDeadlineDate.getTime() < startDate.getTime()) return null;
+
+        const error: ValidationErrors = { joinDeadlineTimeError: true };
+
+        eventDates.get('joinDeadlineTime')?.setErrors(error);
+
+        return error;
+
+    };
 }
 
 export function eventParticipantsIntervalValidator(): ValidatorFn {
