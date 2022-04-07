@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="!loading">
     <div class="page-container" *ngIf="areJoinedEvents || areHostedEvents else missingBothEventCategories">
         <div class="joined-events">
             <div class="events-top-row">

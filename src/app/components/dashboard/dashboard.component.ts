@@ -13,6 +13,7 @@ import { EventCardComponent } from '../event-card/event-card.component';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    loading: boolean = true;
     dashboardEvents: IDashboardEvents;
     currentUserId: number;
     areJoinedEvents: boolean;
@@ -25,29 +26,10 @@ export class DashboardComponent implements OnInit {
         this.currentUserId = this.decodeToken.getCurrentUserId();
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
             this.dashboardEvents = result;
-            this.checkIfJoinedEvents();
-            this.checkIfHostedEvents();
+            this.areJoinedEvents = this.dashboardEvents.joinedEvents.length !== 0;
+            this.areHostedEvents = this.dashboardEvents.hostedEvents.length != 0;
+            this.loading = false;
         });
-    }
-
-    checkIfJoinedEvents() {
-        if (this.dashboardEvents.joinedEvents.length == 0) {
-            this.areJoinedEvents = false;
-        } else {
-            this.areJoinedEvents = true;
-        }
-    }
-
-    checkIfHostedEvents() {
-        if (this.dashboardEvents.hostedEvents.length == 0) {
-            this.areHostedEvents = false;
-        } else {
-            this.areHostedEvents = true;
-        }
-    }
-
-    navigateToEventView(eventId: number) {
-        this.router.navigate([RouteValues.EVENT_DETAILS + "/" + eventId]);
     }
 
     navigateToAllEvents() {
