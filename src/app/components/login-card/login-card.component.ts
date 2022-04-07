@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DecodeToken } from 'src/app/helpers/decode.token';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { RouteValues } from '../../models/constants';
@@ -24,11 +25,10 @@ export class LoginCardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: AuthenticationService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private decodeToken: DecodeToken
   ) {
-      if (this.loginService.currentUserValue) { 
-          this.router.navigate([RouteValues.DASHBOARD]);
-      }
+
   }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class LoginCardComponent implements OnInit {
       email: this.loginForm.get('loginEmailControl')!.value,
       password: this.loginForm.get('loginPasswordControl')!.value,
     };
-    this.loginService.login(user).subscribe({
+    this.loginService.login(user).subscribe({ 
       error: (error: Error) => {
         this.snackBar.open(error.message, '', {
           duration: 3000

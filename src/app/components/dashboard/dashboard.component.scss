@@ -1,13 +1,117 @@
-.page-container {
+@use "../../variables.scss";
+@import '../../mixins.scss';
+
+.page-wrapper {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
-.event-container {
-    width: 15%;
+.page-container {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    margin-top: 50px;
+    @include flex-container(column, flex-start);
+}
+
+.joined-events {
+    @include flex-container(column, flex-start);
+    justify-content: space-between;
+    background-color: variables.$yonder-light-blue;
+    padding: 20px;
+    overflow: auto;
+}
+
+.hosted-events {
+    margin-top: 70px;
+    @include flex-container(column, flex-start);
+    background-color: variables.$yonder-light-blue;
+    padding: 20px;
+    overflow: auto;
+}
+
+.event-title {
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+
+.events-top-row {
+    @include flex-container(row, flex-start);
+    justify-content: space-between;
+}
+
+.buttons {
+    @include flex-container(row, flex-start);
+    font-size: 2vh;
+    color: variables.$yonder-pink;
+    background-color: white;
+    justify-content: space-between;
+}
+
+.buttons-text {
+    margin-top: 10px;
+    @include flex-container(row, flex-start);
+    justify-content: space-between;
+}
+
+.button-inner-text {
+    margin-left: 10px;
+    margin-top: -3px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+
+.event-cards {
+    margin-top: 30px;
+    @include flex-container(row, flex-start);
+    justify-content: space-evenly;
+}
+
+
+.missing-button {
+    align-self: center;
+    margin-bottom: 120px;
+    margin-top: 50px;
+    color: variables.$yonder-pink;
+    background-color: white;
+    font-size: 3vh;
+    padding-bottom: 10px;
+}
+
+.message-wrapper {
+    align-self: center;
+    @include flex-container(column, flex-start);
+}
+
+.both-missing-button {
+    align-self: center;
+    margin-bottom: 40px;
+    margin-top: 50px;
+    color: variables.$yonder-pink;
+    background-color: white;
+    font-size: 3vh;
+    padding-bottom: 10px;
+    width: 300px;
+}
+
+.no-events-text {
+    align-self: center;
+    font-size: 4vh;
+}
+
+.or {
+    align-self: center;
+    font-size: 4vh;
+}
+
+.missing-button-inner-text {
+    margin-top: 10px;
     align-self: center;
 }
 
+.three-events-component {
+    width: 100%;
+}
 
