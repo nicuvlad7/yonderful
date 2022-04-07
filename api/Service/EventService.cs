@@ -53,7 +53,7 @@ namespace YonderfulApi.Service
 			var updateCategory = await _categoryService.GetCategory(eventDto.CategoryId);
 			updateCategory.HasEvents = true;
 			await _categoryService.PutCategory(eventDto.CategoryId, updateCategory);
-			
+
 			return newEvent;
 		}
 
@@ -66,13 +66,12 @@ namespace YonderfulApi.Service
 				return false;
 			}
 
-			var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
-			if (eventsWithSameCategory.Count == 1)
+			if (await VerifyCategory(myEvent))
 			{
 				var updateCategory = await _categoryService.GetCategory(myEvent.CategoryId);
 				updateCategory.HasEvents = false;
 				await _categoryService.PutCategory(myEvent.CategoryId, updateCategory);
-			}
+			};
 
 			_context.Events.Remove(myEvent);
 			return await _context.SaveChangesAsync() > 0;
@@ -107,13 +106,12 @@ namespace YonderfulApi.Service
 			}
 			if (eventToPut.CategoryId != myEvent.CategoryId)
 			{
-				var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
-				if (eventsWithSameCategory.Count == 1)
+				if (await VerifyCategory(myEvent))
 				{
 					var updateCategory = await _categoryService.GetCategory(myEvent.CategoryId);
 					updateCategory.HasEvents = false;
 					await _categoryService.PutCategory(myEvent.CategoryId, updateCategory);
-				}
+				};
 			}
 
 			myEvent.CategoryId = eventToPut.CategoryId;
@@ -209,6 +207,16 @@ namespace YonderfulApi.Service
 								.Take(3)
 								.ToListAsync();
 			return futureJoinedEvents;
+		}
+
+		private async Task<bool> VerifyCategory(Event myEvent)
+		{
+			var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
+			if (eventsWithSameCategory.Count == 1)
+			{
+				return true;
+			}
+			return false;
 		}
 	}
 }

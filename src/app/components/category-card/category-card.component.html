@@ -65,50 +65,41 @@
 					<div class="title-input-container">
 						<label class="category-title"> Title </label>
 						<mat-form-field appearance="outline">
-							<span
-								[matTooltip]="
-									categoryCard.hasEvents
-										? 'You cannot modify the title of categories with associated events.'
-										: null
-								"
-								[matTooltipPosition]="'left'"
-							>
-								<input
-									matInput
-									type="text"
-									formControlName="titleControl"
-									class="title-input"
-								/>
+							<input
+								matInput
+								type="text"
+								formControlName="titleControl"
+								class="title-input"
+							/>
 
-								<mat-error
-									*ngIf="
-										categoryForm
-											.get('titleControl')!
-											.hasError('required') &&
-										categoryForm.touched
-									"
-									>Title is required.</mat-error
-								>
-								<mat-error
-									*ngIf="
-										categoryForm
-											.get('titleControl')!
-											.hasError('maxlength') &&
-										categoryForm.touched
-									"
-									>Title cannot be longer than 24
-									characters.</mat-error
-								>
-								<mat-error
-									*ngIf="
-										categoryForm
-											.get('titleControl')!
-											.hasError('pattern') &&
-										categoryForm.touched
-									"
-									>Title can only contain letters.</mat-error
-								>
-							</span>
+							<mat-error
+								*ngIf="
+									categoryForm
+										.get('titleControl')!
+										.hasError('required') &&
+									categoryForm.touched
+								"
+								>Title is required.</mat-error
+							>
+							<mat-error
+								*ngIf="
+									categoryForm
+										.get('titleControl')!
+										.hasError('maxlength') &&
+									categoryForm.touched
+								"
+								>Title cannot be longer than 24
+								characters.</mat-error
+							>
+							<mat-error
+								*ngIf="
+									categoryForm
+										.get('titleControl')!
+										.hasError('pattern') &&
+									categoryForm.touched
+								"
+								>Title can only contain letters.</mat-error
+							>
 						</mat-form-field>
 					</div>
 
