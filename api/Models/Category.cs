@@ -10,6 +10,6 @@ namespace YonderfulApi.Models
 		public string Title { get; set; }
 		public int IconId { get; set; }
 		public int DefaultBackgroundId { get; set; }
-
+		public bool HasEvents { get; set; }
 	}
 }

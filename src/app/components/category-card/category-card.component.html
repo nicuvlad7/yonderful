@@ -1,32 +1,57 @@
 <div class="content-wrapper content-center">
-
 	<div class="content-container no-padding">
-
 		<div class="content-header">
-
 			<div class="header">
 				<h1 class="no-padding">{{ pageTitle }}</h1>
 			</div>
 
 			<div class="action-container">
-				<button mat-raised-button type="button" class="icon-button icon-button-action" (click)="onEditClick()" *ngIf="!editMode">
+				<button
+					mat-raised-button
+					type="button"
+					class="icon-button icon-button-action"
+					(click)="onEditClick()"
+					*ngIf="!editMode"
+				>
 					<mat-icon>edit</mat-icon>
 					Edit
 				</button>
-			
-				<button mat-raised-button type="button" class="icon-button icon-button-cancel" [disabled]="!canMakeChanges" (click)="onDelete()"
-					*ngIf="!editMode">
-					<mat-icon>delete</mat-icon>
-					Delete
-				</button>
-			
-				<button mat-raised-button type="submit" class="icon-button icon-button-action" *ngIf="editMode" 
-				(click)="onSubmit()" [disabled]="!categoryForm.valid">
+				<span
+					matTooltip="You cannot delete categories that have an associated event."
+					[matTooltipDisabled]="!categoryCard.hasEvents"
+				>
+					<button
+						mat-raised-button
+						type="button"
+						class="icon-button icon-button-cancel"
+						[disabled]="categoryCard.hasEvents"
+						(click)="onDelete()"
+						*ngIf="!editMode"
+					>
+						<mat-icon>delete</mat-icon>
+						Delete
+					</button>
+				</span>
+
+				<button
+					mat-raised-button
+					type="submit"
+					class="icon-button icon-button-action"
+					*ngIf="editMode"
+					(click)="onSubmit()"
+					[disabled]="!categoryForm.valid"
+				>
 					<mat-icon>save</mat-icon>
 					Save
 				</button>
-			
-				<button mat-raised-button type="button" class="icon-button icon-button-cancel" (click)="onDiscard()" *ngIf="editMode && !isParamNan">
+
+				<button
+					mat-raised-button
+					type="button"
+					class="icon-button icon-button-cancel"
+					(click)="onDiscard()"
+					*ngIf="editMode && !isParamNan"
+				>
 					<mat-icon>close</mat-icon>
 					Close
 				</button>
@@ -35,38 +60,54 @@
 
 		<div class="category-form-shadow">
 			<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-				
 				<div class="title-action-container">
-					
 					<div class="title-input-container">
 						<label class="category-title"> Title </label>
-						
 						<mat-form-field appearance="outline">
-							<input matInput
-								type="text" 
-								formControlName="titleControl" 
-								class="title-input"/>
+							<span
+								[matTooltip]="
+									categoryCard.hasEvents
+										? 'You cannot modify the title of categories with associated events.'
+										: null
+								"
+							>
+								<input
+									matInput
+									type="text"
+									formControlName="titleControl"
+									class="title-input"
+								/>
 
-							<mat-error *ngIf="
-								categoryForm
-								.get('titleControl')!
-								.hasError('required') &&
-								categoryForm.touched
-								">Title is required.</mat-error>
-							<mat-error *ngIf="
-								categoryForm
-								.get('titleControl')!
-								.hasError('maxlength') &&
-								categoryForm.touched
-								">Title cannot be longer than 24
-								characters.</mat-error>
-							<mat-error *ngIf="
-								categoryForm
-								.get('titleControl')!
-								.hasError('pattern') && categoryForm.touched
-								">Title can only contain letters.</mat-error>
+								<mat-error
+									*ngIf="
+										categoryForm
+											.get('titleControl')!
+											.hasError('required') &&
+										categoryForm.touched
+									"
+									>Title is required.</mat-error
+								>
+								<mat-error
+									*ngIf="
+										categoryForm
+											.get('titleControl')!
+											.hasError('maxlength') &&
+										categoryForm.touched
+									"
+									>Title cannot be longer than 24
+									characters.</mat-error
+								>
+								<mat-error
+									*ngIf="
+										categoryForm
+											.get('titleControl')!
+											.hasError('pattern') &&
+										categoryForm.touched
+									"
+									>Title can only contain letters.</mat-error
+								>
+							</span>
 						</mat-form-field>
-
 					</div>
 
 					<!-- <div class="action-container">
@@ -90,14 +131,14 @@
 							<mat-icon>close</mat-icon>
 						</button>
 					</div> -->
-					
 				</div>
 
 				<div class="upload-display-container">
 					<div class="upload-display-item">
 						<label class="margin-right-10">Background image</label>
-					
-						<img class="background-image"
+
+						<img
+							class="background-image"
 							*ngIf="
 								categoryForm.controls['backgroundControl'].valid
 							"
@@ -112,18 +153,24 @@
 							>Choose an image</span
 						>
 
-							<app-upload-file class="upload-item-background" controlName="backgroundControl" *ngIf="editMode" [form]="categoryForm"
-								runMode="base64">
-								<div class="optional-label">
-									Choose your background
-								</div>
-							</app-upload-file>
+						<app-upload-file
+							class="upload-item-background"
+							controlName="backgroundControl"
+							*ngIf="editMode"
+							[form]="categoryForm"
+							runMode="base64"
+						>
+							<div class="optional-label">
+								Choose your background
+							</div>
+						</app-upload-file>
 					</div>
 
 					<div class="upload-display-item">
 						<label class="margin-left-10">Icon</label>
-						
-						<img class="icon-image"
+
+						<img
+							class="icon-image"
 							*ngIf="categoryForm.controls['iconControl'].valid"
 							[src]="categoryForm.get('iconControl')!.value"
 						/>
@@ -133,16 +180,18 @@
 							>Choose an image</span
 						>
 
-						<app-upload-file [form]="categoryForm" controlName="iconControl" message="Choose your icon" *ngIf="editMode"
-							runMode="base64">
-							<div class="optional-label">
-								Choose your icon
-							</div>
+						<app-upload-file
+							[form]="categoryForm"
+							controlName="iconControl"
+							message="Choose your icon"
+							*ngIf="editMode"
+							runMode="base64"
+						>
+							<div class="optional-label">Choose your icon</div>
 						</app-upload-file>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-
 </div>

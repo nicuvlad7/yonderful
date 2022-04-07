@@ -12,6 +12,8 @@ namespace YonderfulApi.DTOs
 		public string Icon { get; set; }
 		[Required]
 		public string DefaultBackground { get; set; }
+		[Required]
+		public bool HasEvents { get; set; }
 
 	}
 }

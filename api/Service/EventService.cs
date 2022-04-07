@@ -16,13 +16,14 @@ namespace YonderfulApi.Service
 		private readonly IPictureService _pictureService;
 		private readonly ILocationService _locationService;
 		private readonly IMapper _mapper;
-
-		public EventService(DataContext context, IPictureService pictureService, ILocationService locationService, IMapper mapper)
+		private readonly ICategoryService _categoryService;
+		public EventService(DataContext context, IPictureService pictureService, ILocationService locationService, IMapper mapper, ICategoryService categoryService)
 		{
 			_context = context;
 			_pictureService = pictureService;
 			_locationService = locationService;
 			_mapper = mapper;
+			_categoryService = categoryService;
 		}
 
 		public async Task<Event> CreateEvent(EventDto eventDto)
@@ -48,16 +49,31 @@ namespace YonderfulApi.Service
 				Tags = eventDto.Tags,
 				BackgroundId = await _pictureService.CreatePictureByContent(eventDto.BackgroundImage)
 			};
+
+			var updateCategory = await _categoryService.GetCategory(eventDto.CategoryId);
+			updateCategory.HasEvents = true;
+			await _categoryService.PutCategory(eventDto.CategoryId, updateCategory);
+			
 			return newEvent;
 		}
 
 		public async Task<bool> DeleteEvent(int eventID)
 		{
 			var myEvent = await _context.Events.FindAsync(eventID);
+
 			if (myEvent == null)
 			{
 				return false;
 			}
+
+			var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
+			if (eventsWithSameCategory.Count == 1)
+			{
+				var updateCategory = await _categoryService.GetCategory(myEvent.CategoryId);
+				updateCategory.HasEvents = false;
+				await _categoryService.PutCategory(myEvent.CategoryId, updateCategory);
+			}
+
 			_context.Events.Remove(myEvent);
 			return await _context.SaveChangesAsync() > 0;
 		}
@@ -89,6 +105,17 @@ namespace YonderfulApi.Service
 			{
 				return null;
 			}
+			if (eventToPut.CategoryId != myEvent.CategoryId)
+			{
+				var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
+				if (eventsWithSameCategory.Count == 1)
+				{
+					var updateCategory = await _categoryService.GetCategory(myEvent.CategoryId);
+					updateCategory.HasEvents = false;
+					await _categoryService.PutCategory(myEvent.CategoryId, updateCategory);
+				}
+			}
+
 			myEvent.CategoryId = eventToPut.CategoryId;
 			myEvent.HostId = eventToPut.HostId;
 			myEvent.Title = eventToPut.Title;
@@ -159,7 +186,8 @@ namespace YonderfulApi.Service
 			return await eventsList.ToListAsync();
 		}
 
-		public async Task<IList<Event>> GetHostedEvents(int hostId){
+		public async Task<IList<Event>> GetHostedEvents(int hostId)
+		{
 			var hostedEvents = await _context.Events
 								.Where(ev => ev.HostId == hostId && ev.StartingDate >= DateTime.Now)
 								.OrderBy(ev => ev.StartingDate)
@@ -169,7 +197,8 @@ namespace YonderfulApi.Service
 			return hostedEvents;
 		}
 
-		public async Task<IList<Event>> GetFutureJoinedEvents(int hostId){
+		public async Task<IList<Event>> GetFutureJoinedEvents(int hostId)
+		{
 			var futureJoinedEvents = await _context.Attendance
 								.Where(att => att.UserId == hostId)
 								.Include(att => att.Event)
