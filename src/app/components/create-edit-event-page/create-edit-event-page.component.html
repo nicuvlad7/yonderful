@@ -138,7 +138,8 @@
                             <label>Category</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId">
+                                <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId"
+                                            placeholder="Select a category">
                                     <mat-option *ngFor="let category of categoryList.result" [value]="category.id">
                                         {{ category.title }}
                                     </mat-option>
