@@ -22,10 +22,10 @@ export class RouteValues {
 export class RouteEndpoints {
     static readonly EVENT = 'Event';
     static readonly CATEGORY = 'Category';
-    static readonly USER = 'User'
+    static readonly USER = 'User';
+    static readonly ATTENDANCE = 'Attendance';
 };
 
-export class SidenavItems
-{
+export class SidenavItems {
     static readonly CATEGORIES = 'Categories';
 };
