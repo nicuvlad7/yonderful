@@ -34,11 +34,8 @@ namespace YonderfulApi.Controllers
 
         [HttpGet("[action]/{eventId}")]
         public async Task<IActionResult> GetParticipants(int eventId){
-            var attendance = await _attendanceService.GetParticipants(eventId);
-            if(attendance == null){
-                return BadRequest("No participants for event found");
-            }
-            return Ok(_mapper.Map<IList<AttendanceDto>>(attendance));
+            var participants = await _attendanceService.GetParticipantsForEvent(eventId);
+			return Ok(_mapper.Map<IList<UserDetailsDto>>(participants));
         }
 
         [HttpGet]

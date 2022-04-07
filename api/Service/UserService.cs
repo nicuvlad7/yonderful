@@ -34,15 +34,6 @@ namespace YonderfulApi.Service
 			return userList;
 		}
 
-		public async Task<IList<User>> GetParticipantsForEvent(int eventId){
-			var attendance = await _context.Attendance
-								.Where(att => att.EventId == eventId)
-								.Include(att => att.User)
-								.Select(att => att.User)
-								.ToListAsync();
-			return attendance;
-		}
-
 		public async Task<User> PostUser(User user)
 		{
 			if (await UserExists(user.Email)) return null;

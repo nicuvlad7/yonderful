@@ -37,12 +37,6 @@ namespace YonderfulApi.Controllers
 			return Ok(_mapper.Map<UserDetailsDto>(user));
 		}
 
-		[HttpGet("[action]/{eventId}")]
-		public async Task<IActionResult> GetParticipantsForEvent(int eventId){
-			var participants = await _userService.GetParticipantsForEvent(eventId);
-			return Ok(_mapper.Map<IList<UserDetailsDto>>(participants));
-		}
-
 		[HttpGet("email/{email}")]
 		public async Task<IActionResult> GetUserByEmail(string email)
 		{

@@ -48,20 +48,19 @@ namespace api.Service
 			return attendance;
 		}
 
+		public async Task<IList<User>> GetParticipantsForEvent(int eventId){
+			var attendance = await _context.Attendance
+								.Where(att => att.EventId == eventId)
+								.Include(att => att.User)
+								.Select(att => att.User)
+								.ToListAsync();
+			return attendance;
+		}
+
 		public async Task<IList<Attendance>> GetEventsForUser(int UserId)
 		{
 			var attendance = await _context.Attendance
 									.Where(att => att.UserId == UserId)
-									.Include(i => i.User)
-									.Include(i => i.Event)
-									.ToListAsync();
-			return attendance;
-		}
-
-		public async Task<IList<Attendance>> GetParticipants(int EventId)
-		{
-			var attendance = await _context.Attendance
-									.Where(att => att.EventId == EventId)
 									.Include(i => i.User)
 									.Include(i => i.Event)
 									.ToListAsync();
@@ -93,7 +92,7 @@ namespace api.Service
 
 		public async Task<int> NumberOfParticipants(int EventId)
 		{
-			var members = await GetParticipants(EventId);
+			var members = await GetParticipantsForEvent(EventId);
 			return members.Count;
 		}
 

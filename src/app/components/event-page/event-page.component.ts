@@ -11,7 +11,7 @@ import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
-import { ParticipantsAttendanceService } from 'src/app/services/participants-attendance.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
 	selector: 'app-event-page',
@@ -27,7 +27,8 @@ export class EventPageComponent implements OnInit {
 	tagsList: String[] = [];
 	participantsNumber: number;
 	currentUserId: number;
-	participantsArray: IAttendance[];
+	currentUser: UserDetails;
+	participantsArray: UserDetails[];
 	isCurrentUserNotAttending: boolean;
 	isMaximumReached: boolean;
 	isDeadlineOverdue: boolean;
@@ -35,13 +36,13 @@ export class EventPageComponent implements OnInit {
 	constructor(
 		private categoryService: CategoryService,
 		private eventService: EventService,
-		private participantsService: ParticipantsAttendanceService,
 		private sanitizer: DomSanitizer,
 		private readonly activatedRoute: ActivatedRoute,
 		private dialogService: DialogService,
 		private router: Router,
 		private decodeToken: DecodeToken,
-		private attendanceService: AttendanceService
+		private attendanceService: AttendanceService,
+		private userService: UserService
 	) {
 		this.activatedRoute.params.subscribe((params) => {
 			if (params && params.id) {
@@ -59,7 +60,8 @@ export class EventPageComponent implements OnInit {
 			this.participantsArray = result[1];
 			this.decodeToken.initializeTokenInfo();
 			this.currentUserId = this.decodeToken.getCurrentUserId();
-			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.userId == this.currentUserId) === undefined;
+			this.userService.getUserById(this.currentUserId).subscribe((result) => {this.currentUser = result});
+			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
 			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
 			this.intializeTagsList();
 			this.initalizeCategoryIcon();
@@ -120,21 +122,12 @@ export class EventPageComponent implements OnInit {
 	}
 
 	openParticipantsDialog(): Observable<boolean> {
-		var eventParticipants: UserDetails[] = [];
 		var isHost: boolean;
-
-		this.participantsService.getParticipant(this.event.id).subscribe(
-			(result:UserDetails[]) => {
-				console.log(result);
-				result.forEach(function (value){
-					eventParticipants.push(value);
-				});
-			});
 		
 		isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
 
 		return this.dialogService.participantsDialog({
-			participants: eventParticipants,
+			participants: this.participantsArray,
 			isEventOwner: isHost,
 			eventId: this.eventId
 		});
@@ -148,7 +141,7 @@ export class EventPageComponent implements OnInit {
 		};
 		this.attendanceService.addNewAttendance(newAttendance).subscribe((result) => {
 			this.isCurrentUserNotAttending = false;
-			this.participantsArray.push(newAttendance);
+			this.participantsArray.push(this.currentUser);
 		});
 		
 	}
@@ -156,7 +149,7 @@ export class EventPageComponent implements OnInit {
 	leaveEvent(): void {
 		this.attendanceService.deleteAttendance(this.eventId, this.currentUserId).subscribe((result) => {
 			this.isCurrentUserNotAttending = true;
-			this.participantsArray = this.participantsArray.filter(participant => participant.userId != this.currentUserId);
+			this.participantsArray = this.participantsArray.filter(participant => participant.id != this.currentUserId);
 		});
 	}
 }

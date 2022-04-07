@@ -2,8 +2,8 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { UserDetails } from 'src/app/models/user';
+import { AttendanceService } from 'src/app/services/attendance.service';
 import { DialogService } from 'src/app/services/dialog.service';
-import { ParticipantsAttendanceService } from 'src/app/services/participants-attendance.service';
 
 @Component({
 	selector: 'app-participants-dialog',
@@ -19,7 +19,7 @@ export class ParticipantsDialogComponent implements OnInit {
 			eventId: number;
 		},
 		private dialogService: DialogService,
-		private participantsService: ParticipantsAttendanceService
+		private participantsService: AttendanceService
 	) {}
   
 	ngOnInit(): void {}
@@ -36,7 +36,7 @@ export class ParticipantsDialogComponent implements OnInit {
 	deleteParticipant(userId: number) {
 		this.openDeleteDialog().subscribe((result) => {
 			if (result) {
-				this.participantsService.deleteParticipant(this.data.eventId, userId).subscribe(
+				this.participantsService.deleteAttendance(this.data.eventId, userId).subscribe(
 					(result) => {
 						this.data.participants = this.data.participants.filter(
 							(el) => el.id != userId
