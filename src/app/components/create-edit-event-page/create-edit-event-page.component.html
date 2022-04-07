@@ -139,7 +139,7 @@
 
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId"
-                                            placeholder="Select a category">
+                                            placeholder="Select a category" class="category-select">
                                     <mat-option *ngFor="let category of categoryList.result" [value]="category.id">
                                         {{ category.title }}
                                     </mat-option>
@@ -238,16 +238,15 @@
                                     Join deadline time must be less than the start time
                                 </mat-error>
 
-                                <mat-error
-                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('required')">
-                                    Deadline time for event is <strong>required</strong>
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('joinTimeError')">
+                                    Join deadline time must be <strong>grater than</strong> current time
                                 </mat-error>
 
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('joinTimeError')">
-                                    Join deadline time must be <strong>grater than</strong> current time
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('required')">
+                                    Deadline time for event is <strong>required</strong>
                                 </mat-error>
-                                
+
                             </mat-form-field>
                             <ngx-mat-timepicker #deadlineTimePicker></ngx-mat-timepicker>
                         </div>
