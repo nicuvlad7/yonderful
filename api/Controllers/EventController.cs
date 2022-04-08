@@ -46,7 +46,7 @@ namespace api.Controllers
 			return Ok(_mapper.Map<IList<EventDto>>(joinedEvents));
 		}
 
-		[HttpGet("[action]/{hostId}")]
+		[HttpGet("[action]/{userId}")]
 		public async Task<IActionResult> GetDashboardEvents(int userId){
 			DashBoardEventsDto dashBoardEventsDto = new DashBoardEventsDto();
 
