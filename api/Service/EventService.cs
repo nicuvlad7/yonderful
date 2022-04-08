@@ -99,11 +99,13 @@ namespace YonderfulApi.Service
 			{
 				return null;
 			}
+
 			if (eventToPut.CategoryId != myEvent.CategoryId)
 			{
 				if (await VerifyCategory(myEvent))
 				{
 					await UpdateCategory(false, myEvent.CategoryId);
+
 				};
 			}
 
@@ -204,10 +206,15 @@ namespace YonderfulApi.Service
 
 		private async Task<bool> VerifyCategory(Event myEvent)
 		{
-			//to-do:
-			//make it work with SingleOrDefaultAsync();
-			var eventsWithSameCategory = await _context.Events.Where(ev => ev.CategoryId == myEvent.CategoryId).ToListAsync();
-			return eventsWithSameCategory.Count == 1;
+			try
+			{
+				var even = await _context.Events.Where(e => e.CategoryId == myEvent.CategoryId).SingleOrDefaultAsync();
+				return even != null;
+			}
+			catch (InvalidOperationException e)
+			{
+				return false;
+			}
 		}
 
 		private async Task<bool> UpdateCategory(bool hasEvents, int categoryId)
@@ -215,7 +222,7 @@ namespace YonderfulApi.Service
 			var updateCategory = await _categoryService.GetCategory(categoryId);
 			updateCategory.HasEvents = hasEvents;
 			await _categoryService.PutCategory(categoryId, updateCategory);
-			return true;
+			return await _context.SaveChangesAsync() > 0;
 		}
 	}
 }
