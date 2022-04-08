@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
         this.currentUserId = this.decodeToken.getCurrentUserId();
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
             this.dashboardEvents = result;
-            console.log(this.dashboardEvents.hostedEvents.length);
             this.areJoinedEvents = this.dashboardEvents.joinedEvents.length !== 0;
             this.areHostedEvents = this.dashboardEvents.hostedEvents.length != 0;
             this.loading = false;
