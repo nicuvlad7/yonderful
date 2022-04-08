@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ConfirmComponent } from '../components/dialogs/confirm/confirm.component';
 import { ParticipantsDialogComponent } from '../components/participants-dialog/participants-dialog.component';
 import { ConfirmDialogData } from '../models/confirm-dialog-data';
-import { User } from '../models/user';
+import { UserDetails } from '../models/user';
 
 @Injectable({
 	providedIn: 'root',
@@ -23,12 +23,14 @@ export class DialogService {
 	}
 
 	participantsDialog(data: {
-		participants: User[];
+		participants: UserDetails[];
 		isEventOwner: boolean;
+		eventId: number;
 	}): Observable<boolean> {
 		return this.dialog
 			.open(ParticipantsDialogComponent, {
 				data,
+                autoFocus: false,
 				width: '400px',
 				disableClose: true,
 			})

@@ -30,7 +30,7 @@
                 </div>
                 <div class="buttons">
                     <div class="admin-buttons" *ngIf="isHostMode">
-                        <button mat-raised-button class="admin-buttons-style">
+                        <button mat-raised-button class="admin-buttons-style" (click)="editEvent()">
                             <mat-icon class="admin-icon">edit</mat-icon>
                             Edit
                         </button>
@@ -41,9 +41,18 @@
                     </div>
                 </div>
             </div>
-            <div class="buttons">
-                <button mat-raised-button class="admin-buttons-style join-button">Join</button>
+            <div class="buttons" *ngIf="isCurrentUserNotAttending else leaveButtonBlock">
+                <div *ngIf="!isMaximumReached && !isDeadlineOverdue else disabledJoinBlock">
+                    <button class="join-button admin-buttons-style" mat-flat-button (click)="joinOnEvent()">Join</button>
+                </div>
+                <ng-template #disabledJoinBlock>
+                    <button class="join-button-disabled admin-buttons-style" mat-flat-button>Join</button>
+                </ng-template>
+                
             </div>
+            <ng-template #leaveButtonBlock> 
+                <button class="leave-button" mat-flat-button (click)="leaveEvent()">Leave</button>
+            </ng-template>
         </div>
         <!-- Bottom of the card -->
         <div class="bottom-row">
@@ -54,7 +63,7 @@
                         <p class="end-date">Event will take place between {{event.startingDate | date:longDate}} and {{event.endingDate | date:longDate}}</p>
                     </div>
                 </time>
-                <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{noOfParticipants + "/" + event.maximumParticipants}}</p>
+                <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length + "/" + event.maximumParticipants}}</p>
             </div>
             <div class="event-description">
                 <p class="event-description-text">{{event.description}}</p>

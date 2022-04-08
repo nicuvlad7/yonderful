@@ -25,3 +25,7 @@ export interface IEvent {
     tags: string,
     backgroundImage: string
 }
+
+export interface EventsResponse {
+    result: IEvent[];
+}

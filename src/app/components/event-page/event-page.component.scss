@@ -196,9 +196,40 @@
     min-height: 36px;
 }
 
+.join-button-disabled {
+    color: black;
+}
+
+.join-button:hover {
+    background-color: $yonder-pink;
+    color: $yonder-white;
+    transform: 200ms;
+}
+
+.leave-button {
+    @include flex-container(row);
+    text-align: center;
+    padding-left: 14px;
+    margin: 10px;
+    background-color: $yonder-pink;
+    color: $yonder-white;
+    overflow: hidden;
+    height: auto;
+    min-width: 100px;
+    border-radius: 20px;
+    border: 1px solid $yonder-pink;
+}
+
+.leave-button:hover {
+    background-color: $yonder-white;
+    color: $yonder-pink;
+    transform: 200ms;
+}
+
 .bottom-row {
     @include flex-container(column, space-between);
     border-radius: 0 0 6px 6px;
+    overflow: hidden;
     height: 43%;
 }
 
@@ -266,16 +297,6 @@
     padding-top: 40px;
     height: 10%;
     padding-bottom: 3%;
-}
-
-.category-text {
-    padding-left: 20px;
-    color: $yonder-pink;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    font-size: 20px;
 }
 
 .category-icon {

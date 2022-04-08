@@ -4,7 +4,7 @@
 	<div *ngFor="let item of data.participants" class="participants-container">
 		<div>{{ item.name }}</div>
 		<button
-			*ngIf="!data.isEventOwner"
+			*ngIf="data.isEventOwner"
 			mat-icon-button
 			(click)="deleteParticipant(item.id)"
 		>

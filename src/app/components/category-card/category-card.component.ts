@@ -21,31 +21,17 @@ import { RouteValues } from 'src/app/models/constants';
 	styleUrls: ['./category-card.component.scss'],
 })
 export class CategoryCardComponent implements OnInit {
-	categoryForm: FormGroup = new FormGroup({
-		titleControl: new FormControl('Placeholder', [
-			Validators.required,
-			Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
-			Validators.maxLength(24),
-		]),
-		iconControl: new FormControl('', [
-			Validators.required,
-			this.validateExtension,
-		]),
-		backgroundControl: new FormControl('', [
-			Validators.required,
-			this.validateExtension,
-		]),
-	});
+	categoryForm: FormGroup;
 
 	categoryCard: ICategory = {
 		title: '',
 		defaultBackground: '',
 		icon: '',
+		hasEvents: true,
 	};
 
 	editMode: boolean = false;
 	createNewCategory: boolean = false;
-	canMakeChanges: boolean = true;
 	urlID: number = -1;
 	pageTitle: string = '';
 	isParamNan: boolean = this.testNaN(this.urlID);
@@ -56,8 +42,27 @@ export class CategoryCardComponent implements OnInit {
 		private route: ActivatedRoute,
 		private dialogService: DialogService,
 		private router: Router
-	) {
-		
+	) {}
+
+	initCategoryForm(): void {
+		this.categoryForm = new FormGroup({
+			titleControl: new FormControl(
+				{ value: 'Placeholder', disabled: true },
+				[
+					Validators.required,
+					Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
+					Validators.maxLength(24),
+				]
+			),
+			iconControl: new FormControl('', [
+				Validators.required,
+				this.validateExtension,
+			]),
+			backgroundControl: new FormControl('', [
+				Validators.required,
+				this.validateExtension,
+			]),
+		});
 	}
 
 	validateExtension(control: AbstractControl): { [key: string]: any } | null {
@@ -68,13 +73,13 @@ export class CategoryCardComponent implements OnInit {
 			return null;
 		}
 	}
+
 	testNaN(param: number) {
 		return isNaN(param) ? true : false;
 	}
+
 	ngOnInit(): void {
-		//to-do:
-		//on page init we should look for events that belong in the current category
-		//we are in, and if there are , dont let it be delete-able nor changes to its title
+		this.initCategoryForm();
 
 		this.urlID = parseInt(this.route.snapshot.paramMap.get('id'));
 
@@ -83,9 +88,9 @@ export class CategoryCardComponent implements OnInit {
 
 		if (!this.urlID) {
 			this.editMode = true;
-			this.canMakeChanges = true;
-			this.pageTitle = "New Category";
+			this.pageTitle = 'New Category';
 			this.createNewCategory = true;
+			this.categoryForm.controls.titleControl.enable();
 			return;
 		}
 
@@ -95,7 +100,7 @@ export class CategoryCardComponent implements OnInit {
 				this.categoryCard.title = result.title;
 				this.categoryCard.icon = result.icon;
 				this.categoryCard.defaultBackground = result.defaultBackground;
-
+				this.categoryCard.hasEvents = result.hasEvents;
 				this.categoryForm.patchValue({
 					['titleControl']: result.title,
 					['backgroundControl']: result.defaultBackground,
@@ -119,10 +124,12 @@ export class CategoryCardComponent implements OnInit {
 		if (editModeParam == 'true') {
 			this.pageTitle = 'Edit Category';
 			this.editMode = true;
+			this.categoryForm.controls.titleControl.enable();
 		}
 		if (editModeParam == 'false') {
 			this.pageTitle = 'Category';
 			this.editMode = false;
+			this.categoryForm.controls.titleControl.disable();
 		}
 		if (editModeParam == '') {
 			this.pageTitle = 'Category';
@@ -160,7 +167,7 @@ export class CategoryCardComponent implements OnInit {
 			});
 			this.categoryForm.controls['iconControl'].markAsUntouched();
 			this.categoryForm.controls['backgroundControl'].markAsUntouched();
-			
+
 			if (this.createNewCategory) {
 				this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				return;
@@ -170,12 +177,11 @@ export class CategoryCardComponent implements OnInit {
 				this.editMode = false;
 				this.ngOnInit();
 			}
-			
 		});
 	}
 
 	onDelete() {
-		if (!this.canMakeChanges) {
+		if (this.categoryCard.hasEvents) {
 			return;
 		}
 		this.openDeleteDialog().subscribe((result) => {
@@ -187,7 +193,9 @@ export class CategoryCardComponent implements OnInit {
 							this._snackBar.open('Category was deleted.', '', {
 								duration: 3000,
 							});
-							this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
+							this.router.navigate([
+								RouteValues.ADMINISTRATE_CATEGORIES,
+							]);
 						},
 						(error) => {
 							this._snackBar.open(
@@ -256,5 +264,8 @@ export class CategoryCardComponent implements OnInit {
 	onEditClick() {
 		this.editMode = true;
 		this.pageTitle = 'Edit Category';
+		if (!this.categoryCard.hasEvents) {
+			this.categoryForm.controls.titleControl.enable();
+		}
 	}
 }

@@ -32,18 +32,24 @@ export class CategoriesTableComponent implements OnInit {
 		});
 	}
 
-  deleteCategory(categoryId: number): void {
-    this.openChangeRoleDialog().subscribe(result => {
-      if (result)
-        this.endpointsService.deleteCategory(categoryId)
-          .subscribe(() => {
-            this.displayedCategories = this.displayedCategories
-              .filter((category: CategoryToShow) => category.id != categoryId)
-            
-            this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
-          });
-    })
-  }
+	deleteCategory(categoryId: number): void {
+		this.openChangeRoleDialog().subscribe((result) => {
+			if (result)
+				this.endpointsService
+					.deleteCategory(categoryId)
+					.subscribe(() => {
+						this.displayedCategories =
+							this.displayedCategories.filter(
+								(category: CategoryToShow) =>
+									category.id != categoryId
+							);
+
+						this.router.navigate([
+							RouteValues.ADMINISTRATE_CATEGORIES,
+						]);
+					});
+		});
+	}
 
 	createCategoriesToShow(): void {
 		for (const category of this.dataSource) {
@@ -57,6 +63,7 @@ export class CategoriesTableComponent implements OnInit {
 					this.sanitizer.bypassSecurityTrustResourceUrl(
 						category.defaultBackground
 					),
+				hasEvents: category.hasEvents,
 			};
 			this.displayedCategories.push(newCategory);
 		}
@@ -78,7 +85,11 @@ export class CategoriesTableComponent implements OnInit {
 	}
 
 	onCategoryRowClick(selectedRow: any): void {
-	  	const categoryId: number = selectedRow.id;
-			this.router.navigate([RouteValues.CATEGORY, categoryId]);
+		const categoryId: number = selectedRow.id;
+		this.router.navigate([RouteValues.CATEGORY, categoryId]);
+	}
+
+	navigatetoCategoryNew(): void {
+		this.router.navigate([RouteValues.CATEGORY_NEW]);
 	}
 }
