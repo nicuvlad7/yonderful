@@ -21,7 +21,7 @@ import { UserService } from 'src/app/services/user.service';
 export class EventPageComponent implements OnInit {
 	loading = true;
 	eventId: number;
-	isHostMode: true;
+	isHostMode: boolean;
 	event: IEvent;
 	categoryIcon: SafeResourceUrl;
 	tagsList: String[] = [];
@@ -66,6 +66,7 @@ export class EventPageComponent implements OnInit {
 			this.intializeTagsList();
 			this.initalizeCategoryIcon();
 			this.checkJoinDeadlineOverdue();
+			this.isHostMode = this.currentUserId == this.event.hostId;
 			this.loading = false;
 		});
 	}
@@ -112,6 +113,12 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
+	editEvent(): void {
+		this.router.navigate([
+			'/' + RouteValues.EVENT + '/' + this.eventId,
+		]);
+	}
+
 	openChangeRoleDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Delete Event',
@@ -121,17 +128,18 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-	openParticipantsDialog(): Observable<boolean> {
-		var isHost: boolean;
-		
-		isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+	openParticipantsDialog(): void {
+        var isHost: boolean;
+        isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+        this.dialogService.participantsDialog({
+            participants: this.participantsArray,
+            isEventOwner: isHost,
+            eventId: this.eventId
+        }).subscribe(() => {this.attendanceService.getParticipantsForEvent(this.eventId).subscribe(
+            (result) => { this.participantsArray = result;}
+        );});
 
-		return this.dialogService.participantsDialog({
-			participants: this.participantsArray,
-			isEventOwner: isHost,
-			eventId: this.eventId
-		});
-	}
+    }
 
 	joinOnEvent(): void {
 		var newAttendance: IAttendance = {
@@ -143,7 +151,6 @@ export class EventPageComponent implements OnInit {
 			this.isCurrentUserNotAttending = false;
 			this.participantsArray.push(this.currentUser);
 		});
-		
 	}
 
 	leaveEvent(): void {

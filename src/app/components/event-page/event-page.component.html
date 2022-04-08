@@ -17,9 +17,9 @@
                         <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
                     </div>
                 </div>
-                <div class="admin-buttons" *ngIf="isHostMode"}}>
-                    <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                    <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
+                <div class="admin-buttons" *ngIf="isHostMode">
+                    <button mat-button class="admin-buttons-style" (click)="editEvent()"><mat-icon>edit</mat-icon></button>
+                    <button  mat-button class="admin-buttons-style delete-button" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
                 </div>
             </div>
             <div class="fee-icon-row">
