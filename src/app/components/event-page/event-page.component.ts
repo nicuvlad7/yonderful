@@ -20,6 +20,7 @@ export class EventPageComponent implements OnInit {
     isHostMode: boolean = false;
     noOfParticipants: number;
     location: string;
+    mapLink: string;
     event: IEvent = {
         id: 0,
         categoryId: 0,
@@ -67,6 +68,7 @@ export class EventPageComponent implements OnInit {
     ngOnInit(): void {
         this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
             this.event = result;
+            this.mapLink = this.getMapLink();
             this.intializeTagsList();
             this.initalizeCategoryIcon();
             this.location = this.event.eventLocation.street + " " +

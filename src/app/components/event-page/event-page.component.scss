@@ -120,6 +120,12 @@
     font-weight: 500;
 }
 
+.location-text:hover {
+    cursor: pointer;
+    color: $yonder-pink;
+    transition: 100ms;
+}
+
 .middle-row {
     display: flex;
     flex-direction: row;
@@ -186,13 +192,83 @@
 .bottom-row {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    overflow:auto;
     border-radius: 0 0 6px 6px;
     height: 43%;
+}
+
+.event-fee-participants {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: $yonder-blue;
+    height: 10%;
 }
 
 .event-description {
     padding: 20px;
     font-family: Quicksand;
     font-weight: 800;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.fee {
+    padding-top: 20px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.join-date {
+    padding-top: 12px;
+    text-align: center;
+}
+
+.attendance {
+    padding-right: 20px;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.attendance:hover {
+    color: $yonder-pink;
+    transition: 100ms;
+    cursor: pointer;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: center;
+    height: 20%;
+    padding-bottom: 20px;
+}
+
+.category-text {
+    padding-left: 20px;
+    color: $yonder-pink;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 1px solid black;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.category-icon {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    object-fit: cover;
+    margin-right: 50px;
+}
+
+.host-details {
+    margin-left: 50px;
+    color: $yonder-pink;
 }
