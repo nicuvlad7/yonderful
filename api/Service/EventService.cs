@@ -155,6 +155,17 @@ namespace YonderfulApi.Service
 				 .Where(x => (x.StartingDate >= DateTime.Now)).ToListAsync();
 			return events;
 		}
+
+		public async Task<IList<Event>> GetJoinedEventsForUser(int userId){
+			var events = await _context.Attendance
+								.Where(att => att.UserId == userId)
+								.Include(att => att.Event)
+								.Include(att => att.Event.EventLocation)
+								.Select(att => att.Event)
+								.ToListAsync();
+			return events;
+		}
+
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
 			var eventsList = from Events in _context.Events select Events;

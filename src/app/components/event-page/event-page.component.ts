@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, takeUntil } from 'rxjs';
@@ -6,11 +6,12 @@ import { DecodeToken } from 'src/app/helpers/decode.token';
 import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
-import { User } from 'src/app/models/user';
+import { UserDetails } from 'src/app/models/user';
 import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
 	selector: 'app-event-page',
@@ -26,7 +27,8 @@ export class EventPageComponent implements OnInit {
 	tagsList: String[] = [];
 	participantsNumber: number;
 	currentUserId: number;
-	participantsArray: IAttendance[];
+	currentUser: UserDetails;
+	participantsArray: UserDetails[];
 	isCurrentUserNotAttending: boolean;
 	isMaximumReached: boolean;
 	isDeadlineOverdue: boolean;
@@ -39,7 +41,8 @@ export class EventPageComponent implements OnInit {
 		private dialogService: DialogService,
 		private router: Router,
 		private decodeToken: DecodeToken,
-		private attendanceService: AttendanceService
+		private attendanceService: AttendanceService,
+		private userService: UserService
 	) {
 		this.activatedRoute.params.subscribe((params) => {
 			if (params && params.id) {
@@ -57,7 +60,8 @@ export class EventPageComponent implements OnInit {
 			this.participantsArray = result[1];
 			this.decodeToken.initializeTokenInfo();
 			this.currentUserId = this.decodeToken.getCurrentUserId();
-			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.userId == this.currentUserId) === undefined;
+			this.userService.getUserById(this.currentUserId).subscribe((result) => {this.currentUser = result});
+			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
 			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
 			this.intializeTagsList();
 			this.initalizeCategoryIcon();
@@ -117,23 +121,15 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-  //to-do:
-  //remove mock data after demo, and use real data once the endpoints 
-  //for attendance are available
-  //isEventOwner should recieve a value after a check
-  
-	testArr: User[] = [
-		{ id: 1, name: 'Bill', email: 'abc', password: 'asdcasdcas' },
-		{ id: 2, name: 'Richard', email: 'abc', password: 'asdcasdcas' },
-		{ id: 3, name: 'Radahan', email: 'abc', password: 'asdcasdcas' },
-		{ id: 4, name: 'Godfrey', email: 'abc', password: 'asdcasdcas' },
-		{ id: 5, name: 'Michael', email: 'abc', password: 'asdcasdcas' },
-	];
-
 	openParticipantsDialog(): Observable<boolean> {
+		var isHost: boolean;
+		
+		isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+
 		return this.dialogService.participantsDialog({
-			participants: this.testArr,
-			isEventOwner: false,
+			participants: this.participantsArray,
+			isEventOwner: isHost,
+			eventId: this.eventId
 		});
 	}
 
@@ -145,7 +141,7 @@ export class EventPageComponent implements OnInit {
 		};
 		this.attendanceService.addNewAttendance(newAttendance).subscribe((result) => {
 			this.isCurrentUserNotAttending = false;
-			this.participantsArray.push(newAttendance);
+			this.participantsArray.push(this.currentUser);
 		});
 		
 	}
@@ -153,7 +149,7 @@ export class EventPageComponent implements OnInit {
 	leaveEvent(): void {
 		this.attendanceService.deleteAttendance(this.eventId, this.currentUserId).subscribe((result) => {
 			this.isCurrentUserNotAttending = true;
-			this.participantsArray = this.participantsArray.filter(participant => participant.userId != this.currentUserId);
+			this.participantsArray = this.participantsArray.filter(participant => participant.id != this.currentUserId);
 		});
 	}
 }
