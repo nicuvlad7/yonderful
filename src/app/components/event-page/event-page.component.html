@@ -1,8 +1,9 @@
 <div class="central-div">
     <mat-card class="event-card">
+        <!-- Top of the card -->
         <div class="top-row">
                 <div class="img-container">
-                    <img class="event-img" src="https://www.zooplus.ro/ghid/wp-content/uploads/2021/11/Husky-Siberieni-inhamati-la-sanie.jpg">
+                    <img class="event-img" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
                 </div>
                 <div class="event-info">
                     <time class="date">
@@ -10,10 +11,8 @@
                             <p class="date-day">{{event.startingDate | date:'dd'}}</p>
                             <p class="date-month-and-year">{{event.startingDate | date:'MMM y'}}</p>
                         </div>
-                        <p class="date-time">{{event.startingDate | date:'HH:mm'}}</p>
                     </time>
-                    <!-- <h2 class="title">{{ event.title }}</h2> -->
-                    <h2 class="title">Marea plimbare a tuturor cainilor cuminti!</h2>
+                    <h2 class="title">{{ event.title }}</h2>
                     <div class="location">
                         <mat-icon class="location-icon">explore</mat-icon>
                         <a href={{mapLink}}>
@@ -22,43 +21,62 @@
                     </div>
                 </div>
         </div>
+        <!-- Middle of the Card -->
         <div class="middle-row">
-            <p class="disclaimer-text">{{event.minimumParticipants === 0 ? "" : "*event will be canceled if at least " + event.minimumParticipants + "people do not attend"}}</p>
-            <div class="buttons">
-                <div class="admin-buttons" *ngIf="isHostMode">
-                    <button mat-raised-button class="admin-buttons-style">
-                        <mat-icon class="admin-icon">edit</mat-icon>
-                        Edit
-                    </button>
-                    <button mat-raised-button class="admin-buttons-style" (click)="deleteEvent()">
-                        <mat-icon class="admin-icon">clear</mat-icon>
-                        Delete
-                    </button>
+            <div class="buttons-and-disclaimer">
+                <div class="disclaimer">
+                    <p class="disclaimer-text">{{event.minimumParticipants === 0 ? "" : "*event will be canceled if at least " + event.minimumParticipants + " people do not attend"}}</p>
+                    <p class="join-date">Don't miss it! Join until: {{event.joinDeadline | date:'dd MMM y'}} at {{event.joinDeadline | date:'HH:mm'}}</p>
+                </div>
+                <div class="buttons">
+                    <div class="admin-buttons" *ngIf="isHostMode">
+                        <button mat-raised-button class="admin-buttons-style">
+                            <mat-icon class="admin-icon">edit</mat-icon>
+                            Edit
+                        </button>
+                        <button mat-raised-button class="admin-buttons-style" (click)="deleteEvent()">
+                            <mat-icon class="admin-icon">clear</mat-icon>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="buttons">
                 <button mat-raised-button class="admin-buttons-style join-button">Join</button>
             </div>
         </div>
+        <!-- Bottom of the card -->
         <div class="bottom-row">
             <div class="event-fee-participants">
                 <p class="fee"><mat-icon>attach_money</mat-icon>{{event.fee === 0 ? "Free" : event.fee + " lei"}}</p>
-                <p class="join-date">Don't miss it! Join until: {{event.endingDate | date:'dd MMM y'}} at {{event.endingDate | date:'HH:mm'}}</p>
+                <time class="end-date">
+                    <div class="end-date-div">
+                        <p class="end-date">Event will take place between {{event.startingDate | date:longDate}} and {{event.endingDate | date:longDate}}</p>
+                    </div>
+                </time>
                 <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{noOfParticipants + "/" + event.maximumParticipants}}</p>
             </div>
             <div class="event-description">
-                <p class="event-description-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="event-description-text">{{event.description}}</p>
             </div>
             <div class="details">
                 <div class="category">
-                    <p class="category-text">Category: <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt=""></p>
+                    <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
                 </div>
                 <div class="host-details">
                     <p class="email">Email: {{event.contactEmail}}</p>
                     <p class="home">Phone: {{event.contactPhone}}</p>
                 </div>
                 <div class="tags">
-                    
+                        <mat-chip-list class="tags-list"   
+                            cdkDropList 
+                            cdkDropListOrientation="horizontal">
+                            <mat-chip class="tag"
+                                cdkDrag
+                                *ngFor="let tag of tagsList">
+                                {{tag}}
+                            </mat-chip>
+                    </mat-chip-list>
                 </div>
             </div>
         </div>

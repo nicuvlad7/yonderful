@@ -17,6 +17,7 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventPageComponent implements OnInit {
     eventId: number;
+    longDate: string = 'dd MMM y - HH:mm';
     isHostMode: boolean = false;
     noOfParticipants: number;
     location: string;
@@ -122,7 +123,7 @@ export class EventPageComponent implements OnInit {
             title: 'Delete Event',
             message: 'Are you sure you want to delete the current event?',
             confirmText: 'Yes',
-            cancelText: 'No',
+            cancelText: 'No'
         });
     }
 

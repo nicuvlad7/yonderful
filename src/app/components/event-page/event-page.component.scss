@@ -3,8 +3,7 @@
 
 .central-div {
     height: calc(100vh - 50.6667px);
-    display: flex;
-    justify-content: center;
+    @include flex-container(auto);
     align-items: center;
 }
 
@@ -14,9 +13,7 @@
     min-width: 350px;
     padding: 0;
     border-radius: 6px 6px 6px 6px;
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
+    @include flex-container(column);
 }
 
 .top-row {
@@ -41,8 +38,7 @@
 }
 
 .event-info {
-    display: flex;
-    flex-direction: column;
+    @include flex-container(column);
     overflow: hidden;
     background-color: rgba(241, 241, 241, 0.31);
     width: 30%;
@@ -51,6 +47,16 @@
 
 .date {
     padding: 30px 0px 0px 0px;
+    word-wrap: break-word;
+    overflow: hidden;
+    @include flex-container(column);
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    word-spacing: 2px;
+}
+
+.end-date {
     word-wrap: break-word;
     overflow: hidden;
     display: flex;
@@ -91,7 +97,7 @@
     overflow: hidden;
     align-self: center;
     text-align: center;
-    padding: 20px;
+    padding: 40px;
     font-size: 25px;
     font-weight: 600;
     color: $yonder-blue;
@@ -99,11 +105,9 @@
 }
 
 .location {
-    display: flex;
+    @include flex-container(row);
     margin-top: auto;
     padding: 10px;
-    flex-direction: row;
-    justify-content: center;
     align-items: flex-start;
 }
 
@@ -127,9 +131,7 @@
 }
 
 .middle-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
     overflow: hidden;
     border-top: 1px solid rgba(170, 170, 170, 0.442);
     border-bottom: 1px solid rgba(170, 170, 170, 0.442);
@@ -137,35 +139,40 @@
     height: 7%;
 }
 
-.disclaimer-text {
-    align-self: center;
-    font-size: small;
-    color: $yonder-blue;
+.buttons-and-disclaimer{
+    @include flex-container(row, space-between);
+    width: 70%;
+}
+
+.disclaimer {
+    @include flex-container(column, flex-start);
     padding-left: 20px;
 }
 
+.disclaimer-text {
+    font-size: small;
+    color: $yonder-blue;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
 .buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include flex-container(column);
     width: fit-content;
 }
 
 .admin-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
+    margin-left: auto;
 }
 
 .admin-buttons-style {
-    display: flex;
-    justify-content: center;
+    @include flex-container(row);
     text-align: center;
     padding-left: 1px;
     margin: 10px;
     background-color: $yonder-white;
     color: $yonder-pink;
-    flex-direction: row;
     overflow: hidden;
     height: auto;
     min-width: 100px;
@@ -190,26 +197,39 @@
 }
 
 .bottom-row {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow:auto;
+    @include flex-container(column, space-between);
     border-radius: 0 0 6px 6px;
     height: 43%;
 }
 
+.end-date-div {
+    color: $yonder-blue;
+    justify-content: space-around;
+    margin-top: 12px;
+}
+
+.end-date {
+    padding-top: 0.2%;
+    padding-bottom: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 15px;
+}
+
 .event-fee-participants {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
     color: $yonder-blue;
     height: 10%;
+    margin-top: 0.5%;
 }
 
 .event-description {
     padding: 20px;
     font-family: Quicksand;
-    font-weight: 800;
+    text-align: center;
+    overflow: auto;
+    font-weight: 400;
+    font-size: 15px;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -222,8 +242,7 @@
 }
 
 .join-date {
-    padding-top: 12px;
-    text-align: center;
+    color: $yonder-blue;
 }
 
 .attendance {
@@ -240,12 +259,13 @@
 }
 
 .details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-evenly);
     justify-content: center;
-    height: 20%;
-    padding-bottom: 20px;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 40px;
+    height: 10%;
+    padding-bottom: 3%;
 }
 
 .category-text {
@@ -254,8 +274,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-right: 1px solid black;
-    font-weight: 900;
+    font-weight: 600;
     font-size: 20px;
 }
 
@@ -269,6 +288,16 @@
 }
 
 .host-details {
+    margin-left: 50px;
+    color: $yonder-pink;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.tags {
+    @include flex-container(row);
     margin-left: 50px;
     color: $yonder-pink;
 }
