@@ -50,7 +50,7 @@ namespace YonderfulApi.Service
 				BackgroundId = await _pictureService.CreatePictureByContent(eventDto.BackgroundImage)
 			};
 
-			await UpdateCategory(true, newEvent.CategoryId);
+			await UpdateCategoryHasEvents(true, newEvent.CategoryId);
 			return newEvent;
 		}
 
@@ -63,9 +63,9 @@ namespace YonderfulApi.Service
 				return false;
 			}
 
-			if (await VerifyCategory(myEvent))
+			if (await VerifyCategoryHasEvents(myEvent))
 			{
-				await UpdateCategory(false, myEvent.CategoryId);
+				await UpdateCategoryHasEvents(false, myEvent.CategoryId);
 			};
 
 			_context.Events.Remove(myEvent);
@@ -102,9 +102,9 @@ namespace YonderfulApi.Service
 
 			if (eventToPut.CategoryId != myEvent.CategoryId)
 			{
-				if (await VerifyCategory(myEvent))
+				if (await VerifyCategoryHasEvents(myEvent))
 				{
-					await UpdateCategory(false, myEvent.CategoryId);
+					await UpdateCategoryHasEvents(false, myEvent.CategoryId);
 
 				};
 			}
@@ -204,12 +204,12 @@ namespace YonderfulApi.Service
 			return futureJoinedEvents;
 		}
 
-		private async Task<bool> VerifyCategory(Event myEvent)
+		private async Task<bool> VerifyCategoryHasEvents(Event myEvent)
 		{
 			try
 			{
-				var even = await _context.Events.Where(e => e.CategoryId == myEvent.CategoryId).SingleOrDefaultAsync();
-				return even != null;
+				var eventsWithSameCategory = await _context.Events.Where(e => e.CategoryId == myEvent.CategoryId).SingleOrDefaultAsync();
+				return eventsWithSameCategory != null;
 			}
 			catch (InvalidOperationException e)
 			{
@@ -217,7 +217,7 @@ namespace YonderfulApi.Service
 			}
 		}
 
-		private async Task<bool> UpdateCategory(bool hasEvents, int categoryId)
+		private async Task<bool> UpdateCategoryHasEvents(bool hasEvents, int categoryId)
 		{
 			var updateCategory = await _categoryService.GetCategory(categoryId);
 			updateCategory.HasEvents = hasEvents;
