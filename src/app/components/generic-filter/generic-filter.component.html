@@ -1,6 +1,19 @@
 <div class="filters-and-sort-container">
-	<div class="sort-container">
-		<div class="sort-header">
+	<div class="section-container">
+		<div class="section-header">
+			<mat-icon>search</mat-icon>
+			<label>Search</label>
+		</div>
+		<div class="search-body">
+			<mat-form-field appearance="fill" class="filter-select-input">
+				<mat-label>Search</mat-label>
+				<input matInput [(ngModel)]="filtersDataSelected.searchTitle">
+				<mat-icon matSuffix class="my-icon">search</mat-icon>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="section-container">
+		<div class="section-header">
 			<mat-icon>sort</mat-icon><label>Sort by</label>
 		</div>
 		<div class="sort-select">
@@ -122,10 +135,10 @@
 				>Hide events with a fee</mat-checkbox
 			>
 		</div>
-		<div class="apply-filters-button">
+		<div class="apply-filters-container">
 			<button
 				mat-button
-				class="clear-filters-button"
+				class="apply-filters-button"
 				(click)="emitClickFilter()"
 			>
 				Filter

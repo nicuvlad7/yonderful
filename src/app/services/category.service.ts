@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ICategory } from '../models/category';
+import { CategoriesResponse, ICategory } from '../models/category';
 import { catchError } from 'rxjs/operators';
 import { HttpService } from './http.service';
 import { RouteEndpoints } from '../models/constants';
@@ -40,9 +40,10 @@ export class CategoryService {
 			)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
-	
-	getCategories():Observable<ICategory[]>{
-		return this.httpService.getAll<ICategory[]>(RouteEndpoints.CATEGORY).
-		pipe(catchError(this.httpService.handleHttpErrorResponse));
+
+	getCategories(): Observable<CategoriesResponse> {
+		return this.httpService
+			.getAll<CategoriesResponse>(RouteEndpoints.CATEGORY)
+			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
 }

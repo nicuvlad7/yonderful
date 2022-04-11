@@ -7,15 +7,15 @@
 	transition: 0.5s;
 }
 
-.sort-header {
-	display: flex;
+.section-header {
+	@include flex-container(row, flex-start);
 	align-items: center;
-	margin-left: 4px;
 }
-.sort-container {
+.section-container {
 	@include flex-container(column, center);
 	padding: 10px;
 }
+
 .sort-select-input {
 	margin-top: 10px;
 	width: 70%;
@@ -28,7 +28,6 @@
 .filter-container {
 	padding: 10px;
 }
-
 .filters-header {
 	@include flex-container(row, space-between);
 	align-items: center;
@@ -41,6 +40,7 @@
 	margin-top: 10px;
 	width: 100%;
 }
+
 .multiple-select {
 	@include flex-container(column);
 	align-items: flex-start;
@@ -76,8 +76,15 @@
 
 label {
 	margin-left: 10px;
+	margin-bottom: 0px;
 }
 
 .apply-filters-button {
+	height: auto;
+	width: 60px;
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+.apply-filters-container {
 	@include flex-container(row, flex-end);
 }

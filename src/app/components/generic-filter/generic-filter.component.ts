@@ -24,6 +24,7 @@ export class GenericFilterComponent implements OnInit {
 		hiddenIfFee: false,
 		hiddenIfStarted: false,
 		categories: [],
+		searchTitle: '',
 	};
 
 	categoriesPool: string[];
@@ -33,13 +34,21 @@ export class GenericFilterComponent implements OnInit {
 	constructor(private categoryService: CategoryService) {}
 
 	ngOnInit(): void {
-		this.categoryService.getCategories().subscribe((result) => {
-			this.categoriesPool = result['result'].map((el) => el.title);
+		this.categoryService.getCategories().subscribe((categories) => {
+			this.categoriesPool = categories.result.map((el) => el.title);
 		});
 	}
 
 	emitSortData() {
 		this.sortData.emit(this.sortDataSelected);
+	}
+
+	emitFiltersData() {
+		this.filtersData.emit(this.filtersDataSelected);
+	}
+
+	emitClickFilter() {
+		this.clickFilterButton.emit();
 	}
 
 	changeIsAscending() {
@@ -50,10 +59,6 @@ export class GenericFilterComponent implements OnInit {
 		}
 	}
 
-	emitFiltersData() {
-		this.filtersData.emit(this.filtersDataSelected)
-	}
-
 	clearFields() {
 		this.filtersDataSelected = {
 			startDate: new Date(),
@@ -61,15 +66,12 @@ export class GenericFilterComponent implements OnInit {
 			categories: [],
 			hiddenIfFee: false,
 			hiddenIfStarted: false,
+			searchTitle: '',
 		};
 
 		this.sortDataSelected = {
 			sortBy: 'Start Date',
 			isAscending: false,
 		};
-	}
-
-	emitClickFilter() {
-		this.clickFilterButton.emit();
 	}
 }

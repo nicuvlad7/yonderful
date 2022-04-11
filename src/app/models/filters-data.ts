@@ -3,5 +3,8 @@ export interface FiltersData {
     endDate?:Date,
     categories?:string[],
     hiddenIfFee?:boolean,
-    hiddenIfStarted?:boolean
+    hiddenIfStarted?:boolean,
+    isHost?:boolean,
+    isAttending?:boolean,
+    searchTitle?:string,
 }

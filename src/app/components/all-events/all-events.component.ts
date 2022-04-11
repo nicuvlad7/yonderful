@@ -5,22 +5,22 @@ import { EventService } from 'src/app/services/event.service';
 import { RouteValues } from '../../models/constants';
 
 @Component({
-  selector: 'app-all-events',
-  templateUrl: './all-events.component.html',
-  styleUrls: ['./all-events.component.scss']
+	selector: 'app-all-events',
+	templateUrl: './all-events.component.html',
+	styleUrls: ['./all-events.component.scss'],
 })
 export class AllEventsComponent implements OnInit {
-  eventsArray: IEvent[];
+	eventsArray: IEvent[];
 
-  constructor(private eventService: EventService, private router: Router) { }
+	constructor(private eventService: EventService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.eventService.getFutureEvents().subscribe((events) => {
-      this.eventsArray = events.result;
-    });
-  }
+	ngOnInit(): void {
+		this.eventService.getFutureEvents().subscribe((events) => {
+			this.eventsArray = events.result;
+		});
+	}
 
-  navigateToEventView(eventId: number) {
-    this.router.navigate([RouteValues.EVENT_DETAILS + "/" + eventId]);
-  }
+	navigateToEventView(eventId: number) {
+		this.router.navigate([RouteValues.EVENT_DETAILS + '/' + eventId]);
+	}
 }

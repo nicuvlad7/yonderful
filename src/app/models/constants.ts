@@ -25,6 +25,7 @@ export class RouteValues {
 export class RouteEndpoints {
     static readonly EVENT = 'Event';
     static readonly FUTURE_EVENTS = 'Event/getFutureEvents'
+    static readonly FILTERED_EVENTS = 'Event/getFilteredEvents'
     static readonly CATEGORY = 'Category'
     static readonly USER = 'User'
     static readonly ATTENDANCE = 'Attendance'
