@@ -9,6 +9,7 @@ export class RouteValues {
     static readonly REGISTER = 'register'
     static readonly ADMINISTRATE_CATEGORIES = 'administrate-categories'
     static readonly CREATE_EVENT = 'new-event'
+    static readonly EVENT = 'event'
     static readonly EVENT_ID = 'event/:id'
     static readonly CATEGORY_NEW = 'category/new'
     static readonly CATEGORY_ID = 'category/:id'

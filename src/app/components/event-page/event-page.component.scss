@@ -27,7 +27,7 @@
 .event-information-first-row {
     width: 100%;
     height: 100%;
-    @include flex-container(column, flex-start);
+    @include flex-container(row, flex-start);
     justify-content: space-between;
 }
 
@@ -36,13 +36,20 @@
     margin-right: 20px;
     justify-content: space-between;
     height: 25%;
-    @include flex-container(column, flex-start);
+    @include flex-container(row, flex-start);
+    background-color: transparent;
 }
+
+
 
 .admin-buttons-style {
     background-color: transparent;
     border: none;
     transform: scale(1.8);
+}
+
+.delete-button {
+    margin-left: 15px;
 }
 
 .event-information {
