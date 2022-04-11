@@ -309,12 +309,12 @@ export class CreateEditEventPageComponent implements OnInit {
                     this.snackBar.open(`Event ${data.title} has been edited.`, '', {
                         duration: 2500
                     });
+                    this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
                 },
                 error: (error: Error) => {
                     this.snackBar.open(error.message, 'Close');
                 }
             });
-            this.router.navigate([RouteValues.EVENT_DETAILS, this.currentEvent.id]);
         }
         else {
             this.editEventService.postEvent(userEvent).subscribe({
@@ -322,13 +322,12 @@ export class CreateEditEventPageComponent implements OnInit {
                     this.snackBar.open(`Event ${data.title} has been created`, '', {
                         duration: 2500
                     })
-                    this.router.navigate['new-event'];
+                    this.router.navigate([RouteValues.DASHBOARD]);
                 },
                 error: (error: Error) => {
                     this.snackBar.open(error.message, 'Close');
                 }
             });
-            this.router.navigate([RouteValues.DASHBOARD]);
         }
 
     }

@@ -105,7 +105,7 @@ export class EventPageComponent implements OnInit {
 				this.eventService.deleteEvent(this.eventId).subscribe();
 				//TODO should redirect to hosted events page
 				this.router.navigate([
-					'/' + RouteValues.ADMINISTRATE_CATEGORIES,
+					'/' + RouteValues.DASHBOARD,
 				]);
 			}
 		});

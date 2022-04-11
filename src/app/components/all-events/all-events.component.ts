@@ -11,12 +11,14 @@ import { RouteValues } from '../../models/constants';
 })
 export class AllEventsComponent implements OnInit {
   eventsArray: IEvent[];
+  isLoading: boolean = true;
 
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit(): void {
     this.eventService.getFutureEvents().subscribe((events) => {
       this.eventsArray = events.result;
+      this.isLoading = false;
     });
   }
 

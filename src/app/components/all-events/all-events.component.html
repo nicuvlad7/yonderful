@@ -1,4 +1,4 @@
-<div class="all-events-table">
+<div class="all-events-table" *ngIf="!isLoading">
     <div class="future-events-container">
         <div class="data-container" *ngIf="eventsArray?.length > 0 else noDataBlock" >
             <h1 class="title">Future Events</h1>

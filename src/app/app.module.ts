@@ -31,6 +31,7 @@ import { ParticipantsDialogComponent } from './components/participants-dialog/pa
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
 
+
 @NgModule({
     declarations: [
         AppComponent,
