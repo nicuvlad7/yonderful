@@ -47,7 +47,7 @@ export class CategoryCardComponent implements OnInit {
 	initCategoryForm(): void {
 		this.categoryForm = new FormGroup({
 			titleControl: new FormControl(
-				{ value: 'Placeholder', disabled: true },
+				{ value: '', disabled: true },
 				[
 					Validators.required,
 					Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
