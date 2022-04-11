@@ -20,7 +20,7 @@
 
 .events-container {
     width: 70%;
-    height: 500px;
+    max-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
