@@ -34,6 +34,7 @@ export class EventPageComponent implements OnInit {
     isCurrentUserNotAttending: boolean;
     isMaximumReached: boolean;
     isDeadlineOverdue: boolean;
+    isLoading: boolean = true;
 
     constructor(
         private categoryService: CategoryService,
@@ -72,6 +73,7 @@ export class EventPageComponent implements OnInit {
             this.location = `${this.event.eventLocation.street}\
                 ${this.event.eventLocation.address}\ 
                 ${this.event.eventLocation.city} ${this.event.eventLocation.province}`;
+            this.isLoading = false;
         });
     }
 
