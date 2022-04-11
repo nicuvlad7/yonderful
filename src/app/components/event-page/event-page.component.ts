@@ -1,13 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, takeUntil } from 'rxjs';
+import { forkJoin, Observable, takeUntil } from 'rxjs';
+import { DecodeToken } from 'src/app/helpers/decode.token';
+import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
-import { User } from 'src/app/models/user';
+import { UserDetails } from 'src/app/models/user';
+import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
 	selector: 'app-event-page',
@@ -15,43 +19,30 @@ import { EventService } from 'src/app/services/event.service';
 	styleUrls: ['./event-page.component.scss'],
 })
 export class EventPageComponent implements OnInit {
+	loading = true;
 	eventId: number;
-	isHostMode: true;
-	event: IEvent = {
-		id: 0,
-		categoryId: 0,
-		hostId: 0,
-		title: '',
-		startingDate: '',
-		endingDate: '',
-		minimumParticipants: 0,
-		maximumParticipants: 0,
-		autoCancel: true,
-		autoJoin: true,
-		joinDeadline: '',
-		fee: 0,
-		description: '',
-		eventLocation: {
-			id: 0,
-			street: '',
-			address: '',
-			city: '',
-			province: '',
-		},
-		contactEmail: '',
-		contactPhone: '',
-		tags: '',
-		backgroundImage: '',
-	};
+	isHostMode: boolean;
+	event: IEvent;
 	categoryIcon: SafeResourceUrl;
 	tagsList: String[] = [];
+	participantsNumber: number;
+	currentUserId: number;
+	currentUser: UserDetails;
+	participantsArray: UserDetails[];
+	isCurrentUserNotAttending: boolean;
+	isMaximumReached: boolean;
+	isDeadlineOverdue: boolean;
+
 	constructor(
 		private categoryService: CategoryService,
 		private eventService: EventService,
 		private sanitizer: DomSanitizer,
 		private readonly activatedRoute: ActivatedRoute,
 		private dialogService: DialogService,
-		private router: Router
+		private router: Router,
+		private decodeToken: DecodeToken,
+		private attendanceService: AttendanceService,
+		private userService: UserService
 	) {
 		this.activatedRoute.params.subscribe((params) => {
 			if (params && params.id) {
@@ -60,13 +51,25 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-  ngOnInit(): void {
-    this.eventService.getEvent(this.eventId).subscribe((result: IEvent) => {
-      this.event = result;
-      this.intializeTagsList();
-      this.initalizeCategoryIcon();
-    });
-  }
+	ngOnInit(): void {
+		forkJoin([
+			this.eventService.getEvent(this.eventId),
+			this.attendanceService.getParticipantsForEvent(this.eventId)
+		]).subscribe(result => {
+			this.event = result[0];
+			this.participantsArray = result[1];
+			this.decodeToken.initializeTokenInfo();
+			this.currentUserId = this.decodeToken.getCurrentUserId();
+			this.userService.getUserById(this.currentUserId).subscribe((result) => {this.currentUser = result});
+			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
+			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
+			this.intializeTagsList();
+			this.initalizeCategoryIcon();
+			this.checkJoinDeadlineOverdue();
+			this.isHostMode = this.currentUserId == this.event.hostId;
+			this.loading = false;
+		});
+	}
 
 	initalizeCategoryIcon(): void {
 		this.categoryService
@@ -79,6 +82,12 @@ export class EventPageComponent implements OnInit {
 
 	intializeTagsList(): void {
 		this.tagsList = this.event.tags.split('*');
+	}
+
+	checkJoinDeadlineOverdue(): void {
+		var currentDateTime = new Date();
+		var deadlineDate = new Date(this.event.joinDeadline);
+		this.isDeadlineOverdue = currentDateTime > deadlineDate;
 	}
 
 	getMapLink(): string {
@@ -104,6 +113,12 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
+	editEvent(): void {
+		this.router.navigate([
+			'/' + RouteValues.EVENT + '/' + this.eventId,
+		]);
+	}
+
 	openChangeRoleDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Delete Event',
@@ -113,23 +128,35 @@ export class EventPageComponent implements OnInit {
 		});
 	}
 
-  //to-do:
-  //remove mock data after demo, and use real data once the endpoints 
-  //for attendance are available
-  //isEventOwner should recieve a value after a check
-  
-	testArr: User[] = [
-		{ id: 1, name: 'Bill', email: 'abc', password: 'asdcasdcas' },
-		{ id: 2, name: 'Richard', email: 'abc', password: 'asdcasdcas' },
-		{ id: 3, name: 'Radahan', email: 'abc', password: 'asdcasdcas' },
-		{ id: 4, name: 'Godfrey', email: 'abc', password: 'asdcasdcas' },
-		{ id: 5, name: 'Michael', email: 'abc', password: 'asdcasdcas' },
-	];
+	openParticipantsDialog(): void {
+        var isHost: boolean;
+        isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+        this.dialogService.participantsDialog({
+            participants: this.participantsArray,
+            isEventOwner: isHost,
+            eventId: this.eventId
+        }).subscribe(() => {this.attendanceService.getParticipantsForEvent(this.eventId).subscribe(
+            (result) => { this.participantsArray = result;}
+        );});
 
-	openParticipantsDialog(): Observable<boolean> {
-		return this.dialogService.participantsDialog({
-			participants: this.testArr,
-			isEventOwner: false,
+    }
+
+	joinOnEvent(): void {
+		var newAttendance: IAttendance = {
+			eventId: this.eventId,
+			userId: this.currentUserId,
+			joinDate: new Date()
+		};
+		this.attendanceService.addNewAttendance(newAttendance).subscribe((result) => {
+			this.isCurrentUserNotAttending = false;
+			this.participantsArray.push(this.currentUser);
+		});
+	}
+
+	leaveEvent(): void {
+		this.attendanceService.deleteAttendance(this.eventId, this.currentUserId).subscribe((result) => {
+			this.isCurrentUserNotAttending = true;
+			this.participantsArray = this.participantsArray.filter(participant => participant.id != this.currentUserId);
 		});
 	}
 }

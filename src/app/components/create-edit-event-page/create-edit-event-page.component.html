@@ -3,9 +3,17 @@
     <div class="event-form-header">
         <h1> {{ pageTitle }}</h1>
 
-        <button mat-fab color="primary" class="event-button" (click)="onEventAction()" [disabled]="!isEventFormValid()">
-                <mat-icon class="button-icon">save</mat-icon>
-        </button>
+        <div class="action-container">
+            <button mat-raised-button type="button" class="main-button main-button-action" (click)="onEventAction()" [disabled]="!isEventFormValid()">
+                <mat-icon>save</mat-icon>
+                Save
+            </button>
+
+            <button mat-raised-button type="button" class="main-button main-button-cancel" (click)="onEventCancel()">
+                <mat-icon>cancel</mat-icon>
+                Cancel
+            </button>
+        </div>
       
     </div>
 
@@ -32,6 +40,13 @@
 
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput type="text" placeholder="Title" formControlName="title">
+
+                                <mat-error *ngIf="
+                                    !eventGeneralForm.get('title')?.hasError('required') &&
+                                    eventGeneralForm.get('title')?.hasError('maxlength')">
+                                    Event title must have <strong>at most</strong> 25 characters
+                                </mat-error>
+
                                 <mat-error *ngIf="eventGeneralForm.get('title')?.hasError('required')">
                                     Event title is <strong>required</strong>
                                 </mat-error>
@@ -44,7 +59,12 @@
                             <label>Start Date</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="startDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="startDate" [min]="currentDate">
+                                    formControlName="startDate" 
+                                    [min]="currentDate"
+                                    [max]="eventGeneralForm.get('eventDates')?.get('endDate')?.value !== '' ?
+                                        eventGeneralForm.get('eventDates')?.get('endDate')?.value : null"
+                                    
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #startDatePicker></mat-datepicker>
 
@@ -85,7 +105,8 @@
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="endDatePicker"
                                     [min]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
-                                    placeholder="MM/DD/YYYY" formControlName="endDate">
+                                    placeholder="MM/DD/YYYY" formControlName="endDate"
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #endDatePicker></mat-datepicker>
                                 <mat-error
@@ -106,7 +127,7 @@
                                 </mat-icon>
 
                                 <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('endTime')?.hasError('endTimeError')">
-                                    End time must be less than the start time
+                                    End time must be greater than the start time
                                 </mat-error>
 
                                 <mat-error
@@ -125,7 +146,8 @@
                             <label>Category</label>
 
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId">
+                                <mat-select name="category" formControlName="category" [(value)]="selectedCategoryId"
+                                            placeholder="Select a category" class="category-select">
                                     <mat-option *ngFor="let category of categoryList.result" [value]="category.id">
                                         {{ category.title }}
                                     </mat-option>
@@ -187,17 +209,25 @@
                     </div>
 
 
-                    <div class="event-form-item-wrapper" formGroupName="joinEvent">
+                    <div class="event-form-item-wrapper" formGroupName="eventDates">
                         <div class="event-form-item-container">
                             <label>Join Deadline</label>
                             <mat-form-field class="event-form-item" appearance="outline">
                                 <input matInput [matDatepicker]="deadlineDatePicker" placeholder="MM/DD/YYYY"
-                                    formControlName="joinDeadlineDate" [min]="currentDate"
-                                    [max]="eventGeneralForm.get('eventDates')?.get('startDate')?.value">
+                                    formControlName="joinDeadlineDate" 
+                                    [min]="currentDate"
+                                    [max]="eventGeneralForm.get('eventDates')?.get('startDate')?.value"
+                                   
+                                    >
                                 <mat-datepicker-toggle matSuffix [for]="deadlineDatePicker"></mat-datepicker-toggle>
                                 <mat-datepicker #deadlineDatePicker></mat-datepicker>
+                                
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineDate')?.hasError('joinDeadlineDateError')">
+                                    Deadline date for event should be less than the starting date
+                                </mat-error>
+                                
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineDate')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineDate')?.hasError('required')">
                                     Deadline date for event is <strong>required</strong>
                                 </mat-error>
                             </mat-form-field>
@@ -211,10 +241,20 @@
                                 <mat-icon matSuffix (click)="deadlineTimePicker.open()">
                                     watch_later
                                 </mat-icon>
+
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('joinDeadlineTimeError')">
+                                    Join deadline time must be less than the start time
+                                </mat-error>
+
+                                <mat-error *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('joinTimeError')">
+                                    Join deadline time must be <strong>grater than</strong> current time
+                                </mat-error>
+
                                 <mat-error
-                                    *ngIf="eventGeneralForm.get('joinEvent')?.get('joinDeadlineTime')?.hasError('required')">
+                                    *ngIf="eventGeneralForm.get('eventDates')?.get('joinDeadlineTime')?.hasError('required')">
                                     Deadline time for event is <strong>required</strong>
                                 </mat-error>
+
                             </mat-form-field>
                             <ngx-mat-timepicker #deadlineTimePicker></ngx-mat-timepicker>
                         </div>

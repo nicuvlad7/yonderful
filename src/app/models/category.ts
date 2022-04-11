@@ -1,10 +1,11 @@
 import { SafeResourceUrl } from "@angular/platform-browser";
 
 export interface Category {
-    id: number;
-    title: string;
-    icon: string;
-    defaultBackground: string;
+	id: number;
+	title: string;
+	icon: string;
+	defaultBackground: string;
+	hasEvents: boolean;
 }
 
 export interface CategoryResponse {
@@ -16,6 +17,7 @@ export interface CategoryToShow {
     title: string;
     icon: SafeResourceUrl;
     defaultBackground: SafeResourceUrl;
+    hasEvents:boolean;
 }
 
 export interface CategoriesResponse {
@@ -28,4 +30,5 @@ export interface ICategory {
   title: string;
   icon: string;
   defaultBackground: string;
+  hasEvents:boolean;
 }

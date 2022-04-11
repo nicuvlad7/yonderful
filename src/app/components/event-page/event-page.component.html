@@ -1,4 +1,4 @@
-<div class="event-card"> 
+<div class="event-card" *ngIf="!loading && event"> 
     <div class="top-div">
         <img class="event-image" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
         <div class="event-information">
@@ -17,9 +17,9 @@
                         <div class="required-participants">Required participants: {{event.minimumParticipants}}</div>
                     </div>
                 </div>
-                <div class="admin-buttons" *ngIf="isHostMode"}}>
-                    <button mat-button class="admin-buttons-style"><mat-icon>edit</mat-icon></button>
-                    <button mat-button class="admin-buttons-style" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
+                <div class="admin-buttons" *ngIf="isHostMode">
+                    <button mat-button class="admin-buttons-style" (click)="editEvent()"><mat-icon>edit</mat-icon></button>
+                    <button  mat-button class="admin-buttons-style delete-button" (click)="deleteEvent()"><mat-icon>clear</mat-icon></button>
                 </div>
             </div>
             <div class="fee-icon-row">
@@ -34,9 +34,22 @@
             <div  class="participants-card" (click)="openParticipantsDialog()">
                 <mat-icon class="participants-icon">group</mat-icon>
                 <div class="bold-element">Participants: </div>
-                <div class="current-participants-number">{{event.maximumParticipants / 2 + 3}} / {{event.maximumParticipants}}</div>
+                <div class="current-participants-number">{{participantsArray?.length}} / {{event.maximumParticipants}}</div>
             </div>
-            <button class="join-button" mat-flat-button>Join</button>
+            <div *ngIf="isCurrentUserNotAttending else leaveButtonBlock">
+                <div *ngIf="!isMaximumReached && !isDeadlineOverdue else disabledJoinBlock">
+                    <button class="join-button-active template-button" mat-flat-button (click)="joinOnEvent()">Join</button>
+                </div>
+                <ng-template #disabledJoinBlock>
+                    <button class="join-button-disabled template-button" mat-flat-button>Join</button>
+                </ng-template>
+                
+            </div>
+            <ng-template #leaveButtonBlock> 
+                <button class="leave-button template-button" mat-flat-button (click)="leaveEvent()">Leave</button>
+            </ng-template>
+
+            
         </div>
     </div>
     <div class="bottom-div">

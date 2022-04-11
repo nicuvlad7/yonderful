@@ -6,30 +6,22 @@
 }
 
 .top-row {
-    display: flex;
     @include flex-container(row, flex-start);
     justify-content: space-between;
     padding-right: 100px;
+
+    h1 {
+        margin-bottom: 0px;
+    }
 }
 
-.add-new-button {
-    width: 150px;
-    font-size: 2vh;
-    color: $yonder-pink;
-
+.action-container {
+    @include flex-container(row, flex-end);
+	align-items: center;
 }
 
-.add-button-text {
-    margin-left: 5px;
-    @include flex-container(row, flex-start);
-}
-
-.add-button-icon {
-    margin-top: 5px;
-}
-
-.add-button-new {
-    margin-left: 10px;
+.main-button {
+	border-radius: 20px;
 }
 
 h1{

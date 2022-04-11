@@ -12,15 +12,29 @@
 }
 
 .content-header {
-	@include flex-container(row, flex-start);
+	@include flex-container(row, space-between);
+	margin-bottom: 25px;
 }
 
-.category-header {
-	margin-bottom: 40px;
+.header {
+	@include flex-container(row);
+	align-items: center;
+
+	h1 {
+		margin: 0px;
+	}
 }
 
 .no-padding {
 	padding: 0;
+}
+
+.margin-left-10 {
+	margin-left: 10px;
+}
+
+.margin-right-10 {
+	margin-right: 10px
 }
 
 .category-form-shadow {
@@ -45,27 +59,74 @@
 
 .title-input-container {
 	@include flex-container(column, flex-start);
+	width: 350px;
+}
+
+.title-input {
 	width: 100%;
+	line-height: 5px;
 }
 
 .action-container {
 	@include flex-container(row, flex-end);
+	align-items: center;
+}
+
+.button-label {
+	@include flex-container(row, space-between);
+	align-items: center;
+
+}
+
+.icon-button {
+	@include flex-container(row);
+	height: auto;
+	width: 120px;
+	border-radius: 20px;
+
+	mat-icon {
+		font-size: 20px;
+	}
+}
+
+.icon-button-action {
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+
+.icon-button-cancel {
+	border: 1px solid $yonder-pink;
+	margin-left: 20px;
 }
 
 .upload-display-container {
+	height: 75%;
 	@include flex-container(row, space-between);
 }
 
 .upload-display-item {
-	@include flex-container(column);
-	// width: 50%;
-	
+	@include flex-container(column, flex-start);
+	position: relative;
+	bottom: 0;
 	img {
 		height: 250px;
 		width: 350px;
 		max-width: 100%;
 		min-height: 150px;
 		margin: 0 10px;
+	}
+
+	.background-image {
+		margin-left: 0px;
+	} 
+
+	.icon-image {
+		margin-right: 0px;
+	}
+
+	.upload-item-background {
+		position: relative;
+		left: -10px
 	}
 }
 
@@ -86,8 +147,12 @@
 	margin: 0 10px;
 }
 
-.mat-form-field {
-	width: 50%;
+.img-placeholder-background {
+	margin-left: 0px;
+}
+
+.img-placeholder-icon {
+	margin-right: 0px;
 }
 
 ::ng-deep .file-upload {
@@ -96,8 +161,25 @@
 }
 
 label {
-	margin-left: 5px;
+	margin-left: 0px;
 	margin-bottom: 10px;
 	color: $yonder-blue;
 	font-weight: 500;
+}
+
+.optional-label {
+	color: $yonder-blue;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    opacity: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
+    opacity: 0;
+}
+
+::ng-deep.mat-input-element:disabled {
+    color:rgba(0, 0, 0, 0.87);
+    margin-left: -5px;
 }

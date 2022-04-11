@@ -5,13 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { loginUser } from '../models/loginUser';
+import { DecodeToken } from '../helpers/decode.token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<loginUser>;
   public currentUser: Observable<loginUser>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private decode: DecodeToken) {
     this.currentUserSubject = new BehaviorSubject<loginUser>(
       JSON.parse(localStorage.getItem('currentUser')!)
     );
@@ -28,6 +29,7 @@ export class AuthenticationService {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
+        this.decode.initializeTokenInfo();
         return user;
       })
     );
@@ -36,6 +38,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.decode.resetToken();
     this.currentUserSubject.next(null);
   }
 }

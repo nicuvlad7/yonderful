@@ -2,14 +2,13 @@
 
   <div class="top-row">
     <h1>Administrate categories</h1>
-    <button mat-raised-button class="add-new-button" (click)="navigatetoCategoryNew()">
-      <div class="add-button-text">
-        <mat-icon class="add-button-icon">add</mat-icon> 
-        <div class="add-button-new">New</div>
-      </div>
-    </button>
+    <div class="action-container">
+      <button mat-raised-button class="main-button main-button-action" (click)="navigatetoCategoryNew()">
+          <mat-icon class="add-button-icon">add</mat-icon> 
+          New
+      </button>
+    </div>
   </div>
-
 
   <ng-container *ngIf="displayedCategories.length; else noDataBlock" >
 
@@ -33,7 +32,9 @@
           <th mat-header-cell  *matHeaderCellDef class="table-header-text"> Actions </th>
           <td mat-cell *matCellDef="let element" >
             <button mat-button (click)="editCategory(element.id)"><mat-icon>edit</mat-icon></button>
-            <button mat-button (click)="deleteCategory(element.id); $event.stopPropagation()"><mat-icon>delete</mat-icon></button>
+            <span (click)="$event.stopPropagation();" matTooltip="You cannot delete categories that have an associated event." [matTooltipDisabled]="!element.hasEvents">
+               <button mat-button [disabled]="element.hasEvents" (click)="deleteCategory(element.id);"><mat-icon>delete</mat-icon></button>
+            </span>
           </td>
         </ng-container>
 
