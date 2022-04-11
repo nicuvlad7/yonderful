@@ -1,6 +1,7 @@
 @use "../../variables.scss";
 @import '../../mixins.scss';
 
+
 .events-wrapper {
     padding: 40px;
     height: auto;
@@ -20,7 +21,7 @@
 
 .events-container {
     width: 70%;
-    max-height: 500px;
+    height: calc(100vh - 230.66px);
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
