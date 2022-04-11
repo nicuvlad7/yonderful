@@ -67,7 +67,7 @@ export class HttpService {
   }
 
   handleHttpErrorResponse(error: HttpErrorResponse): Observable<any> {
-    var errorMessage: string = `Error status ${error.status}: ${error.error}`;
+    var errorMessage: string = `${error.message}`;
     return throwError(() => new Error(errorMessage));
   }
 

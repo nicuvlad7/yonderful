@@ -54,7 +54,7 @@ namespace YonderfulApi.Controllers
 			var createdCategory = await _categoryService.PostCategory(newCategory);
 			if (createdCategory == null)
 			{
-				return BadRequest();
+				return BadRequest("Category already exists");
 			}
 			return Created(nameof(GetCategory), _mapper.Map<CategoryDto>(createdCategory));
 		}
