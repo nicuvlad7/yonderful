@@ -61,11 +61,9 @@ export class EventPageComponent implements OnInit {
 			this.decodeToken.initializeTokenInfo();
 			this.currentUserId = this.decodeToken.getCurrentUserId();
 			this.userService.getUserById(this.currentUserId).subscribe((result) => {this.currentUser = result});
-			this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
-			this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
 			this.intializeTagsList();
 			this.initalizeCategoryIcon();
-			this.checkJoinDeadlineOverdue();
+			this.checkJoinButtonState();
 			this.isHostMode = this.currentUserId == this.event.hostId;
 			this.loading = false;
 		});
@@ -136,7 +134,11 @@ export class EventPageComponent implements OnInit {
             isEventOwner: isHost,
             eventId: this.eventId
         }).subscribe(() => {this.attendanceService.getParticipantsForEvent(this.eventId).subscribe(
-            (result) => { this.participantsArray = result;}
+			(result) => {
+				this.participantsArray = result;
+				this.checkJoinButtonState();
+			}
+			
         );});
 
     }
@@ -158,5 +160,11 @@ export class EventPageComponent implements OnInit {
 			this.isCurrentUserNotAttending = true;
 			this.participantsArray = this.participantsArray.filter(participant => participant.id != this.currentUserId);
 		});
+	}
+
+	checkJoinButtonState(): void {
+		this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
+		this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
+		this.checkJoinDeadlineOverdue();
 	}
 }

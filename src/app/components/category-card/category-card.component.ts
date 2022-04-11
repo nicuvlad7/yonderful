@@ -224,23 +224,23 @@ export class CategoryCardComponent implements OnInit {
 		)!.value as string;
 
 		if (!this.urlID) {
-			this.categoryService.addNewCategory(this.categoryCard).subscribe(
-				(result) => {
+			this.categoryService.addNewCategory(this.categoryCard).subscribe({
+				next: (_: ICategory) => {
 					this._snackBar.open('Category was added.', '', {
 						duration: 1500,
 					});
 					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
-				(error) => {
+				error: (error: Error) => {
 					this._snackBar.open(
-						`Error status ${error.status}: ${error.message}`,
+						error.message,
 						'',
 						{
 							duration: 5000,
 						}
 					);
 				}
-			);
+			});
 		} else {
 			this.categoryService.updateCategory(this.categoryCard).subscribe(
 				(result) => {
