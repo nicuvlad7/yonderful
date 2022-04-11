@@ -15,13 +15,17 @@ namespace api.Controllers
 	{
 		private readonly IEventService _eventService;
 		private readonly IUserService _userService;
+		private readonly IAttendanceService _attendanceService;
 		private readonly ICategoryService _categoryService;
 		private readonly IPictureService _pictureService;
 		private readonly IMapper _mapper;
 
-		public EventController(IEventService eventService, ICategoryService categoryService, 
-								IUserService userService, IPictureService pictureService, IMapper mapper){
+		public EventController(IEventService eventService, ICategoryService categoryService,
+								IUserService userService, IAttendanceService attendanceService,
+								IPictureService pictureService, IMapper mapper)
+		{
 			_eventService = eventService;
+			_attendanceService = attendanceService;
 			_categoryService = categoryService;
 			_userService = userService;
 			_pictureService = pictureService;
@@ -41,13 +45,15 @@ namespace api.Controllers
 		}
 
 		[HttpGet("[action]/{userId}")]
-		public async Task<IActionResult> GetJoinedEventsForUser(int userId){
+		public async Task<IActionResult> GetJoinedEventsForUser(int userId)
+		{
 			var joinedEvents = await _eventService.GetJoinedEventsForUser(userId);
 			return Ok(_mapper.Map<IList<EventDto>>(joinedEvents));
 		}
 
 		[HttpGet("[action]/{userId}")]
-		public async Task<IActionResult> GetDashboardEvents(int userId){
+		public async Task<IActionResult> GetDashboardEvents(int userId)
+		{
 			DashBoardEventsDto dashBoardEventsDto = new DashBoardEventsDto();
 
 			var hostedEvents = await _eventService.GetHostedEvents(userId);
@@ -99,6 +105,17 @@ namespace api.Controllers
 				newEvent.AutoCancel = false;
 
 			var createdEvent = await _eventService.PostEvent(newEvent);
+
+			if (newEvent.AutoJoin)
+			{
+				var attendanceDto = new AttendanceDto();
+				attendanceDto.EventId = createdEvent.Id;
+				attendanceDto.UserId = newEvent.HostId;
+				attendanceDto.JoiningDate = DateTime.UtcNow.ToLocalTime();
+				var newAttendance = _mapper.Map<Attendance>(attendanceDto);
+				await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
+			}
+            
 			if (createdEvent == null)
 			{
 				return BadRequest();
@@ -125,7 +142,8 @@ namespace api.Controllers
 			return Ok(putEvent);
 		}
 
-		private async Task<Tuple<bool, string>> EventValidations(Event newEvent){
+		private async Task<Tuple<bool, string>> EventValidations(Event newEvent)
+		{
 			var existingCategory = await _categoryService.GetCategory(newEvent.CategoryId);
 			var existingUser = await _userService.GetUserById(newEvent.HostId);
 
@@ -145,8 +163,10 @@ namespace api.Controllers
 			return new Tuple<bool, string>(true, "");
 		}
 
-		private async Task<EventDto> checkBackgroundImage(EventDto eventDto){
-			if(string.IsNullOrEmpty(eventDto.BackgroundImage)){
+		private async Task<EventDto> checkBackgroundImage(EventDto eventDto)
+		{
+			if (string.IsNullOrEmpty(eventDto.BackgroundImage))
+			{
 				var eventCategory = await _categoryService.GetCategory(eventDto.CategoryId);
 				eventDto.BackgroundImage = await _pictureService.GetPictureContent(eventCategory.DefaultBackgroundId.ToString());
 				return eventDto;
