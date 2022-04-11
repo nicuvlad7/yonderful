@@ -115,7 +115,7 @@ namespace api.Controllers
 				var newAttendance = _mapper.Map<Attendance>(attendanceDto);
 				await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
 			}
-            
+
 			if (createdEvent == null)
 			{
 				return BadRequest();
@@ -135,6 +135,17 @@ namespace api.Controllers
 		{
 			var newEvent = await _eventService.CreateEvent(newEventDto);
 			var putEvent = await _eventService.PutEvent(newEvent);
+
+			if (newEvent.AutoJoin)
+			{
+				var attendanceDto = new AttendanceDto();
+				attendanceDto.EventId = putEvent.Id;
+				attendanceDto.UserId = newEvent.HostId;
+				attendanceDto.JoiningDate = DateTime.UtcNow.ToLocalTime();
+				var newAttendance = _mapper.Map<Attendance>(attendanceDto);
+				await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
+			}
+
 			if (putEvent == null)
 			{
 				return BadRequest();
