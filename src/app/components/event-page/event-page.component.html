@@ -3,16 +3,16 @@
         <!-- Top of the card -->
         <div class="top-row">
                 <div class="img-container">
-                    <img class="event-img" [src]="event.backgroundImage ? event.backgroundImage : ''" alt="">
+                    <img class="event-img" [src]="event?.backgroundImage ? event?.backgroundImage : ''" alt="">
                 </div>
                 <div class="event-info">
                     <time class="date">
                         <div class="date-div">
-                            <p class="date-day">{{event.startingDate | date:'dd'}}</p>
-                            <p class="date-month-and-year">{{event.startingDate | date:'MMM y'}}</p>
+                            <p class="date-day">{{event?.startingDate | date:'dd'}}</p>
+                            <p class="date-month-and-year">{{event?.startingDate | date:'MMM y'}}</p>
                         </div>
                     </time>
-                    <h2 class="title">{{ event.title }}</h2>
+                    <h2 class="title">{{ event?.title }}</h2>
                     <div class="location">
                         <mat-icon class="location-icon">explore</mat-icon>
                         <a href={{mapLink}}>
@@ -25,8 +25,8 @@
         <div class="middle-row">
             <div class="buttons-and-disclaimer">
                 <div class="disclaimer">
-                    <p class="disclaimer-text">{{event.minimumParticipants === 0 ? "" : "*event will be canceled if at least " + event.minimumParticipants + " people do not attend"}}</p>
-                    <p class="join-date">Don't miss it! Join until: {{event.joinDeadline | date:'dd MMM y'}} at {{event.joinDeadline | date:'HH:mm'}}</p>
+                    <p class="disclaimer-text">{{event?.minimumParticipants === 0 ? "" : "*event will be canceled if at least " + event?.minimumParticipants + " people do not attend"}}</p>
+                    <p class="join-date">Don't miss it! Join until: {{event?.joinDeadline | date:'dd MMM y'}} at {{event?.joinDeadline | date:'HH:mm'}}</p>
                 </div>
                 <div class="buttons">
                     <div class="admin-buttons" *ngIf="isHostMode">
@@ -56,24 +56,24 @@
         <!-- Bottom of the card -->
         <div class="bottom-row">
             <div class="event-fee-participants">
-                <p class="fee"><mat-icon>attach_money</mat-icon>{{event.fee === 0 ? "Free" : event.fee + " lei"}}</p>
+                <p class="fee"><mat-icon>attach_money</mat-icon>{{event?.fee === 0 ? "Free" : event?.fee + " lei"}}</p>
                 <time class="end-date">
                     <div class="end-date-div">
-                        <p class="end-date">Event will take place between {{event.startingDate | date:longDate}} and {{event.endingDate | date:longDate}}</p>
+                        <p class="end-date">Event will take place between {{event?.startingDate | date:longDate}} and {{event?.endingDate | date:longDate}}</p>
                     </div>
                 </time>
-                <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length + "/" + event.maximumParticipants}}</p>
+                <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length + "/" + event?.maximumParticipants}}</p>
             </div>
             <div class="event-description">
-                <p class="event-description-text">{{event.description}}</p>
+                <p class="event-description-text">{{event?.description}}</p>
             </div>
             <div class="details">
                 <div class="category">
                     <img  class="category-icon" [src]="categoryIcon ? categoryIcon : ''" alt="">
                 </div>
                 <div class="host-details">
-                    <p class="email">Email: {{event.contactEmail}}</p>
-                    <p class="home">Phone: {{event.contactPhone}}</p>
+                    <p class="email">Email: {{event?.contactEmail}}</p>
+                    <p class="home">Phone: {{event?.contactPhone}}</p>
                 </div>
                 <div class="tags">
                         <mat-chip-list class="tags-list"   

@@ -54,17 +54,15 @@ export class EventPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        forkJoin([
-            this.eventService.getEvent(this.eventId),
-            this.attendanceService.getParticipantsForEvent(this.eventId)
-        ]).subscribe(result => {
-            this.event = result[0];
-            this.participantsArray = result[1];
+        forkJoin({
+            requestOne: this.eventService.getEvent(this.eventId),
+            requestTwo: this.attendanceService.getParticipantsForEvent(this.eventId)
+        }).subscribe(({ requestOne, requestTwo }) => {
+            this.event = requestOne;
+            this.participantsArray = requestTwo;
             this.decodeToken.initializeTokenInfo();
             this.currentUserId = this.decodeToken.getCurrentUserId();
             this.userService.getUserById(this.currentUserId).subscribe((result) => { this.currentUser = result });
-            this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
-            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
             this.intializeTagsList();
             this.initalizeCategoryIcon();
             this.checkJoinDeadlineOverdue();
@@ -140,7 +138,11 @@ export class EventPageComponent implements OnInit {
             eventId: this.eventId
         }).subscribe(() => {
             this.attendanceService.getParticipantsForEvent(this.eventId).subscribe(
-                (result) => { this.participantsArray = result; }
+                (result) => {
+                    this.participantsArray = result;
+                    this.checkJoinButtonState();
+                }
+
             );
         });
 
@@ -163,5 +165,11 @@ export class EventPageComponent implements OnInit {
             this.isCurrentUserNotAttending = true;
             this.participantsArray = this.participantsArray.filter(participant => participant.id != this.currentUserId);
         });
+    }
+
+    checkJoinButtonState(): void {
+        this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
+        this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
+        this.checkJoinDeadlineOverdue();
     }
 }
