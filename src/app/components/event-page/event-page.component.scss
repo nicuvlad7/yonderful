@@ -197,6 +197,8 @@
 }
 
 .join-button-disabled {
+    padding-left: 14px;
+    min-height: 36px;
     color: black;
 }
 
@@ -209,6 +211,7 @@
 .leave-button {
     @include flex-container(row);
     text-align: center;
+    align-self: center;
     padding-left: 14px;
     margin: 10px;
     background-color: $yonder-pink;

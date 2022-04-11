@@ -71,9 +71,9 @@ export class EventPageComponent implements OnInit {
             this.mapLink = this.getMapLink();
             this.isHostMode = this.currentUserId == this.event.hostId;
             this.loading = false;
-            this.location = this.event.eventLocation.street + " " +
-                this.event.eventLocation.address + ", " +
-                this.event.eventLocation.city + ", " + this.event.eventLocation.province;
+            this.location = `${this.event.eventLocation.street}\
+                ${this.event.eventLocation.address}\ 
+                ${this.event.eventLocation.city} ${this.event.eventLocation.province}`;
         });
     }
 
@@ -98,12 +98,9 @@ export class EventPageComponent implements OnInit {
 
     getMapLink(): string {
         return (
-            'https://www.google.com/maps/place/' +
-            this.event.eventLocation.street +
-            '+' +
-            this.event.eventLocation.address +
-            '+' +
-            this.event.eventLocation.city
+            `https://www.google.com/maps/place/${this.event.eventLocation.street}+\
+            ${this.event.eventLocation.address}+\
+            ${this.event.eventLocation.city}`
         );
     }
 
