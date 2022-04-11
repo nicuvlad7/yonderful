@@ -219,7 +219,7 @@ namespace YonderfulApi.Service
 		{
 			try
 			{
-				var eventsWithSameCategory = await _context.Events.Where(e => e.CategoryId == myEvent.CategoryId).SingleOrDefaultAsync();
+				var eventsWithSameCategory = await _context.Events.SingleOrDefaultAsync(e => e.CategoryId == myEvent.CategoryId);
 				return eventsWithSameCategory != null;
 			}
 			catch (InvalidOperationException e)
