@@ -3,7 +3,7 @@
 
 .events-wrapper {
     padding: 40px;
-    height: calc(100vh - 70.66px);
+    height: auto;
 }
 
 .events-header {
@@ -35,8 +35,7 @@
 }
 
 .data-container {
-    // margin-left: 20px;
-    // margin-top: 20px;
+    margin: 0px;
 }
 
 .title {
@@ -45,10 +44,9 @@
 }
 
 .events {
-    @include flex-container(row, flex-start);
+    @include flex-container(row, space-between);
     flex-wrap: wrap;
     width: 100%;
-    margin-left: 20px;
 }
 
 .event-card {
