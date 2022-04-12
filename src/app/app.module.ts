@@ -31,6 +31,7 @@ import { ParticipantsDialogComponent } from './components/participants-dialog/pa
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { GenericFilterComponent } from './components/generic-filter/generic-filter.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
+import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 
 @NgModule({
 	declarations: [
@@ -50,27 +51,28 @@ import { ThreeEventsComponent } from './components/three-events/three-events.com
 		EventPageComponent,
 		InfoComponent,
 		DashboardComponent,
+		GenericFilterComponent,
 		AllEventsComponent,
 		ParticipantsDialogComponent,
 		UserDetailsComponent,
-		NotFoundComponent,
-		ThreeEventsComponent,
-		GenericFilterComponent,
-	],
-	imports: [
-		BrowserModule,
-		FormsModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		MaterialModules,
-		ReactiveFormsModule,
-		HttpClientModule,
-	],
-	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-		MatDatepickerModule,
-	],
-	bootstrap: [AppComponent],
+        NotFoundComponent,
+        ThreeEventsComponent,
+        GenericEventPageComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MaterialModules,
+        ReactiveFormsModule,
+        HttpClientModule,
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        MatDatepickerModule,
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

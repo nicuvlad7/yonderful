@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IEvent } from 'src/app/models/event';
 import { EventService } from 'src/app/services/event.service';
-import { RouteValues } from '../../models/constants';
 
 @Component({
 	selector: 'app-all-events',
@@ -12,7 +10,7 @@ import { RouteValues } from '../../models/constants';
 export class AllEventsComponent implements OnInit {
 	eventsArray: IEvent[];
 
-	constructor(private eventService: EventService, private router: Router) {}
+  constructor(private eventService: EventService) { }
 
 	ngOnInit(): void {
 		this.eventService.getFutureEvents().subscribe((events) => {
@@ -20,7 +18,4 @@ export class AllEventsComponent implements OnInit {
 		});
 	}
 
-	navigateToEventView(eventId: number) {
-		this.router.navigate([RouteValues.EVENT_DETAILS + '/' + eventId]);
-	}
 }
