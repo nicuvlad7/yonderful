@@ -8,14 +8,16 @@ import { EventService } from 'src/app/services/event.service';
 	styleUrls: ['./all-events.component.scss'],
 })
 export class AllEventsComponent implements OnInit {
-	eventsArray: IEvent[];
+  eventsArray: IEvent[];
+  isLoading: boolean = true;
 
   constructor(private eventService: EventService) { }
 
-	ngOnInit(): void {
-		this.eventService.getFutureEvents().subscribe((events) => {
-			this.eventsArray = events.result;
-		});
-	}
+  ngOnInit(): void {
+    this.eventService.getFutureEvents().subscribe((events) => {
+      this.eventsArray = events.result;
+      this.isLoading = false;
+    });
+  }
 
 }

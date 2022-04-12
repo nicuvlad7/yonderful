@@ -139,7 +139,7 @@ export class CategoryCardComponent implements OnInit {
 	openDiscardDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm discard.',
-			message: 'Are you sure you want to revert your changes??',
+			message: 'Are you sure you want to revert your changes?',
 			confirmText: 'Yes',
 			cancelText: 'No',
 		});
@@ -148,7 +148,7 @@ export class CategoryCardComponent implements OnInit {
 	openDeleteDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm deletion.',
-			message: 'Are you sure you want to delete this category??',
+			message: 'Are you sure you want to delete this category?',
 			confirmText: 'Yes',
 			cancelText: 'No',
 		});
