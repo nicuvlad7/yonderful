@@ -27,6 +27,12 @@ export class HttpService {
     return this.httpClient.get<T>(requestUrl, { headers: this.headers });
   }
 
+  getByTwo<T>(id1: number, id2: number, endpoint: string): Observable<T> {
+    this.setRequestHeaders();
+    const requestUrl = this.getRequestUrl(endpoint) + '/' + id1 + ", " + id2;
+    return this.httpClient.get<T>(requestUrl, { headers: this.headers });
+  }
+
   post<T>(requestBody: any, endpoint: string): Observable<T> {
     this.setRequestHeaders();
     const requestUrl = this.getRequestUrl(endpoint);

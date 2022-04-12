@@ -22,7 +22,7 @@ export class SidenavComponent implements OnInit {
         { title: "All Events", name: "calendar_today", route: RouteValues.ALL_EVENTS },
         { title: "Joined Events", name: "list_alt", route: "" },
         { title: "Hosted Events", name: "people", route: "" },
-        { title: "My history", name: "history", route: "" },
+        { title: "My history", name: "history", route: "my-history" },
 
     ]
 

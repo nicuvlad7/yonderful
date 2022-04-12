@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { IAttendance } from '../models/attendance';
 import { RouteEndpoints } from '../models/constants';
-import { UserDetails } from '../models/user';
+import { User, UserDetails } from '../models/user';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -16,7 +16,13 @@ export class AttendanceService {
 		return this.httpService
 			.post<IAttendance>(attendance, RouteEndpoints.ATTENDANCE)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
-  	}
+	}
+	
+	getUserAttendance(eventId: number, userId: number): Observable<UserDetails[]> {
+		return this.httpService
+			.getByTwo<UserDetails[]>(eventId, userId, RouteEndpoints.ATTENDANCE)
+			.pipe(catchError(this.httpService.handleHttpErrorResponse));
+	}
   
   	getParticipantsForEvent(eventId: number): Observable<UserDetails[]> {
 		return this.httpService
