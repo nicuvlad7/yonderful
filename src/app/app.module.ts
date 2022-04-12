@@ -33,6 +33,7 @@ import { GenericFilterComponent } from './components/generic-filter/generic-filt
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
 import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 
+
 @NgModule({
 	declarations: [
 		AppComponent,

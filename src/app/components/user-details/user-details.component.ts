@@ -26,11 +26,11 @@ export class UserDetailsComponent implements OnInit {
         return this.userEditForm.controls
     }
 
-    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken, private dialogService: DialogService) {
-        this.userId = this.decodeToken.getCurrentUserId();
-    }
+    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken, private dialogService: DialogService) {}
 
     ngOnInit(): void {
+        this.decodeToken.initializeTokenInfo();
+        this.userId = this.decodeToken.getCurrentUserId();
         this.initUserFormControls();
         this.retrieveUserData();
     }

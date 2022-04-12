@@ -171,6 +171,10 @@ namespace YonderfulApi.Service
 
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
+			//This is the filtering function. On each line that starts with the "and" operator we check to see
+			//if that specific attribute on the filter object has a value.
+			//If it does have one, we apply the relevant condition to filter it.If it does not have one , we go and check the next 
+			//attribute until we reach the end.
 			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.IsAttendingId) select attendance.EventId;
 			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
 				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
