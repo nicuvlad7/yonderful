@@ -32,6 +32,16 @@ namespace api.Controllers
 			_mapper = mapper;
 		}
 
+		public async void AutoJoin(Event createdEvent)
+		{
+			var attendanceDto = new AttendanceDto();
+			attendanceDto.EventId = createdEvent.Id;
+			attendanceDto.UserId = createdEvent.HostId;
+			attendanceDto.JoiningDate = DateTime.UtcNow.ToLocalTime();
+			var newAttendance = _mapper.Map<Attendance>(attendanceDto);
+			await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
+		}
+
 		[HttpGet("{eventId}")]
 		public async Task<IActionResult> GetEvent(int eventId)
 		{
@@ -108,12 +118,7 @@ namespace api.Controllers
 
 			if (newEvent.AutoJoin)
 			{
-				var attendanceDto = new AttendanceDto();
-				attendanceDto.EventId = createdEvent.Id;
-				attendanceDto.UserId = newEvent.HostId;
-				attendanceDto.JoiningDate = DateTime.UtcNow.ToLocalTime();
-				var newAttendance = _mapper.Map<Attendance>(attendanceDto);
-				await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
+				AutoJoin(createdEvent);
 			}
 
 			if (createdEvent == null)
@@ -138,12 +143,7 @@ namespace api.Controllers
 
 			if (newEvent.AutoJoin)
 			{
-				var attendanceDto = new AttendanceDto();
-				attendanceDto.EventId = putEvent.Id;
-				attendanceDto.UserId = newEvent.HostId;
-				attendanceDto.JoiningDate = DateTime.UtcNow.ToLocalTime();
-				var newAttendance = _mapper.Map<Attendance>(attendanceDto);
-				await _attendanceService.CreateAttendance(_mapper.Map<AttendanceDto, Attendance>(attendanceDto));
+				AutoJoin(putEvent);
 			}
 
 			if (putEvent == null)
