@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Category } from 'src/app/models/category';
 import { FiltersData } from 'src/app/models/filters-data';
 import { SortData } from 'src/app/models/sort-data';
 import { CategoryService } from 'src/app/services/category.service';
@@ -27,7 +28,7 @@ export class GenericFilterComponent implements OnInit {
 		searchTitle: '',
 	};
 
-	categoriesPool: string[];
+	categoriesPool: Category[];
 
 	sortMethods: string[] = ['Start Date', 'Join Deadline', 'Title', 'Fee'];
 
@@ -35,7 +36,7 @@ export class GenericFilterComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.categoryService.getCategories().subscribe((categories) => {
-			this.categoriesPool = categories.result.map((el) => el.title);
+			this.categoriesPool = categories.result;
 		});
 	}
 
@@ -45,6 +46,7 @@ export class GenericFilterComponent implements OnInit {
 
 	emitFiltersData() {
 		this.filtersData.emit(this.filtersDataSelected);
+		console.log(this.filtersDataSelected);
 	}
 
 	emitClickFilter() {

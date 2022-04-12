@@ -114,9 +114,9 @@
 				>
 					<mat-option
 						*ngFor="let category of categoriesPool"
-						[value]="category"
+						[value]="category.id"
 					>
-						{{ category }}
+						{{ category.title }}
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
