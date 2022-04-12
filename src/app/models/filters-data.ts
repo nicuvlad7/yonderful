@@ -1,7 +1,7 @@
 export interface FiltersData {
     startDate:Date,
     endDate?:Date,
-    categories?:string[],
+    categories?:number[],
     hiddenIfFee?:boolean,
     hiddenIfStarted?:boolean,
     isHost?:boolean,

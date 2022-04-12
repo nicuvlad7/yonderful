@@ -176,7 +176,7 @@ namespace YonderfulApi.Service
 			&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
 			&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
 			&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
-			&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline < DateTime.Now)
+			&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline >= DateTime.Now)
 			&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
 			).ToListAsync();
 			return eventsList;

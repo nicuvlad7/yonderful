@@ -9,8 +9,8 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class AllEventsComponent implements OnInit {
 	eventsArray: IEvent[];
-	showFilterCheckboxes:boolean=true;
-	constructor(private eventService: EventService) {}
+
+  constructor(private eventService: EventService) { }
 
 	ngOnInit(): void {
 		this.eventService.getFutureEvents().subscribe((events) => {
