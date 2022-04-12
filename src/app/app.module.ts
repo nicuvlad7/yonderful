@@ -29,32 +29,36 @@ import { EventCardComponent } from './components/event-card/event-card.component
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { GenericFilterComponent } from './components/generic-filter/generic-filter.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
+import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginCardComponent,
-        RegisterCardComponent,
-        SidenavComponent,
-        ToolbarComponent,
-        ConfirmComponent,
-        RegisterCardComponent,
-        LoginCardComponent,
-        CreateEditEventPageComponent,
-        CategoriesTableComponent,
-        CategoryCardComponent,
-        UploadFileComponent,
-        EventCardComponent,
-        EventPageComponent,
-        InfoComponent,
-        DashboardComponent,
-        AllEventsComponent,
-        ParticipantsDialogComponent,
+	declarations: [
+		AppComponent,
+		LoginCardComponent,
+		RegisterCardComponent,
+		SidenavComponent,
+		ToolbarComponent,
+		ConfirmComponent,
+		RegisterCardComponent,
+		LoginCardComponent,
+		CreateEditEventPageComponent,
+		CategoriesTableComponent,
+		CategoryCardComponent,
+		UploadFileComponent,
+		EventCardComponent,
+		EventPageComponent,
+		InfoComponent,
+		DashboardComponent,
+		GenericFilterComponent,
+		AllEventsComponent,
+		ParticipantsDialogComponent,
 		UserDetailsComponent,
         NotFoundComponent,
         ThreeEventsComponent,
+        GenericEventPageComponent,
     ],
     imports: [
         BrowserModule,
@@ -72,4 +76,4 @@ import { ThreeEventsComponent } from './components/three-events/three-events.com
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

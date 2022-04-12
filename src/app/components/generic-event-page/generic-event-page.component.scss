@@ -1,0 +1,70 @@
+@use "../../variables.scss";
+@import '../../mixins.scss';
+
+
+.events-wrapper {
+    padding: 40px;
+    height: auto;
+}
+
+.events-header {
+    margin-bottom: 25px;
+
+    h1 {
+        margin-bottom: 0px;
+    }
+}
+
+.events-table {
+    @include flex-container(row, space-between);
+}
+
+.events-container {
+    width: 70%;
+    height: calc(100vh - 230.66px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+    border-radius: 5px;
+    overflow-y: auto;
+
+}
+
+.data-container {
+    margin: 0px;
+}
+
+.title {
+    font-size: 3vh;
+    color: black;
+}
+
+.events {
+    @include flex-container(row, space-between);
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.event-card {
+    align-self: flex-start;
+    margin-top: 10px;
+    margin: 20px 10px;
+}
+
+.no-data-block { 
+    margin-top: 20px;
+    font-size: 2vh;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+.filter-sort {
+    // To be replaced
+    @include flex-container(row);
+    align-items: center;
+    width: 300px;
+    height: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
