@@ -4,7 +4,7 @@ import { HttpService } from './http.service';
 import {EventsResponse, IEvent} from '../models/event'
 import { RouteEndpoints } from '../models/constants';
 import { IDashboardEvents } from '../models/dashboard-event';
-import { IFilter, IFiltersResponse } from '../models/filters';
+import { IFilter } from '../models/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +37,9 @@ export class EventService {
     .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
-  getFilteredEvents(filter: IFilter): Observable<IFiltersResponse> {
+  getFilteredEvents(filter: IFilter): Observable<EventsResponse> {
     return this.httpService.
-      post<IFiltersResponse>(filter, RouteEndpoints.FILTERED_EVENTS)
+      post<EventsResponse>(filter, RouteEndpoints.FILTERED_EVENTS)
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 }

@@ -3,7 +3,3 @@ export interface IFilter {
     endingDate: Date,
     categoryID: number
 }
-
-export interface IFiltersResponse {
-    result: IFilter[]
-}
