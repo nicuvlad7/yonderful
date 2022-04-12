@@ -158,7 +158,8 @@ namespace YonderfulApi.Service
 			return events;
 		}
 
-		public async Task<IList<Event>> GetJoinedEventsForUser(int userId){
+		public async Task<IList<Event>> GetJoinedEventsForUser(int userId)
+		{
 			var events = await _context.Attendance
 								.Where(att => att.UserId == userId)
 								.Include(att => att.Event)
@@ -172,9 +173,37 @@ namespace YonderfulApi.Service
 		{
 			var eventsList = from Events in _context.Events select Events;
 
-			if (filtersDto.Category != null)
+			if (filtersDto.IsHostId.HasValue)
 			{
-				var categoriesMatching = from category in _context.Categories where (category.Title == filtersDto.Category) select category.Id;
+				eventsList = eventsList.Where(b => b.HostId == filtersDto.IsHostId);
+			}
+
+			if (filtersDto.IsAttendingId.HasValue)
+			{
+				eventsList = from attendance in _context.Attendance
+								.Where(att => att.UserId == filtersDto.IsAttendingId)
+								.Include(att => att.Event)
+							 select attendance.Event;
+			}
+
+			if (filtersDto.SearchTitle != null)
+			{
+				eventsList = eventsList.Where(b => b.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()));
+			}
+
+			if (filtersDto.HiddenIfFee.HasValue)
+			{
+				eventsList = eventsList.Where(b => b.Fee == 0);
+			}
+
+			if (filtersDto.HiddenIfStarted.HasValue)
+			{
+				eventsList = eventsList.Where(b => b.JoinDeadline < DateTime.Today);
+			}
+
+			if (filtersDto.Categories != null)
+			{
+				var categoriesMatching = from category in _context.Categories where (filtersDto.Categories.Contains(category.Title)) select category.Id;
 				eventsList = eventsList.Where(b => categoriesMatching.Contains(b.CategoryId));
 			}
 
