@@ -47,7 +47,7 @@ export class CategoryCardComponent implements OnInit {
 	initCategoryForm(): void {
 		this.categoryForm = new FormGroup({
 			titleControl: new FormControl(
-				{ value: 'Placeholder', disabled: true },
+				{ value: '', disabled: true },
 				[
 					Validators.required,
 					Validators.pattern('^[a-zA-Z]+[a-zA-Z ]*'),
@@ -139,7 +139,7 @@ export class CategoryCardComponent implements OnInit {
 	openDiscardDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm discard.',
-			message: 'Are you sure you want to revert your changes??',
+			message: 'Are you sure you want to revert your changes?',
 			confirmText: 'Yes',
 			cancelText: 'No',
 		});
@@ -148,7 +148,7 @@ export class CategoryCardComponent implements OnInit {
 	openDeleteDialog(): Observable<boolean> {
 		return this.dialogService.confirmDialog({
 			title: 'Confirm deletion.',
-			message: 'Are you sure you want to delete this category??',
+			message: 'Are you sure you want to delete this category?',
 			confirmText: 'Yes',
 			cancelText: 'No',
 		});
@@ -224,23 +224,23 @@ export class CategoryCardComponent implements OnInit {
 		)!.value as string;
 
 		if (!this.urlID) {
-			this.categoryService.addNewCategory(this.categoryCard).subscribe(
-				(result) => {
+			this.categoryService.addNewCategory(this.categoryCard).subscribe({
+				next: (_: ICategory) => {
 					this._snackBar.open('Category was added.', '', {
 						duration: 1500,
 					});
 					this.router.navigate([RouteValues.ADMINISTRATE_CATEGORIES]);
 				},
-				(error) => {
+				error: (error: Error) => {
 					this._snackBar.open(
-						`Error status ${error.status}: ${error.message}`,
+						error.message,
 						'',
 						{
 							duration: 5000,
 						}
 					);
 				}
-			);
+			});
 		} else {
 			this.categoryService.updateCategory(this.categoryCard).subscribe(
 				(result) => {
