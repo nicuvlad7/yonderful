@@ -171,13 +171,15 @@ namespace YonderfulApi.Service
 
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
+			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.IsAttendingId) select attendance.EventId;
 			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
-			&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
-			&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
-			&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
-			&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
-			&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline >= DateTime.Now)
-			&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
+				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
+				&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
+				&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
+				&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline >= DateTime.Now)
+				&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (!filtersDto.IsAttendingId.HasValue || attendingEvents.Contains(e.Id))
 			).ToListAsync();
 			return eventsList;
 		}
