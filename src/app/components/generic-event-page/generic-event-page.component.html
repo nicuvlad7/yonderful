@@ -1,0 +1,32 @@
+<div class="events-wrapper">
+    <div class="events-header">
+        <h1>{{ title }}</h1>
+    </div>
+
+    <div class="events-table">
+        
+        <div class="events-container">
+            <div class="data-container" *ngIf="eventsArray?.length > 0 else noDataBlock">
+                
+                <div class="events">
+                    <div class="event-card" *ngFor="let event of eventsArray">
+                        <div *ngIf="event">
+                            <app-event-card (click)="navigateToEventView(event.id)" class="card-data" [event]="event">
+                            </app-event-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noDataBlock>
+                <div class="no-data-block">
+                    <app-info text="No events to display"></app-info>
+                </div>
+            </ng-template>
+        </div>
+
+        <mat-card class="filter-sort">
+            <!-- The filter and sort menu should be added here -->
+            <h1>Here comes the filter component</h1>
+        </mat-card>
+    </div>
+</div>

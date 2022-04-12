@@ -250,6 +250,11 @@
     line-height: 15px;
 }
 
+
+.no-participants {
+    display: flex;
+}
+
 .event-fee-participants {
     @include flex-container(row, space-between);
     color: $yonder-blue;
