@@ -2,14 +2,16 @@
 @import '../../mixins.scss';
 
 .events-wrapper {
-    @include flex-container(row, center);
+    @include flex-container(row, flex-start);
     align-items: center;
 }
 
 .events-content {
     @include flex-container(column);
-    padding: 40px;
+    padding: 40px 0;
     height: auto;
+    width: 100%;
+    margin: 0 25px;
 }
 
 .events-header {
@@ -26,9 +28,8 @@
 
 
 .events-container {
-    width: 75%;
     height: calc(100vh - 230.66px);
-    min-height: auto;
+    width: calc(100% - 25px);
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
@@ -50,7 +51,7 @@
 }
 
 .events {
-    @include flex-container(row, space-between);
+    @include flex-container(row, space-around);
     flex-wrap: wrap;
     width: 100%;
 }
@@ -68,7 +69,7 @@
     }
 
     .event-card {
-        margin-right: 25px;
+        margin-right: 19px;
     }
 }
 
