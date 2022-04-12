@@ -62,7 +62,12 @@
                         <p class="end-date">Event will take place between {{event?.startingDate | date:longDate}} and {{event?.endingDate | date:longDate}}</p>
                     </div>
                 </time>
-                <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length + "/" + event?.maximumParticipants}}</p>
+                <div class="no-participants" *ngIf="!noMaximumParticipants else noMaximum">
+                    <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length}} / {{event?.maximumParticipants}}</p>
+                </div>
+                <ng-template class="no-participants" #noMaximum>
+                    <p class="attendance" (click)="openParticipantsDialog()"><mat-icon class="participants-icon">group</mat-icon>Participants: {{participantsArray?.length}}</p>
+                </ng-template>
             </div>
             <div class="event-description">
                 <p class="event-description-text">{{event?.description}}</p>
