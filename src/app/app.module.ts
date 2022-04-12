@@ -30,6 +30,7 @@ import { AllEventsComponent } from './components/all-events/all-events.component
 import { ParticipantsDialogComponent } from './components/participants-dialog/participants-dialog.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
+import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 
 @NgModule({
     declarations: [
@@ -54,6 +55,7 @@ import { ThreeEventsComponent } from './components/three-events/three-events.com
 		UserDetailsComponent,
         NotFoundComponent,
         ThreeEventsComponent,
+        GenericEventPageComponent,
     ],
     imports: [
         BrowserModule,
