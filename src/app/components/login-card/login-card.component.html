@@ -1,5 +1,4 @@
 <div class="login-card-wrapper">
-
     <mat-card class="login-card-container">
 
         <mat-card-header class="login-card-header">
@@ -34,7 +33,7 @@
 
                     <mat-form-field class="login-form-item" appearance="fill">
                         <mat-label>Password</mat-label>
-                        <input matInput type="password" placeholder="Password" formControlName="loginPasswordControl">
+                        <input matInput type="password" placeholder="Password" formControlName="loginPasswordControl" (keydown.enter)="onLoginUser()">
 
                         <mat-error *ngIf="loginForm.get('loginPasswordControl')!.hasError('minlength') && 
                                     !loginForm.get('loginPasswordControl')!.hasError('required')">
@@ -51,7 +50,7 @@
             </form>
 
             <div class="button-wrapper">
-                <button mat-raised-button class="login-button" label="Login" [disabled]="!isLoginFormDone()"
+                <button mat-raised-button class="login-button" label="Login" type="submit" [disabled]="!isLoginFormDone()"
                     (click)="onLoginUser()">Login</button>
             </div>
         </mat-card-content>

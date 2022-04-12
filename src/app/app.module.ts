@@ -31,6 +31,7 @@ import { ParticipantsDialogComponent } from './components/participants-dialog/pa
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
 import { MyHistoryComponent } from './components/my-history/my-history.component';
+import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { MyHistoryComponent } from './components/my-history/my-history.component
         NotFoundComponent,
         ThreeEventsComponent,
         MyHistoryComponent,
+        GenericEventPageComponent,
     ],
     imports: [
         BrowserModule,
