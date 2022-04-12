@@ -26,11 +26,21 @@
             </div>
 
             <div class="secondary-menu-items">
-                <ng-container *ngFor="let item of secondaryMenuItems">
-                    <button mat-button class="icon-description" routerLink="{{item.route}}">
-                        <mat-icon class="icon-style">{{item.name}}</mat-icon>
-                        <span class="title">{{item.title}}</span>
-                    </button>
+                <ng-container *ngIf="userRole==roleType.User">
+                    <ng-container *ngFor="let item of secondaryMenuItemsUser">
+                        <button mat-button class="icon-description" routerLink="{{item.route}}">
+                            <mat-icon class="icon-style">{{item.name}}</mat-icon>
+                            <span class="title">{{item.title}}</span>
+                        </button>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="userRole==roleType.Admin">
+                    <ng-container  *ngFor="let item of secondaryMenuItemsAdmin">
+                        <button mat-button class="icon-description" routerLink="{{item.route}}">
+                            <mat-icon class="icon-style">{{item.name}}</mat-icon>
+                            <span class="title">{{item.title}}</span>
+                        </button>
+                    </ng-container>
                 </ng-container>
             </div>
         </div>

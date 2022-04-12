@@ -1,0 +1,90 @@
+@import "../../variables.scss";
+@import "../../mixins.scss";
+
+.filters-and-sort-container {
+	width: 300px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.5s;
+}
+
+.section-header {
+	@include flex-container(row, flex-start);
+	align-items: center;
+}
+.section-container {
+	@include flex-container(column, center);
+	padding: 10px;
+}
+
+.sort-select-input {
+	margin-top: 10px;
+	width: 70%;
+}
+.sort-select {
+	@include flex-container(row, space-between);
+	align-items: center;
+}
+
+.filter-container {
+	padding: 10px;
+}
+.filters-header {
+	@include flex-container(row, space-between);
+	align-items: center;
+}
+.filters-header-icon {
+	@include flex-container(row);
+	align-items: center;
+}
+.filter-select-input {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.multiple-select {
+	@include flex-container(column);
+	align-items: flex-start;
+	width: 100%;
+}
+
+.date-container {
+	@include flex-container(column);
+	width: 45%;
+}
+.date-picker {
+	@include flex-container(row, space-between);
+	margin-top: 10px;
+}
+.date-input {
+	width: 100%;
+}
+
+.check-boxes {
+	@include flex-container(column);
+}
+.check-box-item {
+	margin-bottom: 10px;
+}
+
+.mat-icon {
+	color: $yonder-pink;
+}
+
+.clear-filters-button {
+	color: $yonder-pink;
+}
+
+label {
+	margin-left: 10px;
+	margin-bottom: 0px;
+}
+
+.apply-filters-button {
+	height: auto;
+	width: 60px;
+	color: $yonder-white;
+	background-color: $yonder-pink;
+}
+.apply-filters-container {
+	@include flex-container(row, flex-end);
+}

@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
             this.dashboardEvents = result;
             this.areJoinedEvents = this.dashboardEvents.joinedEvents.length !== 0;
-            this.areHostedEvents = this.dashboardEvents.hostedEvents.length != 0;
+            this.areHostedEvents = this.dashboardEvents.hostedEvents.length !== 0;
             this.loading = false;
         });
     }
