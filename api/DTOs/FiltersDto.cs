@@ -8,6 +8,6 @@ namespace YonderfulApi.DTOs
     public DateTime StartingDate { get; set; }
     
     public DateTime? EndingDate { get; set; }
-    public string? Category { get; set; }
+    public int? CategoryId { get; set; }
   }
 }
