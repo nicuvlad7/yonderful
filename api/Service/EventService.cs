@@ -171,58 +171,18 @@ namespace YonderfulApi.Service
 
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
-			var eventsList = from Events in _context.Events select Events;
-			// var eventsList2 = await _context.Events.Where(e => (filtersDto.EndingDate.HasValue || e.StartingDate > filtersDto.StartingDate) && (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
-			// && (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate <= filtersDto.EndingDate)))
-			// && (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
-			// && (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
-			// && (!filtersDto.HiddenIfStarted.HasValue || e.StartingDate < DateTime.Now)
-			// && (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
-			// ).ToListAsync();
-			// return eventsList2;
-			if (filtersDto.IsHostId.HasValue)
-			{
-				eventsList = eventsList.Where(b => b.HostId == filtersDto.IsHostId);
-			}
+			// var eventsList = from Events in _context.Events select Events;
+			var eventsList2 = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
+			&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
+			&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate <= filtersDto.EndingDate)))
+			&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
+			&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
+			&& (!filtersDto.HiddenIfStarted.HasValue || e.StartingDate < DateTime.Now)
+			&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+			).ToListAsync();
+			return eventsList2;
 
-			if (filtersDto.IsAttendingId.HasValue)
-			{
-				eventsList = from attendance in _context.Attendance
-								.Where(att => att.UserId == filtersDto.IsAttendingId)
-								.Include(att => att.Event)
-							 select attendance.Event;
-			}
-
-			if (filtersDto.SearchTitle != null)
-			{
-				eventsList = eventsList.Where(b => b.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()));
-			}
-
-			if (filtersDto.HiddenIfFee.HasValue)
-			{
-				eventsList = eventsList.Where(b => b.Fee == 0);
-			}
-
-			if (filtersDto.HiddenIfStarted.HasValue)
-			{
-				eventsList = eventsList.Where(b => b.JoinDeadline < DateTime.Today);
-			}
-
-			if (filtersDto.Categories != null)
-			{
-				eventsList = eventsList.Where(b => filtersDto.Categories.Contains(b.CategoryId));
-			}
-
-			if (filtersDto.EndingDate.HasValue)
-			{
-				eventsList = eventsList.Where(b => (b.StartingDate >= filtersDto.StartingDate) && (b.EndingDate <= filtersDto.EndingDate));
-			}
-			else
-			{
-				eventsList = eventsList.Where(b => b.StartingDate >= filtersDto.StartingDate);
-			}
-
-			return await eventsList.ToListAsync();
+			// return await eventsList.ToListAsync();
 		}
 
 		public async Task<IList<Event>> GetHostedEvents(int hostId)
