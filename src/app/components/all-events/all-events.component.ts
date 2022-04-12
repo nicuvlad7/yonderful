@@ -18,10 +18,4 @@ export class AllEventsComponent implements OnInit {
 		});
 	}
 
-<<<<<<< HEAD
-	navigateToEventView(eventId: number) {
-		this.router.navigate([RouteValues.EVENT_DETAILS + '/' + eventId]);
-	}
-=======
->>>>>>> b6647e1a84450ba9bc6496033316ccedc01ec472
 }
