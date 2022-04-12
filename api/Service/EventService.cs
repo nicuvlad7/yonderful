@@ -172,7 +172,14 @@ namespace YonderfulApi.Service
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
 			var eventsList = from Events in _context.Events select Events;
-
+			// var eventsList2 = await _context.Events.Where(e => (filtersDto.EndingDate.HasValue || e.StartingDate > filtersDto.StartingDate) && (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
+			// && (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate <= filtersDto.EndingDate)))
+			// && (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
+			// && (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
+			// && (!filtersDto.HiddenIfStarted.HasValue || e.StartingDate < DateTime.Now)
+			// && (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+			// ).ToListAsync();
+			// return eventsList2;
 			if (filtersDto.IsHostId.HasValue)
 			{
 				eventsList = eventsList.Where(b => b.HostId == filtersDto.IsHostId);
@@ -203,8 +210,7 @@ namespace YonderfulApi.Service
 
 			if (filtersDto.Categories != null)
 			{
-				var categoriesMatching = from category in _context.Categories where (filtersDto.Categories.Contains(category.Title)) select category.Id;
-				eventsList = eventsList.Where(b => categoriesMatching.Contains(b.CategoryId));
+				eventsList = eventsList.Where(b => filtersDto.Categories.Contains(b.CategoryId));
 			}
 
 			if (filtersDto.EndingDate.HasValue)

@@ -7,7 +7,7 @@ namespace YonderfulApi.DTOs
 		[Required]
 		public DateTime StartingDate { get; set; }
 		public DateTime? EndingDate { get; set; }
-		public string[] Categories { get; set; }
+		public int[] Categories { get; set; }
 		public bool? HiddenIfFee { get; set; }
 		public bool? HiddenIfStarted { get; set; }
 		public int? IsHostId { get; set; }
