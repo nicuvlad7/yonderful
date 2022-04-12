@@ -21,13 +21,12 @@
 				<mat-label>Sort by</mat-label>
 				<mat-select
 					(selectionChange)="emitSortData()"
-					[(ngModel)]="sortDataSelected.sortBy"
-				>
+					[(ngModel)]="sortDataSelected.sortBy">
 					<mat-option
 						*ngFor="let sortItem of sortMethods"
 						[value]="sortItem"
-						>{{ sortItem }}</mat-option
-					>
+						>{{ sortItem }}
+					</mat-option>
 				</mat-select>
 			</mat-form-field>
 
@@ -36,7 +35,7 @@
 					mat-button
 					*ngIf="!sortDataSelected.isAscending"
 					(click)="changeIsAscending(); emitSortData()"
-				>
+					>
 					<mat-icon>arrow_upward</mat-icon>
 				</button>
 				<button
@@ -110,12 +109,10 @@
 				<mat-select
 					multiple
 					[(value)]="filtersDataSelected.categories"
-					(selectionChange)="emitFiltersData()"
-				>
+					(selectionChange)="emitFiltersData()">
 					<mat-option
 						*ngFor="let category of categoriesPool"
-						[value]="category.id"
-					>
+						[value]="category.id">
 						{{ category.title }}
 					</mat-option>
 				</mat-select>

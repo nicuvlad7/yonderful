@@ -46,7 +46,6 @@ export class GenericFilterComponent implements OnInit {
 
 	emitFiltersData() {
 		this.filtersData.emit(this.filtersDataSelected);
-		console.log(this.filtersDataSelected);
 	}
 
 	emitClickFilter() {
