@@ -9,13 +9,12 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class AllEventsComponent implements OnInit {
 	eventsArray: IEvent[];
-
-  constructor(private eventService: EventService) { }
+	showFilterCheckboxes:boolean=true;
+	constructor(private eventService: EventService) {}
 
 	ngOnInit(): void {
 		this.eventService.getFutureEvents().subscribe((events) => {
 			this.eventsArray = events.result;
 		});
 	}
-
 }
