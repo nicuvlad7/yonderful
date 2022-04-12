@@ -33,7 +33,6 @@ export class RouteEndpoints {
     static readonly DASHBOARD_EVENTS = 'Event/GetDashboardEvents'
 };
 
-export class SidenavItems
-{
+export class SidenavItems {
     static readonly CATEGORIES = 'Categories';
 };
