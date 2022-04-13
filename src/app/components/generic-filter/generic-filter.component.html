@@ -5,7 +5,7 @@
 			<label>Search</label>
 		</div>
 		<div class="search-body">
-			<mat-form-field appearance="fill" class="filter-select-input">
+			<mat-form-field appearance="outline" class="filter-select-input">
 				<mat-label>Search</mat-label>
 				<input matInput [(ngModel)]="filtersDataSelected.searchTitle">
 				<mat-icon matSuffix class="my-icon">search</mat-icon>
@@ -17,8 +17,7 @@
 			<mat-icon>sort</mat-icon><label>Sort by</label>
 		</div>
 		<div class="sort-select">
-			<mat-form-field appearance="fill" class="sort-select-input">
-				<mat-label>Sort by</mat-label>
+			<mat-form-field appearance="outline" class="sort-select-input">
 				<mat-select
 					(selectionChange)="emitSortData()"
 					[(ngModel)]="sortDataSelected.sortBy">
@@ -104,7 +103,7 @@
 		</div>
 		<div class="multiple-select">
 			<label> Category </label>
-			<mat-form-field appearance="fill" class="filter-select-input">
+			<mat-form-field appearance="outline" class="filter-select-input">
 				<mat-label>Choose categories</mat-label>
 				<mat-select
 					multiple
