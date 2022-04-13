@@ -32,7 +32,7 @@ namespace api.Controllers
 			_mapper = mapper;
 		}
 
-		public async void AutoJoin(Event createdEvent)
+		private async void AutoJoin(Event createdEvent)
 		{
 			var attendanceDto = new AttendanceDto();
 			attendanceDto.EventId = createdEvent.Id;
