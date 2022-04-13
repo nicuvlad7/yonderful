@@ -158,7 +158,8 @@ namespace YonderfulApi.Service
 			return events;
 		}
 
-		public async Task<IList<Event>> GetJoinedEventsForUser(int userId){
+		public async Task<IList<Event>> GetJoinedEventsForUser(int userId)
+		{
 			var events = await _context.Attendance
 								.Where(att => att.UserId == userId)
 								.Include(att => att.Event)
@@ -170,24 +171,21 @@ namespace YonderfulApi.Service
 
 		public async Task<IList<Event>> GetFilteredEvents(FiltersDto filtersDto)
 		{
-			var eventsList = from Events in _context.Events select Events;
-
-			if (filtersDto.Category != null)
-			{
-				var categoriesMatching = from category in _context.Categories where (category.Title == filtersDto.Category) select category.Id;
-				eventsList = eventsList.Where(b => categoriesMatching.Contains(b.CategoryId));
-			}
-
-			if (filtersDto.EndingDate.HasValue)
-			{
-				eventsList = eventsList.Where(b => (b.StartingDate >= filtersDto.StartingDate) && (b.EndingDate <= filtersDto.EndingDate));
-			}
-			else
-			{
-				eventsList = eventsList.Where(b => b.StartingDate >= filtersDto.StartingDate);
-			}
-
-			return await eventsList.ToListAsync();
+			//This is the filtering function. On each line that starts with the "and" operator we check to see
+			//if that specific attribute on the filter object has a value.
+			//If it does have one, we apply the relevant condition to filter it.If it does not have one , we go and check the next 
+			//attribute until we reach the end.
+			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.IsAttendingId) select attendance.EventId;
+			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
+				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
+				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
+				&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
+				&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
+				&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline >= DateTime.Now)
+				&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (!filtersDto.IsAttendingId.HasValue || attendingEvents.Contains(e.Id))
+			).ToListAsync();
+			return eventsList;
 		}
 
 		public async Task<IList<Event>> GetHostedEvents(int hostId)
