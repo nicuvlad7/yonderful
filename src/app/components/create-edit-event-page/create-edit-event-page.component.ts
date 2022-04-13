@@ -185,7 +185,7 @@ export class CreateEditEventPageComponent implements OnInit {
             category: new FormControl('', [Validators.required]),
             autocancel: new FormControl(''),
             autojoin: new FormControl(''),
-            eventFee: new FormControl(0, [Validators.pattern("^[0-9]*")]),
+            fee: new FormControl(0, [Validators.pattern("^[0-9]*")]),
             description: new FormControl('', [Validators.required])
         });
 
