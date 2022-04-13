@@ -42,4 +42,10 @@ export class EventService {
     .getById<IDashboardEvents>(hostId, RouteEndpoints.DASHBOARD_EVENTS)
     .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
+
+    getJoinedEventsForUser(userId: number): Observable<IEvent[]> {
+        return this.httpService
+            .getById<IEvent[]>(userId, RouteEndpoints.JOINED_EVENTS)
+            .pipe(catchError(this.httpService.handleHttpErrorResponse));
+    }
 }
