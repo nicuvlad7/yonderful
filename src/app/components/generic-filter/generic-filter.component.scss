@@ -2,10 +2,17 @@
 @import "../../mixins.scss";
 
 .filters-and-sort-container {
-	width: 300px;
+	width: 330px;
 	transition: 0.5s;
 	border-radius: 5px;
-	padding: 30px 20px 30px 20px;
+	padding: 30px 15px 30px 15px;
+}
+
+.filter-fields {
+	padding-right: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    height: calc(100vh - 303.66px);
 }
 
 .section-header {
@@ -27,7 +34,6 @@
 
 .filter-container {
 	@include flex-container(column, center);
-	height: calc(100% - 234.58px);
 }
 
 .filters-header {
@@ -60,6 +66,7 @@
 	margin-top: 10px;
 }
 .date-input {
+	font-size: 13px;
 	width: 100%;
 }
 
@@ -93,4 +100,5 @@ label {
 	@include flex-container(column, flex-end);
 	align-items: flex-end;
 	flex-grow: 1;
+	margin-top: 20px;
 }

@@ -81,7 +81,5 @@
     @include flex-container(row);
     flex-wrap: wrap;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    overflow-x: hidden;
-    overflow-y: auto;
     border-radius: 5px;
 }
