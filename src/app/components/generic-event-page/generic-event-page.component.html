@@ -26,7 +26,7 @@
                 </ng-template>
             </div>
 
-            <app-generic-filter (sortData)="sortEvents($event)" (filtersData)="filterEvents($event)" [showHiddenSection]="showHiddenSection()">
+            <app-generic-filter (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)" [showHiddenSection]="showHiddenSection()">
                 <!-- The filter and sort menu should be added here -->
             </app-generic-filter>
         </div>

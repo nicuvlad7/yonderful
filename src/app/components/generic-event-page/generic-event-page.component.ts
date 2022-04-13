@@ -66,6 +66,10 @@ export class GenericEventPageComponent implements OnInit {
     this.filterData = filterData;
   }
 
+  clickButton(clickButtonData): void{
+    console.log(clickButtonData);
+  }
+
   showHiddenSection(): boolean{
     if(this.title === 'Future Events')
       return true;

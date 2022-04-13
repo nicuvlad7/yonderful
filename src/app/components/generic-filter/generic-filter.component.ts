@@ -11,8 +11,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class GenericFilterComponent implements OnInit {
 	@Output() sortData = new EventEmitter<SortData>();
-	@Output() filtersData = new EventEmitter<FiltersData>();
-	@Output() clickFilterButton = new EventEmitter();
+	@Output() clickFilterButton = new EventEmitter<FiltersData>();
 	@Input() showHiddenSection: boolean;
 
 	sortDataSelected: SortData = {
@@ -44,12 +43,8 @@ export class GenericFilterComponent implements OnInit {
 		this.sortData.emit(this.sortDataSelected);
 	}
 
-	emitFiltersData() {
-		this.filtersData.emit(this.filtersDataSelected);
-	}
-
 	emitClickFilter() {
-		this.clickFilterButton.emit();
+		this.clickFilterButton.emit(this.filtersDataSelected);
 	}
 
 	changeIsAscending() {
