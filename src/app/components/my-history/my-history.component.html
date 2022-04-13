@@ -1,1 +1,37 @@
-<p>my-history works!</p>
+<div class="main-div">
+    <h1>My history</h1>
+    <div class="content-container">
+        <table mat-table [dataSource]="events" class="table-container">
+          
+          <!-- ICON COLUMN -->
+          <ng-container matColumnDef="Icon" >
+            <th mat-header-cell *matHeaderCellDef class="table-header-text"> Icon </th>
+            <td mat-cell *matCellDef="let element"> <img class="table-icon" [src]="getIcon(element.categoryId)"> </td>
+          </ng-container>
+          
+          <!-- TITLE COLUMN -->
+          <ng-container matColumnDef="StartDate">
+            <th mat-header-cell *matHeaderCellDef class="table-header-text"> Date </th>
+            <td class="table-title-data" mat-cell *matCellDef="let element"> {{element.StartDate | date:'dd.LL.y - H:mm'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Title">
+            <th mat-header-cell *matHeaderCellDef class="table-header-text"> Title </th>
+            <td class="table-title-data" mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="Host">
+            <th mat-header-cell *matHeaderCellDef class="table-header-text"> Host </th>
+            <td class="table-title-data" mat-cell *matCellDef="let element"> {{element.hostId}} </td>
+          </ng-container>
+
+          <tr mat-header-row class="table-header" *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row 
+            class="table-row"
+            *matRowDef="let row; columns: displayedColumns;"
+            (click)="onEventRowClick(row)"
+            ></tr>
+        </table>
+  
+      </div>
+</div>
