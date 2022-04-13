@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { loginUser } from './models/loginUser';
+import { AppStateService } from './services/app-state-service';
 import { AuthenticationService } from './services/auth.service';
 
 
@@ -17,7 +18,8 @@ export class AppComponent {
 
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private appStateService: AppStateService
     ) {
         this.currentRoute = '';
         this.authenticationService.currentUser.subscribe(
@@ -31,5 +33,16 @@ export class AppComponent {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        if (localStorage.length) {
+            this.currentUser.id = this.appStateService.getCurrentUserId();
+
+            this.appStateService.updateSessionInfo({
+                id: this.currentUser.id,
+                email: this.currentUser.email,
+                password: this.currentUser.password,
+                token: this.currentUser.token
+            })
+        }
+    }
 }
