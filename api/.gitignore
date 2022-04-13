@@ -502,6 +502,5 @@ $RECYCLE.BIN/
 
 # Migrations
 api/YonderfulDb.db-shm
-D:\Internship\new\GitHub\yonderful\api\YonderfulDb.db-shm
 YonderfulDb.db-wal
 YonderfulDb
