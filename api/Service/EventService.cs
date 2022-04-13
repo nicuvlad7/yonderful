@@ -175,6 +175,11 @@ namespace YonderfulApi.Service
 			//if that specific attribute on the filter object has a value.
 			//If it does have one, we apply the relevant condition to filter it.If it does not have one , we go and check the next 
 			//attribute until we reach the end.
+			//An explanation on how all conditions work:
+			//From Microsoft Docs:
+			//The second operand is evaluated only if the first operand evaluates to false, because evaluation isn't needed
+			// when the logical OR expression is true. It's known as short-circuit evaluation.
+
 			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.IsAttendingId) select attendance.EventId;
 			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
 				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
