@@ -32,6 +32,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { GenericFilterComponent } from './components/generic-filter/generic-filter.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
 import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
+import { JoinedEventsComponent } from './components/joined-events/joined-events.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { GenericEventPageComponent } from './components/generic-event-page/gener
         NotFoundComponent,
         ThreeEventsComponent,
         GenericEventPageComponent,
+        JoinedEventsComponent,
     ],
     imports: [
         BrowserModule,

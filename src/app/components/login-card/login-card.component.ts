@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { loginUser } from 'src/app/models/loginUser';
 import { AuthenticationService } from 'src/app/services/auth.service';
 import { RouteValues } from '../../models/constants';
@@ -26,7 +25,6 @@ export class LoginCardComponent implements OnInit {
     private loginService: AuthenticationService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private decodeToken: DecodeToken
   ) {
 
   }

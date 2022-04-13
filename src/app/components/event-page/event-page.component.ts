@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, takeUntil } from 'rxjs';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
 import { UserDetails } from 'src/app/models/user';
+import { AppStateService } from 'src/app/services/app-state-service';
 import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -36,6 +36,7 @@ export class EventPageComponent implements OnInit {
     isDeadlineOverdue: boolean;
     isLoading: boolean = true;
     noMaximumParticipants: boolean = false;
+
     constructor(
         private categoryService: CategoryService,
         private eventService: EventService,
@@ -43,7 +44,7 @@ export class EventPageComponent implements OnInit {
         private readonly activatedRoute: ActivatedRoute,
         private dialogService: DialogService,
         private router: Router,
-        private decodeToken: DecodeToken,
+        private appStateService: AppStateService,
         private attendanceService: AttendanceService,
         private userService: UserService
     ) {
@@ -61,8 +62,7 @@ export class EventPageComponent implements OnInit {
         }).subscribe(({ requestOne, requestTwo }) => {
             this.event = requestOne;
             this.participantsArray = requestTwo;
-            this.decodeToken.initializeTokenInfo();
-            this.currentUserId = this.decodeToken.getCurrentUserId();
+            this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
             this.userService.getUserById(this.currentUserId).subscribe((result) => { this.currentUser = result });
             this.intializeTagsList();
             this.initalizeCategoryIcon();
@@ -138,7 +138,7 @@ export class EventPageComponent implements OnInit {
 
     openParticipantsDialog(): void {
         var isHost: boolean;
-        isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+        isHost = this.event.hostId == this.appStateService.observerSessionInfo().value?.id;
         this.dialogService.participantsDialog({
             participants: this.participantsArray,
             isEventOwner: isHost,
@@ -177,7 +177,7 @@ export class EventPageComponent implements OnInit {
     checkJoinButtonState(): void {
         this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
         if (this.noMaximumParticipants) {
-            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;   
+            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
         }
         this.checkJoinDeadlineOverdue();
     }
