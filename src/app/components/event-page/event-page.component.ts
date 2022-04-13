@@ -87,8 +87,12 @@ export class EventPageComponent implements OnInit {
             });
     }
 
+
     intializeTagsList(): void {
         this.tagsList = this.event.tags.split('*');
+        if (this.tagsList[this.tagsList.length - 1] == "") {
+            this.tagsList.pop();
+        }
     }
 
     checkJoinDeadlineOverdue(): void {

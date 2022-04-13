@@ -20,8 +20,8 @@
 			<mat-form-field appearance="fill" class="sort-select-input">
 				<mat-label>Sort by</mat-label>
 				<mat-select
-					(selectionChange)="emitSortData()"
-					[(ngModel)]="sortDataSelected.sortBy">
+					[(ngModel)]="sortDataSelected.sortBy"
+					(selectionChange)="emitSortData()">
 					<mat-option
 						*ngFor="let sortItem of sortMethods"
 						[value]="sortItem"
@@ -33,14 +33,14 @@
 			<div>
 				<button
 					mat-button
-					*ngIf="!sortDataSelected.isAscending"
+					*ngIf="sortDataSelected.isAscending"
 					(click)="changeIsAscending(); emitSortData()"
 					>
 					<mat-icon>arrow_upward</mat-icon>
 				</button>
 				<button
 					mat-button
-					*ngIf="sortDataSelected.isAscending"
+					*ngIf="!sortDataSelected.isAscending"
 					(click)="changeIsAscending(); emitSortData()"
 				>
 					<mat-icon>arrow_downward</mat-icon>
@@ -71,7 +71,6 @@
 						placeholder="MM/DD/YYYY"
 						[max]="filtersDataSelected.endDate"
 						[matDatepicker]="startDatePicker"
-						(dateChange)="emitFiltersData()"
 						[(ngModel)]="filtersDataSelected.startDate"
 						readonly
 					/>
@@ -88,7 +87,6 @@
 						<input
 							matInput
 							[matDatepicker]="endDatePicker"
-							(dateChange)="emitFiltersData()"
 							[(ngModel)]="filtersDataSelected.endDate"
 							placeholder="MM/DD/YYYY"
 							[min]="filtersDataSelected.startDate"
@@ -108,8 +106,7 @@
 				<mat-label>Choose categories</mat-label>
 				<mat-select
 					multiple
-					[(value)]="filtersDataSelected.categories"
-					(selectionChange)="emitFiltersData()">
+					[(value)]="filtersDataSelected.categories">
 					<mat-option
 						*ngFor="let category of categoriesPool"
 						[value]="category.id">
@@ -121,13 +118,11 @@
 		<div class="check-boxes" *ngIf="showHiddenSection">
 			<mat-checkbox
 				class="check-box-item"
-				(change)="emitFiltersData()"
 				[(ngModel)]="filtersDataSelected.hiddenIfStarted"
 				>Hide events past join deadline</mat-checkbox
 			>
 			<mat-checkbox
 				class="check-box-item"
-				(change)="emitFiltersData()"
 				[(ngModel)]="filtersDataSelected.hiddenIfFee"
 				>Hide events with a fee</mat-checkbox
 			>

@@ -2,7 +2,7 @@
 @import '../../mixins.scss';
 
 .event-card {
-    width: 290px;
+    width: 330px;
     height: 255px;
     padding: 0;
     box-shadow: 4px 4px 3px #d9d9d9;
@@ -19,7 +19,7 @@
 }
 
 .event-image {
-    width: 290px;
+    width: 330px;
     height: 160px;
     object-fit: cover;
     object-position: 100% 0;
@@ -78,4 +78,8 @@
     height: 35px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.event-card:hover{
+    cursor:pointer;
 }
