@@ -106,7 +106,7 @@ namespace api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> PostEvent(EventDto eventDto)
 		{
-			eventDto = await checkBackgroundImage(eventDto);
+			eventDto = await CheckBackgroundImage(eventDto);
 			var newEvent = await _eventService.CreateEvent(eventDto);
 
 			var isValid = EventValidations(newEvent);
@@ -174,7 +174,7 @@ namespace api.Controllers
 			return new Tuple<bool, string>(true, "");
 		}
 
-		private async Task<EventDto> checkBackgroundImage(EventDto eventDto)
+		private async Task<EventDto> CheckBackgroundImage(EventDto eventDto)
 		{
 			if (string.IsNullOrEmpty(eventDto.BackgroundImage))
 			{
