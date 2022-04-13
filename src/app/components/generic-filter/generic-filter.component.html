@@ -6,9 +6,8 @@
 			<label>Search</label>
 		</div>
 		<div class="search-body">
-			<mat-form-field appearance="fill" class="filter-select-input">
-				<mat-label>Search</mat-label>
-				<input matInput [(ngModel)]="filtersDataSelected.searchTitle">
+			<mat-form-field appearance="outline" class="filter-select-input">
+				<input matInput [(ngModel)]="filtersDataSelected.searchTitle" placeholder="Search">
 				<mat-icon matSuffix class="my-icon">search</mat-icon>
 			</mat-form-field>
 		</div>
@@ -18,8 +17,7 @@
 			<mat-icon>sort</mat-icon><label>Sort by</label>
 		</div>
 		<div class="sort-select">
-			<mat-form-field appearance="fill" class="sort-select-input">
-				<mat-label>Sort by</mat-label>
+			<mat-form-field appearance="outline" class="sort-select-input">
 				<mat-select
 					[(ngModel)]="sortDataSelected.sortBy"
 					(selectionChange)="emitSortData()">
@@ -76,26 +74,6 @@
 					<mat-datepicker #startDatePicker></mat-datepicker>
 				</mat-form-field>
 			</div>
-			<div class="date-container">
-				<label>End Date</label>
-					<mat-form-field class="date-input" appearance="outline">
-						<input
-							matInput
-							[matDatepicker]="endDatePicker"
-							[(ngModel)]="filtersDataSelected.endDate"
-							placeholder="MM/DD/YYYY"
-							[max]="filtersDataSelected.endDate"
-							[matDatepicker]="startDatePicker"
-							[(ngModel)]="filtersDataSelected.startDate"
-							readonly
-						/>
-						<mat-datepicker-toggle
-							matSuffix
-							[for]="startDatePicker"
-						></mat-datepicker-toggle>
-						<mat-datepicker #startDatePicker></mat-datepicker>
-					</mat-form-field>
-				</div>
 				<div class="date-container">
 					<label>End Date</label>
 						<mat-form-field class="date-input" appearance="outline">
@@ -118,10 +96,10 @@
 			<div class="multiple-select">
 				<label> Category </label>
 				<mat-form-field appearance="outline" class="filter-select-input">
-					<mat-label>Choose categories</mat-label>
 					<mat-select
 						multiple
 						[(value)]="filtersDataSelected.categories"
+						placeholder="Choose a category"
 						>
 						<mat-option
 							*ngFor="let category of categoriesPool"
@@ -143,15 +121,7 @@
 					>Hide events with a fee</mat-checkbox
 				>
 			</div>
-			<!-- <div class="apply-filters-container">
-				<button
-					mat-button
-					class="apply-filters-button"
-					(click)="emitClickFilter()"
-				>
-					Filter
-				</button>
-			</div> -->
+			
 		</div>
 
 	</div>

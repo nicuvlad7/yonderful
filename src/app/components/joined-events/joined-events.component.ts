@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DecodeToken } from 'src/app/helpers/decode.token';
+import { Observable } from 'rxjs';
 import { RouteValues } from 'src/app/models/constants';
-import { IEvent } from 'src/app/models/event';
+import { EventsResponse, IEvent } from 'src/app/models/event';
+import { AppStateService } from 'src/app/services/app-state-service';
 import { EventService } from 'src/app/services/event.service';
 
 @Component({
@@ -11,20 +12,16 @@ import { EventService } from 'src/app/services/event.service';
     styleUrls: ['./joined-events.component.scss']
 })
 export class JoinedEventsComponent implements OnInit {
-    eventsArray: IEvent[];
+    eventsArray: Observable<EventsResponse>;
     isLoading: boolean = true;
     currentUserId: number;
 
-    constructor(private eventService: EventService, private router: Router, private decodeToken: DecodeToken) { }
+    constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
 
     ngOnInit(): void {
-        this.decodeToken.initializeTokenInfo();
-        this.currentUserId = this.decodeToken.getCurrentUserId();
-
-        this.eventService.getJoinedEventsForUser(this.currentUserId).subscribe((events) => {
-            this.eventsArray = events;
-            this.isLoading = false;
-        });
+        this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
+        this.eventsArray = this.eventService.getJoinedEventsForUser(this.currentUserId);
+        this.isLoading = false;
     }
 
     navigateToAllEvents() {
