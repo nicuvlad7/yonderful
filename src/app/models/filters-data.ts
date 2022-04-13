@@ -4,7 +4,7 @@ export interface FiltersData {
     categories?:number[],
     hiddenIfFee?:boolean,
     hiddenIfStarted?:boolean,
-    isHost?:boolean,
-    isAttending?:boolean,
+    hostId?:number,
+    attendingId?:number,
     searchTitle?:string,
 }
