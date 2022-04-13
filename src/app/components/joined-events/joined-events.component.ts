@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RouteValues } from 'src/app/models/constants';
 import { EventsResponse, IEvent } from 'src/app/models/event';
+import { FiltersData } from 'src/app/models/filters-data';
 import { AppStateService } from 'src/app/services/app-state-service';
 import { EventService } from 'src/app/services/event.service';
 
@@ -15,13 +16,22 @@ export class JoinedEventsComponent implements OnInit {
     eventsArray: Observable<EventsResponse>;
     isLoading: boolean = true;
     currentUserId: number;
+    eventsLength: number;
+    filterData: FiltersData = {
+        startDate: new Date()
+    }
 
     constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
 
     ngOnInit(): void {
         this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
-        this.eventsArray = this.eventService.getJoinedEventsForUser(this.currentUserId);
-        this.isLoading = false;
+        this.filterData.isAttendingId = this.currentUserId; 
+        this.eventsArray = this.eventService.getFilteredEvents(this.filterData);
+
+        this.eventsArray.subscribe((response)=> {
+            this.eventsLength = response.result.length;
+            this.isLoading = false;
+        })
     }
 
     navigateToAllEvents() {
