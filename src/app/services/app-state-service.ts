@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { NumberValueAccessor } from "@angular/forms";
 import jwt_decode from 'jwt-decode';
 import { BehaviorSubject } from "rxjs";
 import { loginUser } from "../models/loginUser";
@@ -25,8 +24,7 @@ export class AppStateService {
     }
 
     getCurrentUserId(): number {
-        var token = JSON.parse(localStorage.getItem('currentUser')).token;
-        var currentUserId = this.getDecodedAccessToken(token).UserID; // decode token and get userId
-        return currentUserId;
+        const token = JSON.parse(localStorage.getItem('currentUser')).token;
+        return this.getDecodedAccessToken(token).UserID; // decode token and get userId
     }
 }
