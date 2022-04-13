@@ -17,6 +17,7 @@ export class CategoriesTableComponent implements OnInit {
 	dataSource: Category[] = [];
 	displayedCategories: CategoryToShow[] = [];
 	displayedColumns = ['Icon', 'Title', 'Actions'];
+	isLoading: boolean = true;
 
 	constructor(
 		private endpointsService: EndpointsService,
@@ -29,6 +30,7 @@ export class CategoriesTableComponent implements OnInit {
 		this.endpointsService.getCategories().subscribe((categories) => {
 			this.dataSource = categories.result;
 			this.createCategoriesToShow();
+			this.isLoading = false;
 		});
 	}
 

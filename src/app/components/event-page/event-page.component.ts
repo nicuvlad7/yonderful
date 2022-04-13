@@ -32,9 +32,10 @@ export class EventPageComponent implements OnInit {
     currentUser: UserDetails;
     participantsArray: UserDetails[];
     isCurrentUserNotAttending: boolean;
-    isMaximumReached: boolean;
+    isMaximumReached: boolean = false;
     isDeadlineOverdue: boolean;
-
+    isLoading: boolean = true;
+    noMaximumParticipants: boolean = false;
     constructor(
         private categoryService: CategoryService,
         private eventService: EventService,
@@ -65,13 +66,15 @@ export class EventPageComponent implements OnInit {
             this.userService.getUserById(this.currentUserId).subscribe((result) => { this.currentUser = result });
             this.intializeTagsList();
             this.initalizeCategoryIcon();
-            this.checkJoinDeadlineOverdue();
+            this.checkJoinButtonState();
             this.mapLink = this.getMapLink();
             this.isHostMode = this.currentUserId == this.event.hostId;
             this.loading = false;
             this.location = `${this.event.eventLocation.street}\
                 ${this.event.eventLocation.address}\ 
                 ${this.event.eventLocation.city} ${this.event.eventLocation.province}`;
+            this.isLoading = false;
+            this.noMaximumParticipants = this.event.maximumParticipants == 0;
         });
     }
 
@@ -84,8 +87,12 @@ export class EventPageComponent implements OnInit {
             });
     }
 
+
     intializeTagsList(): void {
         this.tagsList = this.event.tags.split('*');
+        if (this.tagsList[this.tagsList.length - 1] == "") {
+            this.tagsList.pop();
+        }
     }
 
     checkJoinDeadlineOverdue(): void {
@@ -169,7 +176,9 @@ export class EventPageComponent implements OnInit {
 
     checkJoinButtonState(): void {
         this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
-        this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
+        if (this.noMaximumParticipants) {
+            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;   
+        }
         this.checkJoinDeadlineOverdue();
     }
 }
