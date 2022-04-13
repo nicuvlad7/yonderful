@@ -1,5 +1,4 @@
 import { Injectable, Type } from '@angular/core';
-import { Sort } from '../models/sort';
 import { SortData } from '../models/sort-data';
 
 @Injectable({
