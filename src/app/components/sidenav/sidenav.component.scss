@@ -8,7 +8,7 @@
 .sidenav{
     padding-top: 6.5px;
     padding-bottom: 10px;
-    background-color:variables.$yonder-light-blue;
+    background-color: rgba(33, 33, 33, 0.75);
 }
 
 .primary-menu-items, .secondary-menu-items{
@@ -24,13 +24,13 @@
     height: 45px;
 }
 
-.item-description{
-    
+.item-description{    
+
     .title{
         display: inline-flex;
-        color:variables.$yonder-pink;
+        color: rgba(255, 255, 255, 0.906);
         font-weight: 500;
-        font-size:15.5px;
+        font-size: 15.5px;
         margin-left: 4px;
     }
 
@@ -38,9 +38,12 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        
     }
 
+    .icon-description:hover {
+        background-color: variables.$yonder-pink;
+        transition: 100ms linear;
+    }
 }
 
 .sidenav-content {
@@ -51,5 +54,14 @@
 }
 
 .icon-style{
-    color:variables.$yonder-pink;
+    color:rgba(255, 255, 255, 0.906);
+}
+
+.icon-style:hover {
+    color: variables.$yonder-pink;
+    transition: 100ms linear;
+}
+
+.secondary-menu-items {
+    color:rgba(255, 255, 255, 0.906);
 }

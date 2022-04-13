@@ -1,10 +1,10 @@
 @use "../../variables.scss";
 
 .toolbar{
-    background-color:variables.$yonder-light-blue;
-    width:auto;
+    background-color: rgba(33, 33, 33, 0.75);
+    width: auto;
     height: 38pt;
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -16,9 +16,15 @@
 }
 
 .icon-style{
-    color:variables.$yonder-pink;
+    color: rgba(255, 255, 255, 0.906);
+}
+
+.icon-style:hover {
+    color: variables.$yonder-pink;
+    transition: 100ms linear;
 }
 
 .toolbar-text{
-    color:variables.$yonder-pink;
+    color: rgba(255, 255, 255, 0.906);
+    cursor: default;
 }
