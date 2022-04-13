@@ -179,10 +179,10 @@ namespace YonderfulApi.Service
 			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
 				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
 				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
-				&& (filtersDto.Categories == null || filtersDto.Categories.Contains(e.CategoryId))
-				&& (!filtersDto.HiddenIfFee.HasValue || e.Fee == 0)
-				&& (!filtersDto.HiddenIfStarted.HasValue || e.JoinDeadline >= DateTime.Now)
-				&& (filtersDto.SearchTitle == null || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
+				&& (filtersDto.HiddenIfFee == false || e.Fee == 0)
+				&& (filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
+				&& (filtersDto.SearchTitle.Length == 0 || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
 				&& (!filtersDto.IsAttendingId.HasValue || attendingEvents.Contains(e.Id))
 			).ToListAsync();
 			return eventsList;
