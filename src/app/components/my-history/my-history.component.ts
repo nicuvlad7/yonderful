@@ -34,10 +34,7 @@ export class MyHistoryComponent implements OnInit {
   }
 
   filterEventsForCurrentUser(): void {
-    this.events = this.events.filter((event) => {
-      this.attendanceService.getUserAttendance(event.id, this.currentUserId)
-      .subscribe((result) => (console.log(result.length)));
-    });
+    
   }
 
 }

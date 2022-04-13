@@ -17,12 +17,6 @@ export class AttendanceService {
 			.post<IAttendance>(attendance, RouteEndpoints.ATTENDANCE)
 			.pipe(catchError(this.httpService.handleHttpErrorResponse));
 	}
-	
-	getUserAttendance(eventId: number, userId: number): Observable<UserDetails[]> {
-		return this.httpService
-			.getByTwo<UserDetails[]>(eventId, userId, RouteEndpoints.ATTENDANCE)
-			.pipe(catchError(this.httpService.handleHttpErrorResponse));
-	}
   
   	getParticipantsForEvent(eventId: number): Observable<UserDetails[]> {
 		return this.httpService
