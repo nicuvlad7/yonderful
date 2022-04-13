@@ -16,7 +16,7 @@ export class GenericFilterComponent implements OnInit {
 	@Input() showHiddenSection: boolean;
 
 	sortDataSelected: SortData = {
-		isAscending: false,
+		isAscending: true,
 		sortBy: 'Start Date',
 	};
 
@@ -72,7 +72,7 @@ export class GenericFilterComponent implements OnInit {
 
 		this.sortDataSelected = {
 			sortBy: 'Start Date',
-			isAscending: false,
+			isAscending: true,
 		};
 	}
 }

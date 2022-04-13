@@ -1,4 +1,4 @@
-<div class="events-wrapper">
+<div class="events-wrapper" *ngIf="eventsArray != null">
     <div class="events-header">
         <h1>{{ title }}</h1>
     </div>
@@ -24,9 +24,8 @@
             </ng-template>
         </div>
 
-        <mat-card class="filter-sort">
+        <app-generic-filter (sortData)="sortEvents($event)" (filtersData)="filterEvents($event)" [showHiddenSection]="showHiddenSection()">
             <!-- The filter and sort menu should be added here -->
-            <h1>Here comes the filter component</h1>
-        </mat-card>
+        </app-generic-filter>
     </div>
 </div>

@@ -33,14 +33,14 @@
 			<div>
 				<button
 					mat-button
-					*ngIf="!sortDataSelected.isAscending"
+					*ngIf="sortDataSelected.isAscending"
 					(click)="changeIsAscending(); emitSortData()"
 					>
 					<mat-icon>arrow_upward</mat-icon>
 				</button>
 				<button
 					mat-button
-					*ngIf="sortDataSelected.isAscending"
+					*ngIf="!sortDataSelected.isAscending"
 					(click)="changeIsAscending(); emitSortData()"
 				>
 					<mat-icon>arrow_downward</mat-icon>
