@@ -1,4 +1,4 @@
-<div class="events-wrapper">
+<div class="events-wrapper" *ngIf="!isLoading">
 
     <div class="events-content">
         <div class="events-header">
@@ -26,7 +26,9 @@
                 </ng-template>
             </div>
 
-            <app-generic-filter class="generic-filter" [showHiddenSection]="showFilterCheckboxes"></app-generic-filter>
+            <app-generic-filter (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)" [showHiddenSection]="showFilterCheckboxes">
+                <!-- The filter and sort menu should be added here -->
+            </app-generic-filter>
         </div>
     </div>
 
