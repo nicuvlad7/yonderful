@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { loginUser } from '../models/loginUser';
-import { TokenDecoder } from './token.decoder';
+import { AppStateService } from './app-state-service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<loginUser>;
     public currentUser: Observable<loginUser>;
 
-    constructor(private http: HttpClient, private tokenDecoder: TokenDecoder) {
+    constructor(private http: HttpClient, private appStateService: AppStateService) {
         this.currentUserSubject = new BehaviorSubject<loginUser>(
             JSON.parse(localStorage.getItem('currentUser')!)
         );
@@ -30,7 +30,7 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
-                this.tokenDecoder.initializeTokenInfo();
+                this.appStateService.updateSessionInfo(user);
                 return user;
             })
         );
@@ -39,7 +39,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        this.tokenDecoder.resetToken();
+        this.appStateService.updateSessionInfo(null);
         this.currentUserSubject.next(null);
     }
 }

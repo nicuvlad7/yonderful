@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteValues } from 'src/app/models/constants';
 import { IDashboardEvents } from 'src/app/models/dashboard-event';
+import { AppStateService } from 'src/app/services/app-state-service';
 import { EventService } from 'src/app/services/event.service';
-import { TokenDecoder } from 'src/app/services/token.decoder';
 import { EventCardComponent } from '../event-card/event-card.component';
 
 @Component({
@@ -19,10 +19,10 @@ export class DashboardComponent implements OnInit {
     areJoinedEvents: boolean;
     areHostedEvents: boolean;
 
-    constructor(private eventService: EventService, private tokenDecoder: TokenDecoder, private router: Router, route: ActivatedRoute) { }
+    constructor(private eventService: EventService, private appStateService: AppStateService, private router: Router, route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.currentUserId = this.tokenDecoder.getCurrentUserId();
+        this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
             this.dashboardEvents = result;
             this.areJoinedEvents = this.dashboardEvents.joinedEvents.length !== 0;
