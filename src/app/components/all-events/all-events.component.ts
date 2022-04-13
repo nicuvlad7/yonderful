@@ -10,10 +10,12 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class AllEventsComponent implements OnInit {
 	eventsArrayObservable: Observable<EventsResponse>;
+	isLoading: boolean = true;
 
   	constructor(private eventService: EventService) { }
 
 	ngOnInit(): void {
 		this.eventsArrayObservable = this.eventService.getFutureEvents();
+		this.isLoading = false;
 	}
 }

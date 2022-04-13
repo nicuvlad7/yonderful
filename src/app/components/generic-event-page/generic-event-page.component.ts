@@ -22,6 +22,8 @@ export class GenericEventPageComponent implements OnInit {
   filterData: FiltersData;
   sortData: SortData;
 
+  isLoading: boolean = true;
+
   defaultSortData: SortData = {
     sortBy: 'startingDate',
     isAscending: true
@@ -32,6 +34,7 @@ export class GenericEventPageComponent implements OnInit {
   ngOnInit(): void {
     this.eventsArrayObservable.subscribe((response) => {
       this.eventsArray = this.sortDataService.sort(this.defaultSortData, response.result);
+      this.isLoading = false;
     })
   }
 
@@ -68,12 +71,6 @@ export class GenericEventPageComponent implements OnInit {
 
   clickButton(clickButtonData): void{
     console.log(clickButtonData);
-  }
-
-  showHiddenSection(): boolean{
-    if(this.title === 'Future Events')
-      return true;
-    return false;
   }
 
   navigateToEventView(eventId: number): void {
