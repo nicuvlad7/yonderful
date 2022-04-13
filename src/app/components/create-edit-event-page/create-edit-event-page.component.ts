@@ -13,8 +13,8 @@ import { timeStringParser } from 'src/app/helpers/helpers';
 import { eventEndTimeValidator, eventJoinTimeValidator, eventParticipantsIntervalValidator } from 'src/app/helpers/validators';
 import { joinDeadlineValidator } from 'src/app/helpers/validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { RouteValues } from 'src/app/models/constants';
+import { TokenDecoder } from 'src/app/services/token.decoder';
 
 @Component({
     selector: 'app-create-edit-event-page',
@@ -50,13 +50,13 @@ export class CreateEditEventPageComponent implements OnInit {
         private route: ActivatedRoute,
         private editEventService: EditEventService,
         private snackBar: MatSnackBar,
-        private decodeToken: DecodeToken,
+        private tokenDecoder: TokenDecoder,
         private router: Router
     ) { }
 
     ngOnInit(): void {
         this.currentDate = new Date();
-        this.currentUserId = this.getCurrentLoggedInUserId();
+        this.currentUserId = this.tokenDecoder.getCurrentUserId();
         this.fetchCategoryList();
         this.initEventFormControls();
 
@@ -77,11 +77,6 @@ export class CreateEditEventPageComponent implements OnInit {
             }
 
         });
-    }
-
-    getCurrentLoggedInUserId(): number {
-        this.decodeToken.initializeTokenInfo();
-        return this.decodeToken.getCurrentUserId();
     }
 
     isEventFormValid(): boolean {

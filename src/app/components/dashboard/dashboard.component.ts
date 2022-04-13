@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { RouteValues } from 'src/app/models/constants';
 import { IDashboardEvents } from 'src/app/models/dashboard-event';
 import { EventService } from 'src/app/services/event.service';
+import { TokenDecoder } from 'src/app/services/token.decoder';
 import { EventCardComponent } from '../event-card/event-card.component';
 
 @Component({
@@ -19,11 +19,10 @@ export class DashboardComponent implements OnInit {
     areJoinedEvents: boolean;
     areHostedEvents: boolean;
 
-    constructor(private eventService: EventService, private decodeToken: DecodeToken, private router: Router, route: ActivatedRoute) {}
+    constructor(private eventService: EventService, private tokenDecoder: TokenDecoder, private router: Router, route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.decodeToken.initializeTokenInfo();
-        this.currentUserId = this.decodeToken.getCurrentUserId();
+        this.currentUserId = this.tokenDecoder.getCurrentUserId();
         this.eventService.getDashboardEvents(this.currentUserId).subscribe((result) => {
             this.dashboardEvents = result;
             this.areJoinedEvents = this.dashboardEvents.joinedEvents.length !== 0;

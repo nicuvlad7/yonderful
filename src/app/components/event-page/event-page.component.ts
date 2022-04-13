@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Observable, takeUntil } from 'rxjs';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { IAttendance } from 'src/app/models/attendance';
 import { RouteValues } from 'src/app/models/constants';
 import { IEvent } from 'src/app/models/event';
@@ -11,6 +10,7 @@ import { AttendanceService } from 'src/app/services/attendance.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { EventService } from 'src/app/services/event.service';
+import { TokenDecoder } from 'src/app/services/token.decoder';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -43,7 +43,7 @@ export class EventPageComponent implements OnInit {
         private readonly activatedRoute: ActivatedRoute,
         private dialogService: DialogService,
         private router: Router,
-        private decodeToken: DecodeToken,
+        private tokenDecoder: TokenDecoder,
         private attendanceService: AttendanceService,
         private userService: UserService
     ) {
@@ -61,8 +61,7 @@ export class EventPageComponent implements OnInit {
         }).subscribe(({ requestOne, requestTwo }) => {
             this.event = requestOne;
             this.participantsArray = requestTwo;
-            this.decodeToken.initializeTokenInfo();
-            this.currentUserId = this.decodeToken.getCurrentUserId();
+            this.currentUserId = this.tokenDecoder.getCurrentUserId();
             this.userService.getUserById(this.currentUserId).subscribe((result) => { this.currentUser = result });
             this.intializeTagsList();
             this.initalizeCategoryIcon();
@@ -134,7 +133,7 @@ export class EventPageComponent implements OnInit {
 
     openParticipantsDialog(): void {
         var isHost: boolean;
-        isHost = this.event.hostId == this.decodeToken.getCurrentUserId();
+        isHost = this.event.hostId == this.tokenDecoder.getCurrentUserId();
         this.dialogService.participantsDialog({
             participants: this.participantsArray,
             isEventOwner: isHost,
@@ -173,7 +172,7 @@ export class EventPageComponent implements OnInit {
     checkJoinButtonState(): void {
         this.isCurrentUserNotAttending = this.participantsArray.find(participant => participant.id == this.currentUserId) === undefined;
         if (this.noMaximumParticipants) {
-            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;   
+            this.isMaximumReached = this.participantsArray.length === this.event.maximumParticipants;
         }
         this.checkJoinDeadlineOverdue();
     }
