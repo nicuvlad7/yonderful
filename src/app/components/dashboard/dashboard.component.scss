@@ -2,32 +2,34 @@
 @import '../../mixins.scss';
 
 .page-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
+    height: calc(100vh - 50.6667px);
+    @include flex-container(auto);
+    align-items: center;
 }
 
 .page-container {
     width: 85%;
-    height: 100%;
+    height: 90%;
     display: flex;
-    margin-top: 50px;
-    @include flex-container(column, flex-start);
+    @include flex-container(column);
 }
 
 .joined-events {
     @include flex-container(column, flex-start);
+    height: 40vh;
     justify-content: space-between;
-    background-color: variables.$yonder-light-blue;
+    background-color: variables.$yonder-white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 20px;
     overflow: auto;
 }
 
 .hosted-events {
     margin-top: 70px;
+    height: 40vh;
     @include flex-container(column, flex-start);
-    background-color: variables.$yonder-light-blue;
+    background-color: variables.$yonder-white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 20px;
     overflow: auto;
 }
@@ -40,6 +42,7 @@
 .events-top-row {
     @include flex-container(row, flex-start);
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .buttons {
@@ -64,16 +67,17 @@
 }
 
 .event-cards {
-    margin-top: 30px;
-    @include flex-container(row, flex-start);
+    @include flex-container(row);
     justify-content: space-evenly;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
 .missing-button {
     align-self: center;
-    margin-bottom: 120px;
-    margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
     color: variables.$yonder-pink;
     background-color: white;
     font-size: 3vh;
@@ -113,5 +117,6 @@
 
 .three-events-component {
     width: 100%;
+    height: auto;
 }
 
