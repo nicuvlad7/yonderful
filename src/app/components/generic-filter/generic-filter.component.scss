@@ -5,6 +5,8 @@
 	width: 300px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.5s;
+	border-radius: 5px;
+	padding: 30px 20px 30px 20px;
 }
 
 .section-header {
@@ -13,7 +15,6 @@
 }
 .section-container {
 	@include flex-container(column, center);
-	padding: 10px;
 }
 
 .sort-select-input {
@@ -26,16 +27,20 @@
 }
 
 .filter-container {
-	padding: 10px;
+	@include flex-container(column, center);
+	height: calc(100% - 234.58px);
 }
+
 .filters-header {
 	@include flex-container(row, space-between);
 	align-items: center;
 }
+
 .filters-header-icon {
 	@include flex-container(row);
 	align-items: center;
 }
+
 .filter-select-input {
 	margin-top: 10px;
 	width: 100%;
@@ -86,5 +91,7 @@ label {
 	background-color: $yonder-pink;
 }
 .apply-filters-container {
-	@include flex-container(row, flex-end);
+	@include flex-container(column, flex-end);
+	align-items: flex-end;
+	flex-grow: 1;
 }
