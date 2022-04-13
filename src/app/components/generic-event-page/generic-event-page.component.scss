@@ -8,10 +8,9 @@
 
 .events-content {
     @include flex-container(column);
-    padding: 40px 0;
+    padding: 40px;
     height: auto;
     width: 100%;
-    margin: 0 25px;
 }
 
 .events-header {
@@ -28,18 +27,16 @@
 
 
 .events-container {
-    height: calc(100vh - 230.66px);
+    height: calc(100vh - 205.66px);
     width: calc(100% - 25px);
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 20px;
+    padding: 10px 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.5s;
     border-radius: 5px;
     margin-right: 25px;
 }
-
-
 
 .data-container {
     margin: 0px;
@@ -65,7 +62,7 @@
 
 @media screen and (min-width: 1707px) {
     .events {
-        @include flex-container(row, flex-start);
+        @include flex-container(row, center);
     }
 
     .event-card {
