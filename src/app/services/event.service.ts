@@ -43,7 +43,7 @@ export class EventService {
     .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
-    getJoinedEventsForUser(userId: number): Observable<IEvent[]> {
+    getJoinedEventsForUser(userId: number): Observable<EventsResponse> {
         return this.httpService
             .getById<IEvent[]>(userId, RouteEndpoints.JOINED_EVENTS)
             .pipe(catchError(this.httpService.handleHttpErrorResponse));
