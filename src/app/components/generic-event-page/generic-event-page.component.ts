@@ -69,10 +69,6 @@ export class GenericEventPageComponent implements OnInit {
     this.filterData = filterData;
   }
 
-  clickButton(clickButtonData): void{
-    console.log(clickButtonData);
-  }
-
   navigateToEventView(eventId: number): void {
     this.router.navigate([RouteValues.EVENT_DETAILS + "/" + eventId]);
   }

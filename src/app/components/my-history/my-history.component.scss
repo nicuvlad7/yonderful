@@ -5,10 +5,28 @@
     @include flex-container(column, space-between);
     margin-top: 30px;
     margin-left: 100px;
+    margin-right: 100px;
 }
 
 .content-container {
-    width: 70%;
+    width:  100%;
     padding-left: 0;
+    @include flex-container(row, space-between);
+    height: calc(100vh - 187.66px);
+}
+
+.table-container {
+    width: 75%;
+    height: 20%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+.generic-filter {
+    @include flex-container(row);
+    flex-wrap: wrap;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 

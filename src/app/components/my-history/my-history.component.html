@@ -1,8 +1,7 @@
-<div class="main-div">
-    <h1>My history</h1>
+<div class="main-div" *ngIf="!isLoadingEvents && !isLoadingCategories">
+  <h1>My history</h1>
     <div class="content-container">
         <table mat-table [dataSource]="events" class="table-container">
-          
           <!-- ICON COLUMN -->
           <ng-container matColumnDef="Icon" >
             <th mat-header-cell *matHeaderCellDef class="table-header-text"> Icon </th>
@@ -12,7 +11,7 @@
           <!-- TITLE COLUMN -->
           <ng-container matColumnDef="StartDate">
             <th mat-header-cell *matHeaderCellDef class="table-header-text"> Date </th>
-            <td class="table-title-data" mat-cell *matCellDef="let element"> {{element.StartDate | date:'dd.LL.y - H:mm'}} </td>
+            <td class="table-title-data" mat-cell *matCellDef="let element"> {{element.startingDate | date:'dd.LL.y - H:mm'}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Title">
@@ -32,6 +31,12 @@
             (click)="onEventRowClick(row)"
             ></tr>
         </table>
-  
+
+        <app-generic-filter class="generic-filter"
+       [showHiddenSection]="false" (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)" [showHiddenSection]="false">
+         <!-- The filter and sort menu should be added here -->
+     </app-generic-filter>
       </div>
+      
+      
 </div>
