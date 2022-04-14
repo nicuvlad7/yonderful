@@ -74,9 +74,10 @@
 						<input
 							matInput
 							placeholder="MM/DD/YYYY"
-							[max]="filtersDataSelected.endDate"
+							[min]="startingDate != null ? startingDate : null"
+							[max]="filtersDataSelected.endingDate"
 							[matDatepicker]="startDatePicker"
-							[(ngModel)]="filtersDataSelected.startDate"
+							[(ngModel)]="filtersDataSelected.startingDate"
 							readonly
 						/>
 						<mat-datepicker-toggle
@@ -92,9 +93,9 @@
 								<input
 									matInput
 									[matDatepicker]="endDatePicker"
-									[(ngModel)]="filtersDataSelected.endDate"
+									[(ngModel)]="filtersDataSelected.endingDate"
 									placeholder="MM/DD/YYYY"
-									[min]="filtersDataSelected.startDate"
+									[min]="filtersDataSelected.startingDate"
 									readonly
 								/>
 								<mat-datepicker-toggle

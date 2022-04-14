@@ -18,17 +18,15 @@ export class JoinedEventsComponent implements OnInit {
     currentUserId: number;
     eventsLength: number;
     filterData: FiltersData = {
-        startDate: new Date(),
-        categories: [],
-        searchTitle: ""
-    }
+        
+    };
 
     constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
 
     ngOnInit(): void {
         this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
-        this.filterData.isAttendingId = this.currentUserId;
-        this.eventsArray = this.eventService.getFilteredEvents(this.filterData);
+        this.filterData.AttendingId = this.currentUserId;
+        this.eventsArray = this.eventService.getNotEndedEvents(this.filterData);
 
         this.eventsArray.subscribe((response) => {
             this.eventsLength = response.result.length;

@@ -1,10 +1,10 @@
 export interface FiltersData {
-    startDate:Date,
-    endDate?:Date,
+    startingDate?:Date,
+    endingDate?:Date,
     categories?:number[],
     hiddenIfFee?:boolean,
     hiddenIfStarted?:boolean,
-    isHostId?:number,
-    isAttendingId?:number,
+    HostId?:number,
+    AttendingId?:number,
     searchTitle?:string,
 }

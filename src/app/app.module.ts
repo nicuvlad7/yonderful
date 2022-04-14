@@ -33,6 +33,7 @@ import { GenericFilterComponent } from './components/generic-filter/generic-filt
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
 import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 import { JoinedEventsComponent } from './components/joined-events/joined-events.component';
+import { HostedEventsPageComponent } from './components/hosted-events-page/hosted-events-page.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { JoinedEventsComponent } from './components/joined-events/joined-events.
         ThreeEventsComponent,
         GenericEventPageComponent,
         JoinedEventsComponent,
+        HostedEventsPageComponent,
     ],
     imports: [
         BrowserModule,
