@@ -80,15 +80,30 @@ export class GenericEventPageComponent implements OnInit {
     
     filterData = this.prepareFilterData(filterData);
 
-    this.filterDataService.getFilteredEvents(filterData).subscribe((result) => {
-      this.eventsArray = result.result;
-      if(this.sortData == null){
-        this.eventsArray = this.sortDataService.sort(this.defaultSortData, this.eventsArray);
-      }
-      else{
-        this.eventsArray = this.sortDataService.sort(this.sortData, this.eventsArray);
-      }
-    });
+    if(this.title === 'Joined Events' || this.title === 'Hosted Events'){
+      this.filterDataService.getNotEndedEvents(filterData).subscribe((result) => {
+        this.eventsArray = result.result;
+        if(this.sortData == null){
+          this.eventsArray = this.sortDataService.sort(this.defaultSortData, this.eventsArray);
+        }
+        else{
+          this.eventsArray = this.sortDataService.sort(this.sortData, this.eventsArray);
+        }
+      });
+    }
+    else if(this.title === 'Future Events'){
+      this.filterDataService.getFilteredEvents(filterData).subscribe((result) => {
+        this.eventsArray = result.result;
+        if(this.sortData == null){
+          this.eventsArray = this.sortDataService.sort(this.defaultSortData, this.eventsArray);
+        }
+        else{
+          this.eventsArray = this.sortDataService.sort(this.sortData, this.eventsArray);
+        }
+      });
+    }
+
+    
 
     this.filterData = filterData;
   }
