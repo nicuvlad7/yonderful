@@ -1,7 +1,7 @@
 @use "../../variables.scss";
 
 .toolbar{
-    background-color: rgba(33, 33, 33, 0.75);
+    background-color: variables.$yonder-dark-grey;
     width: auto;
     height: 38pt;
     display: flex;
@@ -16,7 +16,7 @@
 }
 
 .icon-style{
-    color: rgba(255, 255, 255, 0.906);
+    color: variables.$yonder-button-white;
 }
 
 .icon-style:hover {
@@ -25,6 +25,6 @@
 }
 
 .toolbar-text{
-    color: rgba(255, 255, 255, 0.906);
+    color: variables.$yonder-button-white;
     cursor: default;
 }
