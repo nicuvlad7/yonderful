@@ -159,7 +159,7 @@ export class CreateEditEventPageComponent implements OnInit {
             
             // By pathcing a form, validators are not 'executed'.
             // Since endTime, joinDeadlineDate and joinDeadlineTime controls are injected with a custom error, 
-            //they should be marked as touched to trigger the validator.
+            // they should be marked as touched to trigger the validator.
             this.eventGeneralForm.get('eventDates').get('endTime').markAsTouched();
             this.eventGeneralForm.get('eventDates').get('joinDeadlineTime').markAsTouched();
             this.eventGeneralForm.get('eventDates').get('joinDeadlineDate').markAsTouched();
