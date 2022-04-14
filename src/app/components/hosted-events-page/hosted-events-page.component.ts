@@ -19,7 +19,9 @@ export class HostedEventsPageComponent implements OnInit {
   currentUserId: number;
   eventsLength: number;
   filterData: FiltersData ={
-    startDate: new Date()
+    startDate: new Date(),
+    categories: [],
+    searchTitle: ""
   }
 
   constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }

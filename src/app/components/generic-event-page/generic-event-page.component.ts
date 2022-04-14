@@ -72,13 +72,15 @@ export class GenericEventPageComponent implements OnInit {
 
   filterEvents(filterData): void{
     if(this.filterData.AttendingId != null)
-      filterData.isAttendingId = this.filterData.AttendingId;
+      filterData.AttendingId = this.filterData.AttendingId;
 
     if(this.filterData.HostId != null)
-      filterData.isHostId = this.filterData.HostId;
+      filterData.HostId = this.filterData.HostId;
 
     this.filterDataService.getFilteredEvents(filterData).subscribe((result) => {
       this.eventsArray = result.result;
+      console.log(filterData);
+      console.log(result.result);
       if(this.sortData == null){
         this.eventsArray = this.sortDataService.sort(this.defaultSortData, this.eventsArray);
       }
