@@ -1,12 +1,11 @@
 @use "../../variables.scss";
+@import '../../mixins.scss';
 
 .toolbar{
     background-color: variables.$yonder-dark-grey;
     width: auto;
     height: 38pt;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
 }
 
 .sticky {
@@ -31,13 +30,11 @@
 }
 
 .top-right {
-    display: flex;
-    flex-direction: row;
+    @include flex-container(row);
 }
 
 .button {
-    display: flex;
-    justify-content: space-around;
+    @include flex-container(auto, space-around);
 }
 
 .username {
