@@ -188,8 +188,9 @@ namespace YonderfulApi.Service
 				&& (filtersDto.HiddenIfFee == null || filtersDto.HiddenIfFee == false || e.Fee == 0)
 				&& (filtersDto.HiddenIfStarted == null || filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
 				&& (String.IsNullOrEmpty(filtersDto.SearchTitle) || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
-				&& (!filtersDto.AttendingId.HasValue || attendingEvents.Contains(e.Id))
+				&& (filtersDto.AttendingId == null || attendingEvents.Contains(e.Id))
 			).ToListAsync();
+
 			return eventsList;
 		}
 

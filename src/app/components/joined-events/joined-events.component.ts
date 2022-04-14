@@ -18,8 +18,7 @@ export class JoinedEventsComponent implements OnInit {
     currentUserId: number;
     eventsLength: number;
     filterData: FiltersData = {
-        
-    };
+    }
 
     constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
 

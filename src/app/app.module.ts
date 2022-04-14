@@ -2,13 +2,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginCardComponent } from './components/login-card/login-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
@@ -31,6 +29,7 @@ import { ParticipantsDialogComponent } from './components/participants-dialog/pa
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { GenericFilterComponent } from './components/generic-filter/generic-filter.component';
 import { ThreeEventsComponent } from './components/three-events/three-events.component';
+import { MyHistoryComponent } from './components/my-history/my-history.component';
 import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 import { JoinedEventsComponent } from './components/joined-events/joined-events.component';
 import { HostedEventsPageComponent } from './components/hosted-events-page/hosted-events-page.component';
@@ -60,6 +59,7 @@ import { HostedEventsPageComponent } from './components/hosted-events-page/hoste
 		UserDetailsComponent,
         NotFoundComponent,
         ThreeEventsComponent,
+        MyHistoryComponent,
         GenericEventPageComponent,
         JoinedEventsComponent,
         HostedEventsPageComponent,

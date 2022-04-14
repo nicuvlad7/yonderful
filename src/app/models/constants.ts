@@ -21,6 +21,7 @@ export class RouteValues {
     static readonly JOINED_EVENTS = 'joined-events'
     static readonly NOT_FOUND = 'not-found'
     static readonly EVENT_DETAILS = 'event-details'
+    static readonly MY_HISTORY = 'my-history'
     static readonly HOSTED_EVENTS = 'hosted-events'
 };
 
