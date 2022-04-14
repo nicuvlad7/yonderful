@@ -1,11 +1,14 @@
 <mat-toolbar class="toolbar sticky">
   <span class="toolbar-text">Yonderful Time</span>
 
-  <div>
-    <button mat-icon-button>
+    <p class="username">
+        Welcome, {{currentUser.name}}!
+    </p>
+  <div class="top-right">
+    <button mat-icon-button class="button">
       <mat-icon class="icon-style">notifications</mat-icon>
     </button>
-    <button mat-icon-button (click)="onLogoutUser()">
+    <button mat-icon-button class="button" (click)="onLogoutUser()">
       <mat-icon class="icon-style">exit_to_app</mat-icon>
     </button>
   </div>

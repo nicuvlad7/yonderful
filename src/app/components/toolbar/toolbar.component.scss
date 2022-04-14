@@ -27,4 +27,24 @@
 .toolbar-text{
     color: variables.$yonder-button-white;
     cursor: default;
+    margin: 0;
+}
+
+.top-right {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    display: flex;
+    justify-content: space-around;
+}
+
+.username {
+    color: variables.$yonder-button-white;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 5px;
+    font-size: 15px;
+    cursor: default;
 }
