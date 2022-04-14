@@ -179,9 +179,9 @@ namespace YonderfulApi.Service
 			//From Microsoft Docs:
 			//The second operand is evaluated only if the first operand evaluates to false, because evaluation isn't needed
 			// when the logical OR expression is true. It's known as short-circuit evaluation.
-			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.AttendingId) select attendance.EventId;
 
-			var eventsList =  await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
+			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.AttendingId) select attendance.EventId;
+			var eventsList = await _context.Events.Where(e => (e.StartingDate == null || e.StartingDate >= filtersDto.StartingDate)
 				&& (!filtersDto.HostId.HasValue || e.HostId == filtersDto.HostId)
 				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.StartingDate <= filtersDto.EndingDate)))
 				&& (filtersDto.Categories == null || filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
@@ -192,6 +192,12 @@ namespace YonderfulApi.Service
 			).ToListAsync();
 
 			return eventsList;
+		}
+
+		public async Task<IList<Event>> FilterNotEndedEvents(FiltersDto filtersDto){
+			var eventList = await GetFilteredEvents(filtersDto);
+			
+			return eventList.Where(e => e.EndingDate >= DateTime.Now).ToList();
 		}
 
 		public async Task<IList<Event>> GetHostedEvents(int hostId)

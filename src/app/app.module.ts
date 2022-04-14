@@ -32,6 +32,7 @@ import { ThreeEventsComponent } from './components/three-events/three-events.com
 import { MyHistoryComponent } from './components/my-history/my-history.component';
 import { GenericEventPageComponent } from './components/generic-event-page/generic-event-page.component';
 import { JoinedEventsComponent } from './components/joined-events/joined-events.component';
+import { HostedEventsPageComponent } from './components/hosted-events-page/hosted-events-page.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { JoinedEventsComponent } from './components/joined-events/joined-events.
         MyHistoryComponent,
         GenericEventPageComponent,
         JoinedEventsComponent,
+        HostedEventsPageComponent,
     ],
     imports: [
         BrowserModule,

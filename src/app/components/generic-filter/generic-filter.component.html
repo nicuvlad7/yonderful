@@ -89,22 +89,39 @@
 						<mat-datepicker #startDatePicker></mat-datepicker>
 					</mat-form-field>
 				</div>
-				<div class="date-container">
-					<label>End Date</label>
-					<mat-form-field class="date-input" appearance="outline">
-						<input
-							matInput
-							[matDatepicker]="endDatePicker"
-							[(ngModel)]="filtersDataSelected.endingDate"
-							placeholder="MM/DD/YYYY"
-							[min]="filtersDataSelected.startingDate"
-							readonly
-						/>
-						<mat-datepicker-toggle
-							matSuffix
-							[for]="endDatePicker"
-						></mat-datepicker-toggle>
-						<mat-datepicker #endDatePicker></mat-datepicker>
+					<div class="date-container">
+						<label>End Date</label>
+							<mat-form-field class="date-input" appearance="outline">
+								<input
+									matInput
+									[matDatepicker]="endDatePicker"
+									[(ngModel)]="filtersDataSelected.endingDate"
+									placeholder="MM/DD/YYYY"
+									[min]="filtersDataSelected.startingDate"
+									readonly
+								/>
+								<mat-datepicker-toggle
+									matSuffix
+									[for]="endDatePicker"
+								></mat-datepicker-toggle>
+								<mat-datepicker #endDatePicker></mat-datepicker>
+							</mat-form-field>
+					</div>
+				</div>
+				<div class="multiple-select">
+					<label> Category </label>
+					<mat-form-field appearance="outline" class="filter-select-input">
+						<mat-select
+							multiple
+							[(value)]="filtersDataSelected.categories"
+							placeholder="Choose a category"
+							>
+							<mat-option
+								*ngFor="let category of categoriesPool"
+								[value]="category.id">
+								{{ category.title }}
+							</mat-option>
+						</mat-select>
 					</mat-form-field>
 				</div>
 			</div>
@@ -151,5 +168,5 @@
 		>
 			Filter
 		</button>
-	</div>
 </div>
+

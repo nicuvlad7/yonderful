@@ -1,0 +1,11 @@
+
+<app-generic-event-page *ngIf="!isLoading" [eventsArrayObservable]="eventsArrayObservable" title="Hosted Events" [showFilterCheckboxes]="true"></app-generic-event-page>
+
+<div class="page-wrapper" *ngIf="eventsLength==0">   
+    <div class="message-wrapper">
+        <div class="no-events-text"><app-info text="You are not hosting any event. Want to create an event?"></app-info></div>
+        <button mat-stroked-button class="both-missing-button" (click)="navigateToCreateEvent()">
+            <div class="missing-button-inner-text">Join event</div>
+        </button>
+    </div>
+</div>

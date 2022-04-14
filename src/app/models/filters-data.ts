@@ -1,5 +1,5 @@
 export interface FiltersData {
-    startingDate:Date,
+    startingDate?:Date,
     endingDate?:Date,
     categories?:number[],
     hiddenIfFee?:boolean,
