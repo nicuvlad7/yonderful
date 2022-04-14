@@ -69,7 +69,6 @@ export class MyHistoryComponent implements OnInit {
     });
   }
 
-
   onEventRowClick(selectedRow: any): void {
 		const eventId: number = selectedRow.id;
 		this.router.navigate([RouteValues.EVENT_DETAILS, eventId]);
