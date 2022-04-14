@@ -28,15 +28,10 @@ export class SidenavComponent implements OnInit {
 
     secondaryMenuItemsUser: MenuItem[] = [
         { title: "My Profile", name: "person_outline", route: RouteValues.USER_DETAILS },
-        { title: "Info", name: "info", route: "" }
     ]
 
     primaryMenuItemsAdmin: MenuItem[] = [
         { title: "Dashboard", name: "home", route: RouteValues.DASHBOARD }
-    ]
-
-    secondaryMenuItemsAdmin: MenuItem[] = [
-        { title: "Info", name: "info", route: "" }
     ]
 
     toggleSidebar(): void {
