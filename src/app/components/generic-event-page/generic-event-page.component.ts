@@ -40,10 +40,10 @@ export class GenericEventPageComponent implements OnInit {
     this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
 
     if(this.title === 'Joined Events'){
-      this.filterData.isAttendingId = this.currentUserId;
+      this.filterData.AttendingId = this.currentUserId;
     }
     else if(this.title === 'Hosted Events'){
-      this.filterData.isHostId = this.currentUserId;
+      this.filterData.HostId = this.currentUserId;
     }
 
     this.eventsArrayObservable.subscribe((response) => {
@@ -71,11 +71,11 @@ export class GenericEventPageComponent implements OnInit {
   }
 
   filterEvents(filterData): void{
-    if(this.filterData.isAttendingId != null)
-      filterData.isAttendingId = this.filterData.isAttendingId;
+    if(this.filterData.AttendingId != null)
+      filterData.isAttendingId = this.filterData.AttendingId;
 
-    if(this.filterData.isHostId != null)
-      filterData.isHostId = this.filterData.isHostId;
+    if(this.filterData.HostId != null)
+      filterData.isHostId = this.filterData.HostId;
 
     this.filterDataService.getFilteredEvents(filterData).subscribe((result) => {
       this.eventsArray = result.result;

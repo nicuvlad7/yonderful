@@ -26,7 +26,7 @@ export class HostedEventsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
-    this.filterData.isHostId = this.currentUserId;
+    this.filterData.HostId = this.currentUserId;
     this.eventsArrayObservable = this.eventService.getFilteredEvents(this.filterData);
       this.eventsArrayObservable.subscribe((response) =>{
         this.eventsLength = response.result.length;

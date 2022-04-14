@@ -25,12 +25,11 @@ export class JoinedEventsComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
-        this.filterData.isAttendingId = this.currentUserId;
+        this.filterData.AttendingId = this.currentUserId;
         this.eventsArray = this.eventService.getFilteredEvents(this.filterData);
         this.eventsArray.subscribe((response) =>{
             this.eventsLength = response.result.length;
             this.isLoading = false;
-            console.log(response.result)
         });
     }
 
