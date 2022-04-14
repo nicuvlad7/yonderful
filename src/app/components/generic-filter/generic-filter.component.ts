@@ -13,6 +13,8 @@ export class GenericFilterComponent implements OnInit {
 	@Output() sortData = new EventEmitter<SortData>();
 	@Output() clickFilterButton = new EventEmitter<FiltersData>();
 	@Input() showHiddenSection: boolean;
+	@Input() startingDate: Date;
+	@Input() endingDate: Date;
 
 	sortDataSelected: SortData = {
 		isAscending: true,
@@ -20,7 +22,6 @@ export class GenericFilterComponent implements OnInit {
 	};
 
 	filtersDataSelected: FiltersData = {
-		startDate: new Date(),
 		hiddenIfFee: false,
 		hiddenIfStarted: false,
 		categories: [],
@@ -34,6 +35,12 @@ export class GenericFilterComponent implements OnInit {
 	constructor(private categoryService: CategoryService) {}
 
 	ngOnInit(): void {
+		if(this.startingDate != null){
+			this.filtersDataSelected.startingDate = this.startingDate;
+		}
+		if(this.endingDate != null){
+			this.filtersDataSelected.endingDate = this.endingDate;
+		}
 		this.categoryService.getCategories().subscribe((categories) => {
 			this.categoriesPool = categories.result;
 		});
@@ -57,8 +64,8 @@ export class GenericFilterComponent implements OnInit {
 
 	clearFields() {
 		this.filtersDataSelected = {
-			startDate: new Date(),
-			endDate: null,
+			startingDate: new Date(),
+			endingDate: null,
 			categories: [],
 			hiddenIfFee: false,
 			hiddenIfStarted: false,

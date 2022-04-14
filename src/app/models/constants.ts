@@ -34,6 +34,7 @@ export class RouteEndpoints {
     static readonly ATTENDANCE_GET_PARTICIPANTS = 'Attendance/GetParticipants'
     static readonly DASHBOARD_EVENTS = 'Event/GetDashboardEvents'
     static readonly JOINED_EVENTS = 'Event/GetJoinedEventsForUser'
+    static readonly NOT_ENDED_EVENTS = 'Event/GetNotEndedEvents'
 };
 
 export class SidenavItems {

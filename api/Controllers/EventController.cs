@@ -103,6 +103,17 @@ namespace api.Controllers
 			return Ok(eventDtoList);
 		}
 
+		[HttpPost("getNotEndedEvents")]
+		public async Task<IActionResult> GetNotEndedEvents(FiltersDto filtersDto){
+			var eventList = await _eventService.FilterNotEndedEvents(filtersDto);
+			var eventDtoList = _eventService.TransformEventDtoListForOutput(_mapper.Map<IList<EventDto>>(eventList));
+			if (eventDtoList == null)
+			{
+				return NotFound();
+			}
+			return Ok(eventDtoList);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> PostEvent(EventDto eventDto)
 		{

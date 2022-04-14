@@ -181,16 +181,22 @@ namespace YonderfulApi.Service
 			// when the logical OR expression is true. It's known as short-circuit evaluation.
 
 			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.AttendingId) select attendance.EventId;
-			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
+			var eventsList = await _context.Events.Where(e => (e.StartingDate == null || e.StartingDate >= filtersDto.StartingDate)
 				&& (!filtersDto.HostId.HasValue || e.HostId == filtersDto.HostId)
-				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
-				&& (filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
-				&& (filtersDto.HiddenIfFee == false || e.Fee == 0)
-				&& (filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
-				&& (filtersDto.SearchTitle.Length == 0 || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.StartingDate <= filtersDto.EndingDate)))
+				&& (filtersDto.Categories == null || filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
+				&& (filtersDto.HiddenIfFee == null || filtersDto.HiddenIfFee == false || e.Fee == 0)
+				&& (filtersDto.HiddenIfStarted == null || filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
+				&& (String.IsNullOrEmpty(filtersDto.SearchTitle) || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
 				&& (!filtersDto.AttendingId.HasValue || attendingEvents.Contains(e.Id))
 			).ToListAsync();
 			return eventsList;
+		}
+
+		public async Task<IList<Event>> FilterNotEndedEvents(FiltersDto filtersDto){
+			var eventList = await GetFilteredEvents(filtersDto);
+			
+			return eventList.Where(e => e.EndingDate >= DateTime.Now).ToList();
 		}
 
 		public async Task<IList<Event>> GetHostedEvents(int hostId)

@@ -27,7 +27,7 @@
             </div>
 
             <app-generic-filter class="generic-filter"
-             (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)" [showHiddenSection]="showFilterCheckboxes">
+             (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)" [startingDate]="defaultStartingDate" [endingDate]="defaultEndingDate" [showHiddenSection]="showFilterCheckboxes">
                 <!-- The filter and sort menu should be added here -->
             </app-generic-filter>
         </div>

@@ -19,9 +19,6 @@ export class HostedEventsPageComponent implements OnInit {
   currentUserId: number;
   eventsLength: number;
   filterData: FiltersData ={
-    startDate: new Date(),
-    categories: [],
-    searchTitle: ""
   }
 
   constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
@@ -29,11 +26,10 @@ export class HostedEventsPageComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
     this.filterData.HostId = this.currentUserId;
-    this.eventsArrayObservable = this.eventService.getFilteredEvents(this.filterData);
+    this.eventsArrayObservable = this.eventService.getNotEndedEvents(this.filterData);
       this.eventsArrayObservable.subscribe((response) =>{
         this.eventsLength = response.result.length;
         this.isLoading = false;
-        console.log(response.result)
     });
   }
 

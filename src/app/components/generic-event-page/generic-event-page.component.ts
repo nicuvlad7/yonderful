@@ -22,12 +22,15 @@ export class GenericEventPageComponent implements OnInit {
 
   eventsArray: IEvent[];
   filterData: FiltersData = {
-    startDate: new Date()
   };
   sortData: SortData;
 
   isLoading: boolean = true;
   currentUserId: number;
+
+  defaultStartingDate: Date;
+  defaultEndingDate: Date;
+  today: Date = new Date();
 
   defaultSortData: SortData = {
     sortBy: 'startingDate',
@@ -44,6 +47,9 @@ export class GenericEventPageComponent implements OnInit {
     }
     else if(this.title === 'Hosted Events'){
       this.filterData.HostId = this.currentUserId;
+    }
+    else if(this.title === 'Future Events'){
+      this.defaultStartingDate = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate(),0,0,0);
     }
 
     this.eventsArrayObservable.subscribe((response) => {
@@ -71,16 +77,11 @@ export class GenericEventPageComponent implements OnInit {
   }
 
   filterEvents(filterData): void{
-    if(this.filterData.AttendingId != null)
-      filterData.AttendingId = this.filterData.AttendingId;
-
-    if(this.filterData.HostId != null)
-      filterData.HostId = this.filterData.HostId;
+    
+    filterData = this.prepareFilterData(filterData);
 
     this.filterDataService.getFilteredEvents(filterData).subscribe((result) => {
       this.eventsArray = result.result;
-      console.log(filterData);
-      console.log(result.result);
       if(this.sortData == null){
         this.eventsArray = this.sortDataService.sort(this.defaultSortData, this.eventsArray);
       }
@@ -90,6 +91,16 @@ export class GenericEventPageComponent implements OnInit {
     });
 
     this.filterData = filterData;
+  }
+
+  prepareFilterData(filterData): FiltersData{
+    if(this.filterData.AttendingId != null)
+      filterData.AttendingId = this.filterData.AttendingId;
+
+    if(this.filterData.HostId != null)
+      filterData.HostId = this.filterData.HostId;
+
+    return filterData;
   }
 
   navigateToEventView(eventId: number): void {

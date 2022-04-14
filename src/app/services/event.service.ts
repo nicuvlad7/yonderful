@@ -37,6 +37,12 @@ export class EventService {
       .pipe(catchError(this.httpService.handleHttpErrorResponse));
   }
 
+  getNotEndedEvents(filtersData: FiltersData): Observable<EventsResponse> {
+    return this.httpService
+      .post<EventsResponse>(filtersData, RouteEndpoints.NOT_ENDED_EVENTS)
+      .pipe(catchError(this.httpService.handleHttpErrorResponse));
+  }
+
   getDashboardEvents(hostId: number): Observable<IDashboardEvents> {
     return this.httpService
     .getById<IDashboardEvents>(hostId, RouteEndpoints.DASHBOARD_EVENTS)
