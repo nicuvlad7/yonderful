@@ -89,3 +89,26 @@ label {
 	border: 1px solid $yonder-pink;
 	margin-left: 20px;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $yonder-light-gray; 
+  border-radius: 6px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: $yonder-pink; 
+}
+
+/* Handle hover */
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 6px;
+    background: $yonder-pink; 
+}
