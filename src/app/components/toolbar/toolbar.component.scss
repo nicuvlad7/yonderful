@@ -1,12 +1,11 @@
 @use "../../variables.scss";
+@import '../../mixins.scss';
 
 .toolbar{
     background-color: variables.$yonder-dark-grey;
     width: auto;
     height: 38pt;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include flex-container(row, space-between);
 }
 
 .sticky {
@@ -26,5 +25,23 @@
 
 .toolbar-text{
     color: variables.$yonder-button-white;
+    cursor: default;
+    margin: 0;
+}
+
+.top-right {
+    @include flex-container(row);
+}
+
+.button {
+    @include flex-container(auto, space-around);
+}
+
+.username {
+    color: variables.$yonder-button-white;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 5px;
+    font-size: 15px;
     cursor: default;
 }

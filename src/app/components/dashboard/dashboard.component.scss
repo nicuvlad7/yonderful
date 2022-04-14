@@ -25,7 +25,7 @@
 }
 
 .hosted-events {
-    margin-top: 70px;
+    margin-top: 5vh;
     height: 40vh;
     @include flex-container(column, flex-start);
     background-color: variables.$yonder-white;
@@ -119,4 +119,3 @@
     width: 100%;
     height: auto;
 }
-
