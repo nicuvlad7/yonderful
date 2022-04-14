@@ -49,7 +49,6 @@ export class MyHistoryComponent implements OnInit {
 			endingDate: new Date(),
 			AttendingId: this.currentUserId,
 		};
-
 		this.eventService
 			.getFilteredEvents(filterData)
 			.subscribe((eventsList) => {

@@ -18,9 +18,6 @@ export class JoinedEventsComponent implements OnInit {
     currentUserId: number;
     eventsLength: number;
     filterData: FiltersData = {
-        startingDate: new Date(),
-        categories: [],
-        searchTitle: ""
     }
 
     constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }

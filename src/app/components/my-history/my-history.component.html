@@ -1,6 +1,6 @@
 <div class="main-div" *ngIf="!isLoadingEvents && !isLoadingCategories">
   <h1>My history</h1>
-    <div class="content-container">
+    <div class="content-container" *ngIf="events.data.length > 0; else noDataBlock">
         <table mat-table [dataSource]="events" class="table-container">
           <!-- ICON COLUMN -->
           <ng-container matColumnDef="Icon" >
@@ -36,6 +36,5 @@
        [showHiddenSection]="false" (sortData)="sortEvents($event)" (clickFilterButton)="filterEvents($event)">
       </app-generic-filter>
       </div>
-      
-      
 </div>
+<ng-template #noDataBlock>Sorry, there is nothing to show</ng-template>
