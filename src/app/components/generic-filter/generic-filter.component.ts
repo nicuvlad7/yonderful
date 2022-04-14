@@ -20,7 +20,7 @@ export class GenericFilterComponent implements OnInit {
 	};
 
 	filtersDataSelected: FiltersData = {
-		startDate: new Date(),
+		startingDate: new Date(),
 		hiddenIfFee: false,
 		hiddenIfStarted: false,
 		categories: [],
@@ -57,8 +57,8 @@ export class GenericFilterComponent implements OnInit {
 
 	clearFields() {
 		this.filtersDataSelected = {
-			startDate: new Date(),
-			endDate: null,
+			startingDate: new Date(),
+			endingDate: null,
 			categories: [],
 			hiddenIfFee: false,
 			hiddenIfStarted: false,

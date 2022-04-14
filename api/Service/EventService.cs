@@ -179,17 +179,18 @@ namespace YonderfulApi.Service
 			//From Microsoft Docs:
 			//The second operand is evaluated only if the first operand evaluates to false, because evaluation isn't needed
 			// when the logical OR expression is true. It's known as short-circuit evaluation.
+			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.AttendingId) select attendance.EventId;
 
-			var attendingEvents = from attendance in _context.Attendance.Where(e => e.UserId == filtersDto.IsAttendingId) select attendance.EventId;
-			var eventsList = await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
-				&& (!filtersDto.IsHostId.HasValue || e.HostId == filtersDto.IsHostId)
-				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.EndingDate >= filtersDto.EndingDate)))
-				&& (filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
-				&& (filtersDto.HiddenIfFee == false || e.Fee == 0)
-				&& (filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
-				&& (filtersDto.SearchTitle.Length == 0 || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
-				&& (!filtersDto.IsAttendingId.HasValue || attendingEvents.Contains(e.Id))
+			var eventsList =  await _context.Events.Where(e => (e.StartingDate > filtersDto.StartingDate)
+				&& (!filtersDto.HostId.HasValue || e.HostId == filtersDto.HostId)
+				&& (!filtersDto.EndingDate.HasValue || ((e.StartingDate >= filtersDto.StartingDate) && (e.StartingDate <= filtersDto.EndingDate)))
+				&& (filtersDto.Categories == null || filtersDto.Categories.Length == 0 || filtersDto.Categories.Contains(e.CategoryId))
+				&& (filtersDto.HiddenIfFee == null || filtersDto.HiddenIfFee == false || e.Fee == 0)
+				&& (filtersDto.HiddenIfStarted == null || filtersDto.HiddenIfStarted == false || e.JoinDeadline >= DateTime.Now)
+				&& (String.IsNullOrEmpty(filtersDto.SearchTitle) || e.Title.ToLower().Contains(filtersDto.SearchTitle.ToLower()))
+				&& (filtersDto.AttendingId == null || attendingEvents.Contains(e.Id))
 			).ToListAsync();
+
 			return eventsList;
 		}
 

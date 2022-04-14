@@ -10,8 +10,8 @@ namespace YonderfulApi.DTOs
 		public int[] Categories { get; set; }
 		public bool? HiddenIfFee { get; set; }
 		public bool? HiddenIfStarted { get; set; }
-		public int? IsHostId { get; set; }
-		public int? IsAttendingId { get; set; }
+		public int? HostId { get; set; }
+		public int? AttendingId { get; set; }
 		public string SearchTitle { get; set; }
 	}
 }

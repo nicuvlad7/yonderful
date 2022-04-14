@@ -18,7 +18,7 @@ export class JoinedEventsComponent implements OnInit {
     currentUserId: number;
     eventsLength: number;
     filterData: FiltersData = {
-        startDate: new Date(),
+        startingDate: new Date(),
         categories: [],
         searchTitle: ""
     }
@@ -27,7 +27,7 @@ export class JoinedEventsComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
-        this.filterData.isAttendingId = this.currentUserId;
+        this.filterData.AttendingId = this.currentUserId;
         this.eventsArray = this.eventService.getFilteredEvents(this.filterData);
 
         this.eventsArray.subscribe((response) => {
