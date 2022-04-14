@@ -47,7 +47,7 @@ export function eventJoinTimeValidator(): ValidatorFn {
 
         // The case when the starting and joining dates are set, but not the starting and joining times
         // -> for invalid dates, will trigger an error
-        if (startDate && joinDeadlineDate && !startTime && !joinDeadlineTime) {
+        if (startDate && joinDeadlineDate && (!startTime || !joinDeadlineTime)) {
             startDate.setHours(0, 0, 0, 0);
             joinDeadlineDate.setHours(0, 0, 0, 0);
             if (joinDeadlineDate.getTime() > startDate.getTime()) {
