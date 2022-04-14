@@ -161,8 +161,8 @@
                         <div class="event-form-item-container">
                             <label>Fee</label>
                             <mat-form-field class="event-form-item" appearance="outline">
-                                <input matInput type="text" placeholder="0" formControlName="eventFee">
-                                <mat-error *ngIf="eventGeneralForm.get('eventFee')?.hasError('pattern')">
+                                <input matInput type="text" placeholder="0" formControlName="fee">
+                                <mat-error *ngIf="eventGeneralForm.get('fee')?.hasError('pattern')">
                                     Fee must be a <strong>positive number</strong>
                                 </mat-error>
                             </mat-form-field>

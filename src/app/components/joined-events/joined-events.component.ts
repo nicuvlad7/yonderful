@@ -17,8 +17,10 @@ export class JoinedEventsComponent implements OnInit {
     isLoading: boolean = true;
     currentUserId: number;
     eventsLength: number;
-    filterData: FiltersData ={
-        startDate: new Date()
+    filterData: FiltersData = {
+        startDate: new Date(),
+        categories: [],
+        searchTitle: ""
     }
 
     constructor(private eventService: EventService, private router: Router, private appStateService: AppStateService) { }
@@ -27,10 +29,11 @@ export class JoinedEventsComponent implements OnInit {
         this.currentUserId = this.appStateService.observerSessionInfo().value?.id;
         this.filterData.AttendingId = this.currentUserId;
         this.eventsArray = this.eventService.getFilteredEvents(this.filterData);
-        this.eventsArray.subscribe((response) =>{
+
+        this.eventsArray.subscribe((response) => {
             this.eventsLength = response.result.length;
             this.isLoading = false;
-        });
+        })
     }
 
     navigateToAllEvents() {
