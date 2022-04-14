@@ -33,7 +33,7 @@ export class HostedEventsPageComponent implements OnInit {
     });
   }
 
-  navigateToAllEvents() {
-    this.router.navigate([RouteValues.ALL_EVENTS]);
+  navigateToCreateEvent() {
+    this.router.navigate([RouteValues.CREATE_EVENT]);
   }
 }

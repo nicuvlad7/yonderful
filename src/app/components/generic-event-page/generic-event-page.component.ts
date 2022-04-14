@@ -102,9 +102,6 @@ export class GenericEventPageComponent implements OnInit {
         }
       });
     }
-
-    
-
     this.filterData = filterData;
   }
 
