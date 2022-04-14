@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AllEventsComponent } from './components/all-events/all-events.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { MyHistoryComponent } from './components/my-history/my-history.component';
+import { JoinedEventsComponent } from './components/joined-events/joined-events.component';
 
 const routes: Routes = [
   { path: RouteValues.LOGIN, component: LoginCardComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: RouteValues.DASHBOARD, component: DashboardComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.ALL_EVENTS, component: AllEventsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.MY_HISTORY, component: MyHistoryComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: RouteValues.JOINED_EVENTS, component: JoinedEventsComponent, canActivate: [AuthGuard, UserGuard] },
   { path: RouteValues.USER_DETAILS, component: UserDetailsComponent, canActivate: [AuthGuard] },
   { path: RouteValues.NOT_FOUND,component:NotFoundComponent,},
   { path: RouteValues.DEFAULT, redirectTo: RouteValues.LOGIN, pathMatch: 'full'}

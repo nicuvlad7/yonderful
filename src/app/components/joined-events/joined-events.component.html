@@ -1,0 +1,9 @@
+<app-generic-event-page *ngIf="!isLoading  && eventsLength>0" [eventsArrayObservable]="eventsArray" title="Joined Events" [showFilterCheckboxes]="true"></app-generic-event-page>      
+<div class="page-wrapper" *ngIf="eventsLength==0">   
+        <div class="message-wrapper">
+            <div class="no-events-text"><app-info text="It seems you have no joined events..."></app-info></div>
+            <button mat-stroked-button class="both-missing-button" (click)="navigateToAllEvents()">
+                <div class="missing-button-inner-text">Join event</div>
+            </button>
+        </div>
+</div>  

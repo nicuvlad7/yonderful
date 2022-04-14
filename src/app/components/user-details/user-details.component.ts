@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { DecodeToken } from 'src/app/helpers/decode.token';
 import { UserDetails, UserUpdate } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { DialogService } from 'src/app/services/dialog.service';
+import { AppStateService } from 'src/app/services/app-state-service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-user-details',
@@ -26,11 +26,10 @@ export class UserDetailsComponent implements OnInit {
         return this.userEditForm.controls
     }
 
-    constructor(private userService: UserService, private _snackBar: MatSnackBar, private decodeToken: DecodeToken, private dialogService: DialogService) {}
+    constructor(private userService: UserService, private _snackBar: MatSnackBar, private appStateService: AppStateService, private dialogService: DialogService) { }
 
     ngOnInit(): void {
-        this.decodeToken.initializeTokenInfo();
-        this.userId = this.decodeToken.getCurrentUserId();
+        this.userId = this.appStateService.observerSessionInfo().value?.id;
         this.initUserFormControls();
         this.retrieveUserData();
     }
