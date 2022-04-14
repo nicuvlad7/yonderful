@@ -39,10 +39,10 @@ export class GenericFilterComponent implements OnInit {
 		});
 	}
 
-	emitSortData() {
+	emitSortData($event: any) {
+		this.sortDataSelected.sortBy = $event.value;
 		this.sortData.emit(this.sortDataSelected);
 	}
-
 	emitClickFilter() {
 		this.clickFilterButton.emit(this.filtersDataSelected);
 	}
@@ -53,6 +53,7 @@ export class GenericFilterComponent implements OnInit {
 		} else if (!this.sortDataSelected.isAscending) {
 			this.sortDataSelected.isAscending = true;
 		}
+		this.sortData.emit(this.sortDataSelected);
 	}
 
 	clearFields() {
